@@ -174,14 +174,14 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">
-                                        <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.setState.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
+                                        <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
                                     </div>
                                     <div class="col-4">
-                                        <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.setState.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
+                                        <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
                                     </div>
                                     <div class="col-5">
                                         <b>Loại Hàng</b><br />
-                                        <select value= {this.setState.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                        <select value= {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                             <option>123</option>
                                             <option>456</option>
                                         </select>
@@ -199,16 +199,16 @@ class HomeList extends React.Component {
                                         <b>Mã Thẻ</b><input type="text" class="form-control" placeholder="Nhập mã thẻ" />
                                     </div>
                                     <div class="col-3">
-                                        <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.setState.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
+                                        <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
                                     </div>
                                     <div class="col-3">
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập số thứ tự" value={this.setState.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
+                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập số thứ tự" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-5">
                                         <b>Cổng</b><br />
-                                        <select value= {this.setState.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
+                                        <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
                                             <option>Tất cả</option>
                                             <option>bbbbbb</option>
                                         </select>
