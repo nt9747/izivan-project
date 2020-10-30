@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import izivan from '../dist/img/izivan.png'
+import izivan from '../img/1.png'
 import { requestGetListCarInfo, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 
@@ -231,7 +231,7 @@ isLoading: false
       <div class="card-body">
           <div class="row">
               <div class="">
-                  <img src="../../../../img/izivan.png" id="img_xetrongbai"/>
+                  <img src={izivan} id="img_xetrongbai"/>
               </div>
           </div>
       </div>
@@ -240,11 +240,13 @@ isLoading: false
       <div class="card-body">
           <div class="row">
               <div class="">
-                  <img src="../../../../img/izivan.png" id="img_xetrongbai"/>
+                  <img src={izivan} id="img_xetrongbai"/>
               </div>
+              <div class="card-body">                                   
                <div class="col-3"><br/>
                       <button style={{height: '50px', width: '200px'}}><h9>Đồng ý</h9></button><br/><br/>
                       <button style={{height: '50px', width: '200px'}}><h9>Đồng ý</h9></button>
+                </div>
                 </div>
           </div>
       </div>
