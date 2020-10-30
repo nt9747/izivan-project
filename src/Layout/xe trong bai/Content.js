@@ -235,7 +235,7 @@ isLoading: false
               </div>
           </div>
       </div>
-      </div>
+      
 
       <div class="card-body">
           <div class="row">
@@ -249,6 +249,7 @@ isLoading: false
                 </div>
                 </div>
           </div>
+      </div>
       </div>
 </div>
 </section>
