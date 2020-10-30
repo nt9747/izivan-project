@@ -234,7 +234,7 @@ class HomeList extends React.Component {
                                     </form>
                                      
 
-                                    </div>
+                                </div>
                                     <div class="col-3"><br />
                                     <button type="submit"
                                      className="btn btn-danger"
@@ -252,11 +252,11 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'600px'}}>
+                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'650px'}}>
                             <div class="card-header" >
                                 <h3 class="card-title" ></h3>
                             </div>
-                            <TableScrollbar rows={15} >
+                            <TableScrollbar rows={20} >
                             <table id="example2" class="table table-bordered table-hover"  >
                                 <>
                                     <thead>
