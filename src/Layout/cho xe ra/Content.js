@@ -1,7 +1,38 @@
 import React, { Component } from 'react';
-import izivan from '../dist/img/izivan.png'
+import izivan from '../img/1.png'
 import { requestGetListCarInfo, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
+
+function GetFormatDate(a){
+    const b = new Date(a);
+    var hours = b.getUTCHours();
+    var minutes = b.getUTCMinutes();
+    var seconds = b.getUTCSeconds();
+    var month = b.getUTCMonth() + 1;
+    var day = b.getUTCDate();
+    var year = b.getUTCFullYear();
+
+    
+   if(month.toString().length == 1) {
+        month = '0'+month;
+   }
+   if(day.toString().length == 1) {
+        day = '0'+day;
+   }   
+   if(hours.toString().length == 1) {
+        hours = '0'+hours;
+   }
+   if(minutes.toString().length == 1) {
+        minutes = '0'+minutes;
+   }
+   if(seconds.toString().length == 1) {
+        seconds = '0'+seconds;
+   }  
+   if (year == 1970){
+       return ""
+   }
+   else return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
+}
 
 
 class Content extends React.Component {
@@ -243,16 +274,16 @@ class Content extends React.Component {
       <div class="card-body">
           <div class="row">
               <div class="">
-                  <img src="../../img/izivan.png" id="img_xetrongbai"/>
-                  <img src="../../img/izivan.png" id="img_xetrongbai"/>
+                  <img src={izivan} id="img_xetrongbai"/>
+                  <img src={izivan} id="img_xetrongbai"/>
               </div>
           </div>
       </div>
        <div class="card-body">
           <div class="row">
               <div class="">
-                  <img src="../../img/izivan.png" id="img_xetrongbai"/>
-                  <img src="../../img/izivan.png" id="img_xetrongbai"/>
+                  <img src={izivan} id="img_xetrongbai"/>
+                  <img src={izivan} id="img_xetrongbai"/>
               </div>
           </div>
       </div>
