@@ -4,7 +4,7 @@ import { Link, Redirect, Router } from 'react-router-dom'
 import { requestLogin } from './api'
 import Cookie from 'js-cookie';
 import './App.css'
-// import logo from './Layout/img/Logo-izivan.png'
+import logo from './Layout/img/logo2.png'
 import ReactDOM from 'react-dom';
 // import Routes from './navigation';
 
@@ -34,7 +34,7 @@ class App extends React.Component {
             Cookie.set('SESSION_ID', res.data.TokenDangNhap)
             
         } catch (err) {
-            alert("Sai tên tài khoản hoặc mật khẩu ! ")
+            alert("Sai tên tài khoản hoặc mật khẩu rồi!!! ")
         }
     }
 
@@ -52,19 +52,18 @@ class App extends React.Component {
         // }
         return (
             <>
-    <div class="container" className="App" id="backgr" style={{ height: '630px' }}>
-    <div class="row"  style={{marginLeft:'42%', marginRight: '5%'}}>
+    <div class="container" className="App" id="backgr" style={{ height: '830px' }}>
+    <div class="row"  style={{marginLeft:'18%', marginRight: '10%'}}>
         <div class="col-md-offset-5 col-md-4 text-center" >
             
               <div class="form-login" style={{marginTop: '50%'}}><br/>
-                    <h4> Izivan Group </h4>
+                    <img src={logo} id="logo1" />
                 <br/><br/>
                <input type="username"
                                     placeholder="Tài khoản"
                                     className="form-control"
                                     value={username}
                                     onChange={(e) => this.handleTextChange('username', e)}
-                                    style={{width:''}}  
                                 />
                 <br/>
                <input type="password"
@@ -76,7 +75,7 @@ class App extends React.Component {
                 <br/>
                 <div class="wrapper">
                         <span class="group-btn">
-                            <a  onClick={() => this.login()}><h4 class='text-white'><button class="btn btn-success">Đăng nhập</button></h4></a>
+                            <a  onClick={() => this.login()}><h4 class='text-white'><button class="btn btn-danger">Đăng nhập</button></h4></a>
                         </span>
                 </div>
             </div>
