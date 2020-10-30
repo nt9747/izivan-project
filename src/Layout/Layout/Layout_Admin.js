@@ -18,7 +18,7 @@ export default class Layout extends Component {
             <ul class="navbar-nav ml-auto">
             </ul>
         </nav>
-            <aside class="main-sidebar sidebar-dark-primary elevation-4" style={{backgroundColor: '#77827E'}}>
+            <aside class="main-sidebar sidebar-dark-primary elevation-4" style={{backgroundColor: '#538066'}}>
 
                 <a href="./home" class="brand-link" style={{height: '60px'}}>
                     <img src={Logo} style={{ width: '200px'}} alt="AdminLTE Logo" class="brand-image"

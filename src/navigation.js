@@ -20,9 +20,9 @@ class Routes extends React.Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/error" component={Error} />
-            <Route exact path="/xe_trong_bai" component={xe_trong_bai} />
-            <Route exact path="/cho_xe_ra" component={cho_xe_ra} />
-            <Route exact path="/thong_tin_xe" component={thong_tin_xe} />
+            <Route exact path="/XeTrongBai" component={xe_trong_bai} />
+            <Route exact path="/ChoXeRa" component={cho_xe_ra} />
+            <Route exact path="/ThongTinXe" component={thong_tin_xe} />
             <Route exact path="/ExportExcel" component={FullList} />
             <Route exact path="/AddUser" component={addUser} />
           </Switch>
