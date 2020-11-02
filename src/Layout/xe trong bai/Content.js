@@ -145,12 +145,11 @@ class Content extends React.Component {
         
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        // console.log(data.data, "check data")
-        // if (isLoading) {
-        //     return (
-        //         <p>Loading...</p>
-        //     )
-        // }
+        if (isLoading) {
+            return (
+                <p>Loading...</p>
+            )
+        }
         return (
             <div class="content-wrapper">
      <section class="content"  >

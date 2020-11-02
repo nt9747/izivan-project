@@ -18,11 +18,6 @@ class App extends React.Component {
         this.login = this.login.bind(this);
     }
 
-    // componentDidMount(){
-    //     window.location.href = '/home';
-    // }
-
-
     async login() {
         try {
            

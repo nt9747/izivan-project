@@ -164,8 +164,8 @@ class Content extends React.Component {
         <div class="card-body">
             <div class="row">
                 <div class="col-3">
-                    <b>Từ</b><input type="datetime-local" class="form-control" placeholder=".col-3"/><br/>
-                    <b>Đến</b><input type="datetime-local" class="form-control" placeholder=".col-3"/>
+                    <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3"/><br/>
+                    <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3"/>
                 </div>
                 <div class="col-3">
                     <b>Mã thẻ</b><input type="text" class="form-control" name=""/><br/>
@@ -188,7 +188,7 @@ class Content extends React.Component {
                                     <b>{this.state.page}</b>
                                     <button type="submit"
                                      className="btn btn-danger"
-                                      onClick={() => this.listNext()}>
+                                      onClick={() => this.listNext()}>  
                                          <b>+</b>
                                     </button>
                                     </div>

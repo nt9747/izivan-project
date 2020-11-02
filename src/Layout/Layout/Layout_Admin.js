@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
 import Logo from '../img/Logo-Izivan.png'
 import user2 from '../dist/img/user2-160x160.jpg'
+import Cookie from 'js-cookie';
+import { requestLogin } from '../../api';
+
 
 export default class Layout extends Component {
+    async exitLogin() {
+        try {
+            Cookie.set('SESSION_ID', null)
+            alert("Hết quyền truy cập rồi!")
+            window.location.href = '/';
+        } catch (err) {
+            throw (err)
+        }
+    }
+
+    handleTextChange(field, event) {
+        this.setState({
+            [field]: event.target.value
+        })
+    }
     render() {
         return (
             <div class="hold-transition sidebar-mini">
@@ -33,8 +51,8 @@ export default class Layout extends Component {
                             <img src={user2}class="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div class="info">
-                            <a href="/" style={{float:'right'}}>
-                                <button type="submit"
+                            <a style={{float:'right'}}>
+                                <button type="submit" onClick={() => this.exitLogin()}
                                     className="btn btn-success">
                                     <b>Đăng xuất</b>
                                 </button>
