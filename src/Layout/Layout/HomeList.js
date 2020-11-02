@@ -98,11 +98,8 @@ class HomeList extends React.Component {
                 LOAIHANG: "",
                 PAGE: --this.state.page,
             })
-            // if (!res.data.data){
-            //     return
-            // }
             if (this.state.page < 1){
-                return(++this.state.page)
+                ++this.state.page
             }
             await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
             console.log(this.state.data, "check data")
@@ -190,7 +187,7 @@ class HomeList extends React.Component {
                                 <div class="row">
                                     <div class="col-2">
                                         <b>Loại xe</b><br />
-                                        <select>
+                                        <select>   
                                             <option>aaaab</option>
                                             <option>bbbbb</option>
                                         </select>
@@ -234,7 +231,7 @@ class HomeList extends React.Component {
                                     </form>
                                      
 
-                                </div>
+                                    </div>
                                     <div class="col-3"><br />
                                     <button type="submit"
                                      className="btn btn-danger"
@@ -252,7 +249,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'650px'}}>
+                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'600px'}}>
                             <div class="card-header" >
                                 <h3 class="card-title" ></h3>
                             </div>
