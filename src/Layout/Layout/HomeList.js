@@ -3,6 +3,7 @@ import izivan from '../dist/img/izivan.png'
 import { requestGetListCarInfo, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
+import { Redirect } from 'react-router-dom';
 
 function GetFormatDate(a){
     const b = new Date(a);
@@ -139,7 +140,7 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
         if (typeof(this.state.data) == "undefined"){
-            alert("haha")
+            window.location.href = '/home'
         }
         console.log(typeof(this.state.data), "check")
     }
