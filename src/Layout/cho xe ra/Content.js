@@ -198,7 +198,7 @@ class Content extends React.Component {
             
 
  
-  <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '75%', height:'600px'}}>
+  <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '70%', height:'600px'}}>
           <div class="card-header" >
               <h3 class="card-title" ></h3>
           </div> 
@@ -247,7 +247,7 @@ class Content extends React.Component {
                             </table>             
    </div>
 </div>
-<div style={{width: '25%', height: '20%', float:'right'}}>
+<div style={{width: '30%', height: '20%', float:'right'}}>
       <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Hiện Tại</h3>
