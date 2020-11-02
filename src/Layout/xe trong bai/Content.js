@@ -3,6 +3,36 @@ import izivan from '../img/1.png'
 import { requestGetListCarInfo, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 
+function GetFormatDate(a){
+    const b = new Date(a);
+    var hours = b.getUTCHours();
+    var minutes = b.getUTCMinutes();
+    var seconds = b.getUTCSeconds();
+    var month = b.getUTCMonth() + 1;
+    var day = b.getUTCDate();
+    var year = b.getUTCFullYear();
+
+    
+   if(month.toString().length == 1) {
+        month = '0'+month;
+   }
+   if(day.toString().length == 1) {
+        day = '0'+day;
+   }   
+   if(hours.toString().length == 1) {
+        hours = '0'+hours;
+   }
+   if(minutes.toString().length == 1) {
+        minutes = '0'+minutes;
+   }
+   if(seconds.toString().length == 1) {
+        seconds = '0'+seconds;
+   }  
+   if (year == 1970){
+       return ""
+   }
+   else return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
+}
 
 class Content extends React.Component {
     constructor(props) {
@@ -17,6 +47,7 @@ class Content extends React.Component {
             data: "",
             isLoading: true,
             page: 1,
+            nextPage: "",
         }
     }        
     componentDidMount() {
@@ -36,10 +67,14 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: ++this.state.page,
             })
-            await this.setState({ data: res.data, isLoading: false });
-            console.log(this.state.data, "check data")
-            // Cookie.set('SESSION_ID', res.data.TOKEN)
-            // window.location.href = '/home'
+            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "Check next page")
+            // if (!res.data.data){
+            //     return (this.state.page)
+            // }
+            if(!(this.state.nextPage)){
+                return(--this.state.page);
+            }
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -61,10 +96,11 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: --this.state.page,
             })
-            await this.setState({ data: res.data, isLoading: false });
+            if (this.state.page < 1){
+                ++this.state.page
+            }
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
             console.log(this.state.data, "check data")
-            // Cookie.set('SESSION_ID', res.data.TOKEN)
-            // window.location.href = '/home'
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -86,15 +122,17 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: this.state.page,
             })
-            await this.setState({ data: res.data, isLoading: false });
-            console.log(this.state.data, "check data")
-            // Cookie.set('SESSION_ID', res.data.TOKEN)
-            // window.location.href = '/home'
+            await this.setState({ data: res.data, isLoading: false, page: 1});
         } catch (err) {
             await this.setState({
-isLoading: false
+                isLoading: false
             }, () => console.log(err))
         }
+        if (typeof(this.state.data) == "undefined"){
+            alert("Sai cấu trúc, điền lại");
+            window.location.href = '/XeTrongBai'
+        }
+        console.log(typeof(this.state.data), "check")
     }
 
     handleTextChange(field, event) {
@@ -170,6 +208,19 @@ isLoading: false
 <div class=""><br/>
                       <button style={{height: '60px', width: '110px'}}><h9>Đồng ý cả hai</h9></button>
                 </div>
+                <div class="col-3"><br />
+                                    <button type="submit"
+                                     className="btn btn-danger"
+                                      onClick={() => this.listPrevious()}>
+                                         <b>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b>
+                                    <button type="submit"
+                                     className="btn btn-danger"
+                                      onClick={() => this.listNext()}>
+                                         <b>+</b>
+                                    </button>
+                                    </div>
             </div>
 
           </div>
@@ -208,8 +259,8 @@ isLoading: false
                                                 <td key={i}> {item.BienMooc}</td>
                                                 <td key={i}> {item.LoaiXeID}</td>
                                                 <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {item.NgayGioVao}</td>
-                                                <td key={i}> {item.NgayGioDongYXuat}</td>
+                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
+                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
                                                 <td key={i}> {item.ThoiGianTrongBai}</td>
                                                 <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
                                                 <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>

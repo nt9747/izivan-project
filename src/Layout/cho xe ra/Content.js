@@ -48,6 +48,7 @@ class Content extends React.Component {
             data: "",
             isLoading: true,
             page: 1,
+            nextPage: "",
         }
     }        
     componentDidMount() {
@@ -67,10 +68,14 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: ++this.state.page,
             })
-            await this.setState({ data: res.data, isLoading: false });
-            console.log(this.state.data, "check data")
-            // Cookie.set('SESSION_ID', res.data.TOKEN)
-            // window.location.href = '/home'
+            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "Check next page")
+            // if (!res.data.data){
+            //     return (this.state.page)
+            // }
+            if(!(this.state.nextPage)){
+                return(--this.state.page);
+            }
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -92,10 +97,11 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: --this.state.page,
             })
-            await this.setState({ data: res.data, isLoading: false });
+            if (this.state.page < 1){
+                ++this.state.page
+            }
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
             console.log(this.state.data, "check data")
-            // Cookie.set('SESSION_ID', res.data.TOKEN)
-            // window.location.href = '/home'
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -117,15 +123,17 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: this.state.page,
             })
-            await this.setState({ data: res.data, isLoading: false });
-            console.log(this.state.data, "check data")
-            // Cookie.set('SESSION_ID', res.data.TOKEN)
-            // window.location.href = '/home'
+            await this.setState({ data: res.data, isLoading: false, page: 1});
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
+        if (typeof(this.state.data) == "undefined"){
+            alert("Sai cấu trúc, điền lại");
+            window.location.href = '/home'
+        }
+        console.log(typeof(this.state.data), "check")
     }
 
     handleTextChange(field, event) {
@@ -171,13 +179,26 @@ class Content extends React.Component {
                 <div class="col-3"><br/><br/>
                   <button style={{height: '60px', width: '120px'}}><h4>Tìm Kiếm</h4></button>
                 </div>
+                <div class="col-3"><br />
+                                    <button type="submit"
+                                     className="btn btn-danger"
+                                      onClick={() => this.listPrevious()}>
+                                         <b>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b>
+                                    <button type="submit"
+                                     className="btn btn-danger"
+                                      onClick={() => this.listNext()}>
+                                         <b>+</b>
+                                    </button>
+                                    </div>
             </div>
           </div>
     </div>
             
 
  
-  <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '60%', height:'600px'}}>
+  <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '75%', height:'600px'}}>
           <div class="card-header" >
               <h3 class="card-title" ></h3>
           </div> 
@@ -211,8 +232,8 @@ class Content extends React.Component {
                                                 <td key={i}> {item.BienMooc}</td>
                                                 <td key={i}> {item.LoaiXeID}</td>
                                                 <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {item.NgayGioVao}</td>
-                                                <td key={i}> {item.NgayGioDongYXuat}</td>
+                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
+                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
                                                 <td key={i}> {item.ThoiGianTrongBai}</td>
                                                 <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
                                                 <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
@@ -226,7 +247,7 @@ class Content extends React.Component {
                             </table>             
    </div>
 </div>
-<div style={{width: '40%', height: '20%', float:'right'}}>
+<div style={{width: '25%', height: '20%', float:'right'}}>
       <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Hiện Tại</h3>

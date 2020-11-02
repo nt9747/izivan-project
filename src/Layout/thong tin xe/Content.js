@@ -47,6 +47,7 @@ class Content extends React.Component {
             data: "",
             isLoading: true,
             page: 1,
+            nextPage: "",
         }
     }        
     componentDidMount() {
@@ -66,10 +67,11 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: ++this.state.page,
             })
-            await this.setState({ data: res.data, isLoading: false });
+            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage});
             console.log(this.state.data, "check data")
-            // Cookie.set('SESSION_ID', res.data.TOKEN)
-            // window.location.href = '/home'
+            if(!(this.state.nextPage)){
+                return(--this.state.page);
+            }
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -91,6 +93,9 @@ class Content extends React.Component {
                 LOAIHANG: "",
                 PAGE: --this.state.page,
             })
+            if (this.state.page < 1){
+                ++this.state.page
+            }
             await this.setState({ data: res.data, isLoading: false });
             console.log(this.state.data, "check data")
             // Cookie.set('SESSION_ID', res.data.TOKEN)
@@ -125,6 +130,10 @@ class Content extends React.Component {
                 isLoading: false
 }, () => console.log(err))
         }
+        if (typeof(this.state.data) == "undefined"){
+            alert("Sai cấu trúc, điền lại");
+            window.location.href = '/ThongTinXe'
+        }
     }
 
     handleTextChange(field, event) {
@@ -146,7 +155,7 @@ class Content extends React.Component {
         return (
             <div class="content-wrapper">
      <section class="content">
-<div class="container-fluid" style={{float:'left', width: '60%', height:'250px'}}>
+<div class="container-fluid" style={{float:'left', width: '75%', height:'250px'}}>
   <div class="card card-warning" >
     <div class="card-header" >
         <h3 class="card-title"></h3>
@@ -155,8 +164,8 @@ class Content extends React.Component {
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <b>Từ</b><input type="date" class="form-control" placeholder=".col-3" value={this.setState.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/><br/>
-                    <b>Đến</b><input type="date" class="form-control" placeholder=".col-3" value={this.setState.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
+                    <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3" value={this.setState.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/><br/>
+                    <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3" value={this.setState.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
                 </div>
                 <div class="col-4">
                     <b>Mã thẻ</b><input type="text" class="form-control" name=""/><br/>
@@ -234,7 +243,7 @@ class Content extends React.Component {
                             </table>            
    </div>
 </div>
-<div style={{width: '40%', height: '20%', float:'right'}}>
+<div style={{width: '25%', height: '20%', float:'right'}}>
       <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Hiện Tại</h3>

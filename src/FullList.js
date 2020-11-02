@@ -76,6 +76,10 @@ class FullList extends React.Component {
                 isLoading: false
             }, () => console.log(err))
         }
+        if (typeof(this.state.data) == "undefined"){
+            alert("Sai cấu trúc, điền lại");
+            window.location.href = '/ExportExcel'
+        }
     }
 	handleTextChange(field, event) {
         this.setState({

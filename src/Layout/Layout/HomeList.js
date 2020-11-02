@@ -111,14 +111,6 @@ class HomeList extends React.Component {
         }
     }
 
-    // async DateConvert(a){
-
-    //     const unixTimeZero = Date.parse('01 Jan 1970 00:00:00 GMT');
-    //     return (
-    //         unixTimeZero
-    //     )
-    // }
-
     async list() {
         await this.setState({
             isLoading: true
@@ -140,6 +132,7 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
         if (typeof(this.state.data) == "undefined"){
+            alert("Sai cấu trúc, điền lại");
             window.location.href = '/home'
         }
         console.log(typeof(this.state.data), "check")
@@ -230,8 +223,6 @@ class HomeList extends React.Component {
                                          <b>Export Excel</b>
                                     </button>
                                     </form>
-                                     
-
                                     </div>
                                     <div class="col-3"><br />
                                     <button type="submit"
