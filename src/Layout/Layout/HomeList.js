@@ -167,10 +167,10 @@ class HomeList extends React.Component {
                                     <div class="col-3">
                                         <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
                                     </div>
-                                    <div class="col-5">
+                                    <div class="col-4">
                                         <b>Loại Hàng</b><br />
                                         <select value= {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                             <option>123</option>

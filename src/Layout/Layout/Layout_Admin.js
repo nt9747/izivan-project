@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Logo from '../img/Logo-Izivan.png'
+import LTE from "../img/AdminLTELogo.png"
 import user2 from '../dist/img/user2-160x160.jpg'
 import Cookie from 'js-cookie';
 import { requestLogin } from '../../api';
@@ -36,21 +37,22 @@ export default class Layout extends Component {
             <ul class="navbar-nav ml-auto">
             </ul>
         </nav>
-            <aside class="main-sidebar sidebar-dark-primary elevation-4" style={{backgroundColor: '#538066'}}>
+            <aside class="main-sidebar sidebar-dark-primary elevation-4" style={{backgroundColor: '#484848'}}>
 
                 <a href="./home" class="brand-link" style={{height: '60px'}}>
-                    <img src={Logo} style={{ width: '200px'}} alt="AdminLTE Logo" class="brand-image"
-                        id="admin2" />
-                
+                <img src={LTE} alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style={{opacity: '.8'}}/>
+      <span class="brand-text font-weight-light">IZIVAN COMPANY</span>              
                 </a>
                 <br/>
                 <div class="sidebar">
-
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
                             <img src={user2}class="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div class="info">
+                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <br/>
                             <a style={{float:'right'}}>
                                 <button type="submit" onClick={() => this.exitLogin()}
                                     className="btn btn-success">
@@ -59,8 +61,6 @@ export default class Layout extends Component {
                             </a>
                         </div>
                     </div>
-
-
                     <nav class="mt-2">
                         <ul class="nav nav-pills  flex-column" data-widget="treeview" role="menu" data-accordion="false">
                           
