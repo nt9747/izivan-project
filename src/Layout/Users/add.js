@@ -17,16 +17,25 @@ class Content extends React.Component {
           <div class="position-center">
               <form role="form" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data" >   
                 <div class="form-group">
-                      <label for="exampleInputEmail1">Tên </label>
-                      <input type="text" name="" class="form-control" id="exampleInputEmail1" placeholder="Tên"/>
+                      <label for="exampleInputEmail1">Tên tài khoản </label>
+                      <input type="text" name="" class="form-control" id="exampleInputEmail1" placeholder="Tên tài khoản"/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputEmail1">tuổi</label>
-                      <input type="text" name="" class="form-control" id="exampleInputEmail1" placeholder="tuổi"/>
+                      <label for="exampleInputEmail1">Họ và tên </label>
+                      <input type="text" name="" class="form-control" id="exampleInputEmail1" placeholder="Họ và tên"/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputEmail1">...</label>
-                      <input type="text" name="" class="form-control" id="exampleInputEmail1" placeholder="...."/>
+                      <label for="exampleInputEmail1">Mật khẩu</label>
+                      <input type="password" name="" class="form-control" id="exampleInputEmail1" placeholder="Mật khẩu"/>
+                </div>
+                <div class="form-group">
+                <b>Quyền</b><br />
+                                        <select>
+                                            <option>Tất cả</option>
+                                            <option>SuperAdmin</option>
+                                            <option>Kế toán</option>
+                                            <option>Phòng loa</option>
+                                        </select>
                 </div>
                 <div class="form-group">
                       <label for="exampleInputEmail1">Hình ảnh</label>

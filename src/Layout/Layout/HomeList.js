@@ -64,10 +64,10 @@ class HomeList extends React.Component {
             const res = await requestGetListCarInfo({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: "",
-                PORTIN: "",
-                NUMBERCAR: "",
-                LOAIHANG: "",
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
                 PAGE: ++this.state.page,
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
@@ -93,10 +93,10 @@ class HomeList extends React.Component {
             const res = await requestGetListCarInfo({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: "",
-                PORTIN: "",
-                NUMBERCAR: "",
-                LOAIHANG: "",
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
                 PAGE: --this.state.page,
             })
             if (this.state.page < 1){
@@ -119,10 +119,10 @@ class HomeList extends React.Component {
             const res = await requestGetListCarInfo({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: "",
-                PORTIN: "",
-                NUMBERCAR: "",
-                LOAIHANG: "",
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
             })
             await this.setState({ data: res.data, isLoading: false, page: 1});
@@ -172,9 +172,19 @@ class HomeList extends React.Component {
                                     </div>
                                     <div class="col-4">
                                         <b>Loại Hàng</b><br />
-                                        <select value= {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                            <option>123</option>
-                                            <option>456</option>
+                                        <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                            <option value="">Tất cả</option>
+                                            <option value="CAU KHÔ">CAU KHÔ</option>
+                                            <option value="THANH LONG">THANH LONG</option>
+                                            <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
+                                            <option value="DƯA HẤU">DƯA HẤU</option>
+                                            <option value="CHUỐI LẠNH">CHUỐI LẠNH</option>
+                                            <option value="SẮN">SẮN</option>
+                                            <option value="MÍT LẠNH">MÍT LẠNH</option>
+                                            <option value="MÍT NÓNG">MÍT NÓNG</option>
+                                            <option value="CÓI">CÓI</option>    
+                                            <option value="LÁ TRE">LÁ TRE</option>
+                                            <option value="LẠC">LẠC</option>
                                         </select>
                                     </div>
                                 </div>
@@ -187,13 +197,13 @@ class HomeList extends React.Component {
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <b>Mã Thẻ</b><input type="text" class="form-control" placeholder="Nhập mã thẻ" />
+                                        <b>?</b><input type="text" class="form-control" placeholder="Nhập ?" />
                                     </div>
                                     <div class="col-3">
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
                                     </div>
                                     <div class="col-3">
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập số thứ tự" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
+                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
                                     </div>
                                 </div>
                                 <div class="row">
