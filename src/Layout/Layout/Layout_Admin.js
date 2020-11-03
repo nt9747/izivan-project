@@ -80,7 +80,7 @@ export default class Layout extends Component {
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="pages/Quản lí người dùng/user_manager.html">
+                                        <a href="./ListUser">
                                            
                                             <p>Quản trị hoạt động</p>
                                         </a>

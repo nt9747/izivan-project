@@ -9,6 +9,7 @@ import xe_trong_bai from "./xe_trong_bai"
 import cho_xe_ra from "./cho_xe_ra"
 import thong_tin_xe from "./thong_tin_xe"
 import FullList from "./FullList"
+import listUser from "./listUser"
 import addUser from "./addUser"
 
 class Routes extends React.Component {
@@ -24,6 +25,7 @@ class Routes extends React.Component {
             <Route exact path="/ChoXeRa" component={cho_xe_ra} />
             <Route exact path="/ThongTinXe" component={thong_tin_xe} />
             <Route exact path="/ExportExcel" component={FullList} />
+            <Route exact path="/ListUser" component={listUser} />
             <Route exact path="/AddUser" component={addUser} />
           </Switch>
           </Router>
