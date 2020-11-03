@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 
 function createAxios() {
   var axiosInstant = axios.create();
-  axiosInstant.defaults.baseURL = "http://192.168.1.140:3001/";
+  axiosInstant.defaults.baseURL = "http://192.168.1.180:3001/";
   axiosInstant.defaults.timeout = 20000;
   axiosInstant.defaults.headers = { "Content-Type": "application/json" };
 
@@ -66,6 +66,8 @@ export const requestGetUserInfo = () => {
   return handleResult(getAxios.get(`users/getUserInfo`))
 }
 
+
+
 export const requestLogin = (payload) => {
   return handleResult(getAxios.post('/users/login', {
     username: payload.USERNAME,
@@ -103,5 +105,12 @@ export const requestRegisterUser = (payload) => {
     IsSuperAdmin: payload.ISSUPERADMIN,
     IsKeToan: payload.ISKETOAN,
     IsPhongLoa: payload.ISPHONGLOA,
+  }))
+}
+
+export const requestGetAllUser = (payload) => {
+  return handleResult(getAxios.get(`users/list`,{
+    username: payload.USERNAME,
+    password: payload.PASS
   }))
 }

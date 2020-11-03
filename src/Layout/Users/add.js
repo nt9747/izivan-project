@@ -5,6 +5,7 @@ import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
 
 
+
 class Content extends React.Component {
     constructor(props) {
         super(props)
