@@ -12,6 +12,7 @@ import FullList from "./FullList"
 import listUser from "./listUser"
 import addUser from "./addUser"
 import ThemHang from "./them_loai_hang"
+import XeRaVao from "./xe_ra_vao"
 
 class Routes extends React.Component {
     render(){
@@ -29,6 +30,7 @@ class Routes extends React.Component {
             <Route exact path="/ListUser" component={listUser} />
             <Route exact path="/AddUser" component={addUser} />
             <Route exact path="/ThemLoaiHang" component={ThemHang} />
+            <Route exact path="/XeRaVao" component={XeRaVao} />
           </Switch>
           </Router>
         );

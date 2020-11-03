@@ -200,7 +200,7 @@ export default class Layout extends Component {
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="pages/Phòng loa/xe_ra_vao.html">
+                                        <a href="./XeRaVao">
                                            
                                             <p>Xe ra vào</p>
                                         </a>
