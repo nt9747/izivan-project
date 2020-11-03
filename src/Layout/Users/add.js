@@ -33,7 +33,7 @@ class Content extends React.Component {
         await this.setState({ msg: res.msg, data: res.data});
         console.log(this.state.msg, "check msg!")
         if (this.state.msg == "Thành công"){
-            alert("Success!")
+            alert("Success!") 
         } 
     }
     catch (err) {

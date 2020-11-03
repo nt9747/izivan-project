@@ -1,22 +1,53 @@
 import React, { Component } from 'react';
 import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin, requestGetAllUser } from '../../api'
+import { requestGetListCarInfo, requestLogin, requestGetAllUser, requestRegisterUser } from '../../api'
 import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
 import TableScrollbar from 'react-table-scrollbar';
 
 
 class Content extends React.Component {
-
   constructor(props) {
-    super(props)    
+    super(props)
     this.state = {
         isLoading: true,
-        username: "namtran9747",
-        password: "123123",
-        data: ""
+        Username: '',
+        Fullname: '',
+        Password: '',
+        IsSuperAdmin : '0',
+        IsKeToan: "0",
+        IsPhongLoa: "0",
+        msg: "",
+        data: "",
+        data1: ""
     }
-}   
+}
+async Register(){
+    try {
+        const res = await requestRegisterUser({
+            USERNAME: this.state.Username,
+            FULLNAME: this.state.Fullname,
+            PASSWORD: this.state.Password,
+            ISSUPERADMIN: this.state.IsSuperAdmin,
+            ISKETOAN: this.state.IsKeToan,
+            ISPHONGLOA: this.state.IsPhongLoa,
+    })
+    await this.setState({ msg: res.msg, data1: res.data});
+    console.log(this.state.msg, "check msg!")
+    if (this.state.msg == "Thành công"){
+        alert("Success!") 
+    } 
+}
+catch (err) {
+    alert("Fail!");
+}
+}
+
+handleTextChange(field, event) {
+this.setState({
+    [field]: event.target.value
+})
+}
 componentDidMount() {
   this.list();
 } 
@@ -45,7 +76,7 @@ async list() {
 }
 
     render(){
-      const { data, isLoading } = this.state;
+      const { data, isLoading, Username, Fullname, Password, IsSuperAdmin, IsKeToan, IsPhongLoa } = this.state;
       const token = Cookie.get("SESSION_ID");
       if (isLoading) {
           return (
@@ -67,20 +98,20 @@ async list() {
                          <table>
                            <tr>
                              <td><b>Tài Khoản</b></td>
-                             <td><input type="text" class="form-control" placeholder=""/></td>
+                             <td><input type="text" class="form-control" placeholder="" value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/></td>
                              <td><input type="checkbox" name=""/><b>Nhân viên</b></td>
-                             <td><input type="checkbox" name=""/><b>Phòng loa</b></td>
+                             <td><input type="checkbox" name="" value = {IsPhongLoa + 1} onChange={(e) => this.handleTextChange('IsPhongLoa', e)}/><b>Phòng loa</b></td>
                            </tr>
                            <tr>
                              <td><b>Mật khẩu</b></td>
-                             <td><input type="password" class="form-control" placeholder=""/></td>
-                             <td><input type="checkbox" name=""/><b>Kế toán</b></td>
-                             <td><input type="checkbox" name=""/><b>Super Admin</b></td>
+                             <td><input type="password" class="form-control" placeholder="" value={Password}  onChange={(e) => this.handleTextChange('Password', e)}/></td>
+                             <td><input type="checkbox" name="" value = {IsKeToan + 1} onChange={(e) => this.handleTextChange('IsKeToan', e)}/><b>Kế toán</b></td>
+                             <td><input type="checkbox" name="" value = {IsSuperAdmin + 1} onChange={(e) => this.handleTextChange('IsSuperAdmin', e)}/><b>Super Admin</b></td>
                            </tr>
                          </table>
                        </div>
                          <div class="col-2"><br/>
-                           <button style={{height: '35px', width: '120px'}}><h4>Tạo mới</h4></button>
+                           <a onClick={() => this.Register()}><button style={{height: '35px', width: '120px'}}><h4>Tạo mới</h4></button></a>
                          </div>
                          <div class="col-3"><br/>
                            <button style={{height: '35px', width: '180px'}}><h4>Danh sách</h4></button>
@@ -112,6 +143,8 @@ async list() {
                              <th>Phòng loa</th>
                              <th>Admin</th>
                              <th>Đã bị xóa</th>
+                             <th>Sửa</th>
+                             <th>Xóa</th>
                          </tr>
                      </thead>
                      <tbody>   
@@ -124,7 +157,8 @@ async list() {
                                                 <td key={i}> {item.IsPhongLoa.toString()}</td>
                                                 <td key={i}> {item.IsSuperAdmin.toString()}</td>
                                                 <td key={i}> false </td>
-
+                                                <td><button>Edit</button></td>
+                                                <td><button>Delete</button></td>
                                             </tr>
                                         ))}
          
