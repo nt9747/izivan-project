@@ -3,7 +3,7 @@ import izivan from '../dist/img/izivan.png'
 import { requestGetListCarInfo, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'; 
 
 function GetFormatDate(a){
     const b = new Date(a);
