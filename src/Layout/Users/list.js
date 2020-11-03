@@ -99,7 +99,7 @@ async list() {
                            <tr>
                              <td><b>Tài Khoản</b></td>
                              <td><input type="text" class="form-control" placeholder="" value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/></td>
-<td><input type="checkbox" name=""/><b>Nhân viên</b></td>
+                             <td><input type="checkbox" name=""/><b>Nhân viên</b></td>
                              <td><input type="checkbox" name="" value = {IsPhongLoa + 1} onChange={(e) => this.handleTextChange('IsPhongLoa', e)}/><b>Phòng loa</b></td>
                            </tr>
                            <tr>
@@ -142,7 +142,9 @@ async list() {
                              <th>Kế toán</th>
                              <th>Phòng loa</th>
                              <th>Admin</th>
-                             <th>Sua</th>
+                             <th>Đã bị xóa</th>
+                             <th>Sửa</th>
+                             <th>Xóa</th>
                          </tr>
                      </thead>
                      <tbody>   
@@ -155,7 +157,8 @@ async list() {
                                                 <td key={i}> {item.IsPhongLoa.toString()}</td>
                                                 <td key={i}> {item.IsSuperAdmin.toString()}</td>
                                                 <td key={i}> false </td>
-
+                                                <td><button>Edit</button></td>
+                                                <td><button>Delete</button></td>
                                             </tr>
                                         ))}
          
