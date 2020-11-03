@@ -1,12 +1,57 @@
 import React, { Component } from 'react';
 import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin } from '../../api'
+import { requestGetListCarInfo, requestLogin, requestGetAllUser } from '../../api'
 import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
+import TableScrollbar from 'react-table-scrollbar';
 
 
 class Content extends React.Component {
+
+  constructor(props) {
+    super(props)    
+    this.state = {
+        isLoading: true,
+        username: "namtran9747",
+        password: "123123",
+        data: ""
+    }
+}   
+componentDidMount() {
+  this.list();
+} 
+
+async list() {
+  await this.setState({
+      isLoading: true
+  })
+  try {
+      const res = await requestGetAllUser({
+        USERNAME: this.state.username,
+        password: this.state.password
+      })
+      await this.setState({ data: res.data, isLoading: false});
+      console.log(this.state.data, "check");
+  } catch (err) {
+      await this.setState({
+          isLoading: false
+      }, () => console.log(err))
+  }
+  // if (typeof(this.state.data) == "undefined"){
+  //     alert("Sai cấu trúc, điền lại");
+  //     window.location.href = '/home'
+  // }
+  // console.log(typeof(this.state.data), "check")
+}
+
     render(){
+      const { data, isLoading } = this.state;
+      const token = Cookie.get("SESSION_ID");
+      if (isLoading) {
+          return (
+              <p>Loading...</p>
+          )
+      }
         return(
             <div class="content-wrapper">
               <section class="content">
@@ -52,17 +97,17 @@ class Content extends React.Component {
                    </div>
              </div>
          
-           <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '100%', height:'600px'}}>
+           <div class="ui grid middle aligned"  style={{ float:'left', width: '100%', height:'600px'}}>
                    <div class="card-header" >
                        <h3 class="card-title" ></h3>
                    </div> 
+                   <TableScrollbar rows={15} >
                    <table  id="example2" class="table table-bordered table-hover" >                     
                      <thead>
                          <tr>
                              <th></th>
                              <th>STT</th>
                              <th>Tài khoản</th>
-                             <th>Nhân viên</th>
                              <th>Kế toán</th>
                              <th>Phòng loa</th>
                              <th>Admin</th>
@@ -70,20 +115,23 @@ class Content extends React.Component {
                          </tr>
                      </thead>
                      <tbody>   
-                         <tr> 
-                             <td>1</td>
-                             <td>1ưqweqe</td>
-                             <td>eqe21wq</td>
-                             <td>eqeq311</td>
-                             <td>213214</td>
-                             <td>aaa</td>
-                             <td>123</td>
-                             <td>2312</td>
-                         </tr>
+                     {data && data.map((item, i) => (
+                                            <tr>
+                                                <td></td>
+                                                <td key={i}> {item.UserID}</td>
+                                                <td key={i}> {item.UserName}</td>
+                                                <td key={i}> {item.IsKeToan.toString()}</td>
+                                                <td key={i}> {item.IsPhongLoa.toString()}</td>
+                                                <td key={i}> {item.IsSuperAdmin.toString()}</td>
+                                                <td key={i}> false </td>
+
+                                            </tr>
+                                        ))}
          
                      </tbody>
          
-                 </table>          
+                 </table> 
+                 </TableScrollbar>         
             </div>
          </div>
          </section>
