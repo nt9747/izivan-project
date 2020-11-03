@@ -55,7 +55,7 @@ handleTextChange(field, event) {
           </div>
       <div class="card-body">
           <div class="position-center">
-              <form role="form" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data" >   
+              <form role="form" method="post" enctype="multipart/form-data" >   
                 <div class="form-group">
                       <label for="exampleInputEmail1">Tên tài khoản </label>
                       <input type="text" name="" class="form-control" id="exampleInputAccount" placeholder="Tên tài khoản"                                     

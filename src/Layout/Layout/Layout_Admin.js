@@ -171,7 +171,7 @@ export default class Layout extends Component {
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="pages/Quản trị/them_loai_hang.html">
+                                        <a href="./ThemLoaiHang">
                                            
                                             <p>Thêm loại hàng</p>
                                         </a>

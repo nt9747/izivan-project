@@ -11,6 +11,7 @@ import thong_tin_xe from "./thong_tin_xe"
 import FullList from "./FullList"
 import listUser from "./listUser"
 import addUser from "./addUser"
+import ThemHang from "./them_loai_hang"
 
 class Routes extends React.Component {
     render(){
@@ -27,6 +28,7 @@ class Routes extends React.Component {
             <Route exact path="/ExportExcel" component={FullList} />
             <Route exact path="/ListUser" component={listUser} />
             <Route exact path="/AddUser" component={addUser} />
+            <Route exact path="/ThemLoaiHang" component={ThemHang} />
           </Switch>
           </Router>
         );
