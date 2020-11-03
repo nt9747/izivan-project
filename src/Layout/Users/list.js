@@ -17,6 +17,9 @@ class Content extends React.Component {
         data: ""
     }
 }   
+componentDidMount() {
+  this.list();
+} 
 
 async list() {
   await this.setState({
@@ -94,18 +97,17 @@ async list() {
                    </div>
              </div>
          
-           <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '100%', height:'600px'}}>
+           <div class="ui grid middle aligned"  style={{ float:'left', width: '100%', height:'600px'}}>
                    <div class="card-header" >
                        <h3 class="card-title" ></h3>
                    </div> 
-                   <TableScrollbar rows={20} >
+                   <TableScrollbar rows={15} >
                    <table  id="example2" class="table table-bordered table-hover" >                     
                      <thead>
                          <tr>
                              <th></th>
                              <th>STT</th>
                              <th>Tài khoản</th>
-                             <th>Nhân viên</th>
                              <th>Kế toán</th>
                              <th>Phòng loa</th>
                              <th>Admin</th>
@@ -113,15 +115,15 @@ async list() {
                          </tr>
                      </thead>
                      <tbody>   
-                     {data.data && data.data.map((item, i) => (
+                     {data && data.map((item, i) => (
                                             <tr>
+                                                <td></td>
                                                 <td key={i}> {item.UserID}</td>
                                                 <td key={i}> {item.UserName}</td>
-                                                <td key={i}> {item.FullName}</td>
-                                                <td key={i}> {item.IsKeToan}</td>
-                                                <td key={i}> {item.IsPhongLoa}</td>
-                                                <td key={i}> {item.IsAdmin}</td>
-                                                <td key={i}> false</td>
+                                                <td key={i}> {item.IsKeToan.toString()}</td>
+                                                <td key={i}> {item.IsPhongLoa.toString()}</td>
+                                                <td key={i}> {item.IsSuperAdmin.toString()}</td>
+                                                <td key={i}> false </td>
 
                                             </tr>
                                         ))}
