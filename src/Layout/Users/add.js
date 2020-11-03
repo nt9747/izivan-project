@@ -13,10 +13,10 @@ class Content extends React.Component {
             Fullname: '',
             Password: '',
             IsSuperAdmin : '0',
-            IsKeToan: '0',
-            IsPhongLoa: '0',
-            msg: '',
-            data: ''
+            IsKeToan: "0",
+            IsPhongLoa: "0",
+            msg: "",
+            data: ""
         }
     }
     async Register(){
@@ -31,9 +31,8 @@ class Content extends React.Component {
         })
         await this.setState({ msg: res.msg, data: res.data});
         console.log(this.state.msg, "check msg!")
-        console.log(this.state.data, "check data!")
         if (this.state.msg == "Thành công"){
-            alert("Success!");
+            alert("Success!")
         } 
     }
     catch (err) {
@@ -57,55 +56,53 @@ handleTextChange(field, event) {
           </div>
       <div class="card-body">
           <div class="position-center">
-<<<<<<< HEAD
-              <form role="form" method="post" enctype="multipart/form-data" >   
-=======
               <form>   
->>>>>>> 7122b6faf3954162d5c5fdcb13bd6b08fe5ce562
                 <div class="form-group">
-                      <label for="exampleInputAccount">Tên tài khoản </label>
-                      <input type="text" class="form-control"                                     
-                      value={Username}  onChange={(e) => this.handleTextChange('username', e)}/>
+                      <label for="exampleInputEmail1">Tên tài khoản </label>
+                      <input type="text" name="" class="form-control" id="exampleInputAccount" placeholder="Tên tài khoản"                                     
+                      value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputFullName">Họ và tên </label>
-                      <input type="text" class="form-control" id="exampleInputFullName" placeholder="Họ và tên"
+                      <label for="exampleInputEmail1">Họ và tên </label>
+                      <input type="text" name="" class="form-control" id="exampleInputEmail1" placeholder="Họ và tên"
                       value={Fullname}  onChange={(e) => this.handleTextChange('Fullname', e)}/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputPassWord">Mật khẩu</label>
-                      <input type="password" class="form-control" id="exampleInputPassWord" placeholder="Mật khẩu"
+                      <label for="exampleInputEmail1">Mật khẩu</label>
+                      <input type="password" name="" class="form-control" id="exampleInputEmail1" placeholder="Mật khẩu"
                       value={Password}  onChange={(e) => this.handleTextChange('Password', e)} />
                 </div>
-                <div class="form-group">
+                <div class="row">
+                <div class="col-3">
                 <b>Quyền Admin</b><br />
                                         <select value = {IsSuperAdmin} onChange={(e) => this.handleTextChange('IsSuperAdmin', e)}>
                                             <option>Không</option>
                                             <option value = '1'>Có</option>
                                         </select>
                 </div>
-                <div class="form-group">
+                <div class="col-3">
                 <b>Quyền Kế toán</b><br />
                                         <select value = {IsKeToan} onChange={(e) => this.handleTextChange('IsKeToan', e)}>
                                             <option>Không</option>
                                             <option value = '1'>Có</option>
                                         </select>
                 </div>
-                <div class="form-group">
+                <div class="col-3">
                 <b>Quyền Phòng loa</b><br />
                                         <select value = {IsPhongLoa} onChange={(e) => this.handleTextChange('IsPhongLoa', e)}>
                                             <option>Không</option>
                                             <option value = '1'>Có</option>
                                         </select>
                 </div>
-                
+                </div>
+                <br/>
                 <div class="form-group">
-                      <label for="exampleInputImage">Hình ảnh</label>
-                      <input type="file" name="" class="form-control" id="exampleInputImage"/>
+                      <label for="exampleInputEmail1">Hình ảnh</label>
+                      <input type="file" name="" class="form-control" id="exampleInputEmail1"/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputMota">Mô tả </label>
-                      <textarea style={{resize: 'none'}} rows="5" class="form-control" name="" id="exampleInputMoTa" placeholder="Mô tả"></textarea>
+                      <label for="exampleInputPassword1">Mô tả </label>
+                      <textarea style={{resize: 'none'}} rows="5" class="form-control" name="" id="exampleInputPassword1" placeholder="Mô tả"></textarea>
                 </div>
                 <div class='form-group'>
                 <span class="group-btn">
