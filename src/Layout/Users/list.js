@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin, requestGetAllUser, requestRegisterUser } from '../../api'
+import { requestGetListCarInfo, requestLogin, requestGetAllUser, requestRegisterUser, requestDeleteUser } from '../../api'
 import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
 import TableScrollbar from 'react-table-scrollbar';
@@ -19,9 +19,48 @@ class Content extends React.Component {
         IsPhongLoa: "0",
         msg: "",
         data: "",
-        data1: ""
+        data1: "",
+        data2: "",
+        userID: "",
     }
 }
+
+
+
+// async Delete(userid){
+//   this.setState.UserID = userid
+//   try {
+//       const res = await requestDeleteUser({
+//         USERID = this.state.userID,
+//   })
+//   await this.setState({ data2: res.data});
+//   console.log(this.state.data2, "check msg!")
+//   if (this.state.data2 == "Xóa Thành công"){
+//       alert("Success!") 
+//   } 
+// }
+// catch (err) {
+//   alert("Fail!");
+// }
+// }
+
+async Delete(userid){
+  try {
+      const res = await requestDeleteUser({
+          USERID: userid,
+  })
+  await this.setState({data1: res.data});
+  console.log(this.state.data2, "check msg!")
+  if (this.state.data1 == "Xóa thành công"){
+      alert("Success!") 
+  } 
+}
+catch (err) {
+  console.log(err)
+}
+}
+
+
 async Register(){
     try {
         const res = await requestRegisterUser({
@@ -114,17 +153,10 @@ async list() {
                            <a onClick={() => this.Register()}><button style={{height: '35px', width: '120px'}}><h4>Tạo mới</h4></button></a>
                          </div>
                          <div class="col-3"><br/>
-                           <button style={{height: '35px', width: '180px'}}><h4>Danh sách</h4></button>
+                           <button onClick={() => this.list()} style={{height: '35px', width: '180px'}}><h4>Làm mới</h4></button>
                          </div>
                      </div><br/>
-                     <div class="row">
-                         <div class="col-3">
-                           <button style={{height: '35px', width: '120px', backgroundColor: 'black'}}><font color="#FFFFFF"><h4>Xóa</h4></font></button>
-                         </div>
-                         <div class="col-3">
-                           <button style={{height: '35px', width: '220px'}}><h4>Thay Đổi Quyền</h4></button>
-                         </div>
-                     </div>
+
                    </div>
              </div>
          
@@ -142,23 +174,21 @@ async list() {
                              <th>Kế toán</th>
                              <th>Phòng loa</th>
                              <th>Admin</th>
-                             <th>Đã bị xóa</th>
                              <th>Sửa</th>
                              <th>Xóa</th>
                          </tr>
                      </thead>
                      <tbody>   
                      {data && data.map((item, i) => (
-                                            <tr>
+                                            <tr key = {item.UserID}>
                                                 <td></td>
-<td key={i}> {item.UserID}</td>
-                                                <td key={i}> {item.UserName}</td>
-                                                <td key={i}> {item.IsKeToan.toString()}</td>
-                                                <td key={i}> {item.IsPhongLoa.toString()}</td>
-                                                <td key={i}> {item.IsSuperAdmin.toString()}</td>
-                                                <td key={i}> false </td>
+                                                <td> {item.UserID}</td>
+                                                <td> {item.UserName}</td>
+                                                <td> {item.IsKeToan.toString()}</td>
+                                                <td> {item.IsPhongLoa.toString()}</td>
+                                                <td> {item.IsSuperAdmin.toString()}</td>
                                                 <td><button>Edit</button></td>
-                                                <td><button>Delete</button></td>
+                                                <td><button onClick={() => this.Delete(item.UserID)} >Delete</button></td>
                                             </tr>
                                         ))}
          

@@ -114,3 +114,7 @@ export const requestGetAllUser = (payload) => {
     password: payload.PASS
   }))
 }
+
+export const requestDeleteUser = (payload) => {
+  return handleResult(getAxios.get(`/users/deleteUser?UserID=${payload.USERID}`))
+}
