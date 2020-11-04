@@ -97,7 +97,7 @@ export default class Layout extends Component {
                                 </a>
                                 <ul >
                                     <li class="nav-item">
-                                        <a href="pages/Quản lí xe/Tong_hop.html">
+                                        <a href="/home">
                                            
                                             <p>Tổng hợp</p>
                                         </a>

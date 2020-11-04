@@ -170,7 +170,7 @@ class HomeList extends React.Component {
                                     <div class="col-3">
                                         <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-2">
                                         <b>Loại Hàng</b><br />
                                         <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                             <option value="">Tất cả</option>
@@ -241,37 +241,66 @@ class HomeList extends React.Component {
                                             <option value="NỘI THẤT">NỘI THẤT</option>
                                         </select>
                                     </div>
+                                    <div>
+                    <table>
+                      <tr>
+                        <td style={{textAlign: 'center'}}><b>Vào</b></td>
+                        <td style={{textAlign: 'center'}}><b>Ra</b></td>
+                        <td style={{textAlign: 'center'}}><b>Tồn</b></td>
+                        <td style={{textAlign: 'center'}}></td>
+                      </tr>
+                      <tr>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '50px', display: 'inline-block'}}>d</b></td>
+                      </tr>
+                    </table>
+              </div>
                                 </div>
+                                
                                 <div class="row">
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <b>Loại xe</b><br />
                                         <select>   
-                                            <option>aaaab</option>
-                                            <option>bbbbb</option>
+                                            <option>Tất cả</option>
+                                            <option>Xe có trọng tải dưới 4 tấn</option>
+                                            <option>Xe có trọng tải từ 4 đến 10 tấn</option>
+                                            <option>Xe có trọng tải từ 10 đến 18 tấn</option>
+                                            <option>Xe có trọng tải trên 18 tấn</option>
+                                            <option>Container 20"</option>
+                                            <option>Container 40"</option>
+
                                         </select>
                                     </div>
-                                    <div class="col-3">
-                                        <b>?</b><input type="text" class="form-control" placeholder="Nhập ?" />
+                                    <div class="col-1.5">
+                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập ?" />
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-5">
+                                    <div class="col-4">
                                         <b>Cổng</b><br />
                                         <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
                                             <option>Tất cả</option>
-                                            <option>bbbbbb</option>
+                                            <option>Cổng vào VN</option>
+                                            <option>Cổng ra quay đầu</option>
+                                            <option>Cổng ra xuất</option>
+                                            <option>Cổng vào/ra TQ</option>
                                         </select>
                                         <select>
-                                            <option>Giao dịch vào ra</option>
+                                            <option>0. Giao dịch vào ra</option>
+                                            <option>1. Giao dịch vào </option>
+                                            <option>2. Giao dịch ra</option>
+                                            <option>3. Số lượng xe tồn</option>
                                         </select>
                                     </div>
-                                    <div class="col-3"><br />
+                                    <div class="col-2"><br />
                                     <button type="submit"
                                      className="btn btn-danger"
                                       onClick={() => this.list()}>
@@ -279,7 +308,7 @@ class HomeList extends React.Component {
                                     </button>
                                     </div>
                                     
-                                    <div class="col-3"><br />
+                                    <div class="col-2"><br />
                                     <form action="/ExportExcel">
                                     <button type="submit"
                                      className="btn btn-danger"
@@ -288,7 +317,7 @@ class HomeList extends React.Component {
                                     </button>
                                     </form>
                                     </div>
-                                    <div class="col-3"><br />
+                                    <div class="col-2"><br />
                                     <button type="submit"
                                      className="btn btn-danger"
                                       onClick={() => this.listPrevious()}>
