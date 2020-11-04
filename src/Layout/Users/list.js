@@ -45,7 +45,9 @@ class Content extends React.Component {
 // }
 
 async Delete(userid){
-  try {
+  let result = window.confirm("Có chắc xóa không?");
+  if (result == true){
+    try {
       const res = await requestDeleteUser({
           USERID: userid,
   })
@@ -58,6 +60,8 @@ async Delete(userid){
 catch (err) {
   alert("Fail!")
 }
+window.location.href = '/ListUser';
+  }
 }
 
 
@@ -80,6 +84,7 @@ async Register(){
 catch (err) {
     alert("Fail!");
 }
+window.location.href = '/ListUser';
 }
 
 handleTextChange(field, event) {
@@ -183,12 +188,12 @@ async list() {
                                             <tr key = {item.UserID}>
                                                 <td></td>
                                                 <td> {item.UserID}</td>
-                                                <td> {item.UserName}</td>
+                                                <td> {item.UserName} </td>
                                                 <td> {item.IsKeToan.toString()}</td>
                                                 <td> {item.IsPhongLoa.toString()}</td>
                                                 <td> {item.IsSuperAdmin.toString()}</td>
                                                 <td><button>Edit</button></td>
-                                                <td><button onClick={() => this.Delete(item.UserID)} >Delete</button></td>
+                                                <td><button onClick={() => this.Delete(item.UserID)}>Delete</button></td>
                                             </tr>
                                         ))}
          
