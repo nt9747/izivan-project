@@ -118,3 +118,12 @@ export const requestGetAllUser = (payload) => {
 export const requestDeleteUser = (payload) => {
   return handleResult(getAxios.get(`/users/deleteUser?UserID=${payload.USERID}`))
 }
+
+export const resquestEditUser = (payload) => {
+  return handleResult(getAxios.post(`/users/updateUserInfoByAdmin`, {
+    UserID: payload.USERID,
+    IsSuperAdmin: payload.ISSUPERADMIN,
+    IsKeToan: payload.ISKETOAN,
+    IsPhongLoa: payload.ISPHONGLOA
+  }))
+}
