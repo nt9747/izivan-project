@@ -31,15 +31,18 @@ class Content extends React.Component {
                 ISPHONGLOA: this.state.IsPhongLoa,
         })
         await this.setState({ msg: res.msg, data: res.data});
-        console.log(this.state.msg, "check msg!")
-        if (this.state.msg == "Thành công"){
-            alert("Success!") 
-        } 
+        console.log(this.state.data, "check data")
+        if (this.state.data == "Tên đăng nhập đã tồn tại"){
+            alert("Tên đăng nhập đã tồn tại") 
+        }
+        else {
+          alert ("Success!")
+        }
     }
     catch (err) {
-        alert("Fail!");
+        alert("Fail")
     }
-}
+ }
 
 handleTextChange(field, event) {
     this.setState({
@@ -59,20 +62,18 @@ handleTextChange(field, event) {
           <div class="position-center">
               <form>   
                 <div class="form-group">
-                      <label for="exampleInputEmail1">Tên tài khoản </label>
-                      <input type="text" name="" class="form-control" id="exampleInputAccount" placeholder="Tên tài khoản"                                     
-                      value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/>
+                      <label>Tên tài khoản </label>
+                      <input type="text" class="form-control" placeholder="" value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputEmail1">Họ và tên </label>
-                      <input type="text" name="" class="form-control" id="exampleInputEmail1" placeholder="Họ và tên"
-                      value={Fullname}  onChange={(e) => this.handleTextChange('Fullname', e)}/>
+                      <label>Mật khẩu</label>
+                      <input type="password" class="form-control" placeholder="" value={Password}  onChange={(e) => this.handleTextChange('Password', e)}/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputEmail1">Mật khẩu</label>
-                      <input type="password" name="" class="form-control" id="exampleInputEmail1" placeholder="Mật khẩu"
-                      value={Password}  onChange={(e) => this.handleTextChange('Password', e)} />
+                      <label>Họ và tên </label>
+                      <input type="text" class="form-control" placeholder="" value={Fullname}  onChange={(e) => this.handleTextChange('Fullname', e)}/>
                 </div>
+
                 <div class="row">
                 <div class="col-3">
                 <b>Quyền Admin</b><br />
@@ -102,8 +103,8 @@ handleTextChange(field, event) {
                       <input type="file" name="" class="form-control" id="exampleInputEmail1"/>
                 </div>
                 <div class="form-group">
-                      <label for="exampleInputPassword1">Mô tả </label>
-                      <textarea style={{resize: 'none'}} rows="5" class="form-control" name="" id="exampleInputPassword1" placeholder="Mô tả"></textarea>
+                      <label>Mô tả </label>
+                      <textarea style={{resize: 'none'}} rows="5" class="form-control" ></textarea>
                 </div>
                 <div class='form-group'>
                 <span class="group-btn">

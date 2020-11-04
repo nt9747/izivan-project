@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin, requestGetAllUser, requestRegisterUser, requestDeleteUser } from '../../api'
+import { requestGetListCarInfo, requestLogin, requestGetAllUser, requestRegisterUser, requestDeleteUser, resquestEditUser } from '../../api'
 import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
 import TableScrollbar from 'react-table-scrollbar';
@@ -21,6 +21,7 @@ class Content extends React.Component {
         data: "",
         data1: "",
         data2: "",
+        data3: "",
         userID: "",
     }
 }
@@ -76,13 +77,16 @@ async Register(){
             ISPHONGLOA: this.state.IsPhongLoa,
     })
     await this.setState({ msg: res.msg, data1: res.data});
-    console.log(this.state.msg, "check msg!")
-    if (this.state.msg == "Thành công"){
-        alert("Success!") 
-    } 
+    console.log(this.state.data1, "check data")
+    if (this.state.data1 == "Tên đăng nhập đã tồn tại"){
+        alert("Tên đăng nhập đã tồn tại") 
+    }
+    else {
+      alert ("Success!")
+    }
 }
 catch (err) {
-    alert("Fail!");
+    alert("Fail")
 }
 window.location.href = '/ListUser';
 }
@@ -95,6 +99,45 @@ this.setState({
 componentDidMount() {
   this.list();
 } 
+
+async Edit(userid){
+  await this.setState({
+    isLoading: true
+})
+  try {
+    let a = window.confirm("set quyen Ke Toan cho tai khoan: " + userid + " ? ");
+    let b = window.confirm("set quyen Phong Loa cho tai khoan: " + userid + " ? ");
+    let c = window.confirm("set quyen SuperAdmin cho tai khoan: " + userid + " ? ")
+    if (a == true){
+      this.setState({ IsKeToan: '1'});
+    }
+    else this.setState({ IsKeToan: '0'});
+    if (b == true){
+      this.setState({ IsPhongLoa: '1'});
+    }
+    else this.setState({ IsPhongLoa: '0'});
+    if (c == true){
+      this.setState({ IsSuperAdmin: '1'});
+    }
+    else this.setState({ IsSuperAdmin: '0'});
+    const res = await resquestEditUser({
+      USERID: userid,
+      ISSUPERADMIN: this.state.IsSuperAdmin,
+      ISPHONGLOA: this.state.IsPhongLoa,
+      ISKETOAN: this.state.IsKeToan,
+    })
+    await this.setState({data3: res.data, isLoading: false})
+    alert ("Sửa thành công!")
+  }
+  catch(err){
+    await this.setState({
+      isLoading: false
+  }, () => console.log(err))
+    alert ("Sửa thẩt bại")
+  }
+  window.location.href = '/ListUser';
+}
+
 
 async list() {
   await this.setState({
@@ -179,8 +222,8 @@ async list() {
                              <th>Kế toán</th>
                              <th>Phòng loa</th>
                              <th>Admin</th>
-                             <th>Sửa</th>
-                             <th>Xóa</th>
+                             <th1></th1>
+                             <th1></th1>
                          </tr>
                      </thead>
                      <tbody>   
@@ -192,7 +235,7 @@ async list() {
                                                 <td> {item.IsKeToan.toString()}</td>
                                                 <td> {item.IsPhongLoa.toString()}</td>
                                                 <td> {item.IsSuperAdmin.toString()}</td>
-                                                <td><button>Edit</button></td>
+                                                <td><button onClick={() => this.Edit(item.UserID)}>Edit</button></td>
                                                 <td><button onClick={() => this.Delete(item.UserID)}>Delete</button></td>
                                             </tr>
                                         ))}
