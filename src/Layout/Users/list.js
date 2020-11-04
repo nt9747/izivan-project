@@ -49,14 +49,14 @@ async Delete(userid){
       const res = await requestDeleteUser({
           USERID: userid,
   })
-  await this.setState({data1: res.data});
+  await this.setState({data2: res.data});
   console.log(this.state.data2, "check msg!")
-  if (this.state.data1 == "Xóa thành công"){
+  if (this.state.data2 == "Xóa thành công"){
       alert("Success!") 
   } 
 }
 catch (err) {
-  console.log(err)
+  alert("Fail!")
 }
 }
 
