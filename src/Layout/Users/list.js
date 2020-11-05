@@ -111,15 +111,15 @@ async Edit(userid){
     if (a == true){
       this.setState({ IsKeToan: '1'});
     }
-    else this.setState({ IsKeToan: '0'});
+    // else this.setState({ IsKeToan: '0'});
     if (b == true){
       this.setState({ IsPhongLoa: '1'});
     }
-    else this.setState({ IsPhongLoa: '0'});
+    // else this.setState({ IsPhongLoa: '0'});
     if (c == true){
       this.setState({ IsSuperAdmin: '1'});
     }
-    else this.setState({ IsSuperAdmin: '0'});
+    // else this.setState({ IsSuperAdmin: '0'});
     const res = await resquestEditUser({
       USERID: userid,
       ISSUPERADMIN: this.state.IsSuperAdmin,
@@ -133,7 +133,7 @@ async Edit(userid){
     await this.setState({
       isLoading: false
   }, () => console.log(err))
-    alert ("Sửa thẩt bại")
+    alert ("Sửa thẩt bại!")
   }
   window.location.href = '/ListUser';
 }
@@ -185,13 +185,13 @@ async list() {
                          <table>
                            <tr>
                              <td><b>Tài Khoản</b></td>
-                             <td><input type="text" class="form-control" placeholder="" value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/></td>
+                             <td><input type="text" class="form-control" placeholder="" required value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/></td>
                              <td><input type="checkbox" name=""/><b>Nhân viên</b></td>
                              <td><input type="checkbox" name="" value = {IsPhongLoa + 1} onChange={(e) => this.handleTextChange('IsPhongLoa', e)}/><b>Phòng loa</b></td>
                            </tr>
                            <tr>
                              <td><b>Mật khẩu</b></td>
-                             <td><input type="password" class="form-control" placeholder="" value={Password}  onChange={(e) => this.handleTextChange('Password', e)}/></td>
+                             <td><input type="password" class="form-control" placeholder="" required value={Password}  onChange={(e) => this.handleTextChange('Password', e)}/></td>
                              <td><input type="checkbox" name="" value = {IsKeToan + 1} onChange={(e) => this.handleTextChange('IsKeToan', e)}/><b>Kế toán</b></td>
                              <td><input type="checkbox" name="" value = {IsSuperAdmin + 1} onChange={(e) => this.handleTextChange('IsSuperAdmin', e)}/><b>Super Admin</b></td>
                            </tr>
@@ -216,7 +216,7 @@ async list() {
                    <table  id="example2" class="table table-bordered table-hover" >                     
                      <thead>
                          <tr>
-                             <th></th>
+                             
                              <th>STT</th>
                              <th>Tài khoản</th>
                              <th>Kế toán</th>
@@ -229,7 +229,7 @@ async list() {
                      <tbody>   
                      {data && data.map((item, i) => (
                                             <tr key = {item.UserID}>
-                                                <td></td>
+
                                                 <td> {item.UserID}</td>
                                                 <td> {item.UserName} </td>
                                                 <td> {item.IsKeToan.toString()}</td>
