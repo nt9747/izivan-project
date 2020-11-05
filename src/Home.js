@@ -10,6 +10,8 @@ import './Layout/plugins/fontawesome-free/css/all.min.css'
 import './Layout/dist/css/adminlte.min.css'
 import './Layout/layout.css'
 
+import a from 'jquery'
+import b from 'bootstrap'
 
 
 class Home extends React.Component {

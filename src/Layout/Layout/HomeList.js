@@ -5,6 +5,7 @@ import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
 
+
 function GetFormatDate(a){
     const b = new Date(a);
     var hours = b.getUTCHours();
@@ -417,4 +418,5 @@ class HomeList extends React.Component {
         )
     }
 }
+
 export default HomeList
