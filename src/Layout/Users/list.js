@@ -176,7 +176,7 @@ async list() {
          <div class="container-fluid" style={{height:'250px'}}>
            <div class="card card-warning" >
              <div class="card-header" >
-                 <h3 class="card-title"></h3>
+                 <h3 class="card-title"><i>Quản trị hoạt động</i></h3>
              </div>
          
                  <div class="card-body">
@@ -198,7 +198,7 @@ async list() {
                          </table>
                        </div>
                          <div class="col-2"><br/>
-                           <a onClick={() => this.Register()}><button style={{height: '35px', width: '120px'}}><h4>Tạo mới</h4></button></a>
+                           <a onClick={() => this.Register()}><button style={{height: '35px', width: '120px'}}><h4>Đăng ký nhanh</h4></button></a>
                          </div>
                          <div class="col-3"><br/>
                            <button onClick={() => this.list()} style={{height: '35px', width: '180px'}}><h4>Làm mới</h4></button>
@@ -216,7 +216,6 @@ async list() {
                    <table  id="example2" class="table table-bordered table-hover" >                     
                      <thead>
                          <tr>
-                             
                              <th>STT</th>
                              <th>Tài khoản</th>
                              <th>Kế toán</th>
@@ -229,7 +228,6 @@ async list() {
                      <tbody>   
                      {data && data.map((item, i) => (
                                             <tr key = {item.UserID}>
-
                                                 <td> {item.UserID}</td>
                                                 <td> {item.UserName} </td>
                                                 <td> {item.IsKeToan.toString()}</td>

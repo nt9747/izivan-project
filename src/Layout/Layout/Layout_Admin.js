@@ -76,7 +76,7 @@ export default class Layout extends Component {
                                     <li class="nav-item">
                                         <a href="./AddUser" >
                                            
-                                            <p>Thêm User</p>
+                                            <p>Thêm tài khoản</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">

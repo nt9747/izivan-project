@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin } from '../../api'
+import { requestGetListCarIn, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 
 function GetFormatDate(a){
@@ -58,7 +58,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarInfo({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: "",
@@ -84,7 +84,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarInfo({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: "",
@@ -112,7 +112,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarInfo({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: "",

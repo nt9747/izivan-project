@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin } from '../../api'
+import { requestGetListCarIn, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
@@ -51,22 +51,26 @@ class HomeList extends React.Component {
             isLoading: true,
             page: 1,
             nextPage: "",
-            previousPage: ""
+            previousPage: "",
+            PortOut: "",
+            SelectCong: "",
         }
-    }        
+    }   
+    
     componentDidMount() {
         this.list();
     }
-    async listNext() {
+    async listInNext() {
         await this.setState({
             isLoading: true
         })
         try {
-            const res = await requestGetListCarInfo({
+            const res = await (this.state.SelectCong)({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: ++this.state.page,
@@ -86,12 +90,12 @@ class HomeList extends React.Component {
         }
     }
 
-    async listPrevious() {
+    async listInPrevious() {
         await this.setState({
             isLoading: true
         })
         try {
-            const res = await requestGetListCarInfo({
+            const res = await (this.state.SelectCong)({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -111,20 +115,21 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
     }
+    a
 
     async list() {
         await this.setState({
             isLoading: true
         })
         try {
-            const res = await requestGetListCarInfo({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                PAGE: this.state.page,
+                PAGE: this.state.page
             })
             await this.setState({ data: res.data, isLoading: false, page: 1});
         } catch (err) {
@@ -132,6 +137,7 @@ class HomeList extends React.Component {
                 isLoading: false
             }, () => console.log(err))
         }
+        
         if (typeof(this.state.data) == "undefined"){
             alert("Sai cấu trúc, điền lại");
             window.location.href = '/home'
@@ -159,9 +165,8 @@ class HomeList extends React.Component {
                     <div class="container-fluid">
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"></h3>
+                                <h3 class="card-title"><i>Quản lí xe tổng hợp </i></h3>
                             </div>
-
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">
@@ -270,7 +275,6 @@ class HomeList extends React.Component {
                                             <option>Xe có trọng tải trên 18 tấn</option>
                                             <option>Container 20"</option>
                                             <option>Container 40"</option>
-
                                         </select>
                                     </div>
                                     <div class="col-1.5">
@@ -287,15 +291,15 @@ class HomeList extends React.Component {
                                     <div class="col-4">
                                         <b>Cổng</b><br />
                                         <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
-                                            <option>Tất cả</option>
-                                            <option>Cổng vào VN</option>
+                                            <option value = '0'>Tất cả</option>
+                                            <option value = '1'>Cổng vào VN</option>
                                             <option>Cổng ra quay đầu</option>
                                             <option>Cổng ra xuất</option>
                                             <option>Cổng vào/ra TQ</option>
                                         </select>
-                                        <select>
+                                        <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
                                             <option>0. Giao dịch vào ra</option>
-                                            <option>1. Giao dịch vào </option>
+                                            <option value = 'requestGetListCarIn' >1. Giao dịch vào </option>
                                             <option>2. Giao dịch ra</option>
                                             <option>3. Số lượng xe tồn</option>
                                         </select>
@@ -320,13 +324,13 @@ class HomeList extends React.Component {
                                     <div class="col-2"><br />
                                     <button type="submit"
                                      className="btn btn-danger"
-                                      onClick={() => this.listPrevious()}>
+                                      onClick={() => this.listInPrevious()}>
                                          <b>-</b>
                                     </button>
                                     <b>{this.state.page}</b>
                                     <button type="submit"
                                      className="btn btn-danger"
-                                      onClick={() => this.listNext()}>
+                                      onClick={() => this.listInNext()}>
                                          <b>+</b>
                                     </button>
                                     </div>

@@ -75,7 +75,7 @@ export const requestLogin = (payload) => {
   }))
 }
 
-export const requestGetListCarInfo = (payload) => {
+export const requestGetListCarIn = (payload) => {
   return handleResult(getAxios.post(`/listCar/listCarIn?page=${payload.PAGE}&limit=10`, {
     fromDate: payload.FROMDATE,
     toDate: payload.TODATE,
