@@ -1,7 +1,7 @@
 import React from 'react'
 // import '../../styles/Login.css'
 import { Link, Redirect } from 'react-router-dom'
-import { requestGetListCarInfo, requestLogin } from './api'
+import { requestGetListCarIn, requestLogin } from './api'
 import Cookie from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import SideBar from './Layout/Layout/HomeList';
@@ -29,7 +29,7 @@ class Home extends React.Component {
             isLoading: true
         });
         try {
-            const res = await requestGetListCarInfo();
+            const res = await requestGetListCarIn();
             await this.setState({ data: res.data, isLoading: false });
             console.log(this.state.data, "Check data");
         } catch (err) {
