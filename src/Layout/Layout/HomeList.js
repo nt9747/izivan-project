@@ -139,13 +139,12 @@ class HomeList extends React.Component {
         console.log(typeof(this.state.data), "check")
     }
 
-
     handleTextChange(field, event) {
         this.setState({
             [field]: event.target.value
         })
     }
-
+    
     render() {
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
