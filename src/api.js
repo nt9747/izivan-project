@@ -76,13 +76,14 @@ export const requestLogin = (payload) => {
 }
 
 export const requestGetListCarIn = (payload) => {
-  return handleResult(getAxios.post(`/listCar/listCarIn?page=${payload.PAGE}&limit=10`, {
+  return handleResult(getAxios.post(`${payload.CONG}page=${payload.PAGE}&limit=10`, {
     fromDate: payload.FROMDATE,
     toDate: payload.TODATE,
     plateNumber: payload.PLATENUMBER,
     portIn: payload.PORTIN,
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
+    portOut: payload.PORTOUT,
   }))
 }
 
