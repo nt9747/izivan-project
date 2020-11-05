@@ -136,6 +136,8 @@ class HomeList extends React.Component {
                 CONG: this.state.SelectCong,
             })
             await this.setState({ data: res.data, isLoading: false, page: 1});
+            console.log(this.state.portIn, "check PortIn")
+            console.log(this.state.PortOut, "check PortOut")
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -295,16 +297,24 @@ class HomeList extends React.Component {
                                 <div class="row">
                                     <div class="col-4">
                                         <b>Cổng</b><br />
-                                        <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
+                                        {/* <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
                                             <option value = ''>Tất cả</option>
                                             <option value = '0'>Cổng vào VN</option>
                                             <select value= {this.state.portOut} onChange={(e) => this.handleTextChange('portOut', e)}></select>
                                             <option >Cổng ra quay đầu</option>
                                             <option>Cổng ra xuất</option>
                                             <option value = "1">Cổng vào/ra TQ</option>
+                                        </select> */}
+                                        <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)} value= {this.state.PortOut} onChange={(e) => this.handleTextChange('PortOut', e)}>
+                                            <option value = '' value = ''>Tất cả</option>
+                                            <option value = '0'>Cổng vào VN</option>
+                                            <option value = 'null' value = '2'>Cổng ra quay đầu</option>
+                                            <option value = '' value = '4'>Cổng ra xuất</option>
+                                            <option value = "1" value = '3'>Cổng vào/ra TQ</option>
                                         </select>
                                         <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
-                                            <option value = ''>0. Giao dịch vào ra</option>
+                                        <option value="" disabled="disabled">Chọn</option>
+                                            <option value = '/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
                                             <option value = '/listCar/listCarIn?' >1. Giao dịch vào </option>
                                             <option value = '/listCar/listCarOut?'>2. Giao dịch ra</option>
                                             <option value = '/listCar/listCarParking?'>3. Số lượng xe tồn</option>
@@ -373,11 +383,11 @@ class HomeList extends React.Component {
                                     <tbody>
                                         {data.data && data.data.map((item, i) => (
                                             <tr>
-                                                <td key={i}> {i + 1}</td>
+                                                <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
                                                 <td key={i}> {item.BienXe}</td>
                                                 <td key={i}> {item.BienCont}</td>
                                                 <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> {item.LoaiXeID}</td>
+                                                <td key={i}> ??? </td>
                                                 <td key={i}> {item.CarNumber_ID}</td>
                                                 <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
                                                 <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
