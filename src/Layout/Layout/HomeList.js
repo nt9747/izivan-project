@@ -65,7 +65,7 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
-            const res = await (this.state.SelectCong)({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -95,7 +95,7 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
-            const res = await (this.state.SelectCong)({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -289,7 +289,8 @@ class HomeList extends React.Component {
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
-                                        <b>Cổng</b><br />
+                                        <b>Cổng</b><br
+                                        />
                                         <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
                                             <option value = '0'>Tất cả</option>
                                             <option value = '1'>Cổng vào VN</option>
@@ -340,7 +341,11 @@ class HomeList extends React.Component {
 
                         <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'600px'}}>
                             <div class="card-header" >
-                                <h3 class="card-title" ></h3>
+                                <h3 class="card-title" >
+                                    <button>Biển Số</button>
+                                    <button>Loại Xe</button>
+                                    <button>Loại Hàng</button>
+                                </h3>
                             </div>
                             <TableScrollbar rows={20} >
                             <table id="example2" class="table table-bordered table-hover"  >
@@ -360,7 +365,8 @@ class HomeList extends React.Component {
                                             <th>Nhân viên vào / Nhân viên ra</th>
                                             <th>Loại hàng</th>
                                             <th>Cổng vào</th>
-                                            <th>Ra khoi bai</th>
+                                            <th>Cổng vào</th>
+                                            <th>Phiếu hải quan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -380,6 +386,7 @@ class HomeList extends React.Component {
                                                 <td key={i}> {item.LoaiHangChiTiet}</td>
                                                 <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
                                                 <td key={i}> {item.IsRaKhoiBai}</td>
+                                                <td></td>
                                             </tr>
                                         ))}
                                     </tbody>
