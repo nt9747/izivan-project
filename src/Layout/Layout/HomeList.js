@@ -145,10 +145,12 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
-        if (typeof(this.state.data) == "undefined"){
-            
-            window.location.href = '/home'
-        }
+        // if (typeof(this.state.data) == "undefined"){
+        //     return(
+        //         <img src="../img/empty.png" />
+        //     )
+        //     // window.location.href = '/Empty'
+        // }
     }
 
     handleTextChange(field, event) {
@@ -390,9 +392,8 @@ class HomeList extends React.Component {
                                     <button>Loại Hàng</button>
                                 </h3>
                             </div>
-                           
                             <table id="example2" class="table table-bordered table-hover"  >
-                                <>
+                          
                                     <thead>
                                         <tr>
                                             <th>STT vào bãi</th>
@@ -412,11 +413,11 @@ class HomeList extends React.Component {
                                             <th>Phiếu hải quan</th>
                                         </tr>
                                     </thead>
+                            <>
+                           {this.state.data && data.data.map((item, i) => (
                                     <tbody>
-                                    {data.data && data.data.map(()  => (
-                                            <img src={empty}/>
-                                    ))}
-                                        {data.data && data.data.map((item, i) => (
+                                    
+                                       
                                             <tr>
                                                 <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
                                                 <td key={i}> {item.BienXe}</td>
@@ -434,14 +435,12 @@ class HomeList extends React.Component {
                                                 <td key={i}> {item.IsRaKhoiBai}</td>
                                                 <td> </td>
                                             </tr>
-                                        ))}
-                                        
-
-                                        
                                     </tbody>
+                                ))}
+                           
                                 </>
                             </table>
-                           
+                            {this.state.data=="" &&  <img src={empty} style={{width:'1500px', height:'1000px'}}/>}
                         </div>
                     </div>
                     <div>
