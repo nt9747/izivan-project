@@ -164,13 +164,13 @@ class HomeList extends React.Component {
             this.setState({portIn: '', PortOut: ''})
         }
         else if (event.target.value==2){
-            this.setState({portIn: '0', PortOut: ''})
+            this.setState({portIn: '0', PortOut: 'null'})
         }
         else if (event.target.value==3){
-            this.setState({portIn: '', PortOut: '2'})
+            this.setState({portIn: 'null', PortOut: '2'})
         }
         else if (event.target.value==4){
-            this.setState({portIn: '', PortOut: '4'})
+            this.setState({portIn: 'null', PortOut: '4'})
         }
     }
 
