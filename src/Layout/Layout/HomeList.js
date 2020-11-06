@@ -118,7 +118,6 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
     }
-    a
 
     async list() {
         await this.setState({
@@ -144,12 +143,11 @@ class HomeList extends React.Component {
                 isLoading: false
             }, () => console.log(err))
         }
-
+        console.log(this.state.data, "Check data!");
         if (typeof(this.state.data) == "undefined"){
             alert("Sai cấu trúc, điền lại");
             window.location.href = '/home'
         }
-        console.log(typeof(this.state.data), "check")
     }
 
     handleTextChange(field, event) {
@@ -157,6 +155,34 @@ class HomeList extends React.Component {
             [field]: event.target.value
         })
     }
+
+    handlePortChange(event) {
+        if (event.target.value==5){
+            this.setState({portIn: '1', PortOut: '3'})
+        }
+        else if (event.target.value==1){
+            this.setState({portIn: '', PortOut: ''})
+        }
+        else if (event.target.value==2){
+            this.setState({portIn: '0', PortOut: 'null'})
+        }
+        else if (event.target.value==3){
+            this.setState({portIn: 'null', PortOut: '2'})
+        }
+        else if (event.target.value==4){
+            this.setState({portIn: 'null', PortOut: '4'})
+        }
+    }
+
+    // handleTextChange(field, event) {
+    //     if (event.target.value==10){
+    //         this.setState({portIn: '1', PortOut: '3'})
+    //     }
+    //     this.setState({
+    //         [field]: event.target.value
+    //     })
+    // }
+
     
     render() {
         const { data, isLoading } = this.state;
@@ -305,12 +331,13 @@ class HomeList extends React.Component {
                                             <option>Cổng ra xuất</option>
                                             <option value = "1">Cổng vào/ra TQ</option>
                                         </select> */}
-                                        <select value={this.state.portIn, this.state.PortOut} onChange={(e) => this.handleTextChange('portIn'&&'PortOut', e)}>
-                                            <option value = '' value = ''>Tất cả</option>
-                                            <option value = '0'>Cổng vào VN</option>
-                                            <option value = 'null' value = '2'>Cổng ra quay đầu</option>
-                                            <option value = '' value = '4'>Cổng ra xuất</option>
-                                            <option value = "1" value = '3'>Cổng vào/ra TQ</option>
+                                        <select onChange={(e) => this.handlePortChange(e)}>
+                                        <option disabled="disabled">Chọn</option>
+                                            <option value = '1'>Tất cả</option>
+                                            <option value = '2'>Cổng vào VN</option>
+                                            <option value = '3'>Cổng ra quay đầu</option>
+                                            <option value = '4' >Cổng ra xuất</option>
+                                            <option value = '5'>Cổng vao ra CN</option>
                                         </select>
                                         <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
                                         <option value="" disabled="disabled">Chọn</option>
