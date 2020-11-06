@@ -146,7 +146,7 @@ class HomeList extends React.Component {
         }
 
         if (typeof(this.state.data) == "undefined"){
-            alert("Sai cấu trúc, điền lại");
+            alert();
             window.location.href = '/home'
         }
         console.log(typeof(this.state.data), "check")
@@ -305,12 +305,13 @@ class HomeList extends React.Component {
                                             <option>Cổng ra xuất</option>
                                             <option value = "1">Cổng vào/ra TQ</option>
                                         </select> */}
-                                        <select value={this.state.portIn, this.state.PortOut} onChange={(e) => this.handleTextChange('portIn'&&'PortOut', e)}>
-                                            <option value = '' value = ''>Tất cả</option>
-                                            <option value = '0'>Cổng vào VN</option>
-                                            <option value = 'null' value = '2'>Cổng ra quay đầu</option>
-                                            <option value = '' value = '4'>Cổng ra xuất</option>
-                                            <option value = "1" value = '3'>Cổng vào/ra TQ</option>
+                                       
+                                        <select value={this.state.portIn && this.state.PortOut} onChange={(e) => this.handleTextChange('portIn'&&'PortOut', e)}>
+                                            <option value = '' value = '' disabled="disabled">Tất cả</option>1
+                                            <option value = '0' value= ''>Cổng vào VN</option>2
+                                            <option value = '' value = '2'>Cổng ra quay đầu</option>3
+                                            <option value = '' value = '4'>Cổng ra xuất</option>4
+                                            <option value = "1" value = '3'>Cổng vào/ra TQ</option>5
                                         </select>
                                         <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
                                         <option value="" disabled="disabled">Chọn</option>
