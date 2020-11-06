@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 
 function createAxios() {
   var axiosInstant = axios.create();
-  axiosInstant.defaults.baseURL = "http://192.168.1.180:3001/";
+  axiosInstant.defaults.baseURL = "http://192.168.1.140:3001/";
   axiosInstant.defaults.timeout = 20000;
   axiosInstant.defaults.headers = { "Content-Type": "application/json" };
 
@@ -76,13 +76,14 @@ export const requestLogin = (payload) => {
 }
 
 export const requestGetListCarIn = (payload) => {
-  return handleResult(getAxios.post(`/listCar/listCarIn?page=${payload.PAGE}&limit=10`, {
+  return handleResult(getAxios.post(`${payload.CONG}page=${payload.PAGE}&limit=10`, {
     fromDate: payload.FROMDATE,
     toDate: payload.TODATE,
     plateNumber: payload.PLATENUMBER,
     portIn: payload.PORTIN,
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
+    portOut: payload.PORTOUT,
   }))
 }
 

@@ -74,6 +74,7 @@ class HomeList extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: ++this.state.page,
+                CONG: this.state.SelectCong,
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
@@ -100,9 +101,11 @@ class HomeList extends React.Component {
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: --this.state.page,
+                CONG: this.state.SelectCong,
             })
             if (this.state.page < 1){
                 ++this.state.page
@@ -127,9 +130,11 @@ class HomeList extends React.Component {
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                PAGE: this.state.page
+                PAGE: this.state.page,
+                CONG: this.state.SelectCong,
             })
             await this.setState({ data: res.data, isLoading: false, page: 1});
         } catch (err) {
@@ -137,7 +142,7 @@ class HomeList extends React.Component {
                 isLoading: false
             }, () => console.log(err))
         }
-        
+
         if (typeof(this.state.data) == "undefined"){
             alert("Sai cấu trúc, điền lại");
             window.location.href = '/home'
@@ -292,17 +297,18 @@ class HomeList extends React.Component {
                                         <b>Cổng</b><br
                                         />
                                         <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
-                                            <option value = '0'>Tất cả</option>
-                                            <option value = '1'>Cổng vào VN</option>
-                                            <option>Cổng ra quay đầu</option>
+                                            <option value = ''>Tất cả</option>
+                                            <option value = '0'>Cổng vào VN</option>
+                                            <select value= {this.state.portOut} onChange={(e) => this.handleTextChange('portOut', e)}></select>
+                                            <option >Cổng ra quay đầu</option>
                                             <option>Cổng ra xuất</option>
-                                            <option>Cổng vào/ra TQ</option>
+                                            <option value = "1">Cổng vào/ra TQ</option>
                                         </select>
                                         <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
-                                            <option>0. Giao dịch vào ra</option>
-                                            <option value = 'requestGetListCarIn' >1. Giao dịch vào </option>
-                                            <option>2. Giao dịch ra</option>
-                                            <option>3. Số lượng xe tồn</option>
+                                            <option value = ''>0. Giao dịch vào ra</option>
+                                            <option value = '/listCar/listCarIn?' >1. Giao dịch vào </option>
+                                            <option value = '/listCar/listCarOut?'>2. Giao dịch ra</option>
+                                            <option value = '/listCar/listCarParking?'>3. Số lượng xe tồn</option>
                                         </select>
                                     </div>
                                     <div class="col-2"><br />
@@ -339,7 +345,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'600px'}}>
+                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'400px'}}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
                                     <button>Biển Số</button>
@@ -365,14 +371,14 @@ class HomeList extends React.Component {
                                             <th>Nhân viên vào / Nhân viên ra</th>
                                             <th>Loại hàng</th>
                                             <th>Cổng vào</th>
-                                            <th>Cổng vào</th>
+                                            <th>Cổng ra</th>
                                             <th>Phiếu hải quan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {data.data && data.data.map((item, i) => (
                                             <tr>
-                                                <td key={i}> {item.EventID}</td>
+                                                <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
                                                 <td key={i}> {item.BienXe}</td>
                                                 <td key={i}> {item.BienCont}</td>
                                                 <td key={i}> {item.BienMooc}</td>
@@ -386,7 +392,7 @@ class HomeList extends React.Component {
                                                 <td key={i}> {item.LoaiHangChiTiet}</td>
                                                 <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
                                                 <td key={i}> {item.IsRaKhoiBai}</td>
-                                                <td></td>
+                                                <td> </td>
                                             </tr>
                                         ))}
                                     </tbody>
