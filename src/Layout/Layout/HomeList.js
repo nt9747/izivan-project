@@ -4,7 +4,6 @@ import { requestGetListCarIn, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
-import empty from '../img/empty.png'
 
 
 function GetFormatDate(a){
@@ -145,10 +144,10 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
-        if (typeof(this.state.data) == "undefined"){
-            
-            window.location.href = '/home'
-        }
+        // if (typeof(this.state.data) == "undefined"){
+        //     alert("Sai cấu trúc, điền lại");
+        //     window.location.href = '/home'
+        // }
     }
 
     handleTextChange(field, event) {
@@ -162,7 +161,7 @@ class HomeList extends React.Component {
             this.setState({portIn: '1', PortOut: '3'})
         }
         else if (event.target.value==1){
-            this.setState({portIn: 'null', PortOut: 'null'})
+            this.setState({portIn: '', PortOut: ''})
         }
         else if (event.target.value==2){
             this.setState({portIn: '0', PortOut: 'null'})
@@ -413,10 +412,7 @@ class HomeList extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {data.data && data.data.map(()  => (
-                                            <img src={empty}/>
-                                    ))}
-                                        {data.data && data.data.map((item, i) => (
+                                        {this.state.data && data.data.map((item, i)  => (
                                             <tr>
                                                 <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
                                                 <td key={i}> {item.BienXe}</td>
@@ -435,13 +431,9 @@ class HomeList extends React.Component {
                                                 <td> </td>
                                             </tr>
                                         ))}
-                                        
-
-                                        
                                     </tbody>
                                 </>
                             </table>
-                           
                         </div>
                     </div>
                     <div>
