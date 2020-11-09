@@ -190,11 +190,7 @@ class HomeList extends React.Component {
     render() {
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        if (isLoading) {
-            return (
-                <p>Loading...</p>
-            )
-        }
+       
         return (
             <div class="content-wrapper" id="root">
                 <section class="content">
