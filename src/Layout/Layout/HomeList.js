@@ -385,7 +385,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'400px'}}>
+                        <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto', float:'left', width: '80%', height:'800px'}}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
                                     <button>Biển Số</button>

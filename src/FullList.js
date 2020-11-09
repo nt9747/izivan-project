@@ -319,7 +319,7 @@ class FullList extends React.Component {
                            
                                 </>
                             </table>
-                            {!this.state.data &&  <img src={empty} style={{width:'1500px', height:'1000px'}}/>}
+                            {!this.state.data &&  <img src={empty} style={{width:'2000px', height:'1000px'}}/>}
                         </div>
 		)
 		}
