@@ -198,7 +198,7 @@ async list() {
                          </table>
                        </div>
                          <div class="col-2"><br/>
-                           <a onClick={() => this.Register()}><button style={{height: '35px', width: '120px'}}><h4>Đăng ký nhanh</h4></button></a>
+                           <a onClick={() => this.Register()}><button style={{height: '35px', width: '200px'}}><h4>Đăng ký nhanh</h4></button></a>
                          </div>
                          <div class="col-3"><br/>
                            <button onClick={() => this.list()} style={{height: '35px', width: '180px'}}><h4>Làm mới</h4></button>
