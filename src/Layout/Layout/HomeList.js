@@ -164,7 +164,7 @@ class HomeList extends React.Component {
             this.setState({portIn: '1', PortOut: '3'})
         }
         else if (event.target.value==1){
-            this.setState({portIn: 'null', PortOut: 'null'})
+            this.setState({portIn: '', PortOut: ''})
         }
         else if (event.target.value==2){
             this.setState({portIn: '0', PortOut: 'null'})
@@ -190,7 +190,11 @@ class HomeList extends React.Component {
     render() {
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-       
+        // if (isLoading) {
+        //     return (
+        //         <p>Loading...</p>
+        //     )
+        // }
         return (
             <div class="content-wrapper" id="root">
                 <section class="content">
@@ -210,6 +214,7 @@ class HomeList extends React.Component {
                                     <div class="col-3">
                                         <b>Loại Hàng</b><br />
                                         <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                        <option>Chọn</option>
                                             <option value="">Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
@@ -331,7 +336,7 @@ class HomeList extends React.Component {
                                             <option value = "1">Cổng vào/ra TQ</option>
                                         </select> */}
                                         <select onChange={(e) => this.handlePortChange(e)}>
-                                        <option disabled="disabled">Chọn</option>
+                                        <option value = ''>Chọn</option>
                                             <option value = '1'>Tất cả</option>
                                             <option value = '2'>Cổng vào VN</option>
                                             <option value = '3'>Cổng ra quay đầu</option>
@@ -380,7 +385,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{float:'left', width: '80%', height:'400px'}}>
+                        <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto' ,float:'left', width: '80%', height:'800px'}}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
                                     <button>Biển Số</button>
@@ -436,7 +441,7 @@ class HomeList extends React.Component {
                            
                                 </>
                             </table>
-                            {this.state.data=="" &&  <img src={empty} style={{width:'1500px', height:'1000px'}}/>}
+                            {!this.state.data &&  <img src={empty} style={{width:'1500px', height:'1000px'}}/>}
                         </div>
                     </div>
                     <div>
