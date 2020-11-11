@@ -101,7 +101,7 @@ class FullList extends React.Component {
                 LOAIXE: this.state.loaiXe,
   
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
+            await this.setState({ data: res.data, isLoading: false, page: '1', total: res.data.total});
         } catch (err) {
             await this.setState({
                 isLoading: false
