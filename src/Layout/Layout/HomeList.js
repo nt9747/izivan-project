@@ -43,8 +43,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '2019/07/03',
-            toDate: '2300/10/15',
+            fromDate: '10/01/2020 00:00:00',
+            toDate: '10/02/2020 23:59:59',
             plateNumber: '',
             portIn: "",
             numberCar: "",
@@ -162,8 +162,8 @@ class HomeList extends React.Component {
   
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
-            console.log(this.state.portIn, "check PortIn")
-            console.log(this.state.PortOut, "check PortOut")
+            console.log(this.state.fromDate, "check PortIn")
+            console.log(this.state.toDate, "check PortOut")
             console.log(this.state.data, "check data");
         } catch (err) {
             await this.setState({
@@ -232,10 +232,10 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">
-                                        <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
+                                        <b>Từ</b><input type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
                                     </div>
                                     <div class="col-3">
-                                        <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
+                                        <b>Đến</b><input  type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
                                     </div>
                                     <div class="col-3">
                                         <b>Loại Hàng</b><br />
