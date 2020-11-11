@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import pl from '../img/placeholder.jpg'
 import { requestGetListCarIn, requestLogin } from '../../api'
+=======
+import izivan from '../dist/img/izivan.png'
+import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
+>>>>>>> 2f5cae382e29392729d00401c8a36ad3da7dc404
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
@@ -43,8 +48,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '2020/07/03',
-            toDate: '2020/10/15',
+            fromDate: '2019/07/03 00:00:00',
+            toDate: '2300/10/15 24:00:00',
             plateNumber: '',
             portIn: "",
             numberCar: "",
@@ -56,11 +61,15 @@ class HomeList extends React.Component {
             previousPage: "",
             PortOut: "",
             SelectCong: "",
+            total: "",
+            dataXe: "",
+            loaiXe: "",
         }
     }   
     
     componentDidMount() {
         this.list();
+        this.start();
     }
     async listInNext() {
         await this.setState({
@@ -77,6 +86,7 @@ class HomeList extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: ++this.state.page,
                 CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
@@ -108,6 +118,7 @@ class HomeList extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: --this.state.page,
                 CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe
             })
             if (this.state.page < 1){
                 ++this.state.page
@@ -120,6 +131,22 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
     }
+    async start(){
+        await this.setState({
+            isLoading: true
+        })
+        try {
+                const res = await resquestGetListCarType({
+                })
+            await this.setState({dataXe: res.data});
+            console.log(this.state.dataXe, "check total");
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+    
 
     async list() {
         await this.setState({
@@ -136,10 +163,13 @@ class HomeList extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+  
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1});
+            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
             console.log(this.state.portIn, "check PortIn")
             console.log(this.state.PortOut, "check PortOut")
+            console.log(this.state.data, "check data");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -168,13 +198,13 @@ class HomeList extends React.Component {
             this.setState({portIn: '', PortOut: ''})
         }
         else if (event.target.value==2){
-            this.setState({portIn: '0', PortOut: 'null'})
+            this.setState({portIn: '0', PortOut: null})
         }
         else if (event.target.value==3){
-            this.setState({portIn: 'null', PortOut: '2'})
+            this.setState({portIn: null, PortOut: '2'})
         }
         else if (event.target.value==4){
-            this.setState({portIn: 'null', PortOut: '4'})
+            this.setState({portIn: null, PortOut: '4'})
         }
     }
 
@@ -293,7 +323,7 @@ class HomeList extends React.Component {
                         <td style={{textAlign: 'center'}}></td>
                       </tr>
                       <tr>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>{this.state.total}</b></td>
                         <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
                         <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
                         <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '50px', display: 'inline-block'}}>d</b></td>
@@ -303,25 +333,16 @@ class HomeList extends React.Component {
                                 </div>
                                 
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-3"> 
                                         <b>Loại xe</b><br />
-                                        <select>   
-                                            <option>Tất cả</option>
-                                            <option>Xe có trọng tải dưới 4 tấn</option>
-                                            <option>Xe có trọng tải từ 4 đến 10 tấn</option>
-                                            <option>Xe có trọng tải từ 10 đến 18 tấn</option>
-                                            <option>Xe có trọng tải trên 18 tấn</option>
-                                            <option>Container 20"</option>
-                                            <option>Container 40"</option>
+        <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
+        <option value = ''>Tất cả</option>  
                                         </select>
                                     </div>
-                                    <div class="col-1.5">
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập ?" />
-                                    </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
                                     </div>
                                 </div>
@@ -418,8 +439,6 @@ class HomeList extends React.Component {
                             <>
                            {this.state.data && data.data.map((item, i) => (
                                     <tbody>
-                                    
-                                       
                                             <tr>
                                                 <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
                                                 <td key={i}> {item.BienXe}</td>
@@ -442,7 +461,7 @@ class HomeList extends React.Component {
                            
                                 </>
                             </table>
-                            {!this.state.data &&  <img src={empty} style={{width:'1200px', height:'800px'}}/>}
+                            {this.state.total == 0 &&  <img src={empty} style={{width:'1300px', height:'800px'}}/>}
                         </div>
                     </div>
                     <div>
