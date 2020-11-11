@@ -143,11 +143,24 @@ class FullList extends React.Component {
         }
     }
 
+    // handleTextChange(field, event) {
+    //     if (event.target.value==10){
+    //         this.setState({portIn: '1', PortOut: '3'})
+    //     }
+    //     this.setState({
+    //         [field]: event.target.value
+    //     })
+    // }
 
+    
     render() {
-
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
+        // if (isLoading) {
+        //     return (
+        //         <p>Loading...</p>
+        //     )
+        // }
         if (isLoading) {
             return (
                 <p>Loading...</p>
@@ -273,7 +286,7 @@ class FullList extends React.Component {
                                         </select>
                                     </div>
                                     <div class="col-3"><br />
-<button type="submit"
+                                        <button type="submit"
                                      className="btn btn-danger"
                                       onClick={() => this.list()}>
                                          <b>Tìm kiếm</b>

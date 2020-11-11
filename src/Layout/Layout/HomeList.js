@@ -330,8 +330,8 @@ class HomeList extends React.Component {
                                 <div class="row">
                                     <div class="col-3"> 
                                         <b>Loại xe</b><br />
-        <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
-        <option value = ''>Tất cả</option>  
+                                        <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
+                                                <option value = ''>Tất cả</option>  
                                         </select>
                                     </div>
                                     <div class="col-3">
