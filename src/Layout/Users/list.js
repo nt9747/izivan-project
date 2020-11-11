@@ -16,9 +16,9 @@ class Content extends React.Component {
         Username: '',
         Fullname: '',
         Password: '',
-        IsSuperAdmin : '0',
-        IsKeToan: "0",
-        IsPhongLoa: "0",
+        IsSuperAdmin : 'null',
+        IsKeToan: "null",
+        IsPhongLoa: "null",
         msg: "",
         data: "",
         data1: "",
@@ -182,7 +182,7 @@ async list() {
                              <td><input style= {{width: '250px'}} type="password" class="form-control" placeholder="" required value={Password}  onChange={(e) => this.handleTextChange('Password', e)}/></td>
                              <td><b>Quyền</b></td>
                              <td><select onChange={(e) => this.handlePortChange(e)}>
-                                        <option value = '' hidden>Chọn</option>
+                                        <option hidden>Chọn</option>
                                           <option value = '4'>Không quyền hành</option>
                                             <option value = '1'>Kế toán</option>
                                             <option value = '2'>Phòng loa</option>
