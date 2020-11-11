@@ -99,11 +99,11 @@ handleTextChange(field, event) {
                 </div>
                 <br/>
                 <div class="form-group">
-                      <label for="exampleInputEmail1">Hình ảnh</label>
+                      <label for="exampleInputEmail1">Hình ảnh (DEMO)</label>
                       <input type="file" name="" class="form-control" id="exampleInputEmail1"/>
                 </div>
                 <div class="form-group">
-                      <label>Mô tả </label>
+                      <label>Mô tả (DEMO) </label>
                       <textarea style={{resize: 'none'}} rows="5" class="form-control" ></textarea>
                 </div>
                 <div class='form-group'>

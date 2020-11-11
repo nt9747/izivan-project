@@ -42,8 +42,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '2019/07/03',
-            toDate: '2300/10/15',
+            fromDate: '2019/07/03 00:00:00',
+            toDate: '2300/10/15 24:00:00',
             plateNumber: '',
             portIn: "",
             numberCar: "",
