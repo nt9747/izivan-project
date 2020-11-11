@@ -89,7 +89,7 @@ export const requestGetListCarIn = (payload) => {
 }
 
 export const requestGetListCarExcel = (payload) => {
-  return handleResult(getAxios.post(`${payload.CONG}page=${payload.PAGE}&limit=10000000000000000000`, {
+  return handleResult(getAxios.post(`${payload.CONG}page=${payload.PAGE}&limit=1000000000000000000`, {
     fromDate: payload.FROMDATE,
     toDate: payload.TODATE,
     plateNumber: payload.PLATENUMBER,
@@ -99,8 +99,8 @@ export const requestGetListCarExcel = (payload) => {
     portOut: payload.PORTOUT,
     loaiXe: payload.LOAIXE
   }))
-}
-
+} 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
 export const requestRegisterUser = (payload) => {
   return handleResult(getAxios.post(`/users/addUser` , {

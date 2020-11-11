@@ -42,15 +42,15 @@ class FullList extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '2019/07/03',
-            toDate: '2300/10/15',
+            fromDate: '10/01/2020 00:00:00',
+            toDate: '10/15/2020 23:59:59',
             plateNumber: '',
             portIn: "",
             numberCar: "",
             loaiHang: "",
             data: "",
             isLoading: true,
-            page: 1,
+            page: "1",
             nextPage: "",
             previousPage: "",
             PortOut: "",
@@ -65,66 +65,7 @@ class FullList extends React.Component {
         this.list();
         this.start();
     }
-    async listInNext() {
-        await this.setState({
-            isLoading: true
-        })
-        try {
-            const res = await requestGetListCarIn({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
-                PLATENUMBER: this.state.plateNumber,
-                PORTIN: this.state.portIn,
-                PORTOUT: this.state.PortOut,
-                NUMBERCAR: this.state.numberCar,
-                LOAIHANG: this.state.loaiHang,
-                PAGE: ++this.state.page,
-                CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe,
-            })
-            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
-            console.log(this.state.nextPage, "Check next page")
-            // if (!res.data.data){
-            //     return (this.state.page)
-            // }
-            if(!(this.state.nextPage)){
-                return(--this.state.page);
-            }
-        } catch (err) {
-            await this.setState({
-                isLoading: false
-            }, () => console.log(err))
-        }
-    }
-
-    async listInPrevious() {
-        await this.setState({
-            isLoading: true
-        })
-        try {
-            const res = await requestGetListCarIn({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
-                PLATENUMBER: this.state.plateNumber,
-                PORTIN: this.state.portIn,
-                PORTOUT: this.state.PortOut,
-                NUMBERCAR: this.state.numberCar,
-                LOAIHANG: this.state.loaiHang,
-                PAGE: --this.state.page,
-                CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe
-            })
-            if (this.state.page < 1){
-                ++this.state.page
-            }
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
-            console.log(this.state.data, "check data")
-        } catch (err) {
-            await this.setState({
-                isLoading: false
-            }, () => console.log(err))
-        }
-    }
+    
     async start(){
         await this.setState({
             isLoading: true
@@ -161,21 +102,21 @@ class FullList extends React.Component {
   
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
-            console.log(this.state.portIn, "check PortIn")
-            console.log(this.state.PortOut, "check PortOut")
-            console.log(this.state.data, "check data");
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
-        console.log(this.state.data, "Check data!");
-        // if (typeof(this.state.data) == "undefined"){
-        //     return(
-        //         <img src="../img/empty.png" />
-        //     )
-        //     // window.location.href = '/Empty'
-        // }
+        console.log(this.state.fromDate, "Fromdate");
+        console.log(this.state.toDate, "toDate");
+        console.log(this.state.plateNumber, "plateNumber");
+        console.log(this.state.portIn, "PortIn");
+        console.log(this.state.PortOut, "PortOut");
+        console.log(this.state.numberCar, "numberCar");
+        console.log(this.state.loaiHang, "loaiHang");
+        console.log(this.state.page, "page");
+        console.log(this.state.SelectCong, "selectCong");
+        console.log(this.state.loaiXe, "loaiXe");
     }
 
     handleTextChange(field, event) {
@@ -230,10 +171,10 @@ class FullList extends React.Component {
                             <div class="card-body"  style={{margin: '0 auto', width: '80%'}}>
                                 <div class="row">
                                     <div class="col-3" >
-                                        <b>Từ</b><input type="date" class="form-control" placeholder=".col-3" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
+                                        <b>Từ</b><input type="text" class="form-control" placeholder=".col-3" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
 </div>
                                     <div class="col-3">
-                                        <b>Đến</b><input type="date" class="form-control" placeholder=".col-4" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
+                                        <b>Đến</b><input type="text" class="form-control" placeholder=".col-4" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
                                     </div>
                                     <div class="col-5">
                                     <b>Loại Hàng</b><br />
@@ -316,7 +257,7 @@ class FullList extends React.Component {
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập mã thẻ" />
+                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập STT" />
                                     </div>
                                     <div class="col-3">
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
