@@ -28,22 +28,7 @@ class Content extends React.Component {
 
 
 
-// async Delete(userid){
-//   this.setState.UserID = userid
-//   try {
-//       const res = await requestDeleteUser({
-//         USERID = this.state.userID,
-//   })
-//   await this.setState({ data2: res.data});
-//   console.log(this.state.data2, "check msg!")
-//   if (this.state.data2 == "Xóa Thành công"){
-//       alert("Success!") 
-//   } 
-// }
-// catch (err) {
-//   alert("Fail!");
-// }
-// }
+
 
 async Delete(userid){
   let result = window.confirm("Có chắc xóa không?");
@@ -55,14 +40,29 @@ async Delete(userid){
   await this.setState({data2: res.data});
   console.log(this.state.data2, "check msg!")
   if (this.state.data2 == "Xóa thành công"){
-      alert("Success!") 
+      alert("Đã xóa User có ID: " + userid) 
   } 
 }
 catch (err) {
-  alert("Fail!")
+  alert("Không thành công!")
 }
-window.location.href = '/ListUser';
+window.location.reload(false);
   }
+}
+
+handlePortChange(event) {
+  if (event.target.value==1){
+      this.setState({IsKeToan: '1', IsPhongLoa: '0', IsSuperAdmin: '0'})
+  }
+  else if (event.target.value==2){
+      this.setState({IsKeToan: '0', IsPhongLoa: '1', IsSuperAdmin: '0'})
+  }
+  else if (event.target.value==3){
+      this.setState({IsKeToan: '1', IsPhongLoa: '1', IsSuperAdmin: '1'})
+  }
+  else if (event.target.value==4){
+    this.setState({IsKeToan: '0', IsPhongLoa: '0', IsSuperAdmin: '0'})
+}
 }
 
 
@@ -88,7 +88,7 @@ async Register(){
 catch (err) {
     alert("Fail")
 }
-window.location.href = '/ListUser';
+window.location.reload(false);
 }
 
 handleTextChange(field, event) {
@@ -100,26 +100,11 @@ componentDidMount() {
   this.list();
 } 
 
-async Edit(userid){
+async Save(userid){
   await this.setState({
     isLoading: true
 })
   try {
-    let a = window.confirm("set quyen Ke Toan cho tai khoan: " + userid + " ? ");
-    let b = window.confirm("set quyen Phong Loa cho tai khoan: " + userid + " ? ");
-    let c = window.confirm("set quyen SuperAdmin cho tai khoan: " + userid + " ? ")
-    if (a == true){
-      this.setState({ IsKeToan: '1'});
-    }
-    // else this.setState({ IsKeToan: '0'});
-    if (b == true){
-      this.setState({ IsPhongLoa: '1'});
-    }
-    // else this.setState({ IsPhongLoa: '0'});
-    if (c == true){
-      this.setState({ IsSuperAdmin: '1'});
-    }
-    // else this.setState({ IsSuperAdmin: '0'});
     const res = await resquestEditUser({
       USERID: userid,
       ISSUPERADMIN: this.state.IsSuperAdmin,
@@ -135,7 +120,7 @@ async Edit(userid){
   }, () => console.log(err))
     alert ("Sửa thẩt bại!")
   }
-  window.location.href = '/ListUser';
+  window.location.reload(false);
 }
 
 
@@ -213,7 +198,7 @@ async list() {
                        <h3 class="card-title" ></h3>
                    </div> 
                    <TableScrollbar rows={15} >
-                   <table  id="example2" class="table table-bordered table-hover" >                     
+                   <table  id="example2" class="table table-bordered table-hover" style={{textAlign: 'center'}}>                     
                      <thead>
                          <tr>
                              <th>STT</th>
@@ -221,8 +206,8 @@ async list() {
                              <th>Kế toán</th>
                              <th>Phòng loa</th>
                              <th>Admin</th>
-                             <th1></th1>
-                             <th1></th1>
+                             <th style= {{width: '250px',}}>Quyền</th>
+                             <th>Xóa</th>
                          </tr>
                      </thead>
                      <tbody>   
@@ -233,7 +218,14 @@ async list() {
                                                 <td> {item.IsKeToan.toString()}</td>
                                                 <td> {item.IsPhongLoa.toString()}</td>
                                                 <td> {item.IsSuperAdmin.toString()}</td>
-                                                <td><button onClick={() => this.Edit(item.UserID)}>Edit</button></td>
+                                                <td> <select onChange={(e) => this.handlePortChange(e)}>
+                                        <option value = ''>Chọn</option>
+                                            <option value = '1'>Kế toán</option>
+                                            <option value = '2'>Phòng loa</option>
+                                            <option value = '3'>SuperAdmin</option>
+                                            <option value = '4'>Không quyền hành</option>
+                                        </select>
+                                                <button onClick={() => this.Save(item.UserID)}>Save</button></td>
                                                 <td><button onClick={() => this.Delete(item.UserID)}>Delete</button></td>
                                             </tr>
                                         ))}

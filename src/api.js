@@ -84,11 +84,12 @@ export const requestGetListCarIn = (payload) => {
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
     portOut: payload.PORTOUT,
+    loaiXe: payload.LOAIXE
   }))
 }
 
 export const requestGetListCarExcel = (payload) => {
-  return handleResult(getAxios.post(`${payload.CONG}page=${payload.PAGE}&limit=100000000000000000`, {
+  return handleResult(getAxios.post(`${payload.CONG}page=${payload.PAGE}&limit=10000000000000000000`, {
     fromDate: payload.FROMDATE,
     toDate: payload.TODATE,
     plateNumber: payload.PLATENUMBER,
@@ -96,6 +97,7 @@ export const requestGetListCarExcel = (payload) => {
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
     portOut: payload.PORTOUT,
+    loaiXe: payload.LOAIXE
   }))
 }
 
@@ -128,6 +130,11 @@ export const resquestEditUser = (payload) => {
     IsSuperAdmin: payload.ISSUPERADMIN,
     IsKeToan: payload.ISKETOAN,
     IsPhongLoa: payload.ISPHONGLOA
+  }))
+}
+
+export const resquestGetListCarType = (payload) => {
+  return handleResult(getAxios.get(`/listCar/listCarType`, {
   }))
 }
 

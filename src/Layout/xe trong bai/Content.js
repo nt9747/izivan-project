@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import izivan from '../img/1.png'
 import { requestGetListCarIn, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
+import empty from '../img/empty.png'
 
 function GetFormatDate(a){
     const b = new Date(a);
@@ -42,18 +43,22 @@ class Content extends React.Component {
             toDate: '2020/10/15',
             plateNumber: '',
             portIn: "",
+            PortOut: "",
             numberCar: "",
             loaiHang: "",
             data: "",
             isLoading: true,
             page: 1,
             nextPage: "",
+            SelectCong: "/listCar/listCarParking?",
+            loaiXe: "",
+            data2: "",
         }
     }        
     componentDidMount() {
         this.list();
     }
-    async listNext() {
+    async listInNext() {
         await this.setState({
             isLoading: true
         })
@@ -61,11 +66,14 @@ class Content extends React.Component {
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: "",
-                PORTIN: "",
-                NUMBERCAR: "",
-                LOAIHANG: "",
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
                 PAGE: ++this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
@@ -82,7 +90,7 @@ class Content extends React.Component {
         }
     }
 
-    async listPrevious() {
+    async listInPrevious() {
         await this.setState({
             isLoading: true
         })
@@ -90,11 +98,14 @@ class Content extends React.Component {
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: "",
-                PORTIN: "",
-                NUMBERCAR: "",
-                LOAIHANG: "",
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
                 PAGE: --this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
             })
             if (this.state.page < 1){
                 ++this.state.page
@@ -116,23 +127,31 @@ class Content extends React.Component {
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: "",
-                PORTIN: "",
-                NUMBERCAR: "",
-                LOAIHANG: "",
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
             })
             await this.setState({ data: res.data, isLoading: false, page: 1});
+            console.log(this.state.portIn, "check PortIn")
+            console.log(this.state.PortOut, "check PortOut")
+            console.log(this.state.data, "check dataXe")
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
-        if (typeof(this.state.data) == "undefined"){
-            alert("Sai cấu trúc, điền lại");
-            window.location.href = '/XeTrongBai'
-        }
-        console.log(typeof(this.state.data), "check")
+        console.log(this.state.data, "Check data!");
+        // if (typeof(this.state.data) == "undefined"){
+        //     return(
+        //         <img src="../img/empty.png" />
+        //     )
+        //     // window.location.href = '/Empty'
+        // }
     }
 
     handleTextChange(field, event) {
@@ -141,35 +160,54 @@ class Content extends React.Component {
         })
     }
 
+    handlePortChange(event) {
+        if (event.target.value==5){
+            this.setState({portIn: '1', PortOut: '3'})
+        }
+        else if (event.target.value==1){
+            this.setState({portIn: '', PortOut: ''})
+        }
+        else if (event.target.value==2){
+            this.setState({portIn: '0', PortOut: null})
+        }
+        else if (event.target.value==3){
+            this.setState({portIn: null, PortOut: '2'})
+        }
+        else if (event.target.value==4){
+            this.setState({portIn: null, PortOut: '4'})
+        }
+    }
+
     render() {
         
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        if (isLoading) {
-            return (
-                <p>Loading...</p>
-            )
-        }
+        // if (isLoading) {
+        //     return (
+        //         <p>Loading...</p>
+        //     )
+        // }   
         return (
             <div class="content-wrapper">
      <section class="content"  >
 <div class="container-fluid">
   <div class="card card-warning">
     <div class="card-header">
-        <h3 class="card-title">Danh sách xe trong bãi</h3>
+        <h3 class="card-title"><i>Danh sách xe trong bãi</i></h3>
     </div>
 
         <div class="card-body">
             <div class="row">
                 <div class="col-3">
-                    <b>Loại xe</b><input type="text" class="form-control" placeholder=""/>
+                    <b>Loại hàng</b><input type="text" class="form-control" placeholder="Nhập loại hàng"/>
                 </div>
                 <div class="col-6">
-                    <b>Cổng vào</b><br/>
-                          <select>
-                              <option>Tất cả</option>
-                              <option>ví dụ tên dàiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</option>
-                          </select>
+                <select onChange={(e) => this.handlePortChange(e)}>
+                                        <option value = ''>Chọn</option>
+                                            <option value = '1'>Tất cả</option>
+                                            <option value = '2'>Cổng vào VN</option>
+                                            <option value = '5'>Cổng vao ra CN</option>
+                                        </select>
                 </div>
                 <form style={{float:'right'}}>
                     <input type="checkbox" name=""/>Cho xuất<br/>
@@ -181,24 +219,24 @@ class Content extends React.Component {
             
             <div class="row">
                 <div class="col-3">
-                    <b>Biển số xe</b><input type="text" class="form-control" placeholder=""/>
+                    <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập biển số xe"/>
                 </div>
                 <div class="col-3">
                     <b>Mã Thẻ</b><input type="text" class="form-control" placeholder="Nhập mã thẻ"/>
                 </div>
                 <div class="col-3"><br/>
-                      <button style={{height: '40px', width: '300px'}}><b>Tìm</b></button>
+                      <button onClick={() => this.list()} style={{height: '40px', width: '300px'}}><b>Tìm</b></button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-3">
-                    <b>Tổng số xe trong bãi</b><input type="text" class="form-control" placeholder=""/>
+                    <b>Tổng số xe trong bãi: ALL</b>
                 </div>
                 <div class="col-3">
-                    <b>Tổng số xe cổng VN</b><input type="text" class="form-control" placeholder=""/>
+                    <b>Tổng số xe cổng VN: VN</b>
                 </div>
                 <div class="col-3">
-                    <b>Tổng số xe cổng TQ</b><input type="text" class="form-control" placeholder=""/>
+                    <b>Tổng số xe cổng TQ: TQ</b>
                 </div>
                 <div class=""><br/>
                       <button style={{height: '30px', width: '110px'}}><h9>Đồng ý cho ra</h9></button><br/>
@@ -210,13 +248,13 @@ class Content extends React.Component {
                 <div class="col-3"><br />
                                     <button type="submit"
                                      className="btn btn-danger"
-                                      onClick={() => this.listPrevious()}>
+                                      onClick={() => this.listInPrevious()}>
                                          <b>-</b>
                                     </button>
                                     <b>{this.state.page}</b>
                                     <button type="submit"
                                      className="btn btn-danger"
-                                      onClick={() => this.listNext()}>
+                                      onClick={() => this.listInNext()}>
                                          <b>+</b>
                                     </button>
                                     </div>
@@ -233,39 +271,32 @@ class Content extends React.Component {
                                     <thead>
                                         <tr>
                                             <th>STT vào bãi</th>
-                                            <th>Biển sô xe vào/ Biển số xe ra</th>
+                                            <th>Mã thẻ</th>
+                                            <th>Ngày vào bãi</th>
+                                            <th>Biển số xe</th>
+                                            <th>Cho ra</th>
+                                            <th>Cho xuất</th>
                                             <th>Biển Cont</th>
                                             <th>Biển Mooc</th>
-                                            <th>Loại xe</th>
-                                            <th>Mã số thẻ</th>
-                                            <th>Thời gian vào bãi</th>
-                                            <th>Thời gia ra bãi</th>
-                                            <th>Thời gian lưu bãi</th>
-                                            <th>Số tiền</th>
-                                            <th>Nhân viên vào / Nhân viên ra</th>
                                             <th>Loại hàng</th>
-                                            <th>Cổng vào</th>
-                                            <th>Ra khoi bai</th>
+                                            <th>Loại xe</th>
+                                            <th>Phiểu hải quan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-        
-                                        {data.data && data.data.map((item, i) => (
+                                        {this.state.data2 && this.state.data2.data.map((item, i) => (
                                             <tr>
-                                                <td key={i}> {item.EventID}</td>
+                                                <td key={i}> {item.EventParkingID}</td>
+                                                <td key={i}> {item.CarNumber_ID}</td>
+                                                <td key={i}> {GetFormatDate(item.DateInParking)}</td>
                                                 <td key={i}> {item.BienXe}</td>
+                                                <td key={i}> Cho ra</td>
+                                                <td key={i}> Cho xuất</td>  
                                                 <td key={i}> {item.BienCont}</td>
                                                 <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> {item.LoaiXeID}</td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
-                                                <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
-                                                <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
                                                 <td key={i}> {item.LoaiHangChiTiet}</td>
-<td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
-                                                <td key={i}> {item.IsRaKhoiBai}</td>
+                                                <td key={i}> {item.LoaiXeID}</td>
+                                                <td key={i}> Phiếu hải quan </td>
                                             </tr>
                                         ))}
                                     </tbody>

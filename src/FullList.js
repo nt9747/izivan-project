@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { requestLogin, requestGetListCarIn, requestGetListCarExcel } from './api'
+import { requestLogin, requestGetListCarIn, requestGetListCarExcel, resquestGetListCarType } from './api'
 import Cookie from 'js-cookie';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel'; 
 import TableScrollbar from 'react-table-scrollbar';
@@ -15,7 +15,9 @@ function GetFormatDate(a){
     var month = b.getUTCMonth() + 1;
     var day = b.getUTCDate();
     var year = b.getUTCFullYear();
-    if(month.toString().length == 1) {
+
+    
+   if(month.toString().length == 1) {
         month = '0'+month;
    }
    if(day.toString().length == 1) {
@@ -29,20 +31,19 @@ function GetFormatDate(a){
    }
    if(seconds.toString().length == 1) {
         seconds = '0'+seconds;
-   }   
-   if(year==1970){
-       return 
+   }  
+   if (year == 1970){
+       return ""
    }
-    return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
-   
+   else return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
 }
 
 class FullList extends React.Component {
     constructor(props) {
-        super(props)
+        super(props)    
         this.state = {
-            fromDate: '12/03/2000',
-            toDate: '12/10/2300',
+            fromDate: '2019/07/03',
+            toDate: '2300/10/15',
             plateNumber: '',
             portIn: "",
             numberCar: "",
@@ -54,18 +55,40 @@ class FullList extends React.Component {
             previousPage: "",
             PortOut: "",
             SelectCong: "",
+            total: "",
+            dataXe: "",
+            loaiXe: "",
         }
-	}   
-	componentDidMount() {
+    }   
+    
+    componentDidMount() {
         this.list();
+        this.start();
     }
+  
+    async start(){
+        await this.setState({
+            isLoading: true
+        })
+        try {
+                const res = await resquestGetListCarType({
+                })
+            await this.setState({dataXe: res.data});
+            console.log(this.state.dataXe, "check total");
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+    
 
     async list() {
         await this.setState({
             isLoading: true
         })
         try {
-                const res = await requestGetListCarExcel({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -75,19 +98,28 @@ class FullList extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+  
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1});
+            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
             console.log(this.state.portIn, "check PortIn")
             console.log(this.state.PortOut, "check PortOut")
+            console.log(this.state.dataXe, "check total");
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
-
+        // if (typeof(this.state.data) == "undefined"){
+        //     return(
+        //         <img src="../img/empty.png" />
+        //     )
+        //     // window.location.href = '/Empty'
+        // }
     }
-	handleTextChange(field, event) {
+
+    handleTextChange(field, event) {
         this.setState({
             [field]: event.target.value
         })
@@ -101,15 +133,16 @@ class FullList extends React.Component {
             this.setState({portIn: '', PortOut: ''})
         }
         else if (event.target.value==2){
-            this.setState({portIn: '0', PortOut: 'null'})
+            this.setState({portIn: '0', PortOut: null})
         }
         else if (event.target.value==3){
-            this.setState({portIn: 'null', PortOut: '2'})
+            this.setState({portIn: null, PortOut: '2'})
         }
         else if (event.target.value==4){
-            this.setState({portIn: 'null', PortOut: '4'})
+            this.setState({portIn: null, PortOut: '4'})
         }
     }
+
 
     render() {
 
@@ -206,14 +239,8 @@ class FullList extends React.Component {
                                 <div class="row">
                                     <div class="col-3">
                                     <b>Loại xe</b><br />
-                                        <select>   
-                                            <option>Tất cả</option>
-                                            <option>Xe có trọng tải dưới 4 tấn</option>
-                                            <option>Xe có trọng tải từ 4 đến 10 tấn</option>
-                                            <option>Xe có trọng tải từ 10 đến 18 tấn</option>
-                                            <option>Xe có trọng tải trên 18 tấn</option>
-                                            <option>Container 20"</option>
-                                            <option>Container 40"</option>
+                                    <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
+        <option value = ''>Tất cả</option>  
                                         </select>
                                     </div>
                                     <div class="col-3">
@@ -295,8 +322,6 @@ class FullList extends React.Component {
                             <>
                            {this.state.data && data.data.map((item, i) => (
                                     <tbody>
-                                    
-                                       
                                             <tr>
                                                 <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
                                                 <td key={i}> {item.BienXe}</td>
@@ -316,10 +341,9 @@ class FullList extends React.Component {
                                             </tr>
                                     </tbody>
                                 ))}
-                           
                                 </>
                             </table>
-                            {!this.state.data &&  <img src={empty} style={{width:'2000px', height:'1000px'}}/>}
+                            {this.state.total == 0 && <img src={empty} style={{width:'2000px', height:'1000px'}}/>}
                         </div>
 		)
 		}

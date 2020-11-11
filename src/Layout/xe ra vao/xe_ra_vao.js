@@ -53,7 +53,8 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: "",
-            SelectCong: "",
+            SelectCong: "/listCar/listCarOut?",
+            loaiXe: "",
         }
     }   
     
@@ -75,6 +76,7 @@ class Content extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: ++this.state.page,
                 CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
@@ -106,6 +108,7 @@ class Content extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: --this.state.page,
                 CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
             })
             if (this.state.page < 1){
                 ++this.state.page
@@ -134,6 +137,7 @@ class Content extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
             })
             await this.setState({ data: res.data, isLoading: false, page: 1});
             console.log(this.state.portIn, "check PortIn")
@@ -166,13 +170,13 @@ class Content extends React.Component {
             this.setState({portIn: '', PortOut: ''})
         }
         else if (event.target.value==2){
-            this.setState({portIn: '0', PortOut: 'null'})
+            this.setState({portIn: '0', PortOut: null})
         }
         else if (event.target.value==3){
-            this.setState({portIn: 'null', PortOut: '2'})
+            this.setState({portIn: null, PortOut: '2'})
         }
         else if (event.target.value==4){
-            this.setState({portIn: 'null', PortOut: '4'})
+            this.setState({portIn: null, PortOut: '4'})
         }
     }
 
@@ -200,7 +204,7 @@ class Content extends React.Component {
                     <div class="container-fluid">
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title"><i>Quản lí xe tổng hợp </i></h3>
+                                <h3 class="card-title"><i>Quản lí xe ra vào</i></h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -335,7 +339,7 @@ class Content extends React.Component {
                                             <option value = "1">Cổng vào/ra TQ</option>
                                         </select> */}
                                         <select onChange={(e) => this.handlePortChange(e)}>
-                                        <option value = ''>Chọn</option>
+                                        <option value = '' disabled="disabled">Chọn</option>
                                             <option value = '1'>Tất cả</option>
                                            
                                             <option value = '3'>Cổng ra quay đầu</option>
@@ -384,13 +388,6 @@ class Content extends React.Component {
                         </div>
 
                         <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto' ,float:'left', width: '70%', height:'800px'}}>
-                            <div class="card-header" >
-                                <h3 class="card-title" >
-                                    <button>Biển Số</button>
-                                    <button>Loại Xe</button>
-                                    <button>Loại Hàng</button>
-                                </h3>
-                            </div>
                             <table id="example2" class="table table-bordered table-hover"  >
                           
                                     <thead>
@@ -439,7 +436,7 @@ class Content extends React.Component {
                            
                                 </>
                             </table>
-                            {!this.state.data &&  <img src={empty} style={{width:'1500px', height:'1000px'}}/>}
+                            {!this.state.data &&  <img src={empty} style={{width:'1200px', height:'800px'}}/>}
                         </div>
                     </div>
 <div style={{width: '30%', height: '40%', float: 'right'}}>
