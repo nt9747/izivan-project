@@ -173,7 +173,7 @@ class Content extends React.Component {
                     <b>Biển số xe</b><input type="text" class="form-control" name="" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
                 </div>
                 <div class="col-3"><br/><br/>
-                  <button style={{height: '60px', width: '120px'}} onClick={() => this.list()}><h4>Tìm Kiếm</h4></button>
+                  <button class="btn btn-danger" style={{height: '80px', width: '150px'}} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
                 </div>
             </div>
           </div>
@@ -291,9 +291,9 @@ class Content extends React.Component {
                           <td></td>
                         </tr>
                         <tr>
-                          <td><button>Hủy</button></td>
+                          <td><button class="btn btn-danger">Hủy</button></td>
                           <td></td>
-                          <td><button>Thay đổi thông tin</button></td>
+                          <td><button class="btn btn-danger">Thay đổi thông tin</button></td>
                         </tr>
                   </table>
                 </div>

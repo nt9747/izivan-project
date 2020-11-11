@@ -177,7 +177,7 @@ class Content extends React.Component {
                               </select>
                 </div>
                 <div class="col-3"><br/><br/>
-                  <button style={{height: '60px', width: '120px'}}><h4>Tìm Kiếm</h4></button>
+                  <button class="btn btn-danger" style={{height: '80px', width: '150px'}}><h4><b>Tìm Kiếm</b></h4></button>
                 </div>
                 <div class="col-3"><br />
                                     <button type="submit"

@@ -193,10 +193,10 @@ async list() {
                     </table>
                        </div>
                          <div class="col-2"><br/>
-                           <a onClick={() => this.Register()}><button style={{height: '35px', width: '200px'}}><h4>Đăng ký nhanh</h4></button></a>
+                           <a onClick={() => this.Register()}><button class="btn btn-success" style={{height: '40px', width: '200px'}}><h4>Đăng ký nhanh</h4></button></a>
                          </div>
                          <div class="col-3"><br/>
-                           <button onClick={() => this.list()} style={{height: '35px', width: '180px'}}><h4>Làm mới</h4></button>
+                           <button class="btn btn-success" onClick={() => this.list()} style={{height: '40px', width: '180px'}}><h4>Làm mới</h4></button>
                          </div>
                      </div><br/>
 
@@ -216,7 +216,7 @@ async list() {
                              <th>Kế toán</th>
                              <th>Phòng loa</th>
                              <th>Admin</th>
-                             <th style= {{width: '250px',}}>Quyền</th>
+                             <th style= {{width: '270px',}}>Quyền</th>
                              <th>Xóa</th>
                          </tr>
                      </thead>
@@ -236,8 +236,8 @@ async list() {
                                             <option value = '3'>SuperAdmin</option>
                                             
                                         </select>
-                                                <button onClick={() => this.Save(item.UserID)}>Save</button></td>
-                                                <td><button onClick={() => this.Delete(item.UserID)}>Delete</button></td>
+                                                <button class="btn btn-info" onClick={() => this.Save(item.UserID)}><b>Save</b></button></td>
+                                                <td><button class="btn btn-danger" onClick={() => this.Delete(item.UserID)}><b>Delete</b></button></td>
                                             </tr>
                                         ))}
          

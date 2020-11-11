@@ -225,7 +225,7 @@ class Content extends React.Component {
                     <b>Mã Thẻ</b><input type="text" class="form-control" placeholder="Nhập mã thẻ"/>
                 </div>
                 <div class="col-3"><br/>
-                      <button onClick={() => this.list()} style={{height: '40px', width: '300px'}}><b>Tìm</b></button>
+                      <button class="btn btn-danger" onClick={() => this.list()} style={{height: '40px', width: '300px'}}><h6><b>Tìm</b></h6></button>
                 </div>
             </div>
             <div class="row">
@@ -239,11 +239,11 @@ class Content extends React.Component {
                     <b>Tổng số xe cổng TQ: TQ</b>
                 </div>
                 <div class=""><br/>
-                      <button style={{height: '30px', width: '110px'}}><h9>Đồng ý cho ra</h9></button><br/>
-                      <button style={{height: '30px', width: '110px'}}><h9>Đồng ý Xuất</h9></button>
+                      <button style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cho ra</b></h9></button><br/>
+                      <button style={{height: '50px', width: '150px'}}><h9><b>Đồng ý Xuất</b></h9></button>
                 </div>
 <div class=""><br/>
-                      <button style={{height: '60px', width: '110px'}}><h9>Đồng ý cả hai</h9></button>
+                      <button style={{height: '100px', width: '150px'}}><h9><b>Đồng ý cả hai</b></h9></button>
                 </div>
                 <div class="col-3"><br />
                                     <button type="submit"

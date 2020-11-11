@@ -176,7 +176,7 @@ class Content extends React.Component {
 
         <div class="card-body" >
           <div style={{float: 'left', width: '70%'}}>
-           <table style={{textAlign: 'right', width: '1000px', height: '100px'}}>                                                                                                                                                                                                                                   
+           <table style={{textAlign: 'right', width: '950px', height: '100px'}}>                                                                                                                                                                                                                                   
              <tr>
                <td><b>Từ ngày:</b><input type="date" name="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/></td>
                <td><b>Đến ngày:</b><input type="date" name="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/></td>
@@ -193,7 +193,7 @@ class Content extends React.Component {
                <td><b>Loại xe:</b> <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
                                                 <option value = ''>Tất cả</option>  
                                         </select></td>
-               <td><button style={{width: '160px', height: '80px'}} className="btn btn-danger"
+               <td><button style={{width: '100px', height: '50px'}} className="btn btn-danger"
                                       onClick={() => this.list()}>Tìm</button></td>
              </tr>
              <tr>

@@ -450,7 +450,7 @@ class Content extends React.Component {
                     </tr>
                     <tr>
                       <td></td>
-                      <td><button style={{width: '200px'}}>Thêm phiếu hải quan</button></td>
+                      <td><button class="btn btn-danger" style={{width: '200px'}}><b>Thêm phiếu hải quan</b></button></td>
                     </tr>
                   </table>
               </h3>
