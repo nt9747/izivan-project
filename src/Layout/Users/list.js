@@ -4,10 +4,6 @@ import { requestGetListCarInfo, requestLogin, requestGetAllUser, requestRegister
 import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
 import TableScrollbar from 'react-table-scrollbar';
-import Form from 'react-validation/build/form';
-import Input from 'react-validation/build/input';
-import CheckButton from 'react-validation/build/button';
-import { isEmpty } from 'validator';
 
 
   

@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import pl from '../img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin } from '../../api'
-=======
 import izivan from '../dist/img/izivan.png'
 import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
->>>>>>> 2f5cae382e29392729d00401c8a36ad3da7dc404
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
@@ -48,8 +43,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '2019/07/03 00:00:00',
-            toDate: '2300/10/15 24:00:00',
+            fromDate: '2019/07/03',
+            toDate: '2300/10/15',
             plateNumber: '',
             portIn: "",
             numberCar: "",
@@ -473,7 +468,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={pl} id="imglayout" />
+                                        <img src={izivan} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
@@ -485,7 +480,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={pl} id="imglayout" />
+                                        <img src={izivan} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
