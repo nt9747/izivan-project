@@ -388,12 +388,6 @@ class Content extends React.Component {
                         </div>
 
                         <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto' ,float:'left', width: '70%', height:'800px'}}>
-<<<<<<< HEAD
-                            <div class="card-header" >
-                                
-                            </div>
-=======
->>>>>>> 2f5cae382e29392729d00401c8a36ad3da7dc404
                             <table id="example2" class="table table-bordered table-hover"  >
                           
                                     <thead>

@@ -65,7 +65,66 @@ class FullList extends React.Component {
         this.list();
         this.start();
     }
-  
+    async listInNext() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: ++this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+            })
+            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "Check next page")
+            // if (!res.data.data){
+            //     return (this.state.page)
+            // }
+            if(!(this.state.nextPage)){
+                return(--this.state.page);
+            }
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+    async listInPrevious() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: --this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe
+            })
+            if (this.state.page < 1){
+                ++this.state.page
+            }
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
+            console.log(this.state.data, "check data")
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
     async start(){
         await this.setState({
             isLoading: true
@@ -88,7 +147,7 @@ class FullList extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCarExcel({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -104,7 +163,7 @@ class FullList extends React.Component {
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
             console.log(this.state.portIn, "check PortIn")
             console.log(this.state.PortOut, "check PortOut")
-            console.log(this.state.dataXe, "check total");
+            console.log(this.state.data, "check data");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -143,11 +202,24 @@ class FullList extends React.Component {
         }
     }
 
+    // handleTextChange(field, event) {
+    //     if (event.target.value==10){
+    //         this.setState({portIn: '1', PortOut: '3'})
+    //     }
+    //     this.setState({
+    //         [field]: event.target.value
+    //     })
+    // }
 
+    
     render() {
-
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
+        // if (isLoading) {
+        //     return (
+        //         <p>Loading...</p>
+        //     )
+        // }
         if (isLoading) {
             return (
                 <p>Loading...</p>
@@ -273,7 +345,7 @@ class FullList extends React.Component {
                                         </select>
                                     </div>
                                     <div class="col-3"><br />
-<button type="submit"
+                                        <button type="submit"
                                      className="btn btn-danger"
                                       onClick={() => this.list()}>
                                          <b>Tìm kiếm</b>
