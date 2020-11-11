@@ -166,21 +166,27 @@ async list() {
          
                  <div class="card-body">
                      <div class="row">
-                       <div class="col-6">
-                         <table>
+                       <div class="col-7">
+                         <table style={{width: '700px'}}>
                            <tr>
                              <td><b>Tài Khoản</b></td>
-                             <td><input type="text" class="form-control" placeholder="" required value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/></td>
-                             <td><input type="checkbox" name=""/><b>Nhân viên</b></td>
-                             <td><input type="checkbox" name="" value = {IsPhongLoa + 1} onChange={(e) => this.handleTextChange('IsPhongLoa', e)}/><b>Phòng loa</b></td>
+                             <td><input style= {{width: '250px'}}type="text" class="form-control" placeholder="" required value={Username}  onChange={(e) => this.handleTextChange('Username', e)}/></td>
+                             <td><b>Tên đầy đủ</b></td>
+                             <td><input type="text" class="form-control" placeholder="" required value={Fullname}  onChange={(e) => this.handleTextChange('Fullname', e)}/></td>
                            </tr>
                            <tr>
                              <td><b>Mật khẩu</b></td>
-                             <td><input type="password" class="form-control" placeholder="" required value={Password}  onChange={(e) => this.handleTextChange('Password', e)}/></td>
-                             <td><input type="checkbox" name="" value = {IsKeToan + 1} onChange={(e) => this.handleTextChange('IsKeToan', e)}/><b>Kế toán</b></td>
-                             <td><input type="checkbox" name="" value = {IsSuperAdmin + 1} onChange={(e) => this.handleTextChange('IsSuperAdmin', e)}/><b>Super Admin</b></td>
+                             <td><input style= {{width: '250px'}} type="password" class="form-control" placeholder="" required value={Password}  onChange={(e) => this.handleTextChange('Password', e)}/></td>
+                             <td><b>Quyền</b></td>
+                             <td><select onChange={(e) => this.handlePortChange(e)}>
+                                        <option value = ''>Chọn</option>
+                                            <option value = '1'>Kế toán</option>
+                                            <option value = '2'>Phòng loa</option>
+                                            <option value = '3'>SuperAdmin</option>
+                                            <option value = '4'>Không quyền hành</option>
+                                        </select> </td>
                            </tr>
-                         </table>
+                    </table>
                        </div>
                          <div class="col-2"><br/>
                            <a onClick={() => this.Register()}><button style={{height: '35px', width: '200px'}}><h4>Đăng ký nhanh</h4></button></a>

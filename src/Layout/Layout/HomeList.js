@@ -333,13 +333,10 @@ class HomeList extends React.Component {
         <option value = ''>Tất cả</option>  
                                         </select>
                                     </div>
-                                    <div class="col-1.5">
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập ?" />
-                                    </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3">
                                         <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
                                     </div>
                                 </div>
