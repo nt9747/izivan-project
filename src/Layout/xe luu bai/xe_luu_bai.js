@@ -129,10 +129,10 @@ class Content extends React.Component {
 
     handlePortChange(event) {
         if (event.target.value==5){
-            this.setState({portIn: '1', PortOut: '3'})
+            this.setState({portIn: '1', PortOut: null})
         }
         else if (event.target.value==1){
-            this.setState({portIn: '', PortOut: ''})
+            this.setState({portIn: '', PortOut: null})
         }
         else if (event.target.value==2){
             this.setState({portIn: '0', PortOut: null})
@@ -171,7 +171,7 @@ class Content extends React.Component {
 <div class="container-fluid">
   <div class="card card-warning">
     <div class="card-header">
-        <h3 class="card-title"></h3>
+        <h3 class="card-title"><i>Báo cáo lưu xe</i></h3>
     </div>
 
         <div class="card-body" >
@@ -184,7 +184,7 @@ class Content extends React.Component {
                     <option value = ''>Chọn</option>
                     <option value = '1'>Tất cả</option>
                     <option value = '2'>Cổng vào VN</option>
-                    <option value = '5'>Cổng vao ra CN</option>
+                    <option value = '5'>Cổng vào CN</option>
                 </select></td>
              </tr>
              <tr>

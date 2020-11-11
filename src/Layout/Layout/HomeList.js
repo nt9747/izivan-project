@@ -240,8 +240,8 @@ class HomeList extends React.Component {
                                     <div class="col-3">
                                         <b>Loại Hàng</b><br />
                                         <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                        <option>Chọn</option>
-                                            <option value="">Tất cả</option>
+                                        <option value = {null}>Chọn</option>
+                                            <option value="" >Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
                                             <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
