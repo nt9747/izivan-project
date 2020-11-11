@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import izivan from '../dist/img/izivan.png'
+import pl from '../img/placeholder.jpg'
 import { requestGetListCarIn, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
+import empty from '../img/empty.png'
 
 function GetFormatDate(a){
     const b = new Date(a);
@@ -155,7 +156,7 @@ class Content extends React.Component {
         return (
             <div class="content-wrapper">
      <section class="content">
-<div class="container-fluid" style={{float:'left', width: '75%', height:'250px'}}>
+<div class="container-fluid" style={{float:'left', width: '70%', height:'250px'}}>
   <div class="card card-warning" >
     <div class="card-header" >
         <h3 class="card-title"></h3>
@@ -164,12 +165,12 @@ class Content extends React.Component {
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3" value={this.setState.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/><br/>
-                    <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3" value={this.setState.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
+                    <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/><br/>
+                    <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=".col-3" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
                 </div>
                 <div class="col-4">
-                    <b>Mã thẻ</b><input type="text" class="form-control" name=""/><br/>
-                    <b>Biển số xe</b><input type="text" class="form-control" name=""/>
+                    <b>Mã thẻ</b><input type="text" class="form-control" name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/><br/>
+                    <b>Biển số xe</b><input type="text" class="form-control" name="" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
                 </div>
                 <div class="col-3"><br/><br/>
                   <button style={{height: '60px', width: '120px'}} onClick={() => this.list()}><h4>Tìm Kiếm</h4></button>
@@ -194,56 +195,62 @@ class Content extends React.Component {
 
  
 
-  <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '100%', height:'600px'}}>
+  <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '100%', height:'800px'}}>
           <div class="card-header" >
               <h3 class="card-title" ></h3>
           </div> 
           <table id="example2" class="table table-bordered table-hover"  >
-                                <>
-                                    <thead>
-                                        <tr>
-                                            <th>STT vào bãi</th>
-                                            <th>Biển sô xe vào/ Biển số xe ra</th>
-                                            <th>Biển Cont</th>
-                                            <th>Biển Mooc</th>
-                                            <th>Loại xe</th>
-                                            <th>Mã số thẻ</th>
-                                            <th>Thời gian vào bãi</th>
-                                            <th>Thời gia ra bãi</th>
-                                            <th>Thời gian lưu bãi</th>
-                                            <th>Số tiền</th>
-                                            <th>Nhân viên vào / Nhân viên ra</th>
-                                            <th>Loại hàng</th>
-                                            <th>Cổng vào</th>
-                                            <th>Ra khoi bai</th>
-                                        </tr>
-</thead>
-                                    <tbody>
-        
-                                        {data.data && data.data.map((item, i) => (
-                                            <tr>
-                                                <td key={i}> {item.EventID}</td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> {item.BienCont}</td>
-                                                <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> {item.LoaiXeID}</td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
-                                                <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
-                                                <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
-                                                <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
-                                                <td key={i}> {item.IsRaKhoiBai}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </>
-                            </table>            
+                          
+                          <thead>
+                              <tr>
+                                  <th>STT vào bãi</th>
+                                  <th>Biển sô xe vào/ Biển số xe ra</th>
+                                  <th>Biển Cont</th>
+                                  <th>Biển Mooc</th>
+                                  <th>Loại xe</th>
+                                  <th>Mã số thẻ</th>
+                                  <th>Thời gian vào bãi</th>
+                                  <th>Thời gia ra bãi</th>
+                                  <th>Thời gian lưu bãi</th>
+                                  <th>Số tiền</th>
+                                  <th>Nhân viên vào / Nhân viên ra</th>
+                                  <th>Loại hàng</th>
+                                  <th>Cổng vào</th>
+                                  <th>Cổng ra</th>
+                                  <th>Phiếu hải quan</th>
+                              </tr>
+                          </thead>
+                  <>
+                 {this.state.data && data.data.map((item, i) => (
+                          <tbody>
+                          
+                             
+                                  <tr>
+                                      <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
+                                      <td key={i}> {item.BienXe}</td>
+                                      <td key={i}> {item.BienCont}</td>
+                                      <td key={i}> {item.BienMooc}</td>
+                                      <td key={i}> ??? </td>
+                                      <td key={i}> {item.CarNumber_ID}</td>
+                                      <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
+                                      <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
+                                      <td key={i}> {item.ThoiGianTrongBai}</td>
+                                      <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
+                                      <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
+                                      <td key={i}> {item.LoaiHangChiTiet}</td>
+                                      <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
+                                      <td key={i}> {item.IsRaKhoiBai}</td>
+                                      <td> </td>
+                                  </tr>
+                          </tbody>
+                      ))}
+                 
+                      </>
+                  </table>
+                  {!this.state.data &&  <img src={empty} style={{width:'1200px', height:'800px'}}/>}
    </div>
 </div>
-<div style={{width: '25%', height: '20%', float:'right'}}>
+<div style={{width: '30%', height: '20%', float:'right'}}>
       <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Hiện Tại</h3>
@@ -268,8 +275,9 @@ class Content extends React.Component {
                         <tr>
                           <td><b>Loại Hàng</b></td>
                           <td><input type="text" name="" id="edit_car1"/></td>
-<td><select><option>ThanhLong</option>
-                                      <option>aaa</option>
+                          <td><select>
+                                <option>ThanhLong</option>
+                                <option>aaa</option>
                               </select></td>
                         </tr>
                         <tr>
@@ -298,8 +306,8 @@ class Content extends React.Component {
       <div class="card-body">
           <div class="row">
               <div class="">
-                  <img src={izivan} id="img_xetrongbai"/>
-                  <img src={izivan} id="img_xetrongbai"/>
+                  <img src={pl} id="img_xetrongbai"/>
+                  <img src={pl} id="img_xetrongbai"/>
               </div>
           </div>
       </div>

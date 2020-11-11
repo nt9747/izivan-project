@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin, requestGetListCarIn } from '../../api'
+import pl from '../img/placeholder.jpg'
+import { requestGetListCarIn, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
-import { render } from '@testing-library/react';
+import TableScrollbar from 'react-table-scrollbar';
+import { Redirect } from 'react-router-dom'; 
 import empty from '../img/empty.png'
+
 
 
 function GetFormatDate(a){
@@ -42,7 +44,7 @@ class Content extends React.Component {
         super(props)    
         this.state = {
             fromDate: '2020/07/03',
-            toDate: '2100/10/15',
+            toDate: '2020/10/15',
             plateNumber: '',
             portIn: "",
             numberCar: "",
@@ -195,25 +197,35 @@ class Content extends React.Component {
         //     )
         // }
         return (
-            <div class="content-wrapper" id="root">
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="card card-warning">
-                            <div class="card-header">
-                                <h3 class="card-title"><i>Xe ra vào </i></h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
-                                    </div>
-                                    <div class="col-3">
-                                        <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
-                                    </div>
-                                    <div class="col-3">
-                                        <b>Loại Hàng</b><br />
-                                        <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                        <option>Chọn</option>
+            <div class="content-wrapper">
+  
+
+<section class="content">
+            <div class="container-fluid">
+  <div class="card card-warning">
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+    </div>
+
+        <div class="card-body" >
+          <div style={{float: 'left', width: '60%'}}>          
+           <div class="row">
+                <div class="col-4">
+                    <b>Biển số xe</b><input type="text" class="form-control" placeholder=".col-3"/>
+                </div>
+                <div class="col-4">
+                    <b>Mã thẻ</b><input type="text" class="form-control" placeholder=".col-4"/>
+                </div>
+                <div class="col-4">
+                    <b>Số thứ tự</b><input type="text" class="form-control" placeholder=".col-4" />
+                </div>
+              </div>
+            <br/>
+            <div class="row">
+                <div class="col-4">
+                    <b>Loại hàng</b>
+                          <select >
+                              <option>Chọn</option>
                                             <option value="">Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
@@ -280,208 +292,139 @@ class Content extends React.Component {
                                             <option value="BÁNH PÍA">BÁNH PÍA</option>
                                             <option value="HẠT TRẦU">HẠT TRẦU</option>
                                             <option value="NỘI THẤT">NỘI THẤT</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                    <table>
-                      <tr>
-                        <td style={{textAlign: 'center'}}><b>Vào</b></td>
-                        <td style={{textAlign: 'center'}}><b>Ra</b></td>
-                        <td style={{textAlign: 'center'}}><b>Tồn</b></td>
-                        <td style={{textAlign: 'center'}}></td>
-                      </tr>
-                      <tr>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '50px', display: 'inline-block'}}>d</b></td>
-                      </tr>
-                    </table>
-              </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-3">
-                                        <b>Loại xe</b><br />
-                                        <select>   
+                          </select>
+                </div>
+                <div class="col-5">
+                    <b>Loại xe</b>
+                    <select>
                                             <option>Tất cả</option>
                                             <option>Xe có trọng tải dưới 4 tấn</option>
                                             <option>Xe có trọng tải từ 4 đến 10 tấn</option>
                                             <option>Xe có trọng tải từ 10 đến 18 tấn</option>
                                             <option>Xe có trọng tải trên 18 tấn</option>
                                             <option>Container 20"</option>
-                                            <option>Container 40"</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-1.5">
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập ?" />
-                                    </div>
-                                    <div class="col-2">
-                                        <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
-                                    </div>
-                                    <div class="col-2">
-                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <b>Cổng</b><br />
-                                        {/* <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
-                                            <option value = ''>Tất cả</option>
-                                            <option value = '0'>Cổng vào VN</option>
-                                            <select value= {this.state.portOut} onChange={(e) => this.handleTextChange('portOut', e)}></select>
-                                            <option >Cổng ra quay đầu</option>
-                                            <option>Cổng ra xuất</option>
-                                            <option value = "1">Cổng vào/ra TQ</option>
-                                        </select> */}
-                                        <select onChange={(e) => this.handlePortChange(e)}>
-                                        <option value = ''>Chọn</option>
-                                            <option value = '1'>Tất cả</option>
-                                           
-                                            <option value = '3'>Cổng ra quay đầu</option>
-                                            <option value = '4' >Cổng ra xuất</option>
-                                            <option value = '5'>Cổng vao ra CN</option>
-                                        </select>
-                                        <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
-                                        <option value="" disabled="disabled">Chọn</option>
-                                        
-                                            <option value = '/listCar/listCarOut?'>0. Giao dịch ra</option>
-                                         
-                                        </select>
-                                    </div>
-                                    <div class="col-2"><br />
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.list()}>
-                                         <b>Tìm kiếm</b>
-                                    </button>
-                                    </div>
-                                    
-                                    <div class="col-2"><br />
-                                    <form action="/ExportExcel">
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      >
-                                         <b>Export Excel</b>
-                                    </button>
-                                    </form>
-                                    </div>
-                                    <div class="col-2"><br />
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInPrevious()}>
-                                         <b>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInNext()}>
-                                         <b>+</b>
-                                    </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto' ,float:'left', width: '70%', height:'800px'}}>
-                            <div class="card-header" >
-                                
-                            </div>
-                            <table id="example2" class="table table-bordered table-hover"  >
-                          
-                                    <thead>
-                                        <tr>
-                                            <th>STT vào bãi</th>
-                                            <th>Biển sô xe vào/ Biển số xe ra</th>
-                                            <th>Biển Cont</th>
-                                            <th>Biển Mooc</th>
-                                            <th>Loại xe</th>
-                                            <th>Mã số thẻ</th>
-                                            <th>Thời gian vào bãi</th>
-                                            <th>Thời gia ra bãi</th>
-                                            <th>Thời gian lưu bãi</th>
-                                            <th>Số tiền</th>
-                                            <th>Nhân viên vào / Nhân viên ra</th>
-                                            <th>Loại hàng</th>
-                                            <th>Cổng vào</th>
-                                            <th>Cổng ra</th>
-                                            <th>Phiếu hải quan</th>
-                                        </tr>
-                                    </thead>
-                            <>
-                           {this.state.data && data.data.map((item, i) => (
-                                    <tbody>
-                                    
-                                       
-                                            <tr>
-                                                <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> {item.BienCont}</td>
-                                                <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> ??? </td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
-                                                <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
-                                                <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
-                                                <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
-                                                <td key={i}> {item.IsRaKhoiBai}</td>
-                                                <td> </td>
-                                            </tr>
-                                    </tbody>
-                                ))}
-                           
-                                </>
-                            </table>
-                            {!this.state.data &&  <img src={empty} style={{width:'1200px', height:'800px'}}/>}
-                        </div>
+                                            <option>Container 40"</option>    
+                                  </select>
+                                  </div>
+                
+                  <div class='col-3'>
+                    <b>Cổng</b>
+                          <select >
+                            <option>Chọn</option>
+                            <option>Tất cả</option>
+                            <option>Cổng vào VN</option>
+                            <option>Cổng ra quay đầu</option>
+                            <option>Cổng ra xuất</option>
+                            <option>Cổng vao ra CN</option>
+                          </select>
                     </div>
-<div style={{width: '30%', height: '40%', float: 'right'}}>
-      <div class="card card-order">
-          <div class="card-header">
-              <h3 class="card-title">
-                  <table>
-                    <tr>
-                      <td><b>Phiếu hải quan</b></td>
-                      <td><input type="text" style={{width: '200px'}}/></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td><button style={{width: '200px'}}>Thêm phiếu hải quan</button></td>
-                    </tr>
-                  </table>
-              </h3>
+                   </div><br/>
+             <div>
+                 <table style={{width: '900px', textAlign: 'right'}}>
+                     <tr>
+                         <td><b>Từ</b></td>
+                         <td><input style={{width: '400px'}} min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=""/></td>
+                         <td><b>Đến</b></td>
+                         <td><input style={{width: '400px'}} min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder=""/></td>
+                     </tr>
+                 </table>
+                 
+             </div>
+            <div class="row">
+               
+                <div class="col-6"><br/>
+                      <button><b>Tìm Kiếm</b></button>
+                </div>
+                    <div class="col-6 "><br/>
+                      <button><b>Xuất Excel</b></button>
+                    </div>    
+
           </div>
-      </div>
- 
-      <div class="card-body">
-      <div class="card-header">
-              <h3 class="card-title">Ảnh vào</h3>
           </div>
-          <div class="row">
-              <div class="">
-                  <img src={izivan} id="imglayout"/>
+          <div style={{float: 'right', width: '30%'}}>
+                    <table>
+                      <tr>
+                        <td></td>
+                        <td style={{textAlign: 'center'}}><b>Vào</b></td>
+                        <td style={{textAlign: 'center'}}><b>Ra</b></td>
+                        <td style={{textAlign: 'center'}}><b>Tồn</b></td>
+                        <td style={{textAlign: 'center'}}><b>Doanh thu</b></td>
+                      </tr>
+                      <tr style={{borderBottom: '1px solid white'}}>
+                        <td><b>Làn Trung Quốc</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
+                      </tr>
+                      <tr>
+                        <td><b>Làn Việt Nam</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
+                      </tr>
+                    </table>
               </div>
-          </div>
+            </div>
       </div>
 
-      <div class="card-body">
-          <div class="card-header">
-              <h3 class="card-title">Ảnh ra</h3>
-          </div>
-          <div class="row">
-              <div class="">
-                  <img src={izivan} id="imglayout"/>
-              </div>
-          </div>
-      </div>
+  <div class="ui grid middle aligned"  style={{overflow: 'auto', width: '100%', height:'600px'}}>
+          <div class="card-header" >
+              <h3 class="card-title" ></h3>
+          </div> 
+          <table  id="example2" class="table table-bordered table-hover" >                     
+            <thead>
+                <tr>
+                    <th>STT vào bãi</th>
+                    <th>Biển sô xe vào/ Biển số xe ra</th>
+                    <th>Biển Cont</th>
+                    <th>Biển Mooc</th>
+                    <th>Loại xe</th>
+                    <th>Mã số thẻ</th>
+                    <th>Thời gian vào bãi</th>
+                    <th>Thời gia ra bãi</th>
+                    <th>Thời gian lưu bãi</th>
+                    <th>Số tiền</th>
+                    <th>Nhân viên vào/ Nhân viên ra</th>
+                    <th>Nhân cho phép ra</th>
+                    <th>Loại hàng</th>
+                    <th>Cổng vào</th>
+                    <th>Cổng ra</th>
+                    <th>Phiếu hải quan</th>
+                    <th>Code</th>
+                </tr>
+            </thead>
+            <tbody>   
+                <tr> 
+                    <td>1</td>
+                    <td>eqe21wq</td>
+                    <td>eqeq311</td>
+                    <td>213214</td>
+                    <td>aaa</td>
+                    <td>123</td>
+                    <td>2312</td>
+                    <td>132</td>
+                    <td>3231</td>
+                    <td>dfs</td>
+                    <td>23wd</td>
+                    <td>4dr</td>
+                    <td>res4</td>
+                    <td>er4</td>
+                    <td>eq</td>
+                    <td>ewqe</td>
+                    <td>rêrfe</td>
+                </tr>
 
+            </tbody>
+
+        </table>          
+   </div>
 </div>
 </section>
 </div>
         )
     }
 }
+
 export default Content

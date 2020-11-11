@@ -24,6 +24,7 @@ export default class Layout extends Component {
     }
     render() {
         return (
+       
             <div class="hold-transition sidebar-mini">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
@@ -103,9 +104,15 @@ export default class Layout extends Component {
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="pages/Quản lí xe/Bao_cao_luu_xe.html">
+                                        <a href="/XeLuuBai">
                                            
                                             <p>Báo cáo lưu xe</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/Doanhthu">
+                                           
+                                            <p>Báo cáo doanh thu</p>
                                         </a>
                                     </li>
                                 </ul>

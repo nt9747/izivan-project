@@ -21,7 +21,9 @@
     "react-promise-tracker": "^2.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "react-table-scrollbar": "^0.1.9"
+    "react-table-scrollbar": "^0.1.9",
+    "react-validation": "^3.0.7",
+    "validator": "^13.1.17"
   },
   "scripts": {
     "start": "react-scripts start",

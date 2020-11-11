@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import izivan from '../dist/img/izivan.png'
+import pl from '../img/placeholder.jpg'
 import { requestGetListCarIn, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
 import empty from '../img/empty.png'
+
 
 
 function GetFormatDate(a){
@@ -441,7 +442,7 @@ class HomeList extends React.Component {
                            
                                 </>
                             </table>
-                            {!this.state.data &&  <img src={empty} style={{width:'1500px', height:'1000px'}}/>}
+                            {!this.state.data &&  <img src={empty} style={{width:'1200px', height:'800px'}}/>}
                         </div>
                     </div>
                     <div>
@@ -453,7 +454,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={izivan} id="imglayout" />
+                                        <img src={pl} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
@@ -465,7 +466,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={izivan} id="imglayout" />
+                                        <img src={pl} id="imglayout" />
                                     </div>
                                 </div>
                             </div>

@@ -14,6 +14,8 @@ import addUser from "./addUser"
 import ThemHang from "./them_loai_hang"
 import XeRaVao from "./xe_ra_vao"
 import empty from "./empty"
+import doanhthu from "./bao_cao_doanh_thu"
+import luubai from "./xe_luu_bai"
 
 class Routes extends React.Component {
     render(){
@@ -33,6 +35,8 @@ class Routes extends React.Component {
             <Route exact path="/ThemLoaiHang" component={ThemHang} />
             <Route exact path="/XeRaVao" component={XeRaVao} />
             <Route exact path="/Empty" component={empty} />
+            <Route exact path="/Doanhthu" component={doanhthu} />
+            <Route exact path="/XeLuuBai" component={luubai} />
           </Switch>
           </Router>
         );
