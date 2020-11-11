@@ -333,10 +333,10 @@ class Content extends React.Component {
             <div class="row">
                
                 <div class="col-6"><br/>
-                      <button><b>Tìm Kiếm</b></button>
+                      <button class="btn btn-danger"><b>Tìm Kiếm</b></button>
                 </div>
                     <div class="col-6 "><br/>
-                      <button><b>Xuất Excel</b></button>
+                      <button class="btn btn-danger"><b>Xuất Excel</b></button>
                     </div>    
 
           </div>

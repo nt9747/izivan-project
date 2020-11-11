@@ -17,7 +17,7 @@ class Content extends React.Component {
 
         <div class="card-body">
             <div class="row">
-                <input type="text" name=""/> <button>Thêm mới</button>
+                <input type="text" name=""/> <button class="btn btn-danger"><b>Thêm mới</b></button>
             </div>
           </div>
     </div>
