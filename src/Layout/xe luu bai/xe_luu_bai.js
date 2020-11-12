@@ -43,8 +43,8 @@ class Content extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '2019/07/03',
-            toDate: '2300/10/15',
+            fromDate: '10/01/2020 00:00:00',
+            toDate: '10/02/2020 23:59:59',
             plateNumber: '',
             portIn: "",
             numberCar: "",
@@ -55,7 +55,7 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: "",
-            SelectCong: "/listCar/listCarIn?",
+            SelectCong: "/listCar/listCarParking?",
             total: "",
             dataXe: "",
             loaiXe: "",
@@ -236,11 +236,11 @@ class Content extends React.Component {
 
         <div class="card-body" >
           <div style={{float: 'left', width: '70%'}}>
-           <table style={{textAlign: 'right', width: '950px', height: '100px'}}>                                                                                                                                                                                                                                   
+           <table style={{textAlign: 'left', width: '950px', height: '100px'}}>                                                                                                                                                                                                                                   
              <tr>
                <td><b>Từ ngày:</b><input type="text" name="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/></td>
-               <td><b>Đến ngày:</b><input type="text" name="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/></td>
-               <td><b>Cổng vào:</b><select onChange={(e) => this.handlePortChange(e)}>
+               <td><b>Đến ngày:</b><input style = {{width: '240px'}}type="text" name="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/></td>
+               <td><b>Cổng vào:</b><select style ={{width: '165px'}}onChange={(e) => this.handlePortChange(e)}>
                     <option value = ''>Chọn</option>
                     <option value = '1'>Tất cả</option>
                     <option value = '2'>Cổng vào VN</option>
@@ -248,9 +248,16 @@ class Content extends React.Component {
                 </select></td>
              </tr>
              <tr>
-               <td><b>Biển số cont:</b><input type="text" style={{width: '150px'}}  name=""/></td>
-               <td><b>Loại hàng:</b>
-               <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+               <td><b>Biển số cont:</b><input type="text" style={{width: '160px'}}  name=""/></td>
+               <td><b>Biển số mooc:</b><input type="text" style={{width: '210px'}}  name=""/></td>
+               <td style={{textAlign: 'center'}}><b>Biển số xe:</b><input type="text" style={{width: '150px'}}  name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/></td>
+               
+               <td><button style={{width: '100px', height: '50px'}} className="btn btn-danger"
+                                      onClick={() => this.list()}>Tìm</button></td>
+             </tr>
+             <tr>
+             <td><b>Loại hàng:</b>
+               <select style = {{width: '180px'}} loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                         <option>Chọn</option>
                                             <option value="">Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
@@ -320,17 +327,11 @@ class Content extends React.Component {
                                             <option value="NỘI THẤT">NỘI THẤT</option>
                                         </select>
                </td>
+               
                <td><b>Loại xe:</b> <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
                                                 <option value = ''>Tất cả</option>  
                                         </select></td>
-               <td><button style={{width: '100px', height: '50px'}} className="btn btn-danger"
-                                      onClick={() => this.list()}>Tìm</button></td>
-             </tr>
-             <tr>
-               <td><b>Biển số mooc:</b><input type="text" style={{width: '150px'}}  name=""/></td>
-               
-               <td colSpan="2" style={{textAlign: 'center'}}><b>Biển số xe:</b><input type="text" style={{width: '150px'}}  name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/></td>
-               <td></td>
+                                        <td></td>
              </tr>
            </table><br/>
            <div class="row">
