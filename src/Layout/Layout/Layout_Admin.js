@@ -5,7 +5,9 @@ import user2 from '../dist/img/user2-160x160.jpg'
 import Cookie from 'js-cookie';
 import { requestLogin } from '../../api';
 
-
+// import '../dist/js/adminlte.min.js'
+// import '../plugins/jquery/jquery.min.js'
+// import '../plugins/bootstrap/js/bootstrap.bundle.min.js'
 export default class Layout extends Component {
     async exitLogin() {
         try {
@@ -221,6 +223,7 @@ export default class Layout extends Component {
             </aside>
 
 </div>
+
         )
     }
 }
