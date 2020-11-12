@@ -336,7 +336,7 @@ class FullList extends React.Component {
                            {this.state.data && data.data.map((item, i) => (
                                     <tbody>
                                             <tr>
-                                                <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
+                                                <td key={i}> <b>{(this.state.page-1)*10 + i + 1}</b></td>
                                                 <td key={i}> {item.BienXe}</td>
                                                 <td key={i}> {item.BienCont}</td>
                                                 <td key={i}> {item.BienMooc}</td>

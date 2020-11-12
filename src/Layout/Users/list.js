@@ -166,7 +166,6 @@ async list() {
              <div class="card-header" >
                  <h3 class="card-title"><i>Quản trị hoạt động</i></h3>
              </div>
-         
                  <div class="card-body">
                      <div class="row">
                        <div class="col-7">
