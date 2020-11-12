@@ -47,7 +47,7 @@ class App extends React.Component {
         // }
         return (
             <>
-    <div class="container" className="App" id="backgr" style={{ height: '830px' }}>
+    <div class="container" className="App" id="backgr" style={{ height: '950px' }}>
     <div class="row"  style={{marginLeft:'18%', marginRight: '10%'}}>
         <div class="col-md-offset-5 col-md-4 text-center" >
             

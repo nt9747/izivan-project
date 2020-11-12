@@ -412,7 +412,7 @@ class HomeList extends React.Component {
                                     <button>Loại Hàng</button>
                                 </h3>
                             </div>
-                            <table id="example2" class="table table-bordered table-hover"  >
+                            <table id="example2" class="table table-bordered table-hover">
                           
                                     <thead>
                                         <tr>
@@ -449,12 +449,12 @@ class HomeList extends React.Component {
                                                 <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
                                                 <td key={i}> {GetFormatDate(item.NgayGioRa)}</td>
                                                 <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
-                                                <td key={i}> {item.UserID_Vao}</td>
-                                                <td key={i}> {item.USerID_DongYra}</td>
+                                                <td key={i}> {item.TongTienThu}</td>
+                                                <td key={i}> {item.NhanVienVao}</td>
+                                                <td key={i}> {item.NhanVienDongYRa}</td>
                                                 <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
-                                                <td key={i}> {item.CongRa + ":" + item.CongRaName}</td>
+                                                <td key={i}> {item.CongVaoName}</td>
+                                                <td key={i}> {item.CongRaName}</td>
                                                 <td key={i}> </td>
                                             </tr>
                                     </tbody>
@@ -462,7 +462,7 @@ class HomeList extends React.Component {
                            
                                 </>
                             </table>
-                            {this.state.total == 0 &&  <img src={empty} style={{width:'1300px', height:'800px'}}/>}
+                            {this.state.total == 0 &&  <img src={empty} style={{width:'1350px', height:'800px'}}/>}
                         </div>
                     </div>
                     <div>
