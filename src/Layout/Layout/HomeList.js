@@ -330,7 +330,7 @@ class HomeList extends React.Component {
                                 <div class="row">
                                     <div class="col-3"> 
                                         <b>Loại xe</b><br />
-                                        <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
+                                        <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.ID}>{item.Name}</option>)} 
                                                 <option value = ''>Tất cả</option>  
                                         </select>
                                     </div>
@@ -387,14 +387,14 @@ class HomeList extends React.Component {
                                     </div>
                                     <div class="col-2"><br />
                                     <button type="submit"
-                                    style={{height: '30px'}}
+                                    
                                      className="btn btn-danger"
                                       onClick={() => this.listInPrevious()}>
                                          <b>-</b>
                                     </button>
                                     <b>{this.state.page}</b>
                                     <button type="submit"
-                                    style={{height: '30px'}}
+                                    
                                      className="btn btn-danger"
                                       onClick={() => this.listInNext()}>
                                          <b>+</b>
