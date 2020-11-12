@@ -101,7 +101,7 @@ class FullList extends React.Component {
                 LOAIXE: this.state.loaiXe,
   
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
+            await this.setState({ data: res.data, isLoading: false, page: '1', total: res.data.total});
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -336,7 +336,7 @@ class FullList extends React.Component {
                            {this.state.data && data.data.map((item, i) => (
                                     <tbody>
                                             <tr>
-                                                <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
+                                                <td key={i}> <b>{(this.state.page-1)*10 + i + 1}</b></td>
                                                 <td key={i}> {item.BienXe}</td>
                                                 <td key={i}> {item.BienCont}</td>
                                                 <td key={i}> {item.BienMooc}</td>

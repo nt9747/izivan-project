@@ -55,7 +55,7 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: "",
-            SelectCong: "",
+            SelectCong: "/listCar/listCarIn?",
             total: "",
             dataXe: "",
             loaiXe: "",
@@ -83,7 +83,67 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
-    
+    async listInPrevious() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: --this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe
+            })
+            if (this.state.page < 1){
+                ++this.state.page
+            }
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
+            console.log(this.state.data, "check data")
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+    async listInNext() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: ++this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+            })
+            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "Check next page")
+            // if (!res.data.data){
+            //     return (this.state.page)
+            // }
+            if(!(this.state.nextPage)){
+                return(--this.state.page);
+            }
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+
 
     async list() {
         await this.setState({
@@ -129,10 +189,10 @@ class Content extends React.Component {
 
     handlePortChange(event) {
         if (event.target.value==5){
-            this.setState({portIn: '1', PortOut: '3'})
+            this.setState({portIn: '1', PortOut: null})
         }
         else if (event.target.value==1){
-            this.setState({portIn: '', PortOut: ''})
+            this.setState({portIn: '', PortOut: null})
         }
         else if (event.target.value==2){
             this.setState({portIn: '0', PortOut: null})
@@ -171,7 +231,7 @@ class Content extends React.Component {
 <div class="container-fluid">
   <div class="card card-warning">
     <div class="card-header">
-        <h3 class="card-title"></h3>
+        <h3 class="card-title"><i>Báo cáo lưu xe</i></h3>
     </div>
 
         <div class="card-body" >
@@ -184,7 +244,7 @@ class Content extends React.Component {
                     <option value = ''>Chọn</option>
                     <option value = '1'>Tất cả</option>
                     <option value = '2'>Cổng vào VN</option>
-                    <option value = '5'>Cổng vao ra CN</option>
+                    <option value = '5'>Cổng vào CN</option>
                 </select></td>
              </tr>
              <tr>
@@ -301,6 +361,19 @@ class Content extends React.Component {
         </div>
   </div>
 </div>
+<div style={{float: 'right'}}class="col-2"><br />
+                                    <button type="submit"
+                                     className="btn btn-danger"
+                                      onClick={() => this.listInPrevious()}>
+                                         <b>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b>
+                                    <button type="submit"
+                                     className="btn btn-danger"
+                                      onClick={() => this.listInNext()}>
+                                         <b>+</b>
+                                    </button>
+                                    </div>
   <div class="ui grid middle aligned"  style={{overflow: 'auto', width: '100%', height:'600px'}}>
           <div class="card-header" >
               <h3 class="card-title" ></h3>

@@ -240,8 +240,8 @@ class HomeList extends React.Component {
                                     <div class="col-3">
                                         <b>Loại Hàng</b><br />
                                         <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                        <option>Chọn</option>
-                                            <option value="">Tất cả</option>
+                                        <option value = {null}>Chọn</option>
+                                            <option value="" >Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
                                             <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
@@ -416,6 +416,7 @@ class HomeList extends React.Component {
                           
                                     <thead>
                                         <tr>
+                                            <th>STT</th>
                                             <th>STT vào bãi</th>
                                             <th>Biển sô xe vào/ Biển số xe ra</th>
                                             <th>Biển Cont</th>
@@ -427,6 +428,7 @@ class HomeList extends React.Component {
                                             <th>Thời gian lưu bãi</th>
                                             <th>Số tiền</th>
                                             <th>Nhân viên vào / Nhân viên ra</th>
+                                            <th>Nhân cho phép ra</th>
                                             <th>Loại hàng</th>
                                             <th>Cổng vào</th>
                                             <th>Cổng ra</th>
@@ -437,20 +439,22 @@ class HomeList extends React.Component {
                            {this.state.data && data.data.map((item, i) => (
                                     <tbody>
                                             <tr>
-                                                <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
+                                            <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
+                                                <td key={i}> {item.EventID}</td>
                                                 <td key={i}> {item.BienXe}</td>
                                                 <td key={i}> {item.BienCont}</td>
                                                 <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> ??? </td>
+                                                <td key={i}> {item.LoaiXeChiTiet} </td>
                                                 <td key={i}> {item.CarNumber_ID}</td>
                                                 <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
+                                                <td key={i}> {GetFormatDate(item.NgayGioRa)}</td>
                                                 <td key={i}> {item.ThoiGianTrongBai}</td>
                                                 <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
-                                                <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
+                                                <td key={i}> {item.UserID_Vao}</td>
+                                                <td key={i}> {item.USerID_DongYra}</td>
                                                 <td key={i}> {item.LoaiHangChiTiet}</td>
                                                 <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
-                                                <td key={i}> {item.IsRaKhoiBai}</td>
+                                                <td key={i}> {item.CongRa + ":" + item.CongRaName}</td>
                                                 <td> </td>
                                             </tr>
                                     </tbody>
