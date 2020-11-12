@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import izivan from '../dist/img/izivan.png'
+import pl from '../img/placeholder.jpg'
 import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
@@ -357,7 +357,7 @@ class HomeList extends React.Component {
                                             <option value = '1'>Tất cả</option>
                                             <option value = '2'>Cổng vào VN</option>
                                             <option value = '3'>Cổng ra quay đầu</option>
-                                            <option value = '4' >Cổng ra xuất</option>
+                                            <option value = '4'>Cổng ra xuất</option>
                                             <option value = '5'>Cổng vao ra CN</option>
                                         </select>
                                         <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
@@ -404,7 +404,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto' ,float:'left', width: '80%', height:'800px'}}>
+                        <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto' ,float:'left', width: '80%', height:'750px'}}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
                                     <button>Biển Số</button>
@@ -455,7 +455,7 @@ class HomeList extends React.Component {
                                                 <td key={i}> {item.LoaiHangChiTiet}</td>
                                                 <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
                                                 <td key={i}> {item.CongRa + ":" + item.CongRaName}</td>
-                                                <td> </td>
+                                                <td key={i}> </td>
                                             </tr>
                                     </tbody>
                                 ))}
@@ -474,7 +474,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={izivan} id="imglayout" />
+                                        <img src={pl} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
@@ -486,7 +486,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={izivan} id="imglayout" />
+                                        <img src={pl} id="imglayout" />
                                     </div>
                                 </div>
                             </div>

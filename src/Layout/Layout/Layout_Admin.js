@@ -8,7 +8,6 @@ import { requestLogin } from '../../api';
 // import '../dist/js/adminlte.min.js'
 // import '../plugins/jquery/jquery.min.js'
 // import '../plugins/bootstrap/js/bootstrap.bundle.min.js'
-
 export default class Layout extends Component {
     async exitLogin() {
         try {
@@ -27,6 +26,7 @@ export default class Layout extends Component {
     }
     render() {
         return (
+       
             <div class="hold-transition sidebar-mini">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
@@ -73,7 +73,7 @@ export default class Layout extends Component {
                                     <p>
                                         Quản lí người dùng
                 
-                                    </p> 
+                                    </p>
                                 </a>
                                 <ul >
                                     <li class="nav-item">
