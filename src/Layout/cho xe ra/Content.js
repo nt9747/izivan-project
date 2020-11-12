@@ -179,18 +179,8 @@ class Content extends React.Component {
                 <div class="col-3"><br/><br/>
                   <button class="btn btn-danger" style={{height: '80px', width: '150px'}}><h4><b>Tìm Kiếm</b></h4></button>
                 </div>
-                <div class="col-3"><br />
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listPrevious()}>
-                                         <b>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listNext()}>  
-                                         <b>+</b>
-                                    </button>
+                <div class="col-3">
+                                   
                                     </div>
             </div>
           </div>
@@ -200,7 +190,19 @@ class Content extends React.Component {
  
   <div class="ui grid middle aligned"  style={{overflow:'auto', float:'left', width: '70%', height:'600px'}}>
           <div class="card-header" >
-              <h3 class="card-title" ></h3>
+              <h3 class="card-title" > <button type="submit"
+                                        style={{height: '30px'}}
+                                     className="btn btn-danger"
+                                      onClick={() => this.listPrevious()}>
+                                         <b>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b>
+                                    <button type="submit"
+                                    style={{height: '30px'}}
+                                     className="btn btn-danger"
+                                      onClick={() => this.listNext()}>  
+                                         <b>+</b>
+                                    </button></h3>
           </div> 
           <table id="example2" class="table table-bordered table-hover"  >
                                 <>

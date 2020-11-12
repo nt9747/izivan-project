@@ -315,7 +315,7 @@ class HomeList extends React.Component {
                         <td style={{textAlign: 'center'}}><b>Vào</b></td>
                         <td style={{textAlign: 'center'}}><b>Ra</b></td>
                         <td style={{textAlign: 'center'}}><b>Tồn</b></td>
-                        <td style={{textAlign: 'center'}}></td>
+                        <td style={{textAlign: 'center'}}><b>Tổng doanh thu</b></td>
                       </tr>
                       <tr>
                         <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>{this.state.total}</b></td>
@@ -387,12 +387,14 @@ class HomeList extends React.Component {
                                     </div>
                                     <div class="col-2"><br />
                                     <button type="submit"
+                                    style={{height: '30px'}}
                                      className="btn btn-danger"
                                       onClick={() => this.listInPrevious()}>
                                          <b>-</b>
                                     </button>
                                     <b>{this.state.page}</b>
                                     <button type="submit"
+                                    style={{height: '30px'}}
                                      className="btn btn-danger"
                                       onClick={() => this.listInNext()}>
                                          <b>+</b>

@@ -238,8 +238,8 @@ class Content extends React.Component {
           <div style={{float: 'left', width: '70%'}}>
            <table style={{textAlign: 'right', width: '950px', height: '100px'}}>                                                                                                                                                                                                                                   
              <tr>
-               <td><b>Từ ngày:</b><input type="date" name="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/></td>
-               <td><b>Đến ngày:</b><input type="date" name="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/></td>
+               <td><b>Từ ngày:</b><input type="text" name="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/></td>
+               <td><b>Đến ngày:</b><input type="text" name="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/></td>
                <td><b>Cổng vào:</b><select onChange={(e) => this.handlePortChange(e)}>
                     <option value = ''>Chọn</option>
                     <option value = '1'>Tất cả</option>
@@ -249,7 +249,77 @@ class Content extends React.Component {
              </tr>
              <tr>
                <td><b>Biển số cont:</b><input type="text" style={{width: '150px'}}  name=""/></td>
-               <td><b>Loại hàng:</b><input type="text" style={{width: '150px'}}  name="" value = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}/></td>
+               <td><b>Loại hàng:</b>
+               <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                        <option>Chọn</option>
+                                            <option value="">Tất cả</option>
+                                            <option value="CAU KHÔ">CAU KHÔ</option>
+                                            <option value="THANH LONG">THANH LONG</option>
+                                            <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
+                                            <option value="DƯA HẤU">DƯA HẤU</option>
+                                            <option value="CHUỐI LẠNH">CHUỐI LẠNH</option>
+                                            <option value="SẮN">SẮN</option>
+                                            <option value="MÍT LẠNH">MÍT LẠNH</option>
+                                            <option value="MÍT NÓNG">MÍT NÓNG</option>
+                                            <option value="CÓI">CÓI</option>    
+                                            <option value="LÁ TRE">LÁ TRE</option>
+                                            <option value="LẠC">LẠC</option>
+                                            <option value="ĐỖ">ĐỖ</option>
+                                            <option value="XOÀI LẠNH">XOÀI LẠNH</option>
+                                            <option value="XOÀI NÓNG">XOÀI NÓNG</option>
+                                            <option value="BỘT SẮN">BỘT SẮN</option>
+                                            <option value="HÀNH TÂY">HÀNH TÂY</option>
+                                            <option value="TẠP HÓA">TẠP HÓA</option>
+                                            <option value="CÀ RỐT">CÀ RỐT</option>
+                                            <option value="LONG NHÃN">LONG NHÃN</option>
+                                            <option value="CÚT MÂY">CÚT MÂY</option>
+                                            <option value="SONG MÂY">SONG MÂY</option>
+                                            <option value="VẢI NÓNG">VẢI NÓNG</option>
+                                            <option value="VẢI LẠNH">VẢI LẠNH</option>
+                                            <option value="VẢI KHÔ">VẢI KHÔ</option>
+                                            <option value="CAU">CAU</option>
+                                            <option value="TỎI">TỎI</option>
+                                            <option value="KHUÔN MÁY">KHUÔN MÁY</option>
+                                            <option value="LÁ CỌ">LÁ CỌ</option>
+                                            <option value="NẤM">NẤM</option>
+                                            <option value="DƯA VÀNG">DƯA VÀNG</option>
+                                            <option value="HOA HỒI">HOA HỒI</option>
+                                            <option value="RAU">RAU</option>
+                                            <option value="CÂY CẢNH">CÂY CẢNH</option>
+                                            <option value="CHẬU CÂY">CHẬU CÂY</option>
+                                            <option value="GIẤY">GIẤY</option>
+                                            <option value="KHOAI TÂY">KHOAI TÂY</option>
+                                            <option value="RỔ RÁ">RỔ RÁ</option>
+                                            <option value="CHÔM CHÔM">CHÔM CHÔM</option>
+                                            <option value="NHÃN LẠNH">NHÃN LẠNH</option>
+                                            <option value="NHÃN NÓNG">NHÃN NÓNG</option>
+                                            <option value="NHÃN TƯƠI">NHÃN TƯƠI</option>
+                                            <option value="NHÃN KHÔ">NHÃN KHÔ</option>
+                                            <option value="NÓN">NÓN</option>
+                                            <option value="HẠT SEN">HẠT SEN</option>
+                                            <option value="CỦ CẢI">CỦ CẢI</option>
+                                            <option value="CHẬU CÂY CẢNH">CHẬU CÂY CẢNH</option>
+                                            <option value="GỪNG">GỪNG</option>
+                                            <option value="KHOAI SỌ">KHOAI SỌ</option>
+                                            <option value="ĐỒ NGỌC">ĐỒ NGỌC</option>
+                                            <option value="NỒI CƠM ĐIỆN">NỒI CƠM ĐIỆN</option>
+                                            <option value="XỐP">XỐP</option>
+                                            <option value="HÀNG HỘP">HÀNG HỘP</option>
+                                            <option value="HỒNG">HỒNG</option>
+                                            <option value="SẦU RIÊNG">SẦU RIÊNG</option>
+                                            <option value="ỚT">ỚT</option>
+                                            <option value="MÁY MÓC">MÁY MÓC</option>
+                                            <option value="ĐỖ XANH">ĐỖ XANH</option>
+                                            <option value="ĐỖ ĐỎ">ĐỖ ĐỎ</option>
+                                            <option value="GIÀY DÉP">GIÀY DÉP</option>
+                                            <option value="HÀNH TỎI">HÀNH TỎI</option>
+                                            <option value="NỘI THẤT">NỘI THẤT</option>
+                                            <option value="HẠT DƯA">HẠT DƯA</option>
+                                            <option value="BÁNH PÍA">BÁNH PÍA</option>
+                                            <option value="HẠT TRẦU">HẠT TRẦU</option>
+                                            <option value="NỘI THẤT">NỘI THẤT</option>
+                                        </select>
+               </td>
                <td><b>Loại xe:</b> <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
                                                 <option value = ''>Tất cả</option>  
                                         </select></td>
