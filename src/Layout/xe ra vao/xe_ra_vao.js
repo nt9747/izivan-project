@@ -372,12 +372,14 @@ class Content extends React.Component {
                                     </div>
                                     <div class="col-2"><br />
                                     <button type="submit"
+                                    style={{height: '30px'}}
                                      className="btn btn-danger"
                                       onClick={() => this.listInPrevious()}>
                                          <b>-</b>
                                     </button>
                                     <b>{this.state.page}</b>
                                     <button type="submit"
+                                    style={{height: '30px'}}
                                      className="btn btn-danger"
                                       onClick={() => this.listInNext()}>
                                          <b>+</b>

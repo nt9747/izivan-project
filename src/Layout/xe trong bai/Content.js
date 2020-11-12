@@ -198,73 +198,72 @@ class Content extends React.Component {
 
         <div class="card-body">
             <div class="row">
-                <div class="col-3">
-                    <b>Loại hàng</b><input type="text" class="form-control" placeholder="Nhập loại hàng"/>
-                </div>
-                <div class="col-6">
-                <select onChange={(e) => this.handlePortChange(e)}>
+                <div class="" style={{float: 'left', width: '60%'}}>
+                    <table style={{width: '100%'}}>
+                        <tr>
+                            <td><b>Loại hàng</b><input type="text" class="form-control" placeholder="Nhập loại hàng"/></td>
+                            <td><b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập biển số xe"/></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><b>Cổng</b>
+                                    <select onChange={(e) => this.handlePortChange(e)}>
                                         <option value = ''>Chọn</option>
-                                            <option value = '1'>Tất cả</option>
-                                            <option value = '2'>Cổng vào VN</option>
-                                            <option value = '5'>Cổng vao ra CN</option>
-                                        </select>
+                                        <option value = '1'>Tất cả</option>
+                                        <option value = '2'>Cổng vào VN</option>
+                                        <option value = '5'>Cổng vao ra CN</option>
+                                     </select></td>
+                            <td><b>Mã Thẻ</b><input type="text" class="form-control" placeholder="Nhập mã thẻ"/></td>
+                            <td><button class="btn btn-danger" onClick={() => this.list()} style={{height: '40px', width: '300px'}}><h6><b>Tìm</b></h6></button></td>
+                        </tr>
+                    </table>
+                    <table style={{textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset'}}>
+                        <tr>
+                        <td>Tổng số xe trong bãi</td>
+                        <td style={{backgroundColor: 'yellow', width: '150px'}}>230</td>
+                        <td>Tổng số xe cổng VN</td>
+                        <td style={{backgroundColor: 'yellow', width: '150px'}}>400</td>
+                        <td>Tổng số xe cổng TQ</td>
+                        <td style={{backgroundColor: 'yellow', width: '150px'}}>682</td>
+                        </tr>
+                    </table>
                 </div>
-                <form style={{float:'right'}}>
-                    <input type="checkbox" name=""/>Cho xuất<br/>
-                    <input type="checkbox" name=""/>Cho phép ra<br/>
-                    <input type="checkbox" name=""/>Kiểm hóa<br/>
-                    <input type="checkbox" name=""/>Bốc
-            </form>
-            </div>
-            
-            <div class="row">
-                <div class="col-3">
-                    <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập biển số xe"/>
+                <div style={{float: 'right', width: '40%'}}>
+                    <form>
+                        <input type="checkbox" name=""/><b>Cho xuất</b><br/>
+                        <input type="checkbox" name=""/><b>Cho phép ra</b><br/>
+                        <input type="checkbox" name=""/><b>Kiểm hóa</b><br/>
+                        <input type="checkbox" name=""/><b>Bốc</b>
+                    </form><br/>
+                    <table>
+                        <tr>
+                            <td><button class="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cho ra</b></h9></button></td>
+                            <td><button class="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý Xuất</b></h9></button></td>
+                            <td><button class="btn btn-danger" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cả hai</b></h9></button></td>
+                        </tr>    
+                    </table>
+               
+                                    
                 </div>
-                <div class="col-3">
-                    <b>Mã Thẻ</b><input type="text" class="form-control" placeholder="Nhập mã thẻ"/>
-                </div>
-                <div class="col-3"><br/>
-                      <button class="btn btn-danger" onClick={() => this.list()} style={{height: '40px', width: '300px'}}><h6><b>Tìm</b></h6></button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3">
-                    <b>Tổng số xe trong bãi: ALL</b>
-                </div>
-                <div class="col-3">
-                    <b>Tổng số xe cổng VN: VN</b>
-                </div>
-                <div class="col-3">
-                    <b>Tổng số xe cổng TQ: TQ</b>
-                </div>
-                <div class=""><br/>
-                      <button style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cho ra</b></h9></button><br/>
-                      <button style={{height: '50px', width: '150px'}}><h9><b>Đồng ý Xuất</b></h9></button>
-                </div>
-<div class=""><br/>
-                      <button style={{height: '100px', width: '150px'}}><h9><b>Đồng ý cả hai</b></h9></button>
-                </div>
-                <div class="col-3"><br />
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInPrevious()}>
-                                         <b>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInNext()}>
-                                         <b>+</b>
-                                    </button>
-                                    </div>
             </div>
 
           </div>
       </div>
   <div class="ui grid middle aligned"  id="bang" style={{overflow:'auto', float:'left', width: '80%', height:'600px'}}>
           <div class="card-header" >
-              <h3 class="card-title" ></h3>
+              <h3 class="card-title" ><button type="submit"
+                                    style={{height: '30px'}}
+                                     className="btn btn-danger"
+                                      onClick={() => this.listInPrevious()}>
+                                         <b>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b>
+                                    <button type="submit"
+                                    style={{height: '30px'}}
+                                     className="btn btn-danger"
+                                      onClick={() => this.listInNext()}>
+                                         <b>+</b>
+                                    </button></h3>
           </div> 
           <table id="example2" class="table table-bordered table-hover"  >
                                 <>
