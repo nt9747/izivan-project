@@ -407,11 +407,11 @@ class HomeList extends React.Component {
                                     <button>Loại Hàng</button>
                                 </h3>
                             </div>
-                            <table id="example2" class="table table-bordered table-hover" style={{width: '50%'}} >
+                            <table id="example2" class="table table-bordered table-hover" >
 
                                 <thead>
                                     <tr>
-                                        <th style={{height: '200px'}}>STT</th>
+                                        <th>STT</th>
                                         <th>STT vào bãi</th>
                                         <th>Biển sô xe vào/ Biển số xe ra</th>
                                         <th>Biển Cont</th>
