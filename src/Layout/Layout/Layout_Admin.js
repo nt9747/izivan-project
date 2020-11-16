@@ -4,10 +4,15 @@ import LTE from "../img/AdminLTELogo.png"
 import user2 from '../dist/img/user2-160x160.jpg'
 import Cookie from 'js-cookie';
 import { requestLogin } from '../../api';
+import 'jquery';
 
-// import '../dist/js/adminlte.min.js'
-// import '../plugins/jquery/jquery.min.js'
-// import '../plugins/bootstrap/js/bootstrap.bundle.min.js'
+
+
+// import '../../../node_modules/jquery/dist/jquery.min.js';
+import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+import '../../../node_modules/adminlte-2-react/src/adminlte/js/adminlte.min.js';
+import '../../../node_modules/admin-lte/dist/js/adminlte.min.js';
+
 export default class Layout extends Component {
     async exitLogin() {
         try {
@@ -26,7 +31,6 @@ export default class Layout extends Component {
     }
     render() {
         return (
-       
             <div class="hold-transition sidebar-mini">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <ul class="navbar-nav">
@@ -65,159 +69,153 @@ export default class Layout extends Component {
                         </div>
                     </div>
                     <nav class="mt-2">
-                        <ul class="nav nav-pills  flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                          
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-
-                                    <p>
-                                        Quản lí người dùng
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="./AddUser" >
-                                           
-                                            <p>Thêm tài khoản</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./ListUser">
-                                           
-                                            <p>Quản trị hoạt động</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-
-                                    <p>
-                                        Quản lí xe
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="/home">
-                                           
-                                            <p>Tổng hợp</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/XeLuuBai">
-                                           
-                                            <p>Báo cáo lưu xe</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/Doanhthu">
-                                           
-                                            <p>Báo cáo doanh thu</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-
-                                    <p>
-                                        Quản trị dịch vụ
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="pages/Quản trị dịch vụ/boc_xep.html">
-                                           
-                                            <p>Dịch vụ bốc xếp</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="pages/Quản trị dịch vụ/kiem_hoa.html">
-                                           
-                                            <p>Dịch vụ kiểm hóa</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-
-                                    <p>
-                                        Báo cáo tổng hợp
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="pages/Báo cáo tổng hợp/theo_doi_nhap.html">
-                                           
-                                            <p>Phiếu theo dõi nhập</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="pages/Báo cáo tổng hợp/hai_quan_theo_thang.html">
-                                           
-                                            <p>Hải quan theo tháng</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-                                    <p>
-                                        Quản trị
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="./ThongTinXe" >
-                                           
-                                            <p>Theo dõi thông tin xe</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./ThemLoaiHang">
-                                           
-                                            <p>Thêm loại hàng</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./ChoXeRa">
-                                           
-                                            <p>Cho xe ra</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-
-                                    <p>
-                                        Phòng loa
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="./XeTrongBai" >
-                                           
-                                            <p>Xe trong bãi</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./XeRaVao">
-                                           
-                                            <p>Xe ra vào</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+         
+          <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+              
+             <p>
+                Quản lí người dùng
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/Quản lí người dùng/add_user.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/Quản lí người dùng/user_manager.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Quản trị hoạt động</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+           <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+       
+             <p>
+                Quản lí xe
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/Quản lí xe/Tong_hop.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tổng hợp</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/Quản lí xe/Bao_cao_luu_xe.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Báo cáo lưu xe</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+           <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+       
+             <p>
+                Quản trị dịch vụ
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/Quản trị dịch vụ/boc_xep.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dịch vụ bốc xếp</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/Quản trị dịch vụ/kiem_hoa.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dịch vụ kiểm hóa</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+           <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+       
+             <p>
+                Báo cáo tổng hợp
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/Báo cáo tổng hợp/theo_doi_nhap.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Phiếu theo dõi nhập</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/Báo cáo tổng hợp/hai_quan_theo_thang.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hải quan theo tháng</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+           <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+             <p>
+                Quản trị
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/Quản trị/thong_tin_xe.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Theo dõi thông tin xe</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/Quản trị/them_loai_hang.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm loại hàng</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/Quản trị/cho_xe_ra.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cho xe ra</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+           <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link active">
+       
+             <p>
+                Phòng loa
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/Phòng loa/xe_trong_bai.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Xe trong bãi</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/Phòng loa/xe_ra_vao.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Xe ra vào</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
 
                 </div>
             </aside>
