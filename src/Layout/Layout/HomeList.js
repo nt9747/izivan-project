@@ -5,7 +5,6 @@ import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
 import empty from '../img/empty.png';
-import ReactTable from 'react-table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -46,7 +45,7 @@ class HomeList extends React.Component {
         super(props)
         this.state = {
             fromDate: '10/01/2020 00:00:00',
-            toDate: '10/02/2020 23:59:59',
+            toDate: '10/02/2200 23:59:59',
             plateNumber: '',
             portIn: "",
             numberCar: "",

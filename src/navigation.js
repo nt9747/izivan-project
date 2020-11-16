@@ -16,6 +16,7 @@ import XeRaVao from "./xe_ra_vao"
 import empty from "./empty"
 import doanhthu from "./bao_cao_doanh_thu"
 import luubai from "./xe_luu_bai"
+import Exceldoanhthu from "./Excel_doanh_thu"
 
 class Routes extends React.Component {
     render(){
@@ -37,6 +38,7 @@ class Routes extends React.Component {
             <Route exact path="/Empty" component={empty} />
             <Route exact path="/Doanhthu" component={doanhthu} />
             <Route exact path="/XeLuuBai" component={luubai} />
+            <Route exact path="/ExcelDoanhThu" component={Exceldoanhthu} />
           </Switch>
           </Router>
         );

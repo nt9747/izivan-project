@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import pl from '../img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
+import pl from './Layout/img/placeholder.jpg'
+import { requestGetListCarIn, requestLogin, resquestGetListCarType } from './api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
-import empty from '../img/empty.png'
+import empty from './Layout/img/empty.png'
+import ReactHTMLTableToExcel from 'react-html-table-to-excel'; 
 
 
 
@@ -39,7 +40,7 @@ function GetFormatDate(a){
    else return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
 }
 
-class Content extends React.Component {
+class Exceldoanhthu extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
@@ -212,7 +213,6 @@ class Content extends React.Component {
             )
         }
         return (
-            <div class="content-wrapper">
   
 
 <section class="content">
@@ -344,12 +344,13 @@ class Content extends React.Component {
                       <button onClick={() => this.list()} class="btn btn-danger"><b>Tìm Kiếm</b></button>
                 </div>
                     <div class="col-6 "><br/>
-                            <form action="/ExcelDoanhThu">
-                                <button type="submit"
-                                        className="btn btn-danger">
-                                            <b>Export Excel</b>
-                                </button>
-                            </form>
+                            <ReactHTMLTableToExcel  
+                                                className="btn btn-danger"  
+                                                table="example2"  
+                                                filename= {this.state.fromDate + "-->" + this.state.toDate}  
+                                                sheet="Sheet"  
+                                                buttonText="Xuất Excel"
+                                                style={{width: '20%'}} /> 
                       <div style= {{float: 'right'}}class="col-3">
                                     <button type="submit"
                                      className="btn btn-danger"
@@ -395,7 +396,7 @@ class Content extends React.Component {
             </div>
       </div>
 
-  <div class="ui grid middle aligned"  style={{overflow: 'auto', width: '100%', height:'600px'}}>
+  <div class="ui grid middle aligned" >
           <div class="card-header" >
               <h3 class="card-title" ></h3>
               
@@ -455,9 +456,9 @@ class Content extends React.Component {
    
 </div>
 </section>
-</div>
+
         )
     }
 }
 
-export default Content
+export default Exceldoanhthu
