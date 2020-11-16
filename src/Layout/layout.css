@@ -2,12 +2,10 @@
 #test2{border: 2px; text-align: center; border-collapse: separate;}
 #test3{background-color: red}
 #khung{background-color: red}
-#imglayout{width: 280px; height: 280px;}
+#imglayout{width: 290px; height: 290px;}
 #bang{ overflow:auto; width: 80%; height:600px;  float:left}
 thead{background-color: #4BA0B8}
 #img_xetrongbai{width: 200px; height: 200px;}
 #edit_car{width: 120px; height: 30px;}
 #edit_car1{width: 150px; height: 30px;}
 #empty1{background-image: url(img/empty.png)}
-
-
