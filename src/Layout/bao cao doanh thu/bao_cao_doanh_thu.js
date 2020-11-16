@@ -346,22 +346,24 @@ class Content extends React.Component {
                     <div class="col-6 "><br/>
                             <form action="/ExcelDoanhThu">
                                 <button type="submit"
-                                        className="btn btn-danger">
+                                        className="btn btn-success">
                                             <b>Export Excel</b>
                                 </button>
                             </form>
                       <div style= {{float: 'right'}}class="col-3">
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInPrevious()}>
-                                         <b>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInNext()}>
-                                         <b>+</b>
-                                    </button>
+                      <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                           
+                                            onClick={() => this.listInPrevious()}>
+                                            <b style={{color:'black'}}>-</b>
+                                        </button>
+                                        <b>{this.state.page}</b>
+                                        <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                            
+                                            onClick={() => this.listInNext()}>
+                                            <b style={{color:'black'}}>+</b>
+                                        </button>
                                     </div>
                     </div>    
                 

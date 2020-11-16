@@ -257,9 +257,9 @@ class Content extends React.Component {
                                         <b>Từ</b><input type="text" class="form-control" placeholder=".col-3" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} /><br />
                                         <b>Đến</b><input type="text" class="form-control" placeholder=".col-3" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
-                                    <div class="col-4">
-                                        <b>Mã thẻ</b><input type="text" class="form-control" name="" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /><br />
-                                        <b>Biển số xe</b><input type="text" class="form-control" name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
+                                    <div class="col-5">
+                                        <b>Mã thẻ</b><input style={{width: '350px'}} type="text" class="form-control" name="" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /><br />
+                                        <b>Biển số xe</b><input style={{width: '350px'}} type="text" class="form-control" name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
                                     <div class="col-3"><br /><br />
                                         <button class="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
@@ -268,17 +268,19 @@ class Content extends React.Component {
                             </div>
                         </div>
                         <div class="col-3"  ><br />
-                            <button type="submit"
-                                className="btn btn-danger"
-                                onClick={() => this.listInPrevious()}>
-                                <b>-</b>
-                            </button>
-                            <b>{this.state.page}</b>
-                            <button type="submit"
-                                className="btn btn-danger"
-                                onClick={() => this.listInNext()}>
-                                <b>+</b>
-                            </button>
+                        <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                           
+                                            onClick={() => this.listInPrevious()}>
+                                            <b style={{color:'black'}}>-</b>
+                                        </button>
+                                        <b>{this.state.page}</b>
+                                        <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                            
+                                            onClick={() => this.listInNext()}>
+                                            <b style={{color:'black'}}>+</b>
+                                        </button>
                         </div>
 
 

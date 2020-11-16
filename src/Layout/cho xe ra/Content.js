@@ -254,21 +254,21 @@ class Content extends React.Component {
 
 
 
-                        <div class="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '70%', height: '600px' }}>
+                        <div class="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '65%', height: '600px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" > <button type="submit"
-                                    style={{ height: '30px' }}
-                                    className="btn btn-danger"
-                                    onClick={() => this.listInPrevious()}>
-                                    <b>-</b>
-                                </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                        style={{ height: '30px' }}
-                                        className="btn btn-danger"
-                                        onClick={() => this.listInNext()}>
-                                        <b>+</b>
-                                    </button></h3>
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                           
+                                            onClick={() => this.listInPrevious()}>
+                                            <b style={{color:'black'}}>-</b>
+                                        </button>
+                                        <b>{this.state.page}</b>
+                                        <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                            
+                                            onClick={() => this.listInNext()}>
+                                            <b style={{color:'black'}}>+</b>
+                                        </button></h3>
                             </div>
                             <table id="example2" class="table table-bordered table-hover"  >
                                 <>
@@ -311,7 +311,7 @@ class Content extends React.Component {
                             </table>
                         </div>
                     </div>
-                    <div style={{ width: '30%', height: '20%', float: 'right' }}>
+                    <div style={{ width: '35%', height: '20%', float: 'right' }}>
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">Hiện Tại</h3>
@@ -344,9 +344,9 @@ class Content extends React.Component {
                                             <td colspan="2"><input type="text" style={{ width: '310px' }} /></td>
                                         </tr>
                                         <tr>
-                                            <td><button>Hủy</button></td>
+                                            <td><button class='btn btn-danger'><b>Hủy</b></button></td>
+                                            <td><button class='btn btn-danger'><b>Thay đổi thông tin</b></button></td>
                                             <td></td>
-                                            <td><button>Thay đổi thông tin</button></td>
                                         </tr>
                                     </table>
                                 </div>

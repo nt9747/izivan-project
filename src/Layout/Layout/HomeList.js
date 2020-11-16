@@ -322,7 +322,7 @@ class HomeList extends React.Component {
                                                 <td><b style={{ textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.total}</b></td>
                                                 <td><b style={{ textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block' }}>b</b></td>
                                                 <td><b style={{ textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block' }}>c</b></td>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '50px', display: 'inline-block' }}>d</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '150px', height: '50px', display: 'inline-block' }}>d</b></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -380,7 +380,7 @@ class HomeList extends React.Component {
                                     <div class="col-2"><br />
                                         <form action="/ExportExcel">
                                             <button type="submit"
-                                                className="btn btn-danger"
+                                                className="btn btn-success"
                                             >
                                                 <b>Export Excel</b>
                                             </button>
@@ -388,17 +388,17 @@ class HomeList extends React.Component {
                                     </div>
                                     <div class="col-2"><br />
                                         <button type="submit"
-
-                                            className="btn btn-danger"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                           
                                             onClick={() => this.listInPrevious()}>
-                                            <b>-</b>
+                                            <b style={{color:'black'}}>-</b>
                                         </button>
                                         <b>{this.state.page}</b>
                                         <button type="submit"
-
-                                            className="btn btn-danger"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                            
                                             onClick={() => this.listInNext()}>
-                                            <b>+</b>
+                                            <b style={{color:'black'}}>+</b>
                                         </button>
                                     </div>
                                 </div>
@@ -413,11 +413,11 @@ class HomeList extends React.Component {
                                     <button>Loại Hàng</button>
                                 </h3>
                             </div>
-                            <table id="example2" class="table table-bordered table-hover">
+                            <table id="example2" class="table table-bordered table-hover" style={{width: '50%'}} >
 
                                 <thead>
                                     <tr>
-                                        <th>STT</th>
+                                        <th style={{height: '200px'}}>STT</th>
                                         <th>STT vào bãi</th>
                                         <th>Biển sô xe vào/ Biển số xe ra</th>
                                         <th>Biển Cont</th>

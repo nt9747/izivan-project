@@ -298,7 +298,7 @@ class Content extends React.Component {
                         <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
                         <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
                         <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '50px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '150px', height: '50px', display: 'inline-block'}}>d</b></td>
                       </tr>
                     </table>
               </div>
@@ -372,18 +372,18 @@ class Content extends React.Component {
                                     </div>
                                     <div class="col-2"><br />
                                     <button type="submit"
-                                    style={{height: '30px'}}
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInPrevious()}>
-                                         <b>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                    style={{height: '30px'}}
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInNext()}>
-                                         <b>+</b>
-                                    </button>
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                           
+                                            onClick={() => this.listInPrevious()}>
+                                            <b style={{color:'black'}}>-</b>
+                                        </button>
+                                        <b>{this.state.page}</b>
+                                        <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                            
+                                            onClick={() => this.listInNext()}>
+                                            <b style={{color:'black'}}>+</b>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

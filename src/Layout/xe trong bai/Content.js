@@ -198,7 +198,7 @@ class Content extends React.Component {
 
         <div class="card-body">
             <div class="row">
-                <div class="" style={{float: 'left', width: '60%'}}>
+                <div class="" style={{float: 'left', width: '64%'}}>
                     <table style={{width: '100%'}}>
                         <tr>
                             <td><b>Loại hàng</b><input type="text" class="form-control" placeholder="Nhập loại hàng"/></td>
@@ -228,7 +228,7 @@ class Content extends React.Component {
                         </tr>
                     </table>
                 </div>
-                <div style={{float: 'right', width: '40%'}}>
+                <div style={{float: 'right', width: '36%'}}>
                     <form>
                         <input type="checkbox" name=""/><b>Cho xuất</b><br/>
                         <input type="checkbox" name=""/><b>Cho phép ra</b><br/>
@@ -252,18 +252,18 @@ class Content extends React.Component {
   <div class="ui grid middle aligned"  id="bang" style={{overflow:'auto', float:'left', width: '80%', height:'600px'}}>
           <div class="card-header" >
               <h3 class="card-title" ><button type="submit"
-                                    style={{height: '30px'}}
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInPrevious()}>
-                                         <b>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                    style={{height: '30px'}}
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInNext()}>
-                                         <b>+</b>
-                                    </button></h3>
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                           
+                                            onClick={() => this.listInPrevious()}>
+                                            <b style={{color:'black'}}>-</b>
+                                        </button>
+                                        <b>{this.state.page}</b>
+                                        <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                            
+                                            onClick={() => this.listInNext()}>
+                                            <b style={{color:'black'}}>+</b>
+                                        </button></h3>
           </div> 
           <table id="example2" class="table table-bordered table-hover"  >
                                 <>
