@@ -55,7 +55,7 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: "",
-            SelectCong: "/listCar/listCarParking?",
+            SelectCong: "",
             total: "",
             dataXe: "",
             loaiXe: "",
