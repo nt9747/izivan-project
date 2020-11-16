@@ -407,13 +407,12 @@ class HomeList extends React.Component {
                                     <button>Loại Hàng</button>
                                 </h3>
                             </div>
-                            <table id="example2" class="table table-bordered table-hover" >
-
+                            <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
                                         <th>STT vào bãi</th>
-                                        <th>Biển sô xe vào/ Biển số xe ra</th>
+                                        <th>Biển xe vào<br/> Biển xe ra</th>
                                         <th>Biển Cont</th>
                                         <th>Biển Mooc</th>
                                         <th>Loại xe</th>
@@ -422,7 +421,7 @@ class HomeList extends React.Component {
                                         <th>Thời gia ra bãi</th>
                                         <th>Thời gian lưu bãi</th>
                                         <th>Số tiền</th>
-                                        <th>Nhân viên vào / Nhân viên ra</th>
+                                        <th>Nhân viên vào <br/> Nhân viên ra</th>
                                         <th>Nhân cho phép ra</th>
                                         <th>Loại hàng</th>
                                         <th>Cổng vào</th>
@@ -461,7 +460,7 @@ class HomeList extends React.Component {
                             {this.state.total == 0 && <img src={empty} style={{ width: '1350px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div>
+                    <div style={{float: 'right', width: '20%'}}>
                         <div class="card card-warning" >
 
                             <div class="card-header">
