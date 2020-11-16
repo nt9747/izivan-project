@@ -60,7 +60,28 @@ class HomeList extends React.Component {
             total: "",
             dataXe: "",
             loaiXe: "",
+            showBienXe: true,
+            showLoaiXe: false,
+            showLoaiHang: false,
         }
+        this.toggleBienXe = this.toggleBienXe.bind(this)
+        this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
+        this.toggleLoaiXe = this.toggleLoaiXe.bind(this)
+    }
+
+    toggleBienXe = () => {
+        const { showBienXe } = this.state;
+        this.setState({ showBienXe: true, showLoaiXe: false, showLoaiHang: false})
+    }
+
+    toggleLoaiXe = () => {
+        const {showLoaiXe} = this.state;
+        this.setState({showLoaiXe: true, showBienXe: false, showLoaiHang: false})
+    }
+
+    toggleLoaiHang = () => {
+        const {showLoaiHang} = this.state;
+        this.setState({showLoaiHang: true, showBienXe: false, showLoaiXe: false})
     }
 
     componentDidMount() {
@@ -382,17 +403,17 @@ class HomeList extends React.Component {
                                     </div>
                                     <div class="col-2"><br />
                                         <button type="submit"
-                                            style={{width:'38px', color:'#C8C8C8'}}
-                                           
+                                            style={{ width: '38px', color: '#C8C8C8' }}
+
                                             onClick={() => this.listInPrevious()}>
-                                            <b style={{color:'black'}}>-</b>
+                                            <b style={{ color: 'black' }}>-</b>
                                         </button>
                                         <b>{this.state.page}</b>
                                         <button type="submit"
-                                            style={{width:'38px', color:'#C8C8C8'}}
-                                            
+                                            style={{ width: '38px', color: '#C8C8C8' }}
+
                                             onClick={() => this.listInNext()}>
-                                            <b style={{color:'black'}}>+</b>
+                                            <b style={{ color: 'black' }}>+</b>
                                         </button>
                                     </div>
                                 </div>
@@ -402,18 +423,18 @@ class HomeList extends React.Component {
                         <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '80%', height: '750px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
-                                    <button>Biển Số</button>
-                                    <button>Loại Xe</button>
-                                    <button>Loại Hàng</button>
+                                    <button onClick={this.toggleBienXe}>Biển Số</button>
+                                    <button onClick={this.toggleLoaiXe}>Loại Xe</button>
+                                    <button onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
-                            <table id="example2" class="table table-bordered table-hover" >
+                            {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover" >
 
                                 <thead>
                                     <tr>
                                         <th>STT</th>
                                         <th>STT vào bãi</th>
-                                        <th>Biển sô xe vào/ Biển số xe ra</th>
+                                        <th>Biển số xe vào/ra</th>
                                         <th>Biển Cont</th>
                                         <th>Biển Mooc</th>
                                         <th>Loại xe</th>
@@ -422,7 +443,7 @@ class HomeList extends React.Component {
                                         <th>Thời gia ra bãi</th>
                                         <th>Thời gian lưu bãi</th>
                                         <th>Số tiền</th>
-                                        <th>Nhân viên vào / Nhân viên ra</th>
+                                        <th>Nhân viên vào/ra</th>
                                         <th>Nhân cho phép ra</th>
                                         <th>Loại hàng</th>
                                         <th>Cổng vào</th>
@@ -457,7 +478,34 @@ class HomeList extends React.Component {
                                     ))}
 
                                 </>
-                            </table>
+                            </table>}
+                            {this.state.showLoaiXe && <table id="example2" class="table table-bordered table-hover" >
+
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>STT vào bãi</th>
+                                        <th>Biển sô xe vào/ Biển số xe ra</th>
+                                        <th>Biển Cont</th>       
+                                    </tr>
+                                </thead>
+                                <>
+                                    {this.state.data && data.data.map((item, i) => (
+                                        <tbody>
+                                            {/* <tr onClick={() => this.Edit()} > */}
+                                            <tr>
+                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                <td key={i}> {item.EventID}</td>
+                                                <td key={i}> {item.BienXe}</td>
+                                                <td key={i}> {item.BienCont}</td>
+                                            </tr>
+                                        </tbody>
+                                    ))}
+
+                                </>
+                            </table>}
+
+
                             {this.state.total == 0 && <img src={empty} style={{ width: '1350px', height: '800px' }} />}
                         </div>
                     </div>
