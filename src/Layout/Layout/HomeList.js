@@ -486,10 +486,13 @@ class HomeList extends React.Component {
 
                                 <thead>
                                     <tr>
-                                        <th>STT</th>
-                                        <th>STT vào bãi</th>
-                                        <th>Biển sô xe vào/ Biển số xe ra</th>
-                                        <th>Biển Cont</th>       
+                                        <th>Ngày</th>
+                                        <th>Xe có trọng tải dưới 4 tấn</th>
+                                        <th>Xe có trọng tải 4 đến 10 tấn</th>
+                                        <th>Xe có trọng tải 10 đến 18 tấn</th>
+                                        <th>Xe có trọng tải trên 18 tấn</th>
+                                        <th>Container 20"</th>
+                                        <th>Container 40"</th>
                                     </tr>
                                 </thead>
                                 <>
@@ -498,9 +501,131 @@ class HomeList extends React.Component {
                                             {/* <tr onClick={() => this.Edit()} > */}
                                             <tr>
                                                 <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td key={i}> {item.EventID}</td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> {item.BienCont}</td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                            </tr>
+                                        </tbody>
+                                    ))}
+
+                                </>
+                            </table>}
+                            {this.state.showLoaiHang && <table id="example2" class="table table-bordered table-hover" >
+
+                                <thead>
+                                    <tr>
+                                        <th>Ngày</th>
+                                        <th>Cau khô</th>
+                                        <th>Thanh long</th>
+                                        <th>Bột sắn</th>
+                                        <th>Mít lạnh</th>
+                                        <th>Hạt sen</th>
+                                        <th>Lá tre</th>
+                                        <th>Mít nóng</th>
+                                        <th>ST</th>
+                                        <th>Xoài nóng</th>
+                                        <th>Hành tây</th>
+                                        <th>Khoai tây</th>
+                                        <th>Nấm</th>
+                                        <th>Hàng hộp</th>
+                                        <th>Sắn</th>
+                                        <th>Chuối nóng</th>
+                                        <th>Nội thất</th>
+                                        <th>Hạt dưa</th>
+                                        <th>Cà rốt</th>
+                                        <th>Lạc</th>
+                                        <th>Tỏi</th>
+                                        <th>Tạp hóa</th>
+                                        <th>Rau</th>
+                                        <th>Chôm chôm</th>
+                                        <th>Nón</th>
+                                        <th>Nhãn lạnh</th>
+                                        <th>Hạt châu</th>
+                                        <th>Cói</th>
+                                        <th>Cau</th>
+                                        <th>Bánh pía</th>
+                                        <th>Xoài lạnh</th>
+                                        <th>Dưa vàng</th>
+                                        <th>Củ cải</th>
+                                        <th>Linh kiện điện tử</th>
+                                        <th>Chậu cây cảnh</th>
+                                        <th>Dưa hấu</th>
+                                        <th>Cây cảnh</th>
+                                        <th>OT</th>
+                                        <th>Giấy</th>
+                                        <th>Xốp</th>
+                                        <th>Cau tươi</th>
+                                        <th>Bột sắn</th>
+                                        <th>Quả hồng</th>
+                                        <th>Đỗ</th>
+                                        <th>Hoa hồi</th>
+                                        <th>Hành tỏi</th>
+                                        <th>Hồng</th>
+                                        <th>Khoai sọ</th>
+                                        <th>Máy móc</th>
+                                        <th>Mít lạnh</th>
+                                        <th>Long nhãn</th>
+                                    </tr>
+                                </thead>
+                                <>
+                                    {this.state.data && data.data.map((item, i) => (
+                                        <tbody>
+                                            {/* <tr onClick={() => this.Edit()} > */}
+                                            <tr>
+                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 6 </td>
+                                                <td> 5 </td>
+                                                <td> 2 </td>
+                                                <td> 4 </td>
+                                                <td> 4 </td>
+                                                <td> 5 </td>
+                                                <td> 5 </td>
+                                                <td> 5 </td>
                                             </tr>
                                         </tbody>
                                     ))}
