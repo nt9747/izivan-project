@@ -3,12 +3,14 @@ import pl from '../img/placeholder.jpg'
 import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
-import { Redirect } from 'react-router-dom'; 
-import empty from '../img/empty.png'
+import { Redirect } from 'react-router-dom';
+import empty from '../img/empty.png';
+import ReactTable from 'react-table';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-function GetFormatDate(a){
+function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
     var minutes = b.getUTCMinutes();
@@ -17,31 +19,31 @@ function GetFormatDate(a){
     var day = b.getUTCDate();
     var year = b.getUTCFullYear();
 
-    
-   if(month.toString().length == 1) {
-        month = '0'+month;
-   }
-   if(day.toString().length == 1) {
-        day = '0'+day;
-   }   
-   if(hours.toString().length == 1) {
-        hours = '0'+hours;
-   }
-   if(minutes.toString().length == 1) {
-        minutes = '0'+minutes;
-   }
-   if(seconds.toString().length == 1) {
-        seconds = '0'+seconds;
-   }  
-   if (year == 1970){
-       return ""
-   }
-   else return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
+
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+    if (hours.toString().length == 1) {
+        hours = '0' + hours;
+    }
+    if (minutes.toString().length == 1) {
+        minutes = '0' + minutes;
+    }
+    if (seconds.toString().length == 1) {
+        seconds = '0' + seconds;
+    }
+    if (year == 1970) {
+        return ""
+    }
+    else return hours + ":" + minutes + ":" + seconds + "  " + day + "/" + month + "/" + year
 }
 
 class HomeList extends React.Component {
     constructor(props) {
-        super(props)    
+        super(props)
         this.state = {
             fromDate: '10/01/2020 00:00:00',
             toDate: '10/02/2020 23:59:59',
@@ -60,8 +62,8 @@ class HomeList extends React.Component {
             dataXe: "",
             loaiXe: "",
         }
-    }   
-    
+    }
+
     componentDidMount() {
         this.list();
         this.start();
@@ -88,8 +90,8 @@ class HomeList extends React.Component {
             // if (!res.data.data){
             //     return (this.state.page)
             // }
-            if(!(this.state.nextPage)){
-                return(--this.state.page);
+            if (!(this.state.nextPage)) {
+                return (--this.state.page);
             }
         } catch (err) {
             await this.setState({
@@ -115,10 +117,10 @@ class HomeList extends React.Component {
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe
             })
-            if (this.state.page < 1){
+            if (this.state.page < 1) {
                 ++this.state.page
             }
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage });
             console.log(this.state.data, "check data")
         } catch (err) {
             await this.setState({
@@ -126,14 +128,14 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
     }
-    async start(){
+    async start() {
         await this.setState({
             isLoading: true
         })
         try {
-                const res = await resquestGetListCarType({
-                })
-            await this.setState({dataXe: res.data});
+            const res = await resquestGetListCarType({
+            })
+            await this.setState({ dataXe: res.data });
             console.log(this.state.dataXe, "check total");
         } catch (err) {
             await this.setState({
@@ -141,7 +143,7 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
     }
-    
+
 
     async list() {
         await this.setState({
@@ -159,9 +161,9 @@ class HomeList extends React.Component {
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
-  
+
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
+            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
             console.log(this.state.fromDate, "check PortIn")
             console.log(this.state.toDate, "check PortOut")
             console.log(this.state.data, "check data");
@@ -186,20 +188,20 @@ class HomeList extends React.Component {
     }
 
     handlePortChange(event) {
-        if (event.target.value==5){
-            this.setState({portIn: '1', PortOut: '3'})
+        if (event.target.value == 5) {
+            this.setState({ portIn: '1', PortOut: '3' })
         }
-        else if (event.target.value==1){
-            this.setState({portIn: '', PortOut: ''})
+        else if (event.target.value == 1) {
+            this.setState({ portIn: '', PortOut: '' })
         }
-        else if (event.target.value==2){
-            this.setState({portIn: '0', PortOut: null})
+        else if (event.target.value == 2) {
+            this.setState({ portIn: '0', PortOut: null })
         }
-        else if (event.target.value==3){
-            this.setState({portIn: null, PortOut: '2'})
+        else if (event.target.value == 3) {
+            this.setState({ portIn: null, PortOut: '2' })
         }
-        else if (event.target.value==4){
-            this.setState({portIn: null, PortOut: '4'})
+        else if (event.target.value == 4) {
+            this.setState({ portIn: null, PortOut: '4' })
         }
     }
 
@@ -212,15 +214,15 @@ class HomeList extends React.Component {
     //     })
     // }
 
-    
+
     render() {
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        if (isLoading) {
-            return (
-                <p>Loading...</p>
-            )
-        }
+        // if (isLoading) {
+        //     return (
+        //         <p>Loading...</p>
+        //     )
+        // }
         return (
             <div class="content-wrapper" id="root">
                 <section class="content">
@@ -232,15 +234,15 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">
-                                        <b>Từ</b><input type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)}/>
+                                        <b>Từ</b><input type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                     </div>
                                     <div class="col-3">
-                                        <b>Đến</b><input  type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)}/>
+                                        <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
                                     <div class="col-3">
                                         <b>Loại Hàng</b><br />
-                                        <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                        <option value = {null}>Chọn</option>
+                                        <select loaiHang={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                            <option value={null}>Chọn</option>
                                             <option value="" >Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
@@ -250,7 +252,7 @@ class HomeList extends React.Component {
                                             <option value="SẮN">SẮN</option>
                                             <option value="MÍT LẠNH">MÍT LẠNH</option>
                                             <option value="MÍT NÓNG">MÍT NÓNG</option>
-                                            <option value="CÓI">CÓI</option>    
+                                            <option value="CÓI">CÓI</option>
                                             <option value="LÁ TRE">LÁ TRE</option>
                                             <option value="LẠC">LẠC</option>
                                             <option value="ĐỖ">ĐỖ</option>
@@ -310,35 +312,35 @@ class HomeList extends React.Component {
                                         </select>
                                     </div>
                                     <div>
-                    <table>
-                      <tr>
-                        <td style={{textAlign: 'center'}}><b>Vào</b></td>
-                        <td style={{textAlign: 'center'}}><b>Ra</b></td>
-                        <td style={{textAlign: 'center'}}><b>Tồn</b></td>
-                        <td style={{textAlign: 'center'}}><b>Tổng doanh thu</b></td>
-                      </tr>
-                      <tr>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>{this.state.total}</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '50px', display: 'inline-block'}}>d</b></td>
-                      </tr>
-                    </table>
-              </div>
+                                        <table>
+                                            <tr>
+                                                <td style={{ textAlign: 'center' }}><b>Vào</b></td>
+                                                <td style={{ textAlign: 'center' }}><b>Ra</b></td>
+                                                <td style={{ textAlign: 'center' }}><b>Tồn</b></td>
+                                                <td style={{ textAlign: 'center' }}><b>Tổng doanh thu</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.total}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block' }}>b</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block' }}>c</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '50px', display: 'inline-block' }}>d</b></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
-                                
+
                                 <div class="row">
-                                    <div class="col-3"> 
+                                    <div class="col-3">
                                         <b>Loại xe</b><br />
-                                        <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.LoaiXe}>{item.Name}</option>)} 
-                                                <option value = ''>Tất cả</option>  
+                                        <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
+                                            <option value=''>Tất cả</option>
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)}/>
+                                        <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
                                     <div class="col-3">
-                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)}/>
+                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -353,58 +355,58 @@ class HomeList extends React.Component {
                                             <option value = "1">Cổng vào/ra TQ</option>
                                         </select> */}
                                         <select onChange={(e) => this.handlePortChange(e)}>
-                                        <option value = ''>Chọn</option>
-                                            <option value = '1'>Tất cả</option>
-                                            <option value = '2'>Cổng vào VN</option>
-                                            <option value = '3'>Cổng ra quay đầu</option>
-                                            <option value = '4'>Cổng ra xuất</option>
-                                            <option value = '5'>Cổng vao ra CN</option>
+                                            <option value=''>Chọn</option>
+                                            <option value='1'>Tất cả</option>
+                                            <option value='2'>Cổng vào VN</option>
+                                            <option value='3'>Cổng ra quay đầu</option>
+                                            <option value='4'>Cổng ra xuất</option>
+                                            <option value='5'>Cổng vao ra CN</option>
                                         </select>
-                                        <select value = {this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
-                                        <option value="" disabled="disabled">Chọn</option>
-                                            <option value = '/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
-                                            <option value = '/listCar/listCarIn?' >1. Giao dịch vào </option>
-                                            <option value = '/listCar/listCarOut?'>2. Giao dịch ra</option>
-                                            <option value = '/listCar/listCarParking?'>3. Số lượng xe tồn</option>
+                                        <select value={this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
+                                            <option value="" disabled="disabled">Chọn</option>
+                                            <option value='/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
+                                            <option value='/listCar/listCarIn?' >1. Giao dịch vào </option>
+                                            <option value='/listCar/listCarOut?'>2. Giao dịch ra</option>
+                                            <option value='/listCar/listCarParking?'>3. Số lượng xe tồn</option>
                                         </select>
                                     </div>
                                     <div class="col-2"><br />
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      onClick={() => this.list()}>
-                                         <b>Tìm kiếm</b>
-                                    </button>
+                                        <button type="submit"
+                                            className="btn btn-danger"
+                                            onClick={() => this.list()}>
+                                            <b>Tìm kiếm</b>
+                                        </button>
                                     </div>
-                                    
+
                                     <div class="col-2"><br />
-                                    <form action="/ExportExcel">
-                                    <button type="submit"
-                                     className="btn btn-danger"
-                                      >
-                                         <b>Export Excel</b>
-                                    </button>
-                                    </form>
+                                        <form action="/ExportExcel">
+                                            <button type="submit"
+                                                className="btn btn-danger"
+                                            >
+                                                <b>Export Excel</b>
+                                            </button>
+                                        </form>
                                     </div>
                                     <div class="col-2"><br />
-                                    <button type="submit"
-                                    style={{height: '30px'}}
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInPrevious()}>
-                                         <b>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b>
-                                    <button type="submit"
-                                    style={{height: '30px'}}
-                                     className="btn btn-danger"
-                                      onClick={() => this.listInNext()}>
-                                         <b>+</b>
-                                    </button>
+                                        <button type="submit"
+
+                                            className="btn btn-danger"
+                                            onClick={() => this.listInPrevious()}>
+                                            <b>-</b>
+                                        </button>
+                                        <b>{this.state.page}</b>
+                                        <button type="submit"
+
+                                            className="btn btn-danger"
+                                            onClick={() => this.listInNext()}>
+                                            <b>+</b>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{overflow: 'auto' ,float:'left', width: '80%', height:'750px'}}>
+                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '80%', height: '750px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
                                     <button>Biển Số</button>
@@ -413,33 +415,34 @@ class HomeList extends React.Component {
                                 </h3>
                             </div>
                             <table id="example2" class="table table-bordered table-hover">
-                          
-                                    <thead>
-                                        <tr>
-                                            <th>STT</th>
-                                            <th>STT vào bãi</th>
-                                            <th>Biển sô xe vào/ Biển số xe ra</th>
-                                            <th>Biển Cont</th>
-                                            <th>Biển Mooc</th>
-                                            <th>Loại xe</th>
-                                            <th>Mã số thẻ</th>
-                                            <th>Thời gian vào bãi</th>
-                                            <th>Thời gia ra bãi</th>
-                                            <th>Thời gian lưu bãi</th>
-                                            <th>Số tiền</th>
-                                            <th>Nhân viên vào / Nhân viên ra</th>
-                                            <th>Nhân cho phép ra</th>
-                                            <th>Loại hàng</th>
-                                            <th>Cổng vào</th>
-                                            <th>Cổng ra</th>
-                                            <th>Phiếu hải quan</th>
-                                        </tr>
-                                    </thead>
-                            <>
-                           {this.state.data && data.data.map((item, i) => (
-                                    <tbody>
+
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>STT vào bãi</th>
+                                        <th>Biển sô xe vào/ Biển số xe ra</th>
+                                        <th>Biển Cont</th>
+                                        <th>Biển Mooc</th>
+                                        <th>Loại xe</th>
+                                        <th>Mã số thẻ</th>
+                                        <th>Thời gian vào bãi</th>
+                                        <th>Thời gia ra bãi</th>
+                                        <th>Thời gian lưu bãi</th>
+                                        <th>Số tiền</th>
+                                        <th>Nhân viên vào / Nhân viên ra</th>
+                                        <th>Nhân cho phép ra</th>
+                                        <th>Loại hàng</th>
+                                        <th>Cổng vào</th>
+                                        <th>Cổng ra</th>
+                                        <th>Phiếu hải quan</th>
+                                    </tr>
+                                </thead>
+                                <>
+                                    {this.state.data && data.data.map((item, i) => (
+                                        <tbody>
+                                            {/* <tr onClick={() => this.Edit()} > */}
                                             <tr>
-                                            <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
+                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
                                                 <td key={i}> {item.EventID}</td>
                                                 <td key={i}> {item.BienXe}</td>
                                                 <td key={i}> {item.BienCont}</td>
@@ -457,17 +460,17 @@ class HomeList extends React.Component {
                                                 <td key={i}> {item.CongRaName}</td>
                                                 <td key={i}> </td>
                                             </tr>
-                                    </tbody>
-                                ))}
-                           
+                                        </tbody>
+                                    ))}
+
                                 </>
                             </table>
-                            {this.state.total == 0 &&  <img src={empty} style={{width:'1350px', height:'800px'}}/>}
+                            {this.state.total == 0 && <img src={empty} style={{ width: '1350px', height: '800px' }} />}
                         </div>
                     </div>
                     <div>
-                    <div class="card card-warning" >                           
-                       
+                        <div class="card card-warning" >
+
                             <div class="card-header">
                                 <h3 class="card-title">Ảnh vào</h3>
                             </div>
@@ -478,8 +481,8 @@ class HomeList extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        
-                       
+
+
                             <div class="card-header">
                                 <h3 class="card-title">Ảnh ra</h3>
                             </div>
@@ -490,8 +493,8 @@ class HomeList extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        
-                    </div>
+
+                        </div>
                     </div>
                 </section>
             </div>

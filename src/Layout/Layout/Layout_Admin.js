@@ -53,11 +53,12 @@ export default class Layout extends Component {
                 </a>
                 <br/>
                 <div class="sidebar">
-                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="user-panel mt-1 pb-3 mb-3 d-flex" style = {{height: '120px'}}>
                         <div class="image">
                             <img src={user2}class="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div class="info">
+                            <p style = {{color: "white"}}>HELLO ADMIN</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         <br/>
                             <a style={{float:'right'}}>

@@ -311,51 +311,56 @@ class FullList extends React.Component {
                                     <button>Loại Hàng</button>
                                 </h3>
                             </div>
-                            <table id="example2" class="table table-bordered table-hover"  >
+                            <table id="example2" class="table table-bordered table-hover">
                           
-                                    <thead>
-                                        <tr>
-                                            <th>STT vào bãi</th>
-                                            <th>Biển sô xe vào/ Biển số xe ra</th>
-                                            <th>Biển Cont</th>
-                                            <th>Biển Mooc</th>
-                                            <th>Loại xe</th>
-                                            <th>Mã số thẻ</th>
-                                            <th>Thời gian vào bãi</th>
-                                            <th>Thời gia ra bãi</th>
-                                            <th>Thời gian lưu bãi</th>
-                                            <th>Số tiền</th>
-                                            <th>Nhân viên vào / Nhân viên ra</th>
-                                            <th>Loại hàng</th>
-                                            <th>Cổng vào</th>
-                                            <th>Cổng ra</th>
-                                            <th>Phiếu hải quan</th>
-                                        </tr>
-                                    </thead>
-                            <>
-                           {this.state.data && data.data.map((item, i) => (
-                                    <tbody>
-                                            <tr>
-                                                <td key={i}> <b>{(this.state.page-1)*10 + i + 1}</b></td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> {item.BienCont}</td>
-                                                <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> ??? </td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
-                                                <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
-                                                <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
-                                                <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
-                                                <td key={i}> {item.IsRaKhoiBai}</td>
-                                                <td> </td>
-                                            </tr>
-                                    </tbody>
-                                ))}
-                                </>
-                            </table>
+                          <thead>
+                              <tr>
+                                  <th>STT</th>
+                                  <th>STT vào bãi</th>
+                                  <th>Biển sô xe vào/ Biển số xe ra</th>
+                                  <th>Biển Cont</th>
+                                  <th>Biển Mooc</th>
+                                  <th>Loại xe</th>
+                                  <th>Mã số thẻ</th>
+                                  <th>Thời gian vào bãi</th>
+                                  <th>Thời gia ra bãi</th>
+                                  <th>Thời gian lưu bãi</th>
+                                  <th>Số tiền</th>
+                                  <th>Nhân viên vào / Nhân viên ra</th>
+                                  <th>Nhân cho phép ra</th>
+                                  <th>Loại hàng</th>
+                                  <th>Cổng vào</th>
+                                  <th>Cổng ra</th>
+                                  <th>Phiếu hải quan</th>
+                              </tr>
+                          </thead>
+                  <>
+                 {this.state.data && data.data.map((item, i) => (
+                          <tbody>
+                                  <tr>
+                                  <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
+                                      <td key={i}> {item.EventID}</td>
+                                      <td key={i}> {item.BienXe}</td>
+                                      <td key={i}> {item.BienCont}</td>
+                                      <td key={i}> {item.BienMooc}</td>
+                                      <td key={i}> {item.LoaiXeChiTiet} </td>
+                                      <td key={i}> {item.CarNumber_ID}</td>
+                                      <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
+                                      <td key={i}> {GetFormatDate(item.NgayGioRa)}</td>
+                                      <td key={i}> {item.ThoiGianTrongBai}</td>
+                                      <td key={i}> {item.TongTienThu}</td>
+                                      <td key={i}> {item.NhanVienVao}</td>
+                                      <td key={i}> {item.NhanVienDongYRa}</td>
+                                      <td key={i}> {item.LoaiHangChiTiet}</td>
+                                      <td key={i}> {item.CongVaoName}</td>
+                                      <td key={i}> {item.CongRaName}</td>
+                                      <td key={i}> </td>
+                                  </tr>
+                          </tbody>
+                      ))}
+                 
+                      </>
+                  </table>
                             {this.state.total == 0 && <img src={empty} style={{width:'2000px', height:'1000px'}}/>}
                         </div>
 		)

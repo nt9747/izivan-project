@@ -63,7 +63,7 @@ class Content extends React.Component {
     }   
     
     componentDidMount() {
-        this.list();
+        // this.list();
         this.start();
     }
     
