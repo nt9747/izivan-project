@@ -372,8 +372,8 @@ class HomeList extends React.Component {
                                             <option value = "1">Cổng vào/ra TQ</option>
                                         </select> */}
                                         <select onChange={(e) => this.handlePortChange(e)}>
-                                            <option value=''>Chọn</option>
-                                            <option value='1'>Tất cả</option>
+                                            <option disabled hidden value=''>Chọn</option>
+                                            <option selected="selected" value='1'>Tất cả</option>
                                             <option value='2'>Cổng vào VN</option>
                                             <option value='3'>Cổng ra quay đầu</option>
                                             <option value='4'>Cổng ra xuất</option>
@@ -550,7 +550,7 @@ class HomeList extends React.Component {
                                         <th>Xoài lạnh</th>
                                         <th>Dưa vàng</th>
                                         <th>Củ cải</th>
-                                        <th>Linh kiện điện tử</th>
+                                        <th>Linh kiện ĐT</th>
                                         <th>Chậu cây cảnh</th>
                                         <th>Dưa hấu</th>
                                         <th>Cây cảnh</th>
