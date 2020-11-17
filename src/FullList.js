@@ -294,7 +294,7 @@ class FullList extends React.Component {
                                     </div>
                                     <div class="col-3"><br />
                                     <ReactHTMLTableToExcel  
-                                                className="btn btn-danger"  
+                                                className="btn btn-success"  
                                                 table="example2"  
                                                 filename= {this.state.fromDate + "-->" + this.state.toDate}  
                                                 sheet="Sheet"  
