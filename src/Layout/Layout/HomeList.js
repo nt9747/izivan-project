@@ -50,7 +50,7 @@ class HomeList extends React.Component {
             fromDate: '10/01/2020 00:00:00',
             toDate: '10/02/2200 23:59:59',
             plateNumber: '',
-            portIn: "",
+            portIn: 'null',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -58,7 +58,7 @@ class HomeList extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
+            PortOut: 'null',
             SelectCong: "",
             total: "",
             dataXe: "",
@@ -66,6 +66,14 @@ class HomeList extends React.Component {
             showBienXe: true,
             showLoaiXe: false,
             showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
+            totalPage: "",
+            namePort: "",
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -74,17 +82,17 @@ class HomeList extends React.Component {
 
     toggleBienXe = () => {
         const { showBienXe } = this.state;
-        this.setState({ showBienXe: true, showLoaiXe: false, showLoaiHang: false})
+        this.setState({ showBienXe: true, showLoaiXe: false, showLoaiHang: false })
     }
 
     toggleLoaiXe = () => {
-        const {showLoaiXe} = this.state;
-        this.setState({showLoaiXe: true, showBienXe: false, showLoaiHang: false})
+        const { showLoaiXe } = this.state;
+        this.setState({ showLoaiXe: true, showBienXe: false, showLoaiHang: false })
     }
 
     toggleLoaiHang = () => {
-        const {showLoaiHang} = this.state;
-        this.setState({showLoaiHang: true, showBienXe: false, showLoaiXe: false})
+        const { showLoaiHang } = this.state;
+        this.setState({ showLoaiHang: true, showBienXe: false, showLoaiXe: false })
     }
 
     componentDidMount() {
@@ -187,12 +195,36 @@ class HomeList extends React.Component {
 
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
-            console.log(this.state.fromDate, "check PortIn")
-            console.log(this.state.toDate, "check PortOut")
-            console.log(this.state.data, "check data");
+            this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
+            console.log(this.state.portIn, "portIn")
+            console.log(this.state.PortOut, "portOut")
         } catch (err) {
             await this.setState({
                 isLoading: false
+            }, () => console.log(err))
+        }
+        console.log(this.state.data, "Check data!");
+    }
+    async Select(row) {
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: "10/01/2020 00:00:00",
+                TODATE: "10/02/2200 23:59:59",
+                PLATENUMBER: row,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: "",
+                LOAIHANG: "",
+                PAGE: 1,
+                CONG: this.state.SelectCong,
+                LOAIXE: "",
+
+            })
+            await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
+            console.log(this.state.dataPicture, "check DATA PICTURE")
+        } catch (err) {
+            await this.setState({
+                isLoading: true
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
@@ -205,20 +237,22 @@ class HomeList extends React.Component {
     }
 
     handlePortChange(event) {
-        if (event.target.value == 5) {
-            this.setState({ portIn: '1', PortOut: '3' })
+        if (event.target.value == '0'){
         }
-        else if (event.target.value == 1) {
-            this.setState({ portIn: '', PortOut: '' })
+        else if (event.target.value == '5') {
+             this.setState({namePort: 'Cổng Vào ra CN', portIn: '1', PortOut: '3' })
         }
-        else if (event.target.value == 2) {
-            this.setState({ portIn: '0', PortOut: null })
+        else if (event.target.value == '1') {
+            this.setState({namePort: 'Tất cả', portIn: '', PortOut: '' })
         }
-        else if (event.target.value == 3) {
-            this.setState({ portIn: null, PortOut: '2' })
+        else if (event.target.value == '2') {
+            this.setState({namePort: 'Cổng vào VN', portIn: '0', PortOut: null })
         }
-        else if (event.target.value == 4) {
-            this.setState({ portIn: null, PortOut: '4' })
+        else if (event.target.value == '3') {
+            this.setState({namePort: 'Cổng ra quay đầu', portIn: null, PortOut: '2' })
+        }
+        else if (event.target.value == '4') {
+            this.setState({namePort: 'Cổng ra xuất', portIn: null, PortOut: '4' })
         }
     }
 
@@ -258,9 +292,9 @@ class HomeList extends React.Component {
                                     </div>
                                     <div class="col-3">
                                         <b>Loại Hàng</b><br />
-                                        <select loaiHang={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                            <option value={null}>Chọn</option>
-                                            <option value="" >Tất cả</option>
+                                        <select value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                            <option value disabled hidden>Chọn</option>
+                                            <option selected value="" >Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
                                             <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
@@ -347,11 +381,14 @@ class HomeList extends React.Component {
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-2">
                                         <b>Loại xe</b><br />
                                         <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
                                             <option value=''>Tất cả</option>
                                         </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" />
                                     </div>
                                     <div class="col-3">
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
@@ -363,25 +400,17 @@ class HomeList extends React.Component {
                                 <div class="row">
                                     <div class="col-4">
                                         <b>Cổng</b><br />
-                                        {/* <select value= {this.state.portIn} onChange={(e) => this.handleTextChange('portIn', e)}>
-                                            <option value = ''>Tất cả</option>
-                                            <option value = '0'>Cổng vào VN</option>
-                                            <select value= {this.state.portOut} onChange={(e) => this.handleTextChange('portOut', e)}></select>
-                                            <option >Cổng ra quay đầu</option>
-                                            <option>Cổng ra xuất</option>
-                                            <option value = "1">Cổng vào/ra TQ</option>
-                                        </select> */}
                                         <select onChange={(e) => this.handlePortChange(e)}>
-                                            <option disabled hidden value=''>Chọn</option>
-                                            <option selected="selected" value='1'>Tất cả</option>
+                                            <option selected disabled hidden value = '0'>Chọn</option>
+                                            <option value='1'>Tất cả</option>
                                             <option value='2'>Cổng vào VN</option>
                                             <option value='3'>Cổng ra quay đầu</option>
                                             <option value='4'>Cổng ra xuất</option>
                                             <option value='5'>Cổng vao ra CN</option>
                                         </select>
                                         <select value={this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
-                                            <option value="" disabled="disabled">Chọn</option>
-                                            <option value='/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
+                                            <option disabled hidden value=''>Chọn</option>
+                                            <option selected="selected" value='/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
                                             <option value='/listCar/listCarIn?' >1. Giao dịch vào </option>
                                             <option value='/listCar/listCarOut?'>2. Giao dịch ra</option>
                                             <option value='/listCar/listCarParking?'>3. Số lượng xe tồn</option>
@@ -407,14 +436,12 @@ class HomeList extends React.Component {
                                     <div class="col-2"><br />
                                         <button type="submit"
                                             style={{ width: '38px', color: '#C8C8C8' }}
-
                                             onClick={() => this.listInPrevious()}>
                                             <b style={{ color: 'black' }}>-</b>
                                         </button>
-                                        <b>{this.state.page}</b>
+                                        <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
                                         <button type="submit"
                                             style={{ width: '38px', color: '#C8C8C8' }}
-
                                             onClick={() => this.listInNext()}>
                                             <b style={{ color: 'black' }}>+</b>
                                         </button>
@@ -423,7 +450,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '80%', height: '750px' }}>
+                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '73%', height: '700px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
                                     <button onClick={this.toggleBienXe}>Biển Số</button>
@@ -431,7 +458,8 @@ class HomeList extends React.Component {
                                     <button onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
-                            {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover" >
+
+                            {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover" style={{fontSize: '12.5px'}} >
 
                                 <thead>
                                     <tr>
@@ -458,24 +486,24 @@ class HomeList extends React.Component {
                                     {this.state.data && data.data.map((item, i) => (
                                         <tbody>
                                             {/* <tr onClick={() => this.Edit()} > */}
-                                            <tr>
-                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td key={i}> {item.EventID}</td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> {item.BienCont}</td>
-                                                <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> {item.LoaiXeChiTiet} </td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioRa)}</td>
-                                                <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.TongTienThu}</td>
-                                                <td key={i}> {item.NhanVienVao}</td>
-                                                <td key={i}> {item.NhanVienDongYRa}</td>
-                                                <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.CongVaoName}</td>
-                                                <td key={i}> {item.CongRaName}</td>
-                                                <td key={i}> </td>
+                                            <tr key={item.BienXe}>
+                                                <td onClick={() => this.Select(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.EventID || item.EventParkingID}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienXe}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienCont}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienMooc}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.LoaiXeChiTiet} </td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.CarNumber_ID}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioVao)}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioRa)}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.ThoiGianTrongBai}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.TongTienThu}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienVao}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienDongYRa}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.LoaiHangChiTiet}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.CongVaoName}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> {item.CongRaName}</td>
+                                                <td onClick={() => this.Select(item.BienXe)}> </td>
                                             </tr>
                                         </tbody>
                                     ))}
@@ -629,28 +657,23 @@ class HomeList extends React.Component {
                                             </tr>
                                         </tbody>
                                     ))}
-
                                 </>
                             </table>}
-
-
-                            {this.state.total == 0 && <img src={empty} style={{ width: '1350px', height: '800px' }} />}
+                            {this.state.total == 0 && <img src={empty} style={{ width: '1150px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div style={{float: 'right', width: '20%'}}>
+                    <div style={{ float: 'right', width: '27%' }}>
                         <div class="card card-warning" >
-
                             <div class="card-header">
                                 <h3 class="card-title">Ảnh vào</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={c} id="imglayout" />
+                                        <img src={this.state.pictureDauXeVao} id="imglayout" /> <img src={this.state.pictureVaoFull} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="card-header">
                                 <h3 class="card-title">Ảnh ra</h3>
@@ -658,7 +681,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={d} id="imglayout" />
+                                        <img src={this.state.pictureDauXeRa} id="imglayout" /><img src={this.state.pictureRaFull} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
