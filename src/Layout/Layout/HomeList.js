@@ -237,7 +237,9 @@ class HomeList extends React.Component {
     }
 
     handlePortChange(event) {
-        if (event.target.value == '5') {
+        if (event.target.value == '0'){
+        }
+        else if (event.target.value == '5') {
              this.setState({namePort: 'Cổng Vào ra CN', portIn: '1', PortOut: '3' })
         }
         else if (event.target.value == '1') {
@@ -399,7 +401,7 @@ class HomeList extends React.Component {
                                     <div class="col-4">
                                         <b>Cổng</b><br />
                                         <select onChange={(e) => this.handlePortChange(e)}>
-                                            <option selected="true" disabled="disabled">Chọn</option>
+                                            <option selected disabled hidden value = '0'>Chọn</option>
                                             <option value='1'>Tất cả</option>
                                             <option value='2'>Cổng vào VN</option>
                                             <option value='3'>Cổng ra quay đầu</option>
@@ -448,7 +450,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '70%', height: '900px' }}>
+                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '73%', height: '700px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
                                     <button onClick={this.toggleBienXe}>Biển Số</button>
@@ -457,7 +459,7 @@ class HomeList extends React.Component {
                                 </h3>
                             </div>
 
-                            {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover" >
+                            {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover" style={{fontSize: '12.5px'}} >
 
                                 <thead>
                                     <tr>
@@ -660,7 +662,7 @@ class HomeList extends React.Component {
                             {this.state.total == 0 && <img src={empty} style={{ width: '1150px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div style={{ float: 'right', width: '30%' }}>
+                    <div style={{ float: 'right', width: '27%' }}>
                         <div class="card card-warning" >
                             <div class="card-header">
                                 <h3 class="card-title">Ảnh vào</h3>

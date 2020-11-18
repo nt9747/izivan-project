@@ -46,7 +46,7 @@ class Content extends React.Component {
             fromDate: '10/01/2020 00:00:00',
             toDate: '10/30/2020 23:59:59',
             plateNumber: '',
-            portIn: "",
+            portIn: "null",
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -54,7 +54,7 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
+            PortOut: "null",
             SelectCong: "ListCar/ListCarIn?",
             total: "",
             dataXe: "",
@@ -63,12 +63,13 @@ class Content extends React.Component {
             showLoaiXe: false,
             showLoaiHang: false,
             totalPage: "",
-            chonCong: "",
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
         this.toggleLoaiXe = this.toggleLoaiXe.bind(this)
     }
+
+
     toggleBienXe = () => {
         const { showBienXe } = this.state;
         this.setState({ showBienXe: true, showLoaiXe: false, showLoaiHang: false })
@@ -83,6 +84,24 @@ class Content extends React.Component {
         const { showLoaiHang } = this.state;
         this.setState({ showLoaiHang: true, showBienXe: false, showLoaiXe: false })
     }
+    handlePortChange(event) {
+        if (event.target.value == 5) {
+            this.setState({ portIn: '1', PortOut: null, portName: "Cổng vào CN" })
+        }
+        else if (event.target.value == 1) {
+            this.setState({ portIn: '', PortOut: '', portName: "Tất cả" })
+        }
+        else if (event.target.value == 2) {
+            this.setState({ portIn: '0', PortOut: null, portName: "Cổng vào VN" })
+        }
+        else if (event.target.value == 3) {
+            this.setState({ portIn: null, PortOut: '2' })
+        }
+        else if (event.target.value == 4) {
+            this.setState({ portIn: null, PortOut: '4' })
+        }
+    }
+ 
 
     componentDidMount() {
         this.list();
@@ -213,23 +232,7 @@ class Content extends React.Component {
         })
     }
 
-    handlePortChange(event) {
-        if (event.target.value == 5) {
-            this.setState({ portIn: '1', PortOut: null })
-        }
-        else if (event.target.value == 1) {
-            this.setState({ portIn: '', PortOut: null })
-        }
-        else if (event.target.value == 2) {
-            this.setState({ portIn: '0', PortOut: null })
-        }
-        else if (event.target.value == 3) {
-            this.setState({ portIn: null, PortOut: '2' })
-        }
-        else if (event.target.value == 4) {
-            this.setState({ portIn: null, PortOut: '4' })
-        }
-    }
+    
 
     // handleTextChange(field, event) {
     //     if (event.target.value==10){
@@ -267,8 +270,8 @@ class Content extends React.Component {
                                             <td><b>Từ ngày:</b><input type="text" name="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} /></td>
                                             <td><b>Đến ngày:</b><input style={{ width: '240px' }} type="text" name="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} /></td>
                                             <td><b>Cổng vào:</b><select style={{ width: '165px' }} onChange={(e) => this.handlePortChange(e)}>
-                                                <option disabled hidden value>Chọn</option>
-                                                <option selected value='1'>Tất cả</option>
+                                                <option value = 'DEFAULT'disabled selected hidden value>Chọn</option>
+                                                <option value='1'>Tất cả</option>
                                                 <option value='2'>Cổng vào VN</option>
                                                 <option value='5'>Cổng vào CN</option>
                                             </select></td>
@@ -283,7 +286,7 @@ class Content extends React.Component {
                                         </tr>
                                         <tr>
                                             <td><b>Loại hàng:</b>
-                                                <select style={{ width: '180px' }} loaiHang={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                                <select style={{ width: '180px' }} value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                                     <option disabled hidden>Chọn</option>
                                                     <option selected value="">Tất cả</option>
                                                     <option value="CAU KHÔ">CAU KHÔ</option>
