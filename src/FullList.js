@@ -23,6 +23,7 @@ var tablesToExcel = (function () {
     , wstemplate = ''
     , tabletemplate = '';
 
+<<<<<<< HEAD
     return function (table, name, filename) {
         var tables = table;
 
@@ -55,6 +56,8 @@ var tablesToExcel = (function () {
     }
 })();
 
+=======
+>>>>>>> a93ce5209a48e694a7c5fb71504d498843a91646
 function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
@@ -131,8 +134,13 @@ class FullList extends React.Component {
         this.setState({ showLoaiHang: true, showBienXe: false, showLoaiXe: false })
     }
 
+    toggleTatCa = () => {
+       
+        this.setState({ showLoaiHang: true, showBienXe: true, showLoaiXe: true })
+    }
+
     componentDidMount() {
-        this.list();
+this.list();
         this.start();
     }
 
@@ -225,7 +233,7 @@ class FullList extends React.Component {
                 <div class="card-body" style={{ margin: '0 auto', width: '80%' }}>
                     <div class="row">
                         <div class="col-3" >
-                            <b>Từ</b><input type="text" class="form-control" placeholder=".col-3" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+<b>Từ</b><input type="text" class="form-control" placeholder=".col-3" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                         </div>
                         <div class="col-3">
                             <b>Đến</b><input type="text" class="form-control" placeholder=".col-4" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
@@ -306,7 +314,7 @@ class FullList extends React.Component {
                     <div class="row">
                         <div class="col-3">
                             <b>Loại xe</b><br />
-                            <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.LoaiXe}>{item.Name}</option>)}
+                                <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.LoaiXe}>{item.Name}</option>)}
                                 <option value=''>Tất cả</option>
                             </select>
                         </div>
@@ -351,22 +359,33 @@ class FullList extends React.Component {
                                 className="btn btn-danger"
                                 table='example2'
                                 filename={this.state.fromDate + "-->" + this.state.toDate}
+<<<<<<< HEAD
                                 sheet="Sheet1"
                                 buttonText="Xuất Excel"
                             />
                         </div>
                         <input type="button" onclick={tablesToExcel(['example2', 'example3'], ['first', 'second'], 'myfile.xls')} defaultValue="Export to Excel" />
+=======
+                                sheet={"Sheet 1"/"Sheet 2"/"Sheet 3"}
+                                buttonText="Xuất Excel"
+                                style={{ width: '20%' }}/>
+                        </div>
+                       
+>>>>>>> a93ce5209a48e694a7c5fb71504d498843a91646
 
                     </div>
                 </div>
                 <div class="card-header" >
+                
                     <h3 class="card-title" >
                         <button onClick={this.toggleBienXe}>Biển Số</button>
                         <button onClick={this.toggleLoaiXe}>Loại Xe</button>
                         <button onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                        <button onClick={this.toggleTatCa}>Tất cả</button>
                     </h3>
                 </div>
-                {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover table2excel" >
+                <table id="example2">
+                {this.state.showBienXe && <table class="table table-bordered table-hover table2excel" >
 
                     <thead>
                         <tr>
@@ -417,7 +436,11 @@ class FullList extends React.Component {
 
                     </>
                 </table>}
+<<<<<<< HEAD
                 {this.state.showLoaiXe && <table id="example2" class="table table-bordered table-hover table2excel" >
+=======
+                {this.state.showLoaiXe && <table class="table table-bordered table-hover table2excel" >
+>>>>>>> a93ce5209a48e694a7c5fb71504d498843a91646
 
                     <thead>
                         <tr>
@@ -448,7 +471,11 @@ class FullList extends React.Component {
 
                     </>
                 </table>}
+<<<<<<< HEAD
                 {this.state.showLoaiHang && <table id="example2" class="table table-bordered table-hover table2excels" >
+=======
+                {this.state.showLoaiHang && <table class="table table-bordered table-hover table2excels">
+>>>>>>> a93ce5209a48e694a7c5fb71504d498843a91646
 
                     <thead>
                         <tr>
@@ -568,7 +595,9 @@ class FullList extends React.Component {
                     </>
                 </table>}
                 {this.state.total == 0 && <img src={empty} style={{ width: '2000px', height: '1000px' }} />}
+            </table>
             </div>
+        
         )
     }
 }
