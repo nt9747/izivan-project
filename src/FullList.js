@@ -67,6 +67,64 @@ class FullList extends React.Component {
         this.toggleLoaiXe = this.toggleLoaiXe.bind(this)
     }
 
+    tablesToExcel = (function() {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+        , tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
+          + '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>'
+          + '<Styles>'
+          + '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>'
+          + '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>'
+          + '</Styles>' 
+          + '{worksheets}</Workbook>'
+        , tmplWorksheetXML = '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>'
+        , tmplCellXML = '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>'
+        , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+        , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+        return function(tables, wsnames, wbname, appname) {
+          var ctx = "";
+          var workbookXML = "";
+          var worksheetsXML = "";
+          var rowsXML = "";
+          for (var i = 0; i < tables.length; i++) {
+            if (!tables[i].nodeType) tables[i] = document.getElementById(tables[i]);
+            for (var j = 0; j < tables[i].rows.length; j++) {
+              rowsXML += '<Row>'
+              for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+                var dataType = tables[i].rows[j].cells[k].getAttribute("data-type");
+                var dataStyle = tables[i].rows[j].cells[k].getAttribute("data-style");
+                var dataValue = tables[i].rows[j].cells[k].getAttribute("data-value");
+                dataValue = (dataValue)?dataValue:tables[i].rows[j].cells[k].innerHTML;
+                var dataFormula = tables[i].rows[j].cells[k].getAttribute("data-formula");
+                dataFormula = (dataFormula)?dataFormula:(appname=='Calc' && dataType=='DateTime')?dataValue:null;
+                ctx = {  attributeStyleID: (dataStyle=='Currency' || dataStyle=='Date')?' ss:StyleID="'+dataStyle+'"':''
+                       , nameType: (dataType=='Number' || dataType=='DateTime' || dataType=='Boolean' || dataType=='Error')?dataType:'String'
+                       , data: (dataFormula)?'':dataValue
+                       , attributeFormula: (dataFormula)?' ss:Formula="'+dataFormula+'"':''
+                      };
+                rowsXML += format(tmplCellXML, ctx);
+              }
+              rowsXML += '</Row>'
+            }
+            ctx = {rows: rowsXML, nameWS: wsnames[i] || 'Sheet' + i};
+            worksheetsXML += format(tmplWorksheetXML, ctx);
+            rowsXML = "";
+          }
+    
+          ctx = {created: (new Date()).getTime(), worksheets: worksheetsXML};
+          workbookXML = format(tmplWorkbookXML, ctx);
+    
+    
+    
+          var link = document.createElement("A");
+          link.href = uri + base64(workbookXML);
+          link.download = wbname || 'Workbook.xls';
+          link.target = '_blank';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      })();
+
     toggleBienXe = () => {
         const { showBienXe } = this.state;
         this.setState({ showBienXe: true, showLoaiXe: false, showLoaiHang: false })
@@ -183,9 +241,9 @@ class FullList extends React.Component {
                         </div>
                         <div class="col-5">
                             <b>Loại Hàng</b><br />
-                            <select loaiHang={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                <option>Chọn</option>
-                                <option value="">Tất cả</option>
+                            <select value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                <option value disabled hidden>Chọn</option>
+                                <option selected value="">Tất cả</option>
                                 <option value="CAU KHÔ">CAU KHÔ</option>
                                 <option value="THANH LONG">THANH LONG</option>
                                 <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
@@ -306,6 +364,7 @@ class FullList extends React.Component {
                                 buttonText="Xuất Excel"
                                 style={{ width: '20%' }} />
                         </div>
+                        <button  onclick={() => this.tablesToExcel(['example2','example3'], ['Product1','Product2'], 'Test.xls', 'Excel0') }>Export to Excel</button>
 
                     </div>
                 </div>
@@ -316,7 +375,7 @@ class FullList extends React.Component {
                         <button onClick={this.toggleLoaiHang}>Loại Hàng</button>
                     </h3>
                 </div>
-                {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover" >
+                {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover table2excel" >
 
                     <thead>
                         <tr>
@@ -345,7 +404,7 @@ class FullList extends React.Component {
                                 {/* <tr onClick={() => this.Edit()} > */}
                                 <tr>
                                     <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                    <td key={i}> {item.EventID}</td>
+                                    <td key={i}> {item.EventID || item.EventParkingID}</td>
                                     <td key={i}> {item.BienXe}</td>
                                     <td key={i}> {item.BienCont}</td>
                                     <td key={i}> {item.BienMooc}</td>
@@ -367,7 +426,7 @@ class FullList extends React.Component {
 
                     </>
                 </table>}
-                {this.state.showLoaiXe && <table id="example2" class="table table-bordered table-hover" >
+                {this.state.showLoaiXe && <table id="example3" class="table table-bordered table-hover table2excel" >
 
                     <thead>
                         <tr>
@@ -385,7 +444,7 @@ class FullList extends React.Component {
                             <tbody>
                                 {/* <tr onClick={() => this.Edit()} > */}
                                 <tr>
-                                    <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                    <td> 01/10/2020 </td>
                                     <td> 6 </td>
                                     <td> 5 </td>
                                     <td> 2 </td>
@@ -398,7 +457,7 @@ class FullList extends React.Component {
 
                     </>
                 </table>}
-                {this.state.showLoaiHang && <table id="example2" class="table table-bordered table-hover" >
+                {this.state.showLoaiHang && <table id="example4" class="table table-bordered table-hover table2excels" >
 
                     <thead>
                         <tr>

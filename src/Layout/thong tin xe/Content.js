@@ -40,7 +40,7 @@ class Content extends React.Component {
         super(props)
         this.state = {
             fromDate: '10/01/2020 00:00:00',
-            toDate: '10/02/2020 23:59:59',
+            toDate: '10/01/2021 23:59:59',
             plateNumber: '',
             portIn: "",
             numberCar: "",
@@ -51,7 +51,7 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: "",
-            SelectCong: "listCar/ListCarIn?",
+            SelectCong: "listCar/listCarIn?",
             total: "",
             dataXe: "",
             loaiXe: "",
@@ -59,7 +59,7 @@ class Content extends React.Component {
             bienMoocEdit: "", 
             plateEdit: "",
             loaiXeEdit: "",
-            loaiHangEdit: "",
+            loaiHangEdit: "",   
         }
     }
 
