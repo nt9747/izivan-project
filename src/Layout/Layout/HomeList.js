@@ -443,9 +443,9 @@ class HomeList extends React.Component {
                         <div class="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '73%', height: '700px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
-                                    <button class="btn btn-primary" onClick={this.toggleBienXe}>Biển Số</button>
-                                    <button class="btn btn-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
-                                    <button class="btn btn-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                                    <button class="btn btn-secondary" style={{marginLeft :'3px'}} onClick={this.toggleBienXe}>Biển Số</button>
+                                    <button class="btn btn-secondary" style={{marginLeft :'3px'}} onClick={this.toggleLoaiXe}>Loại Xe</button>
+                                    <button class="btn btn-secondary" style={{marginLeft :'3px'}} onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
 
