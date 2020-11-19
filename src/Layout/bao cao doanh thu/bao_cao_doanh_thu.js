@@ -46,7 +46,7 @@ class Content extends React.Component {
             fromDate: '10/01/2020 00:00:00',
             toDate: '10/02/2200 23:59:59',
             plateNumber: '',
-            portIn: "",
+            portIn: "0",
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -54,11 +54,12 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
-            SelectCong: "",
+            PortOut: "null",
+            SelectCong: "/listCar/listCarIn?",
             total: "",
             dataXe: "",
             loaiXe: "",
+            namePort: "",
         }
     }   
     
@@ -162,9 +163,9 @@ class Content extends React.Component {
   
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
-            console.log(this.state.fromDate, "check PortIn")
-            console.log(this.state.toDate, "check PortOut")
-            console.log(this.state.data, "check data");
+            console.log(this.state.portIn, "check PortIn")
+            console.log(this.state.PortOut, "check PortOut")
+            console.log(this.state.SelectCong, "Cong");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -185,7 +186,8 @@ class Content extends React.Component {
         })
     }
 
-    handlePortChange(event) {
+    handlePortChange(field, event) {
+        this.setState({ [field]: event.target.value })
         if (event.target.value==1){
             this.setState({portIn: '0', PortOut: null, SelectCong: '/listCar/listCarIn?'})
         }
@@ -239,9 +241,9 @@ class Content extends React.Component {
             <div class="row">
                 <div class="col-4">
                     <b>Loại hàng</b>
-                    <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                        <option value = {null}>Chọn</option>
-                                            <option value="" >Tất cả</option>
+                    <select value = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                        <option disabled hidden value = {null}>Chọn</option>
+                                            <option selected value="" >Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
                                             <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
@@ -317,8 +319,8 @@ class Content extends React.Component {
                                   </div>
                   <div class='col-3'>
                     <b>Cổng</b>
-                        <select onChange={(e) => this.handlePortChange(e)}>
-                            <option value = ''>Chọn</option>
+                        <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort',e)}>
+                            <option selected disabled hidden>Chọn</option>
                             <option value = '1'>Làn vào VN</option>
                             <option value = '2'>Làn xuất</option>
                             <option value = '3'>Làn quay đầu</option>

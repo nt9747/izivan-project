@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
 function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
@@ -63,7 +64,7 @@ class HomeList extends React.Component {
             total: "",
             dataXe: "",
             loaiXe: "",
-            showBienXe: true,   
+            showBienXe: true,
             showLoaiXe: false,
             showLoaiHang: false,
             pictureDauXeVao: "",
@@ -237,21 +238,21 @@ class HomeList extends React.Component {
     }
 
     handlePortChange(field, event) {
-        this.setState({[field]: event.target.value})
+        this.setState({ [field]: event.target.value })
         if (event.target.value == '5') {
-             this.setState({portIn: '1', PortOut: '3' })
+            this.setState({ portIn: '1', PortOut: '3' })
         }
         else if (event.target.value == '1') {
-            this.setState({portIn: '', PortOut: '' })
+            this.setState({ portIn: '', PortOut: '' })
         }
         else if (event.target.value == '2') {
-            this.setState({portIn: '0', PortOut: null })
+            this.setState({ portIn: '0', PortOut: null })
         }
         else if (event.target.value == '3') {
-            this.setState({portIn: null, PortOut: '2' })
+            this.setState({ portIn: null, PortOut: '2' })
         }
         else if (event.target.value == '4') {
-            this.setState({portIn: null, PortOut: '4' })
+            this.setState({ portIn: null, PortOut: '4' })
         }
     }
 
@@ -283,10 +284,10 @@ class HomeList extends React.Component {
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-3" style={{ marginRight: '40px' }}>
                                         <b>Từ</b><input type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-3" style={{ marginRight: '40px' }}>
                                         <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
                                     <div class="col-3">
@@ -380,26 +381,26 @@ class HomeList extends React.Component {
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-2">
+                                    <div class="col-1" style={{ marginRight: '70px' }}>
                                         <b>Loại xe</b><br />
                                         <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
                                             <option value=''>Tất cả</option>
                                         </select>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2" style={{ marginRight: '70px' }}>
                                         <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" />
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2" style={{ marginRight: '70px' }}>
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2" style={{ marginRight: '70px' }}>
                                         <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
                                         <b>Cổng</b><br />
-                                        <select value = {this.state.namePort} onChange={(e) => this.handlePortChange('namePort',e)}>
+                                        <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort', e)}>
                                             <option selected disabled hidden>Chọn</option>
                                             <option value='1'>Tất cả</option>
                                             <option value='2'>Cổng vào VN</option>
@@ -433,7 +434,7 @@ class HomeList extends React.Component {
                                         </form>
                                     </div>
                                     <div class="col-2"><br />
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -442,263 +443,266 @@ class HomeList extends React.Component {
                         <div class="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '73%', height: '700px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
-                                    <button class="btn btn-secondary" style={{marginRight: '3px'}} onClick={this.toggleBienXe}>Biển Số</button>  
-                                    <button class="btn btn-secondary" style={{marginRight: '3px'}} onClick={this.toggleLoaiXe}>Loại Xe</button>
-                                    <button class="btn btn-secondary" style={{marginRight: '3px'}} onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                                    <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleBienXe}>Biển Số</button>
+                                    <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiXe}>Loại Xe</button>
+                                    <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
                             {this.state.showBienXe && <div>
-                                <div style={{float: "right", width: "200px", border:"none"}}>
-                                <button type="submit"
-                                            style={{ width: '38px', color: '#C8C8C8' }}
-                                            onClick={() => this.listInPrevious()}>
-                                            <b style={{ color: 'black' }}>-</b>
-                                        </button>
-                                        <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
-                                        <button type="submit"
-                                            style={{ width: '38px', color: '#C8C8C8' }}
-                                            onClick={() => this.listInNext()}>
-                                            <b style={{ color: 'black' }}>+</b>
-                                        </button>
+                                <div style={{ float: "right", width: "200px", border: "none" }}>
+                                    <button type="submit"
+                                        style={{ width: '38px', color: '#C8C8C8' }}
+                                        onClick={() => this.listInPrevious()}>
+                                        <b style={{ color: 'black' }}>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
+                                    <button type="submit"
+                                        style={{ width: '38px', color: '#C8C8C8' }}
+                                        onClick={() => this.listInNext()}>
+                                        <b style={{ color: 'black' }}>+</b>
+                                    </button>
                                 </div>
-                                <div style={{ overflow: 'auto',  width: '100%', height: '700px'}}>
-                            <table id="example2" class="table table-bordered table-hover" style={{fontSize: '12.5px'}} >
+                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
+                                    <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>STT vào bãi</th>
-                                        <th>Biển số xe vào/ra</th>
-                                        <th>Biển Cont</th>
-                                        <th>Biển Mooc</th>
-                                        <th>Loại xe</th>
-                                        <th>Mã số thẻ</th>
-                                        <th>Thời gian vào bãi</th>
-                                        <th>Thời gia ra bãi</th>
-                                        <th>Thời gian lưu bãi</th>
-                                        <th>Số tiền</th>
-                                        <th>Nhân viên vào/ra</th>
-                                        <th>Nhân cho phép ra</th>
-                                        <th>Loại hàng</th>
-                                        <th>Cổng vào</th>
-                                        <th>Cổng ra</th>
-                                        <th>Phiếu hải quan</th>
-                                    </tr>
-                                </thead>
-                                <>
-                                    {this.state.data && data.data.map((item, i) => (
-                                        <tbody>
-                                            {/* <tr onClick={() => this.Edit()} > */}
-                                            <tr key={item.BienXe}>
-                                                <td onClick={() => this.Select(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.EventID || item.EventParkingID}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienXe}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienCont}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienMooc}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.LoaiXeChiTiet} </td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.CarNumber_ID}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioRa)}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.ThoiGianTrongBai}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.TongTienThu}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienVao}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienDongYRa}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.LoaiHangChiTiet}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.CongVaoName}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.CongRaName}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> </td>
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>STT vào bãi</th>
+                                                <th>Biển số xe vào/ra</th>
+                                                <th>Biển Cont</th>
+                                                <th>Biển Mooc</th>
+                                                <th>Loại xe</th>
+                                                <th>Mã số thẻ</th>
+                                                <th>Thời gian vào bãi</th>
+                                                <th>Thời gia ra bãi</th>
+                                                <th>Thời gian lưu bãi</th>
+                                                <th>Số tiền</th>
+                                                <th>Nhân viên vào/ra</th>
+                                                <th>Nhân cho phép ra</th>
+                                                <th>Loại hàng</th>
+                                                <th>Cổng vào</th>
+                                                <th>Cổng ra</th>
+                                                <th>Phiếu hải quan</th>
                                             </tr>
-                                        </tbody>
-                                    ))}
+                                        </thead>
+                                        <>
+                                            {this.state.data && data.data.map((item, i) => (
+                                                <tbody>
+                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                    <tr key={item.BienXe}>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.EventID || item.EventParkingID}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.BienCont}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.BienMooc}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.CarNumber_ID || "Chưa có"} </td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.TongTienThu || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienVao || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.CongVaoName}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {item.CongRaName || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> </td>
+                                                    </tr>
+                                                </tbody>
+                                            ))}
 
-                                </>
-                            </table>
-                            </div>
+                                        </>
+                                    </table>
+                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
+                                </div>
                             </div>}
                             {this.state.showLoaiXe && <div>
-                             <div style={{float: "right", width: "200px", border:"none"}}>
-                             <button type="submit"
-                                         style={{ width: '38px', color: '#C8C8C8' }}
-                                         onClick={() => this.listInPrevious()}>
-                                         <b style={{ color: 'black' }}>-</b>
-                                     </button>
-                                     <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
-                                     <button type="submit"
-                                         style={{ width: '38px', color: '#C8C8C8' }}
-                                         onClick={() => this.listInNext()}>
-                                         <b style={{ color: 'black' }}>+</b>
-                                     </button>
-                             </div>
-                             <div style={{ overflow: 'auto',  width: '100%', height: '700px'}}>
-                            <table id="example2" class="table table-bordered table-hover" >
+                                <div style={{ float: "right", width: "200px", border: "none" }}>
+                                    <button type="submit"
+                                        style={{ width: '38px', color: '#C8C8C8' }}
+                                        onClick={() => this.listInPrevious()}>
+                                        <b style={{ color: 'black' }}>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
+                                    <button type="submit"
+                                        style={{ width: '38px', color: '#C8C8C8' }}
+                                        onClick={() => this.listInNext()}>
+                                        <b style={{ color: 'black' }}>+</b>
+                                    </button>
+                                </div>
+                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
+                                    <table id="example2" class="table table-bordered table-hover" >
 
-                                <thead>
-                                    <tr>
-                                        <th>Ngày</th>
-                                        <th>Xe có trọng tải dưới 4 tấn</th>
-                                        <th>Xe có trọng tải 4 đến 10 tấn</th>
-                                        <th>Xe có trọng tải 10 đến 18 tấn</th>
-                                        <th>Xe có trọng tải trên 18 tấn</th>
-                                        <th>Container 20"</th>
-                                        <th>Container 40"</th>
-                                    </tr>
-                                </thead>
-                                <>
-                                    {this.state.data && data.data.map((item, i) => (
-                                        <tbody>
-                                            {/* <tr onClick={() => this.Edit()} > */}
+                                        <thead>
                                             <tr>
-                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
+                                                <th>Ngày</th>
+                                                <th>Xe có trọng tải dưới 4 tấn</th>
+                                                <th>Xe có trọng tải 4 đến 10 tấn</th>
+                                                <th>Xe có trọng tải 10 đến 18 tấn</th>
+                                                <th>Xe có trọng tải trên 18 tấn</th>
+                                                <th>Container 20"</th>
+                                                <th>Container 40"</th>
                                             </tr>
-                                        </tbody>
-                                    ))}
+                                        </thead>
+                                        <>
+                                            {this.state.data && data.data.map((item, i) => (
+                                                <tbody>
+                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                    <tr>
+                                                        <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                    </tr>
+                                                </tbody>
+                                            ))}
 
-                                </>
-                            </table>
-                            </div>
+                                        </>
+                                    </table>
+                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
+                                </div>
                             </div>}
                             {this.state.showLoaiHang && <div>
-                             <div style={{float: "right", width: "200px", border:"none"}}>
-                             <button type="submit"
-                                         style={{ width: '38px', color: '#C8C8C8' }}
-                                         onClick={() => this.listInPrevious()}>
-                                         <b style={{ color: 'black' }}>-</b>
-                                     </button>
-                                     <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
-                                     <button type="submit"
-                                         style={{ width: '38px', color: '#C8C8C8' }}
-                                         onClick={() => this.listInNext()}>
-                                         <b style={{ color: 'black' }}>+</b>
-                                     </button>
-                             </div>
-                             <div style={{ overflow: 'auto',  width: '100%', height: '700px'}}>
-                            <table id="example2" class="table table-bordered table-hover" >
+                                <div style={{ float: "right", width: "200px", border: "none" }}>
+                                    <button type="submit"
+                                        style={{ width: '38px', color: '#C8C8C8' }}
+                                        onClick={() => this.listInPrevious()}>
+                                        <b style={{ color: 'black' }}>-</b>
+                                    </button>
+                                    <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
+                                    <button type="submit"
+                                        style={{ width: '38px', color: '#C8C8C8' }}
+                                        onClick={() => this.listInNext()}>
+                                        <b style={{ color: 'black' }}>+</b>
+                                    </button>
+                                </div>
+                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
+                                    <table id="example2" class="table table-bordered table-hover" >
 
-                                <thead>
-                                    <tr>
-                                        <th>Ngày</th>
-                                        <th>Cau khô</th>
-                                        <th>Thanh long</th>
-                                        <th>Bột sắn</th>
-                                        <th>Mít lạnh</th>
-                                        <th>Hạt sen</th>
-                                        <th>Lá tre</th>
-                                        <th>Mít nóng</th>
-                                        <th>ST</th>
-                                        <th>Xoài nóng</th>
-                                        <th>Hành tây</th>
-                                        <th>Khoai tây</th>
-                                        <th>Nấm</th>
-                                        <th>Hàng hộp</th>
-                                        <th>Sắn</th>
-                                        <th>Chuối nóng</th>
-                                        <th>Nội thất</th>
-                                        <th>Hạt dưa</th>
-                                        <th>Cà rốt</th>
-                                        <th>Lạc</th>
-                                        <th>Tỏi</th>
-                                        <th>Tạp hóa</th>
-                                        <th>Rau</th>
-                                        <th>Chôm chôm</th>
-                                        <th>Nón</th>
-                                        <th>Nhãn lạnh</th>
-                                        <th>Hạt châu</th>
-                                        <th>Cói</th>
-                                        <th>Cau</th>
-                                        <th>Bánh pía</th>
-                                        <th>Xoài lạnh</th>
-                                        <th>Dưa vàng</th>
-                                        <th>Củ cải</th>
-                                        <th>Linh kiện ĐT</th>
-                                        <th>Chậu cây cảnh</th>
-                                        <th>Dưa hấu</th>
-                                        <th>Cây cảnh</th>
-                                        <th>OT</th>
-                                        <th>Giấy</th>
-                                        <th>Xốp</th>
-                                        <th>Cau tươi</th>
-                                        <th>Bột sắn</th>
-                                        <th>Quả hồng</th>
-                                        <th>Đỗ</th>
-                                        <th>Hoa hồi</th>
-                                        <th>Hành tỏi</th>
-                                        <th>Hồng</th>
-                                        <th>Khoai sọ</th>
-                                        <th>Máy móc</th>
-                                        <th>Mít lạnh</th>
-                                        <th>Long nhãn</th>
-                                    </tr>
-                                </thead>
-                                <>
-                                    {this.state.data && data.data.map((item, i) => (
-                                        <tbody>
-                                            {/* <tr onClick={() => this.Edit()} > */}
+                                        <thead>
                                             <tr>
-                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 6 </td>
-                                                <td> 5 </td>
-                                                <td> 2 </td>
-                                                <td> 4 </td>
-                                                <td> 4 </td>
-                                                <td> 5 </td>
-                                                <td> 5 </td>
-                                                <td> 5 </td>
+                                                <th>Ngày</th>
+                                                <th>Cau khô</th>
+                                                <th>Thanh long</th>
+                                                <th>Bột sắn</th>
+                                                <th>Mít lạnh</th>
+                                                <th>Hạt sen</th>
+                                                <th>Lá tre</th>
+                                                <th>Mít nóng</th>
+                                                <th>ST</th>
+                                                <th>Xoài nóng</th>
+                                                <th>Hành tây</th>
+                                                <th>Khoai tây</th>
+                                                <th>Nấm</th>
+                                                <th>Hàng hộp</th>
+                                                <th>Sắn</th>
+                                                <th>Chuối nóng</th>
+                                                <th>Nội thất</th>
+                                                <th>Hạt dưa</th>
+                                                <th>Cà rốt</th>
+                                                <th>Lạc</th>
+                                                <th>Tỏi</th>
+                                                <th>Tạp hóa</th>
+                                                <th>Rau</th>
+                                                <th>Chôm chôm</th>
+                                                <th>Nón</th>
+                                                <th>Nhãn lạnh</th>
+                                                <th>Hạt châu</th>
+                                                <th>Cói</th>
+                                                <th>Cau</th>
+                                                <th>Bánh pía</th>
+                                                <th>Xoài lạnh</th>
+                                                <th>Dưa vàng</th>
+                                                <th>Củ cải</th>
+                                                <th>Linh kiện ĐT</th>
+                                                <th>Chậu cây cảnh</th>
+                                                <th>Dưa hấu</th>
+                                                <th>Cây cảnh</th>
+                                                <th>OT</th>
+                                                <th>Giấy</th>
+                                                <th>Xốp</th>
+                                                <th>Cau tươi</th>
+                                                <th>Bột sắn</th>
+                                                <th>Quả hồng</th>
+                                                <th>Đỗ</th>
+                                                <th>Hoa hồi</th>
+                                                <th>Hành tỏi</th>
+                                                <th>Hồng</th>
+                                                <th>Khoai sọ</th>
+                                                <th>Máy móc</th>
+                                                <th>Mít lạnh</th>
+                                                <th>Long nhãn</th>
                                             </tr>
-                                        </tbody>
-                                    ))}
-                                </>
-                            </table>
-                            </div>
+                                        </thead>
+                                        <>
+                                            {this.state.data && data.data.map((item, i) => (
+                                                <tbody>
+                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                    <tr>
+                                                        <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 6 </td>
+                                                        <td> 5 </td>
+                                                        <td> 2 </td>
+                                                        <td> 4 </td>
+                                                        <td> 4 </td>
+                                                        <td> 5 </td>
+                                                        <td> 5 </td>
+                                                        <td> 5 </td>
+                                                    </tr>
+                                                </tbody>
+                                            ))}
+                                        </>
+                                    </table>
+                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
+                                </div>
                             </div>}
-                            {this.state.total == 0 && <img src={empty} style={{ width: '1150px', height: '800px' }} />}
+
                         </div>
                     </div>
                     <div style={{ float: 'right', width: '27%' }}>

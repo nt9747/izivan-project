@@ -4,6 +4,7 @@ import Cookie from 'js-cookie';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import TableScrollbar from 'react-table-scrollbar';
 import empty from './Layout/img/empty.png'
+import ReactLoading from 'react-loading';
 
 // var tablesToExcel = (function () {
 //     var uri = 'data:application/vnd.ms-excel;base64,'
