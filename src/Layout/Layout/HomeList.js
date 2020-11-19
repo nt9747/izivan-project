@@ -434,7 +434,24 @@ class HomeList extends React.Component {
                                         </form>
                                     </div>
                                     <div class="col-2"><br />
-                                        <button type="submit"
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '73%', height: '700px' }}>
+                            <div class="card-header" >
+                                <h3 class="card-title" >
+                                    <button class="btn btn-primary" onClick={this.toggleBienXe}>Biển Số</button>
+                                    <button class="btn btn-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
+                                    <button class="btn btn-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                                </h3>
+                            </div>
+
+                            {this.state.showBienXe && <div>
+                                <div style={{float: "right", width: "200px", border:"none"}}>
+                                <button type="submit"
                                             style={{ width: '38px', color: '#C8C8C8' }}
                                             onClick={() => this.listInPrevious()}>
                                             <b style={{ color: 'black' }}>-</b>
@@ -445,21 +462,9 @@ class HomeList extends React.Component {
                                             onClick={() => this.listInNext()}>
                                             <b style={{ color: 'black' }}>+</b>
                                         </button>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '73%', height: '700px' }}>
-                            <div class="card-header" >
-                                <h3 class="card-title" >
-                                    <button onClick={this.toggleBienXe}>Biển Số</button>
-                                    <button onClick={this.toggleLoaiXe}>Loại Xe</button>
-                                    <button onClick={this.toggleLoaiHang}>Loại Hàng</button>
-                                </h3>
-                            </div>
-
-                            {this.state.showBienXe && <table id="example2" class="table table-bordered table-hover" style={{fontSize: '12.5px'}} >
+                                <div style={{ overflow: 'auto',  width: '100%', height: '700px'}}>
+                            <table id="example2" class="table table-bordered table-hover" style={{fontSize: '12.5px'}} >
 
                                 <thead>
                                     <tr>
@@ -509,8 +514,25 @@ class HomeList extends React.Component {
                                     ))}
 
                                 </>
-                            </table>}
-                            {this.state.showLoaiXe && <table id="example2" class="table table-bordered table-hover" >
+                            </table>
+                            </div>
+                            </div>}
+                            {this.state.showLoaiXe && <div>
+                             <div style={{float: "right", width: "200px", border:"none"}}>
+                             <button type="submit"
+                                         style={{ width: '38px', color: '#C8C8C8' }}
+                                         onClick={() => this.listInPrevious()}>
+                                         <b style={{ color: 'black' }}>-</b>
+                                     </button>
+                                     <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
+                                     <button type="submit"
+                                         style={{ width: '38px', color: '#C8C8C8' }}
+                                         onClick={() => this.listInNext()}>
+                                         <b style={{ color: 'black' }}>+</b>
+                                     </button>
+                             </div>
+                             <div style={{ overflow: 'auto',  width: '100%', height: '700px'}}>
+                            <table id="example2" class="table table-bordered table-hover" >
 
                                 <thead>
                                     <tr>
@@ -540,8 +562,25 @@ class HomeList extends React.Component {
                                     ))}
 
                                 </>
-                            </table>}
-                            {this.state.showLoaiHang && <table id="example2" class="table table-bordered table-hover" >
+                            </table>
+                            </div>
+                            </div>}
+                            {this.state.showLoaiHang && <div>
+                             <div style={{float: "right", width: "200px", border:"none"}}>
+                             <button type="submit"
+                                         style={{ width: '38px', color: '#C8C8C8' }}
+                                         onClick={() => this.listInPrevious()}>
+                                         <b style={{ color: 'black' }}>-</b>
+                                     </button>
+                                     <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
+                                     <button type="submit"
+                                         style={{ width: '38px', color: '#C8C8C8' }}
+                                         onClick={() => this.listInNext()}>
+                                         <b style={{ color: 'black' }}>+</b>
+                                     </button>
+                             </div>
+                             <div style={{ overflow: 'auto',  width: '100%', height: '700px'}}>
+                            <table id="example2" class="table table-bordered table-hover" >
 
                                 <thead>
                                     <tr>
@@ -658,7 +697,9 @@ class HomeList extends React.Component {
                                         </tbody>
                                     ))}
                                 </>
-                            </table>}
+                            </table>
+                            </div>
+                            </div>}
                             {this.state.total == 0 && <img src={empty} style={{ width: '1150px', height: '800px' }} />}
                         </div>
                     </div>

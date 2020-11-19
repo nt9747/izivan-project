@@ -334,10 +334,10 @@ this.list();
                 <div class="card-header" >
                 
                     <h3 class="card-title" >
-                        <button onClick={this.toggleBienXe}>Biển Số</button>
-                        <button onClick={this.toggleLoaiXe}>Loại Xe</button>
-                        <button onClick={this.toggleLoaiHang}>Loại Hàng</button>
-                        <button onClick={this.toggleTatCa}>Tất cả</button>
+                        <button class="btn btn-primary" onClick={this.toggleBienXe}>Biển Số</button>
+                        <button class="btn btn-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
+                        <button class="btn btn-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                        <button class="btn btn-primary" onClick={this.toggleTatCa}>Tất cả</button>
                     </h3>
                 </div>
                 <table id="example2">
