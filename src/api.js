@@ -88,6 +88,19 @@ export const requestGetListCarIn = (payload) => {
   }))
 }
 
+export const requestGetListLoaiXe = (payload) => {
+  return handleResult(getAxios.post(`${payload.LX}`, {
+    fromDate: payload.FROMDATE,
+    toDate: payload.TODATE,
+    plateNumber: payload.PLATENUMBER,
+    portIn: payload.PORTIN,
+    numberCar: payload.NUMBERCAR,
+    loaiHang: payload.LOAIHANG,
+    portOut: payload.PORTOUT,
+    loaiXe: payload.LOAIXE
+  }))
+}
+
 export const requestGetListCarExcel = (payload) => {
   return handleResult(getAxios.post(`${payload.CONG}page=${payload.PAGE}&limit=1000000000000000000`, {
     fromDate: payload.FROMDATE,

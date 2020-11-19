@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import empty from '../img/empty.png'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
+import { requestGetListCarIn, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -75,6 +75,7 @@ class HomeList extends React.Component {
             dataPicture: "",
             totalPage: "",
             namePort: "",
+            dataThongKeXe: "",
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -199,6 +200,21 @@ class HomeList extends React.Component {
             this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
             console.log(this.state.portIn, "portIn")
             console.log(this.state.PortOut, "portOut")
+
+            const res2 = await requestGetListLoaiXe({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+            })
+            await this.setState({dataThongKeXe: res2.data, isLoading: false})
+            
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -450,7 +466,7 @@ class HomeList extends React.Component {
                             </div>
                             {this.state.showBienXe && <div>
                                 <div style={{ float: "right", width: "600px", border: "none" }}>
-                                    <button type="submit"
+                                    <button  type="submit"
                                         style={{ color: '#C8C8C8', marginRight: "10px" }}
                                         onClick={() => this.listInPrevious()}>
                                         <b style={{ color: 'black' }}>Previous</b>
