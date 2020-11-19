@@ -5,8 +5,12 @@ import user2 from '../dist/img/user2-160x160.jpg'
 import Cookie from 'js-cookie';
 import { requestLogin } from '../../api';
 
-import '../../../node_modules/jquery/dist/jquery.min.js'
-import '../../../node_modules/bootstrap//dist/js/bootstrap.bundle.min.js'
+
+// import '../../../node_modules/adminlte-2-react/src/adminlte/js/adminlte.min.js';
+// import '../../../node_modules/jquery/dist/jquery.min.js'
+// import "../../../node_modules/jquery-ui-dist/jquery-ui.min.js"
+// import '../../../node_modules/bootstrap//dist/js/bootstrap.bundle.min.js'
+
 export default class Layout extends Component {
     async exitLogin() {
         try {

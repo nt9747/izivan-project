@@ -46,7 +46,7 @@ class Content extends React.Component {
             fromDate: '10/01/2020 00:00:00',
             toDate: '10/02/2200 23:59:59',
             plateNumber: '',
-            portIn: "",
+            portIn: "0",
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -54,11 +54,12 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
-            SelectCong: "",
+            PortOut: "null",
+            SelectCong: "/listCar/listCarIn?",
             total: "",
             dataXe: "",
             loaiXe: "",
+            namePort: "",
         }
     }   
     
@@ -162,9 +163,9 @@ class Content extends React.Component {
   
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
-            console.log(this.state.fromDate, "check PortIn")
-            console.log(this.state.toDate, "check PortOut")
-            console.log(this.state.data, "check data");
+            console.log(this.state.portIn, "check PortIn")
+            console.log(this.state.PortOut, "check PortOut")
+            console.log(this.state.SelectCong, "Cong");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -185,7 +186,8 @@ class Content extends React.Component {
         })
     }
 
-    handlePortChange(event) {
+    handlePortChange(field, event) {
+        this.setState({ [field]: event.target.value })
         if (event.target.value==1){
             this.setState({portIn: '0', PortOut: null, SelectCong: '/listCar/listCarIn?'})
         }
@@ -239,9 +241,9 @@ class Content extends React.Component {
             <div class="row">
                 <div class="col-4">
                     <b>Loại hàng</b>
-                    <select loaiHang = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                        <option value = {null}>Chọn</option>
-                                            <option value="" >Tất cả</option>
+                    <select value = {this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                        <option disabled hidden value = {null}>Chọn</option>
+                                            <option selected value="" >Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
                                             <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
@@ -317,8 +319,8 @@ class Content extends React.Component {
                                   </div>
                   <div class='col-3'>
                     <b>Cổng</b>
-                        <select onChange={(e) => this.handlePortChange(e)}>
-                            <option value = ''>Chọn</option>
+                        <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort',e)}>
+                            <option selected disabled hidden>Chọn</option>
                             <option value = '1'>Làn vào VN</option>
                             <option value = '2'>Làn xuất</option>
                             <option value = '3'>Làn quay đầu</option>
@@ -350,26 +352,12 @@ class Content extends React.Component {
                                             <b>Export Excel</b>
                                 </button>
                             </form>
-                      <div style= {{float: 'right'}}class="col-3">
-                      <button type="submit"
-                                            style={{width:'38px', color:'#C8C8C8'}}
-                                           
-                                            onClick={() => this.listInPrevious()}>
-                                            <b style={{color:'black'}}>-</b>
-                                        </button>
-                                        <b>{this.state.page}</b>
-                                        <button type="submit"
-                                            style={{width:'38px', color:'#C8C8C8'}}
-                                            
-                                            onClick={() => this.listInNext()}>
-                                            <b style={{color:'black'}}>+</b>
-                                        </button>
-                                    </div>
+                      
                     </div>    
                 
           </div>
           </div>
-          <div style={{float: 'right', width: '30%'}}>
+          <div style={{float: 'right', width: '35%'}}>
                     <table>
                       <tr>
                         <td></td>
@@ -380,19 +368,32 @@ class Content extends React.Component {
                       </tr>
                       <tr style={{borderBottom: '1px solid white'}}>
                         <td><b>Làn Trung Quốc</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '70px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '70px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '70px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '170px', height: '50px', display: 'inline-block'}}>d</b></td>
                       </tr>
                       <tr>
                         <td><b>Làn Việt Nam</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '70px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '70px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '70px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '170px', height: '50px', display: 'inline-block'}}>d</b></td>
                       </tr>
-                    </table>
+                    </table><br/><br/><br/>
+                    <div style= {{float: 'right'}}class="col-3">
+                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                           
+                                           onClick={() => this.listInPrevious()}>
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
+                          
+                                            </svg>
+                                        <b>{this.state.page}</b>
+                                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                        onClick={() => this.listInNext()}>
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
+</svg>
+                </div>
               </div>
             </div>
       </div>
