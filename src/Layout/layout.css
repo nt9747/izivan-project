@@ -11,4 +11,38 @@ thead{background-color: #4BA0B8}
 #empty1{background-image: url(img/empty.png)}
 
 
+.myButton {
+	box-shadow: 0px 1px 0px -8px #1c1b18;
+	border-radius:12px;
+	border:1px solid #333029;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Arial;
+	font-size:17px;
+}
 
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+.myButton1 {
+	box-shadow: 0px 1px 0px -8px #1c1b18;	
+	border-radius:12px;
+	border:1px solid #333029;
+	display:inline-block;
+	cursor:pointer;
+	
+	font-family:Arial;
+	font-size:17px;
+}
+
+.myButton1:active {
+	position:relative;
+	top:1px;
+}
+
+
+        
