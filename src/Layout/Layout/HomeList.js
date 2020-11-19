@@ -50,7 +50,7 @@ class HomeList extends React.Component {
             fromDate: '10/01/2020 00:00:00',
             toDate: '10/02/2200 23:59:59',
             plateNumber: '',
-            portIn: 'null',
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -58,12 +58,12 @@ class HomeList extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: 'null',
-            SelectCong: "",
+            PortOut: '',
+            SelectCong: "/listCar/listCarInOut?",
             total: "",
             dataXe: "",
             loaiXe: "",
-            showBienXe: true,
+            showBienXe: true,   
             showLoaiXe: false,
             showLoaiHang: false,
             pictureDauXeVao: "",
@@ -236,23 +236,22 @@ class HomeList extends React.Component {
         })
     }
 
-    handlePortChange(event) {
-        if (event.target.value == '0'){
-        }
-        else if (event.target.value == '5') {
-             this.setState({namePort: 'Cổng Vào ra CN', portIn: '1', PortOut: '3' })
+    handlePortChange(field, event) {
+        this.setState({[field]: event.target.value})
+        if (event.target.value == '5') {
+             this.setState({portIn: '1', PortOut: '3' })
         }
         else if (event.target.value == '1') {
-            this.setState({namePort: 'Tất cả', portIn: '', PortOut: '' })
+            this.setState({portIn: '', PortOut: '' })
         }
         else if (event.target.value == '2') {
-            this.setState({namePort: 'Cổng vào VN', portIn: '0', PortOut: null })
+            this.setState({portIn: '0', PortOut: null })
         }
         else if (event.target.value == '3') {
-            this.setState({namePort: 'Cổng ra quay đầu', portIn: null, PortOut: '2' })
+            this.setState({portIn: null, PortOut: '2' })
         }
         else if (event.target.value == '4') {
-            this.setState({namePort: 'Cổng ra xuất', portIn: null, PortOut: '4' })
+            this.setState({portIn: null, PortOut: '4' })
         }
     }
 
@@ -400,8 +399,8 @@ class HomeList extends React.Component {
                                 <div class="row">
                                     <div class="col-4">
                                         <b>Cổng</b><br />
-                                        <select onChange={(e) => this.handlePortChange(e)}>
-                                            <option selected disabled hidden value = '0'>Chọn</option>
+                                        <select value = {this.state.namePort} onChange={(e) => this.handlePortChange('namePort',e)}>
+                                            <option selected disabled hidden>Chọn</option>
                                             <option value='1'>Tất cả</option>
                                             <option value='2'>Cổng vào VN</option>
                                             <option value='3'>Cổng ra quay đầu</option>
@@ -409,8 +408,8 @@ class HomeList extends React.Component {
                                             <option value='5'>Cổng vao ra CN</option>
                                         </select>
                                         <select value={this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
-                                            <option disabled hidden value=''>Chọn</option>
-                                            <option selected="selected" value='/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
+                                            <option selected disabled hidden>Chọn</option>
+                                            <option value='/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
                                             <option value='/listCar/listCarIn?' >1. Giao dịch vào </option>
                                             <option value='/listCar/listCarOut?'>2. Giao dịch ra</option>
                                             <option value='/listCar/listCarParking?'>3. Số lượng xe tồn</option>
@@ -443,12 +442,11 @@ class HomeList extends React.Component {
                         <div class="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '73%', height: '700px' }}>
                             <div class="card-header" >
                                 <h3 class="card-title" >
-                                    <button class="btn btn-primary" onClick={this.toggleBienXe}>Biển Số</button>
-                                    <button class="btn btn-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
-                                    <button class="btn btn-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                                    <button class="btn btn-secondary" style={{marginRight: '3px'}} onClick={this.toggleBienXe}>Biển Số</button>  
+                                    <button class="btn btn-secondary" style={{marginRight: '3px'}} onClick={this.toggleLoaiXe}>Loại Xe</button>
+                                    <button class="btn btn-secondary" style={{marginRight: '3px'}} onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
-
                             {this.state.showBienXe && <div>
                                 <div style={{float: "right", width: "200px", border:"none"}}>
                                 <button type="submit"
