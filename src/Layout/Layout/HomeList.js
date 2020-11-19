@@ -670,7 +670,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={this.state.pictureDauXeVao} id="imglayout" /> <img src={this.state.pictureVaoFull} id="imglayout" />
+                                        <img src={c} id="imglayout" /> <img src={a} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
@@ -681,7 +681,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="">
-                                        <img src={this.state.pictureDauXeRa} id="imglayout" /><img src={this.state.pictureRaFull} id="imglayout" />
+                                        <img src={d} id="imglayout" /><img src={b} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
