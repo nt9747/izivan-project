@@ -160,7 +160,8 @@ class Content extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe,
+                LOAIXE: this.state.loaiXe
+                
   
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
@@ -354,12 +355,26 @@ class Content extends React.Component {
                                             <b>Export Excel</b>
                                 </button>
                             </form>
-                      
+                      <div style= {{float: 'right'}}class="col-3">
+                      <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                           
+                                            onClick={() => this.listInPrevious()}>
+                                            <b style={{color:'black'}}>-</b>
+                                        </button>
+                                        <b>{this.state.page}</b>
+                                        <button type="submit"
+                                            style={{width:'38px', color:'#C8C8C8'}}
+                                            
+                                            onClick={() => this.listInNext()}>
+                                            <b style={{color:'black'}}>+</b>
+                                        </button>
+                                    </div>
                     </div>    
                 
           </div>
           </div>
-          <div style={{float: 'right', width: '35%'}}>
+          <div style={{float: 'right', width: '30%'}}>
                     <table>
                       <tr>
                         <td></td>
@@ -370,17 +385,17 @@ class Content extends React.Component {
                       </tr>
                       <tr style={{borderBottom: '1px solid white'}}>
                         <td><b>Làn Trung Quốc</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '70px', height: '50px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '70px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '70px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '170px', height: '50px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
                       </tr>
                       <tr>
                         <td><b>Làn Việt Nam</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '70px', height: '50px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '70px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '70px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '170px', height: '50px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
                       </tr>
                     </table><br/><br/><br/>
                     <div style= {{}}class="col-3">
@@ -410,7 +425,7 @@ class Content extends React.Component {
                               <tr>
                                   <th>STT</th>
                                   <th>STT vào bãi</th>
-                                  <th>Biển sô xe vào/ Biển số xe ra</th>
+                                  <th>Biển sô xe vào/ra</th>
                                   <th>Biển Cont</th>
                                   <th>Biển Mooc</th>
                                   <th>Loại xe</th>

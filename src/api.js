@@ -88,15 +88,28 @@ export const requestGetListCarIn = (payload) => {
   }))
 }
 
+// export const requestGetListLoaiXe = (payload) => {
+//   return handleResult(getAxios.get(`${payload.LX}`, {
+//     fromDate: payload.FROMDATE,
+//     toDate: payload.TODATE,
+//     plateNumber: payload.PLATENUMBER,
+//     portIn: payload.PORTIN,
+//     numberCar: payload.NUMBERCAR,
+//     loaiHang: payload.LOAIHANG,
+//     portOut: payload.PORTOUT,
+//     loaiXe: payload.LOAIXE
+//   }))
+// }
+
 export const requestGetListLoaiXe = (payload) => {
-  return handleResult(getAxios.post(`/Statistic/statisticCarIn`, {
+  return handleResult(getAxios.post(`${payload.THONGKELOAIXE}`,{
     fromDate: payload.FROMDATE,
     toDate: payload.TODATE,
     plateNumber: payload.PLATENUMBER,
+    portOut: payload.PORTOUT,
     portIn: payload.PORTIN,
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
-    portOut: payload.PORTOUT,
     loaiXe: payload.LOAIXE
   }))
 }  
