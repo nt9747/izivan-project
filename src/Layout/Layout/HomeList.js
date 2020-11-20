@@ -170,7 +170,6 @@ class HomeList extends React.Component {
             const res = await resquestGetListCarType({
             })
             await this.setState({ dataXe: res.data });
-            console.log(this.state.dataXe, "check total");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -212,8 +211,18 @@ class HomeList extends React.Component {
                 LX: this.state.LX,
                 LOAIXE: this.state.loaiXe,
             })
-            await this.setState({dataThongKeXe: res2.data, isLoading: false})
-            console.log(res2, "dataThongKeXe")
+            await this.setState({dataThongKeXe: res2.data.result, isLoading: false})
+            console.log(this.state.fromDate, "tu ngay")
+            console.log(this.state.toDate, "den ngay")
+            console.log(this.state.plateNumber, "bien xe")
+            console.log(this.state.portIn, "port in")
+            console.log(this.state.PortOut, "port out")
+            console.log(this.state.numberCar, "ma the")
+            console.log(this.state.loaiHang, "loai hang")
+            console.log(this.state.LX, "LX")
+            console.log(this.state.loaiXe, "loai xe")
+            console.log(res2.data, "check data")
+
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -221,6 +230,7 @@ class HomeList extends React.Component {
         }
         console.log(this.state.data, "Check data!");
     }
+
     async Select(row) {
         try {
             const res = await requestGetListCarIn({
