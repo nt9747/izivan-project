@@ -78,7 +78,10 @@ class HomeList extends React.Component {
             dataThongKeXe: "",
             thongKeLoaiXe: "/Statistic/statisticCarInOut",
             TongKetCong: "",
-            
+            countIn: "",
+            countOut: "",
+            totalMoney: "",
+
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -127,7 +130,7 @@ class HomeList extends React.Component {
             //     return (this.state.page)
             // }
             if (!(this.state.nextPage)) {
-                return (--this.state.page);
+                return --this.state.page;
             }
         } catch (err) {
             await this.setState({
@@ -212,7 +215,7 @@ class HomeList extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 THONGKELOAIXE: this.state.thongKeLoaiXe
             })
-            await this.setState({dataThongKeXe: res2.data, isLoading: false})
+            await this.setState({ dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
 
         } catch (err) {
             await this.setState({
@@ -277,18 +280,18 @@ class HomeList extends React.Component {
     handleAPIChange(field, event) {
         this.setState({ [field]: event.target.value })
         if (event.target.value == '1') {
-            this.setState({SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut"})
+            this.setState({ SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut" })
         }
         else if (event.target.value == '2') {
-            this.setState({SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn"})
+            this.setState({ SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn" })
         }
         else if (event.target.value == '3') {
-            this.setState({SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut"})
+            this.setState({ SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut" })
         }
-        else if (event.target.value == '4') 
-            this.setState({SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking"})
-        }
-    
+        else if (event.target.value == '4')
+            this.setState({ SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking" })
+    }
+
 
     render() {
         const { data, dataThongKeXe, isLoading } = this.state;
@@ -395,10 +398,10 @@ class HomeList extends React.Component {
                                                 <td style={{ textAlign: 'center' }}><b>Tổng doanh thu</b></td>
                                             </tr>
                                             <tr>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.total}</b></td>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block' }}>b</b></td>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block' }}>c</b></td>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '150px', height: '50px', display: 'inline-block' }}>d</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countIn}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countOut}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countIn - this.state.countOut}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '150px', height: '50px', display: 'inline-block' }}>{this.state.totalMoney}</b></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -485,13 +488,13 @@ class HomeList extends React.Component {
                                     <button id="nut" class="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button>
                                     <button id="nut" class="myButton" style={{ color: 'red' }}>{this.state.page}</button>
                                     <button id="nut" class="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button>
-                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button> 
-                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button>
-                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
-                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button> 
-                                    <a>...</a> 
-                                    <button id="nut" class="myButton" onClick={() => this.setState({page: this.state.totalPage -1}) || this.listInNext()}>{this.state.totalPage}</button>
-                                    
+                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button>
+                                    {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button> */}
+                                    {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
+                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button>  */}
+                                    <a>...</a>
+                                    <button id="nut" class="myButton" onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button>
+
                                     <button class="myButton1" type="submit"
                                         style={{ color: '#C8C8C8' }}
                                         onClick={() => this.listInNext()}>
@@ -591,7 +594,7 @@ class HomeList extends React.Component {
                             </div>}
                             {this.state.showLoaiHang && <div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" class="table table-bordered table-hover"style={{ fontSize: '12.5px' }} >
+                                    <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
                                             <tr>

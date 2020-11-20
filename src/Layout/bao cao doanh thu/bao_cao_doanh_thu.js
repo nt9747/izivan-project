@@ -355,21 +355,7 @@ class Content extends React.Component {
                                             <b>Export Excel</b>
                                 </button>
                             </form>
-                      <div style= {{float: 'right'}}class="col-3">
-                      <button type="submit"
-                                            style={{width:'38px', color:'#C8C8C8'}}
-                                           
-                                            onClick={() => this.listInPrevious()}>
-                                            <b style={{color:'black'}}>-</b>
-                                        </button>
-                                        <b>{this.state.page}</b>
-                                        <button type="submit"
-                                            style={{width:'38px', color:'#C8C8C8'}}
-                                            
-                                            onClick={() => this.listInNext()}>
-                                            <b style={{color:'black'}}>+</b>
-                                        </button>
-                                    </div>
+
                     </div>    
                 
           </div>
@@ -398,7 +384,7 @@ class Content extends React.Component {
                         <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
                       </tr>
                     </table><br/><br/><br/>
-                    <div style= {{}}class="col-3">
+                    <div style= {{}}class="col-4">
                         <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                                     onClick={() => this.listInPrevious()}>
                              <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
