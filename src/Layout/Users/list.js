@@ -191,11 +191,21 @@ async list() {
                            </tr>
                     </table>
                        </div>
-                         <div class="col-2"><br/>
-                           <a onClick={() => this.Register()}><button class="btn btn-success" style={{height: '40px', width: '200px'}}><h4>Đăng ký nhanh</h4></button></a>
-                         </div>
-                         <div class="col-3"><br/>
-                           <button class="btn btn-success" onClick={() => this.list()} style={{height: '40px', width: '180px'}}><h4>Làm mới</h4></button>
+                         <div class="col-3">
+                          <button type="button" class="btn btn-outline-primary">
+                                <h5>Đăng ký nhanh</h5>
+                            <svg onClick={() => this.Register()} width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7.5-3a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"></path>
+                            </svg>
+                          </button>
+                          </div>
+                          <div class="">
+                          <button type="button" class="btn btn-outline-primary">
+                            <svg onClick={() => this.list()} width="4em" height="4em" viewBox="0 0 16 16" class="bi bi-arrow-clockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                            </svg>
+                          </button>
                          </div>
                      </div><br/>
 

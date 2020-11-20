@@ -199,7 +199,6 @@ class HomeList extends React.Component {
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
             this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
 
-
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -208,10 +207,10 @@ class HomeList extends React.Component {
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                LX: this.state.LX,
+         
                 LOAIXE: this.state.loaiXe,
             })
-            await this.setState({dataThongKeXe: res2.data.result, isLoading: false})
+            await this.setState({dataThongKeXe: res2.data.result, isLoading: false});
             console.log(this.state.fromDate, "tu ngay")
             console.log(this.state.toDate, "den ngay")
             console.log(this.state.plateNumber, "bien xe")
@@ -219,7 +218,7 @@ class HomeList extends React.Component {
             console.log(this.state.PortOut, "port out")
             console.log(this.state.numberCar, "ma the")
             console.log(this.state.loaiHang, "loai hang")
-            console.log(this.state.LX, "LX")
+           
             console.log(this.state.loaiXe, "loai xe")
             console.log(res2.data, "check data")
 
@@ -556,17 +555,15 @@ class HomeList extends React.Component {
                             </div>}
                             {this.state.showLoaiXe && <div>
                                 <div style={{ float: "right", width: "200px", border: "none" }}>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInPrevious()}>
-                                        <b style={{ color: 'black' }}>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInNext()}>
-                                        <b style={{ color: 'black' }}>+</b>
-                                    </button>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                    onClick={() => this.listInPrevious()}>
+                                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
+                                </svg>
+                                <b>{this.state.page}/{this.state.totalPage}</b>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            onClick={() => this.listInNext()}>
+                                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
+                                </svg>
                                 </div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
                                     <table id="example2" class="table table-bordered table-hover" >
@@ -605,17 +602,15 @@ class HomeList extends React.Component {
                             </div>}
                             {this.state.showLoaiHang && <div>
                                 <div style={{ float: "right", width: "200px", border: "none" }}>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInPrevious()}>
-                                        <b style={{ color: 'black' }}>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInNext()}>
-                                        <b style={{ color: 'black' }}>+</b>
-                                    </button>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                    onClick={() => this.listInPrevious()}>
+                                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
+                                </svg>
+                                <b>{this.state.page}/{this.state.totalPage}</b>
+                                <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            onClick={() => this.listInNext()}>
+                                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
+                                </svg>
                                 </div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
                                     <table id="example2" class="table table-bordered table-hover" >
