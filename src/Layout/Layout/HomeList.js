@@ -465,24 +465,24 @@ class HomeList extends React.Component {
                                 </h3>
                             </div>
                             {this.state.showBienXe && <div>
-                                <div style={{ float: "right", width: "600px", border: "none" }}>
+                                <div style={{ float: "right", width: "610px", border: "none" }}>
                                     <button class="myButton1" type="submit"
                                         style={{ color: '#C8C8C8', marginRight: "10px" }}
                                         onClick={() => this.listInPrevious()}>
                                         <b style={{ color: 'black' }}>Previous</b>
                                     </button>
 
-                                    <button class="myButton" hidden={(this.state.page < 3)} onClick={() => this.list()}> 1 </button><a hidden={this.state.page < 5}>...</a>
-                                    <button class="myButton" hidden={(this.state.page <= 3)} onClick={() => this.setState({ page: this.state.page - 1 }) || this.listInPrevious()}>{this.state.page - 2}</button>
-                                    <button class="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button>
-                                    <button class="myButton" style={{ color: 'red' }}>{this.state.page}</button>
-                                    <button class="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button>
-                                    <button class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button> 
-                                    <button class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button>
-                                    <button class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
-                                    <button class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button> 
+                                    <button id="nut" class="myButton" hidden={(this.state.page < 3)} onClick={() => this.list()}> 1 </button><a hidden={this.state.page < 5}>...</a>
+                                    <button id="nut" class="myButton" hidden={(this.state.page <= 3)} onClick={() => this.setState({ page: this.state.page - 1 }) || this.listInPrevious()}>{this.state.page - 2}</button>
+                                    <button id="nut" class="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button>
+                                    <button id="nut" class="myButton" style={{ color: 'red' }}>{this.state.page}</button>
+                                    <button id="nut" class="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button>
+                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button> 
+                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button>
+                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
+                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button> 
                                     <a>...</a> 
-                                    <button class="myButton" onClick={() => this.setState({page: this.state.totalPage -1}) || this.listInNext()}>{this.state.totalPage}</button>
+                                    <button id="nut" class="myButton" onClick={() => this.setState({page: this.state.totalPage -1}) || this.listInNext()}>{this.state.totalPage}</button>
                                     
                                     <button class="myButton1" type="submit"
                                         style={{ color: '#C8C8C8' }}

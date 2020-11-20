@@ -9,7 +9,7 @@ thead{background-color: #4BA0B8}
 #edit_car{width: 120px; height: 30px;}
 #edit_car1{width: 150px; height: 30px;}
 #empty1{background-image: url(img/empty.png)}
-
+#nut{margin-right: 3px}
 
 .myButton {
 	box-shadow: 0px 1px 0px -8px #1c1b18;
@@ -25,7 +25,6 @@ thead{background-color: #4BA0B8}
 	position:relative;
 	top:1px;
 }
-
 
 
 .myButton1 {
