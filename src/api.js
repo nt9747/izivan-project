@@ -89,7 +89,7 @@ export const requestGetListCarIn = (payload) => {
 }
 
 export const requestGetListLoaiXe = (payload) => {
-  return handleResult(getAxios.post(`${payload.LX}`, {
+  return handleResult(getAxios.get(`${payload.LX}`, {
     fromDate: payload.FROMDATE,
     toDate: payload.TODATE,
     plateNumber: payload.PLATENUMBER,

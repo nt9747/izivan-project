@@ -48,8 +48,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '10/01/2020 00:00:00',
-            toDate: '10/02/2200 23:59:59',
+            fromDate: '01/10/2020 00:00:00',
+            toDate: '01/10/2200 23:59:59',
             plateNumber: '',
             portIn: '',
             numberCar: "",
@@ -76,6 +76,7 @@ class HomeList extends React.Component {
             totalPage: "",
             namePort: "",
             dataThongKeXe: "",
+            LX: "/Statistic/statisticCarIn",
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -169,7 +170,6 @@ class HomeList extends React.Component {
             const res = await resquestGetListCarType({
             })
             await this.setState({ dataXe: res.data });
-            console.log(this.state.dataXe, "check total");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -198,8 +198,7 @@ class HomeList extends React.Component {
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
             this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
-            console.log(this.state.portIn, "portIn")
-            console.log(this.state.PortOut, "portOut")
+
 
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
@@ -209,12 +208,21 @@ class HomeList extends React.Component {
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                PAGE: this.state.page,
-                CONG: this.state.SelectCong,
+                LX: this.state.LX,
                 LOAIXE: this.state.loaiXe,
             })
-            await this.setState({dataThongKeXe: res2.data, isLoading: false})
-            
+            await this.setState({dataThongKeXe: res2.data.result, isLoading: false})
+            console.log(this.state.fromDate, "tu ngay")
+            console.log(this.state.toDate, "den ngay")
+            console.log(this.state.plateNumber, "bien xe")
+            console.log(this.state.portIn, "port in")
+            console.log(this.state.PortOut, "port out")
+            console.log(this.state.numberCar, "ma the")
+            console.log(this.state.loaiHang, "loai hang")
+            console.log(this.state.LX, "LX")
+            console.log(this.state.loaiXe, "loai xe")
+            console.log(res2.data, "check data")
+
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -222,6 +230,7 @@ class HomeList extends React.Component {
         }
         console.log(this.state.data, "Check data!");
     }
+
     async Select(row) {
         try {
             const res = await requestGetListCarIn({
