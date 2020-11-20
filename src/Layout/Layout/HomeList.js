@@ -76,7 +76,9 @@ class HomeList extends React.Component {
             totalPage: "",
             namePort: "",
             dataThongKeXe: "",
-            LX: "/Statistic/statisticCarIn",
+            thongKeLoaiXe: "/Statistic/statisticCarInOut",
+            TongKetCong: "",
+            
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -199,36 +201,27 @@ class HomeList extends React.Component {
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
             this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
 
-
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
-                PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
+                PORTIN: this.state.portIn,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                LX: this.state.LX,
                 LOAIXE: this.state.loaiXe,
+                THONGKELOAIXE: this.state.thongKeLoaiXe
             })
-            await this.setState({dataThongKeXe: res2.data.result, isLoading: false})
-            console.log(this.state.fromDate, "tu ngay")
-            console.log(this.state.toDate, "den ngay")
-            console.log(this.state.plateNumber, "bien xe")
-            console.log(this.state.portIn, "port in")
-            console.log(this.state.PortOut, "port out")
-            console.log(this.state.numberCar, "ma the")
-            console.log(this.state.loaiHang, "loai hang")
-            console.log(this.state.LX, "LX")
-            console.log(this.state.loaiXe, "loai xe")
-            console.log(res2.data, "check data")
+            await this.setState({dataThongKeXe: res2.data, isLoading: false})
 
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
-        console.log(this.state.data, "Check data!");
+        console.log(this.state.SelectCong, "Check Cong");
+        console.log(this.state.thongKeLoaiXe, "thong ke loai xe");
+        console.log(this.state.dataThongKeXe, "data thong ke xe")
     }
 
     async Select(row) {
@@ -281,18 +274,24 @@ class HomeList extends React.Component {
         }
     }
 
-    // handleTextChange(field, event) {
-    //     if (event.target.value==10){
-    //         this.setState({portIn: '1', PortOut: '3'})
-    //     }
-    //     this.setState({
-    //         [field]: event.target.value
-    //     })
-    // }
-
+    handleAPIChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '1') {
+            this.setState({SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut"})
+        }
+        else if (event.target.value == '2') {
+            this.setState({SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn"})
+        }
+        else if (event.target.value == '3') {
+            this.setState({SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut"})
+        }
+        else if (event.target.value == '4') 
+            this.setState({SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking"})
+        }
+    
 
     render() {
-        const { data, isLoading } = this.state;
+        const { data, dataThongKeXe, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
         if (isLoading) {
             return (
@@ -433,12 +432,12 @@ class HomeList extends React.Component {
                                             <option value='4'>Cổng ra xuất</option>
                                             <option value='5'>Cổng vao ra CN</option>
                                         </select>
-                                        <select value={this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
+                                        <select value={this.state.TongKetCong} onChange={(e) => this.handleAPIChange('TongKetCong', e)}>
                                             <option selected disabled hidden>Chọn</option>
-                                            <option value='/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
-                                            <option value='/listCar/listCarIn?' >1. Giao dịch vào </option>
-                                            <option value='/listCar/listCarOut?'>2. Giao dịch ra</option>
-                                            <option value='/listCar/listCarParking?'>3. Số lượng xe tồn</option>
+                                            <option value='1'>0. Giao dịch vào ra</option>
+                                            <option value='2'>1. Giao dịch vào </option>
+                                            <option value='3'>2. Giao dịch ra</option>
+                                            <option value='4'>3. Số lượng xe tồn</option>
                                         </select>
                                     </div>
                                     <div class="col-2"><br />
@@ -555,21 +554,9 @@ class HomeList extends React.Component {
                                 </div>
                             </div>}
                             {this.state.showLoaiXe && <div>
-                                <div style={{ float: "right", width: "200px", border: "none" }}>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInPrevious()}>
-                                        <b style={{ color: 'black' }}>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInNext()}>
-                                        <b style={{ color: 'black' }}>+</b>
-                                    </button>
-                                </div>
+
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" class="table table-bordered table-hover" >
+                                    <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
 
                                         <thead>
                                             <tr>
@@ -583,17 +570,17 @@ class HomeList extends React.Component {
                                             </tr>
                                         </thead>
                                         <>
-                                            {this.state.data && data.data.map((item, i) => (
+                                            {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr>
-                                                        <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
+                                                        <td key={i}> {item[0].ngayGioVao}</td>
+                                                        <td> {(Object.values(item[0].nameCount)[0])}</td>
+                                                        <td> {(Object.values(item[0].nameCount)[1])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[2])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[3])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[4])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[5])} </td>
                                                     </tr>
                                                 </tbody>
                                             ))}
@@ -604,21 +591,8 @@ class HomeList extends React.Component {
                                 </div>
                             </div>}
                             {this.state.showLoaiHang && <div>
-                                <div style={{ float: "right", width: "200px", border: "none" }}>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInPrevious()}>
-                                        <b style={{ color: 'black' }}>-</b>
-                                    </button>
-                                    <b>{this.state.page}</b><a>/</a><b>{this.state.totalPage}</b>
-                                    <button type="submit"
-                                        style={{ width: '38px', color: '#C8C8C8' }}
-                                        onClick={() => this.listInNext()}>
-                                        <b style={{ color: 'black' }}>+</b>
-                                    </button>
-                                </div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" class="table table-bordered table-hover" >
+                                    <table id="example2" class="table table-bordered table-hover"style={{ fontSize: '12.5px' }} >
 
                                         <thead>
                                             <tr>

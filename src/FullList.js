@@ -335,10 +335,10 @@ this.list();
                 <div class="card-header" >
                 
                     <h3 class="card-title" >
-                        <button class="btn btn-secondary" style={{marginLeft :'3px'}} onClick={this.toggleBienXe}>Biển Số</button>
-                        <button class="btn btn-secondary" style={{marginLeft :'3px'}} onClick={this.toggleLoaiXe}>Loại Xe</button>
-                        <button class="btn btn-secondary" style={{marginLeft :'3px'}} onClick={this.toggleLoaiHang}>Loại Hàng</button>
-                        <button class="btn btn-secondary" style={{marginLeft :'3px'}} onClick={this.toggleTatCa}>Tất cả</button>
+                        <button class="btn btn-primary" onClick={this.toggleBienXe}>Biển Số</button>
+                        <button class="btn btn-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
+                        <button class="btn btn-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                        <button class="btn btn-primary" onClick={this.toggleTatCa}>Tất cả</button>
                     </h3>
                 </div>
                 <table id="example2">
