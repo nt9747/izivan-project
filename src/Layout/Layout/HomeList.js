@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+
 function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
@@ -49,7 +50,7 @@ class HomeList extends React.Component {
         super(props)
         this.state = {
             fromDate: '01/10/2020 00:00:00',
-            toDate: '01/10/2200 23:59:59',
+            toDate: '01/10/2200 00:00:00',
             plateNumber: '',
             portIn: '',
             numberCar: "",
@@ -81,6 +82,7 @@ class HomeList extends React.Component {
             countIn: "",
             countOut: "",
             totalMoney: "",
+            codeThongKeXe: "",
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
@@ -215,7 +217,7 @@ class HomeList extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 THONGKELOAIXE: this.state.thongKeLoaiXe
             })
-            await this.setState({ dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
+            await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
 
         } catch (err) {
             await this.setState({
@@ -223,8 +225,12 @@ class HomeList extends React.Component {
             }, () => console.log(err))
         }
         console.log(this.state.SelectCong, "Check Cong");
-        console.log(this.state.thongKeLoaiXe, "thong ke loai xe");
+        console.log(this.state.codeThongKeXe, "thong ke loai xe");
         console.log(this.state.dataThongKeXe, "data thong ke xe")
+        console.log(this.state.fromDate, "fromDate");
+        console.log(this.state.toDate, "toDate");
+        console.log(this.state.portIn, "portIn");
+        console.log(this.state.PortOut, "portOut");
     }
 
     async Select(row) {
@@ -312,7 +318,7 @@ class HomeList extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3" style={{ marginRight: '40px' }}>
-                                        <b>Từ</b><input type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                                        <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                     </div>
                                     <div class="col-3" style={{ marginRight: '40px' }}>
                                         <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
@@ -577,12 +583,12 @@ class HomeList extends React.Component {
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr>
                                                         <td key={i}> {item[0].ngayGioVao}</td>
-                                                        <td> {(Object.values(item[0].nameCount)[0])}</td>
-                                                        <td> {(Object.values(item[0].nameCount)[1])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[2])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[3])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[4])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[5])} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[6])) || "0"}</td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 20\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 20\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 20\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 20\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 20\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 20\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 20\"" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 40\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 40\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 40\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 40\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 40\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 40\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 40\"" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
                                                     </tr>
                                                 </tbody>
                                             ))}
@@ -624,7 +630,7 @@ class HomeList extends React.Component {
                                                 <th>Chôm chôm</th>
                                                 <th>Nón</th>
                                                 <th>Nhãn lạnh</th>
-                                                <th>Hạt châu</th>
+                                                <th>Hạt trẩu</th>
                                                 <th>Cói</th>
                                                 <th>Cau</th>
                                                 <th>Bánh pía</th>
@@ -639,8 +645,7 @@ class HomeList extends React.Component {
                                                 <th>Giấy</th>
                                                 <th>Xốp</th>
                                                 <th>Cau tươi</th>
-                                                <th>Bột sắn</th>
-                                                <th>Quả hồng</th>
+                                                
                                                 <th>Đỗ</th>
                                                 <th>Hoa hồi</th>
                                                 <th>Hành tỏi</th>
@@ -649,64 +654,65 @@ class HomeList extends React.Component {
                                                 <th>Máy móc</th>
                                                 <th>Mít lạnh</th>
                                                 <th>Long nhãn</th>
+                                                <th>Đỗ xanh </th>
                                             </tr>
                                         </thead>
                                         <>
-                                            {this.state.data && data.data.map((item, i) => (
+                                            {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr>
-                                                        <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 6 </td>
-                                                        <td> 5 </td>
-                                                        <td> 2 </td>
-                                                        <td> 4 </td>
-                                                        <td> 4 </td>
-                                                        <td> 5 </td>
-                                                        <td> 5 </td>
-                                                        <td> 5 </td>
+                                                        <td key={i}> {item[0].ngayGioVao}</td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU KHÔ")])}</td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("THANH LONG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BỘT SẮN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT SEN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LÁ TRE")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT NÓNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("ST")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI NÓNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TÂY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI TÂY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NẤM")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNG HỘP")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("SẮN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHUỐI NÓNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NỘI THẤT")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT DƯA")]) || (Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HAT DUA")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÀ RỐT")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LAC")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TỎI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TẠP HÓA")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("RAU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHÔM CHÔM")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NÓN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NHÃN LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT TRẨU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÓI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BÁNH PÍA")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA VÀNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CỦ CẢI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LINH KIEN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHẬU CÂY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA HẤU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÂY CẢNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("OT")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("GIẤY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XỐP")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HOA HỒI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TỎI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HỒNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI SỌ")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÁY MÓC")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
+
                                                     </tr>
                                                 </tbody>
                                             ))}
