@@ -83,7 +83,7 @@ class HomeList extends React.Component {
             countOut: "",
             totalMoney: "",
             codeThongKeXe: "",
-            limitPage: "30",
+            limitPage: "10",
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
@@ -485,41 +485,70 @@ class HomeList extends React.Component {
                                     <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
-                            {this.state.showBienXe && <div> 
-                                <div style={{float: "right", width: "150px"}}>
-                                <b>Số trang </b>
-                                <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.list()}>
-                                            <option selected disabled hidden>Chọn</option>
-                                            <option value='10'>10</option>
-                                            <option value='20'>20</option>
-                                            <option value='35'>35</option>
-                                            <option value='50'>50</option>
-                                        </select>
-                                    </div>
-                                <div style={{ float: "right", width: "610px", border: "none" }}>
-                                    <button class="myButton1" type="submit"
+                            {this.state.showBienXe && <div>
+                                <div style={{ float: "right", width: "150px" }}>
+                                    <b>Số trang </b>
+                                    <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.list()}>
+                                        <option selected disabled hidden>Chọn</option>
+                                        <option value='10'>10</option>
+                                        <option value='20'>20</option>
+                                        <option value='35'>35</option>
+                                        <option value='50'>50</option>
+                                    </select>
+                                </div>
+                                <div style={{ float: "right", width: "310px", border: "none" }}>
+                                    {/* <button class="myButton1" type="submit"
                                         style={{ color: '#C8C8C8', marginRight: "10px" }}
                                         onClick={() => this.listInPrevious()}>
                                         <b style={{ color: 'black' }}>Previous</b>
-                                    </button>
+                                    </button> */}
 
-                                    <button id="nut" class="myButton" hidden={(this.state.page < 3)} onClick={() => this.list()}> 1 </button><a hidden={this.state.page < 5}>...</a>
+                                    {/* <button id="nut" class="myButton" hidden={(this.state.page < 3)} onClick={() => this.list()}> 1 </button><a hidden={this.state.page < 5}>...</a>
                                     <button id="nut" class="myButton" hidden={(this.state.page <= 3)} onClick={() => this.setState({ page: this.state.page - 1 }) || this.listInPrevious()}>{this.state.page - 2}</button>
-                                    <button id="nut" class="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button>
-                                    <button id="nut" class="myButton" style={{ color: 'red' }}>{this.state.page}</button>
-                                    <button id="nut" class="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button>
-                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button>
+                                    <button id="nut" class="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button> */}
+                                    {/* <button id="nut" class="myButton" style={{ color: 'red' }}>{this.state.page}</button> */}
+                                    {/* <button id="nut" class="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button> */}
+                                    {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button> */}
                                     {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button> */}
                                     {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
                                     <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button>  */}
-                                    <a>...</a>
-                                    <button id="nut" class="myButton" onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button>
+                                    {/* <a>/</a>
+                                    <button id="nut" class="myButton" onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button> */}
 
-                                    <button class="myButton1" type="submit"
+                                    {/* <button class="myButton1" type="submit"
                                         style={{ color: '#C8C8C8' }}
                                         onClick={() => this.listInNext()}>
                                         <b style={{ color: 'black' }}>Next</b>
-                                    </button>
+                                    </button> */}
+                                    <svg onClick={() => this.setState({ page: 1 }) || this.list() } width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                                        <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
+                                    </svg>
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                    </svg>
+                                    <b>{this.state.page}/{this.state.totalPage}</b>
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                    </svg>
+                                    <svg onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext() } width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                    </svg>
+
+                                    {/* <div style={{ float: 'right', width: "230px", height: '32px' }} class="">
+                                        <svg width="1.7em" height="1.7em" style={{ marginRight: "5px" }} viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            onClick={() => this.listInPrevious()}>
+                                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z" />
+                                        </svg>
+                                        <b style={{ marginRight: "5px" }}>{this.state.page}</b>
+                                        <a> / </a>
+                                        <button onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button>
+                                        <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                            onClick={() => this.listInNext()}>
+                                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z" />
+                                        </svg>
+                                    </div> */}
                                 </div>
 
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
