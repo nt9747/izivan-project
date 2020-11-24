@@ -84,7 +84,8 @@ export const requestGetListCarIn = (payload) => {
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
     portOut: payload.PORTOUT,
-    loaiXe: payload.LOAIXE
+    loaiXe: payload.LOAIXE,
+    orderNumber: payload.ORDERNUMBER,
   }))
 }
 
@@ -123,7 +124,8 @@ export const requestGetListCarExcel = (payload) => {
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
     portOut: payload.PORTOUT,
-    loaiXe: payload.LOAIXE
+    loaiXe: payload.LOAIXE,
+    orderNumber: payload.ORDERNUMBER,
   }))
 } 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

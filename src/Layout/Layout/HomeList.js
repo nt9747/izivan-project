@@ -44,13 +44,20 @@ function GetFormatDate(a) {
     }
     else return hours + ":" + minutes + ":" + seconds + "  " + day + "/" + month + "/" + year
 }
+function countMoney(n) {
+    n = parseFloat(n);
+    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
+  }
+// function countMoney(n){
+//     return n
+// }
 
 class HomeList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             fromDate: '01/10/2020 00:00:00',
-            toDate: '01/10/2200 00:00:00',
+            toDate: '26/10/2020 00:00:00',
             plateNumber: '',
             portIn: '',
             numberCar: "",
@@ -84,6 +91,7 @@ class HomeList extends React.Component {
             totalMoney: "",
             codeThongKeXe: "",
             limitPage: "10",
+            orderNumber: "",
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
@@ -127,6 +135,7 @@ class HomeList extends React.Component {
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
@@ -159,7 +168,8 @@ class HomeList extends React.Component {
                 PAGE: --this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
-                LIMIT: this.state.limitPage
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
             })
             if (this.state.page < 1) {
                 ++this.state.page
@@ -205,6 +215,7 @@ class HomeList extends React.Component {
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
 
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
@@ -222,7 +233,7 @@ class HomeList extends React.Component {
                 THONGKELOAIXE: this.state.thongKeLoaiXe,
             })
             await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
-
+            
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -236,24 +247,25 @@ class HomeList extends React.Component {
         console.log(this.state.portIn, "portIn");
         console.log(this.state.PortOut, "portOut");
     }
-
+    
     async Select(row) {
         try {
             const res = await requestGetListCarIn({
-                FROMDATE: "10/01/2020 00:00:00",
-                TODATE: "10/02/2200 23:59:59",
-                PLATENUMBER: row,
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
-                NUMBERCAR: "",
-                LOAIHANG: "",
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
                 PAGE: 1,
                 CONG: this.state.SelectCong,
-                LOAIXE: "",
+                LOAIXE: this.state.loaiXe,
+                ORDERNUMBER: this.state.orderNumber,
 
             })
             await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
-            console.log(this.state.dataPicture, "check DATA PICTURE")
+            console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
         } catch (err) {
             await this.setState({
                 isLoading: true
@@ -327,7 +339,7 @@ class HomeList extends React.Component {
                                     <div class="col-3" style={{ marginRight: '40px' }}>
                                         <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2" style={{marginRight:'70px'}}>
                                         <b>Loại Hàng</b><br />
                                         <select value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                             <option value disabled hidden>Chọn</option>
@@ -408,29 +420,29 @@ class HomeList extends React.Component {
                                                 <td style={{ textAlign: 'center' }}><b>Tổng doanh thu</b></td>
                                             </tr>
                                             <tr>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countIn}</b></td>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countOut}</b></td>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countIn - this.state.countOut}</b></td>
-                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '150px', height: '50px', display: 'inline-block' }}>{this.state.totalMoney}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '30px', display: 'inline-block' }}>{this.state.countIn}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '30px', display: 'inline-block' }}>{this.state.countOut}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '30px', display: 'inline-block' }}>{this.state.countIn - this.state.countOut}</b></td>
+                                                <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '170px', height: '30px', display: 'inline-block' }}>{countMoney(this.state.totalMoney)}</b></td>
                                             </tr>
                                         </table>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-1" style={{ marginRight: '70px' }}>
+                                    <div class="col-1" style={{ marginRight: '150px' }}>
                                         <b>Loại xe</b><br />
                                         <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
                                             <option value=''>Tất cả</option>
                                         </select>
                                     </div>
-                                    <div class="col-2" style={{ marginRight: '70px' }}>
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" />
+                                    <div class="col-2" style={{ marginRight: '31px' }}>
+                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
                                     </div>
-                                    <div class="col-2" style={{ marginRight: '70px' }}>
+                                    <div class="col-2" style={{ marginRight: '31px' }}>
                                         <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
-                                    <div class="col-2" style={{ marginRight: '70px' }}>
+                                    <div class="col-2" style={{ marginRight: '31px' }}>
                                         <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
                                     </div>
                                 </div>
@@ -579,24 +591,24 @@ class HomeList extends React.Component {
                                             {this.state.data && data.data.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr key={item.BienXe}>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.EventID || item.EventParkingID}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.BienCont}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.BienMooc}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.CarNumber_ID || "Chưa có"} </td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.TongTienThu || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienVao || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienDongYRa || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.CongVaoName}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {item.CongRaName || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.BienXe)}> </td>
+                                                    <tr key={item.EventID}>
+                                                        <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.EventID || item.EventParkingID}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienCont}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienMooc}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.CarNumber_ID || "Chưa có"} </td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.TongTienThu || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.NhanVienVao || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> </td>
                                                     </tr>
                                                 </tbody>
                                             ))}
@@ -627,19 +639,19 @@ class HomeList extends React.Component {
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr>
                                                         <td key={i}> {item[0].ngayGioVao}</td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[6]))}</td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[6]))} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[6]))} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[6]))} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 20\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 20\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 20\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 20\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 20\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 20\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 20\"" && (Object.values(item[0].nameCount)[6]))} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 40\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 40\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 40\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 40\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 40\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 40\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 40\"" && (Object.values(item[0].nameCount)[6]))} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Xe có trọng tải dưới 4 tấn")])}</td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Xe có trọng tải từ 4 đến 10 tấn")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Xe có trọng tải từ 10 đến 18 tấn")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Xe có trọng tải trên 18 tấn")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 20\"")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 40\"")])} </td>
                                                     </tr>
                                                 </tbody>
                                             ))}
 
                                         </>
                                     </table>
-                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
+                                    {/* {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />} */}
                                 </div>
                             </div>}
                             {this.state.showLoaiHang && <div>
