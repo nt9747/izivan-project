@@ -83,6 +83,7 @@ class HomeList extends React.Component {
             countOut: "",
             totalMoney: "",
             codeThongKeXe: "",
+            limitPage: "30",
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
@@ -125,6 +126,7 @@ class HomeList extends React.Component {
                 PAGE: ++this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
@@ -156,7 +158,8 @@ class HomeList extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: --this.state.page,
                 CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage
             })
             if (this.state.page < 1) {
                 ++this.state.page
@@ -201,10 +204,11 @@ class HomeList extends React.Component {
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
 
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
-            this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
+            this.setState({ totalPage: Math.floor(this.state.total / this.state.limitPage) + 1 })
 
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
@@ -215,7 +219,7 @@ class HomeList extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 LOAIXE: this.state.loaiXe,
-                THONGKELOAIXE: this.state.thongKeLoaiXe
+                THONGKELOAIXE: this.state.thongKeLoaiXe,
             })
             await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
 
@@ -481,7 +485,17 @@ class HomeList extends React.Component {
                                     <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
-                            {this.state.showBienXe && <div>
+                            {this.state.showBienXe && <div> 
+                                <div style={{float: "right", width: "150px"}}>
+                                <b>Số trang </b>
+                                <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.list()}>
+                                            <option selected disabled hidden>Chọn</option>
+                                            <option value='10'>10</option>
+                                            <option value='20'>20</option>
+                                            <option value='35'>35</option>
+                                            <option value='50'>50</option>
+                                        </select>
+                                    </div>
                                 <div style={{ float: "right", width: "610px", border: "none" }}>
                                     <button class="myButton1" type="submit"
                                         style={{ color: '#C8C8C8', marginRight: "10px" }}
@@ -507,6 +521,7 @@ class HomeList extends React.Component {
                                         <b style={{ color: 'black' }}>Next</b>
                                     </button>
                                 </div>
+
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
                                     <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
@@ -536,7 +551,7 @@ class HomeList extends React.Component {
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr key={item.BienXe}>
-                                                        <td onClick={() => this.Select(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                        <td onClick={() => this.Select(item.BienXe)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                         <td onClick={() => this.Select(item.BienXe)}> {item.EventID || item.EventParkingID}</td>
                                                         <td onClick={() => this.Select(item.BienXe)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                         <td onClick={() => this.Select(item.BienXe)}> {item.BienCont}</td>
@@ -583,12 +598,12 @@ class HomeList extends React.Component {
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr>
                                                         <td key={i}> {item[0].ngayGioVao}</td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[6])) || "0"}</td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 20\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 20\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 20\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 20\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 20\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 20\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 20\"" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
-                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 40\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 40\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 40\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 40\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 40\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 40\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 40\"" && (Object.values(item[0].nameCount)[6])) || "0"} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Dưới 4 tấn" && (Object.values(item[0].nameCount)[6]))}</td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "4 đến 10 tấn" && (Object.values(item[0].nameCount)[6]))} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "10 đến 18 tấn" && (Object.values(item[0].nameCount)[6]))} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Trên 18 tấn" && (Object.values(item[0].nameCount)[6]))} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 20\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 20\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 20\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 20\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 20\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 20\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 20\"" && (Object.values(item[0].nameCount)[6]))} </td>
+                                                        <td> {((Object.keys(item[0].nameCount)[0]) == "Container 40\"" && (Object.values(item[0].nameCount)[0])) || ((Object.keys(item[0].nameCount)[1]) == "Container 40\"" && (Object.values(item[0].nameCount)[1])) || ((Object.keys(item[0].nameCount)[2]) == "Container 40\"" && (Object.values(item[0].nameCount)[2])) || ((Object.keys(item[0].nameCount)[3]) == "Container 40\"" && (Object.values(item[0].nameCount)[3])) || ((Object.keys(item[0].nameCount)[4]) == "Container 40\"" && (Object.values(item[0].nameCount)[4])) || ((Object.keys(item[0].nameCount)[5]) == "Container 40\"" && (Object.values(item[0].nameCount)[5])) || ((Object.keys(item[0].nameCount)[6]) == "Container 40\"" && (Object.values(item[0].nameCount)[6]))} </td>
                                                     </tr>
                                                 </tbody>
                                             ))}
@@ -645,7 +660,7 @@ class HomeList extends React.Component {
                                                 <th>Giấy</th>
                                                 <th>Xốp</th>
                                                 <th>Cau tươi</th>
-                                                
+
                                                 <th>Đỗ</th>
                                                 <th>Hoa hồi</th>
                                                 <th>Hành tỏi</th>
