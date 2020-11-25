@@ -50,7 +50,7 @@ export default class Layout extends Component {
                 <a href="./home" class="brand-link" style={{height: '60px'}}>
                 <img src={LTE} alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style={{opacity: '.8'}}/>
-      <span class="brand-text font-weight-light">IZIVAN COMPANY</span>              
+      <span style = {{color: "white"}} class="brand-text font-weight-light">IZIVAN COMPANY</span>              
                 </a>
                 <br/>
                 <div class="sidebar">
@@ -59,7 +59,7 @@ export default class Layout extends Component {
                             <img src={user2}class="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div class="info">
-                            <p style = {{color: "white"}}>HELLO ADMIN</p>
+                            <p style = {{color: "red"}}>HELLO ADMIN!</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         <br/>
                             <a style={{float:'right'}}>
