@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { requestLogin, requestGetListCarIn, requestGetListCarExcel, resquestGetListCarType } from './api'
+import { requestLogin,requestGetListLoaiXe, requestGetListCarIn, requestGetListCarExcel, resquestGetListCarType } from './api'
 import Cookie from 'js-cookie';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import TableScrollbar from 'react-table-scrollbar';
@@ -62,7 +62,7 @@ class FullList extends React.Component {
             fromDate: '10/01/2020 00:00:00',
             toDate: '10/02/2200 23:59:59',
             plateNumber: '',
-            portIn: "",
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -70,14 +70,32 @@ class FullList extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
-            SelectCong: "",
+            PortOut: '',
+            SelectCong: "/listCar/listCarInOut?",
             total: "",
             dataXe: "",
             loaiXe: "",
             showBienXe: true,
-            showLoaiXe: true,
+            showLoaiXe: false,
             showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
+            totalPage: "",
+            namePort: "",
+            dataThongKeXe: "",
+            thongKeLoaiXe: "/Statistic/statisticCarInOut",
+            TongKetCong: "",
+            countIn: "",
+            countOut: "",
+            totalMoney: "",
+            codeThongKeXe: "",
+            limitPage: "10",
+            orderNumber: "",
+
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -118,7 +136,6 @@ this.list();
             const res = await resquestGetListCarType({
             })
             await this.setState({ dataXe: res.data });
-            console.log(this.state.dataXe, "check total");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -132,7 +149,7 @@ this.list();
             isLoading: true
         })
         try {
-            const res = await requestGetListCarExcel({
+            const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -143,18 +160,49 @@ this.list();
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
 
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
-            console.log(this.state.fromDate, "check PortIn")
-            console.log(this.state.toDate, "check PortOut")
-            console.log(this.state.data, "check data");
+            this.setState({ totalPage: Math.floor(this.state.total / this.state.limitPage) + 1 })
+            console.log(this.state.portIn, "PortIn");
+            console.log(this.state.PortOut, "PortOut");
+            console.log(this.state.SelectCong, "SelectCong")
+            if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
+                alert("Wrong choose!")
+                window.location.href = '/home'
+            }
+            if ((this.state.SelectCong == "/listCar/listCarParking?" && this.state.namePort == "3")) {
+                alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
+                window.location.href = '/home'
+            }
+
+            const res2 = await requestGetListLoaiXe({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTOUT: this.state.PortOut,
+                PORTIN: this.state.portIn,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                LOAIXE: this.state.loaiXe,
+                THONGKELOAIXE: this.state.thongKeLoaiXe,
+            })
+            await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
+
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
-        console.log(this.state.data, "Check data!");
+        console.log(this.state.SelectCong, "Check Cong");
+        console.log(this.state.codeThongKeXe, "thong ke loai xe");
+        console.log(this.state.dataThongKeXe, "data thong ke xe")
+        console.log(this.state.fromDate, "fromDate");
+        console.log(this.state.toDate, "toDate");
+        console.log(this.state.portIn, "portIn");
+        console.log(this.state.PortOut, "portOut");
     }
 
     handleTextChange(field, event) {
@@ -163,7 +211,8 @@ this.list();
         })
     }
 
-    handlePortChange(event) {
+    handlePortChange(field, event) {
+        this.setState({ [field]: event.target.value })
         if (event.target.value == 5) {
             this.setState({ portIn: '1', PortOut: '3' })
         }
@@ -181,8 +230,23 @@ this.list();
         }
     }
 
+    handleAPIChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '1') {
+            this.setState({ SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut" })
+        }
+        else if (event.target.value == '2') {
+            this.setState({ SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn" })
+        }
+        else if (event.target.value == '3') {
+            this.setState({ SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut" })
+        }
+        else if (event.target.value == '4')
+            this.setState({ SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking" })
+    }
+
     render() {
-        const { data, isLoading } = this.state;
+        const { data, dataThongKeXe, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
         // if (isLoading) {
         //     return (
@@ -295,24 +359,24 @@ this.list();
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-5">
-                            <b>Cổng</b><br />
-                            <select onChange={(e) => this.handlePortChange(e)}>
-                                <option disabled hidden value=''>Chọn</option>
-                                <option selected="selected" value='1'>Tất cả</option>
-                                <option value='2'>Cổng vào VN</option>
-                                <option value='3'>Cổng ra quay đầu</option>
-                                <option value='4' >Cổng ra xuất</option>
-                                <option value='5'>Cổng vao ra CN</option>
-                            </select>
-                            <select value={this.state.SelectCong} onChange={(e) => this.handleTextChange('SelectCong', e)}>
-                                <option value="" disabled="disabled">Chọn</option>
-                                <option value='/listCar/listCarInOut?'>0. Giao dịch vào ra</option>
-                                <option value='/listCar/listCarIn?' >1. Giao dịch vào </option>
-                                <option value='/listCar/listCarOut?'>2. Giao dịch ra</option>
-                                <option value='/listCar/listCarParking?'>3. Số lượng xe tồn</option>
-                            </select>
-                        </div>
+                    <div class="col-4">
+                                        <b>Cổng</b><br />
+                                        <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort', e)}>
+                                            <option selected disabled hidden>Chọn</option>
+                                            <option value='1'>Tất cả</option>
+                                            <option hidden={this.state.TongKetCong == "3"} value='2'>Cổng vào VN</option>
+                                            <option hidden={this.state.TongKetCong == "4" || this.state.TongKetCong == "2"} value='3'>Cổng ra quay đầu</option>
+                                            <option hidden={this.state.TongKetCong == "2"} value='4'>Cổng ra xuất</option>
+                                            <option value='5'>Cổng vào ra CN</option>
+                                        </select>
+                                        <select value={this.state.TongKetCong} onChange={(e) => this.handleAPIChange('TongKetCong', e)}>
+                                            <option selected disabled hidden>Chọn</option>
+                                            <option value='1'>0. Giao dịch vào ra</option>
+                                            <option value='2'>1. Giao dịch vào </option>
+                                            <option value='3'>2. Giao dịch ra</option>
+                                            <option value='4'>3. Số lượng xe tồn</option>
+                                        </select>
+                                    </div>
                         <div class="col-3"><br />
                             <button type="submit"
                                 className="btn btn-danger"
@@ -321,7 +385,13 @@ this.list();
                             </button>
                         </div>
                         <div class="col-3"><br />
-                        <button onclick="tablesToExcel(['t1'], ['Sheet1'], 'export.xls', 'Excel')" class="btn btn-success">Export to Excel</button>
+                        <ReactHTMLTableToExcel
+                                className="btn btn-danger"
+                                table='example2'
+                                filename={this.state.fromDate + "-->" + this.state.toDate}
+                                sheet="Sheet"
+                                buttonText="Xuất Excel"
+                                style={{ width: '20%' }}/>
                         </div>
                        
 
@@ -330,10 +400,10 @@ this.list();
                 <div class="card-header" >
                 
                     <h3 class="card-title" >
-                        <button class="btn btn-primary" onClick={this.toggleBienXe}>Biển Số</button>
-                        <button class="btn btn-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
-                        <button class="btn btn-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
-                        <button class="btn btn-primary" onClick={this.toggleTatCa}>Tất cả</button>
+                        <button style={{marginRight:"3px"}} class="btn btn-outline-primary" onClick={this.toggleBienXe}>Biển Số</button>
+                        <button style={{marginRight:"3px"}} class="btn btn-outline-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
+                        <button style={{marginRight:"3px"}} class="btn btn-outline-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                        <button style={{marginRight:"3px"}} class="btn btn-outline-primary" onClick={this.toggleTatCa}>Tất cả</button>
                     </h3>
                 </div>
                 <table id="example2">
@@ -402,20 +472,20 @@ this.list();
                         </tr>
                     </thead>
                     <>
-                        {this.state.data && data.data.map((item, i) => (
-                            <tbody>
-                                {/* <tr onClick={() => this.Edit()} > */}
-                                <tr>
-                                    <td> 01/10/2020 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                </tr>
-                            </tbody>
-                        ))}
+                    {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
+                                                <tbody >
+                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                    <tr >
+                                                        <td key={i}> {item[0].ngayGioVao}</td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("4 đến 10 tấn")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("10 đến 18 tấn")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Trên 18 tấn")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 20\"")])} </td>
+                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 40\"")])} </td>
+                                                    </tr>
+                                                </tbody>
+                                            ))}
 
                     </>
                 </table>}
@@ -477,65 +547,64 @@ this.list();
                         </tr>
                     </thead>
                     <>
-                        {this.state.data && data.data.map((item, i) => (
-                            <tbody>
-                                {/* <tr onClick={() => this.Edit()} > */}
-                                <tr>
-                                    <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 6 </td>
-                                    <td> 5 </td>
-                                    <td> 2 </td>
-                                    <td> 4 </td>
-                                    <td> 4 </td>
-                                    <td> 5 </td>
-                                    <td> 5 </td>
-                                    <td> 5 </td>
-                                </tr>
-                            </tbody>
-                        ))}
+                    {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
+                                                <tbody>
+                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                    <tr>
+                                                        <td key={i}> {item[0].ngayGioVao}</td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU KHÔ")])}</td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("THANH LONG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BỘT SẮN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT SEN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LÁ TRE")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT NÓNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("ST")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI NÓNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TÂY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI TÂY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NẤM")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNG HỘP")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("SẮN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHUỐI NÓNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NỘI THẤT")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT DƯA")]) || (Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HAT DUA")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÀ RỐT")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LAC")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TỎI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TẠP HÓA")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("RAU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHÔM CHÔM")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NÓN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NHÃN LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT TRẨU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÓI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BÁNH PÍA")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA VÀNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CỦ CẢI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LINH KIEN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHẬU CÂY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA HẤU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÂY CẢNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("OT")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("GIẤY")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XỐP")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HOA HỒI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TỎI")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HỒNG")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI SỌ")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÁY MÓC")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
 
+                                                    </tr>
+                                                </tbody>
+                                            ))}
                     </>
                 </table>}
                 {this.state.total == 0 && <img src={empty} style={{ width: '2000px', height: '1000px' }} />}

@@ -12,8 +12,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-
-
 function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
