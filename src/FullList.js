@@ -6,22 +6,23 @@ import TableScrollbar from 'react-table-scrollbar';
 import empty from './Layout/img/empty.png'
 
 
-// var tablesToExcel = (function () {
-//     var uri = 'data:application/vnd.ms-excel;base64,'
-//     , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets>'
-//     , templateend = '</x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>'
-//     , body = '<body>'
-//     , tablevar = '<table>{table'
-//     , tablevarend = '}</table>'
-//     , bodyend = '</body></html>'
-//     , worksheet = '<x:ExcelWorksheet><x:Name>'
-//     , worksheetend = '</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>'
-//     , worksheetvar = '{worksheet'
-//     , worksheetvarend = '}'
-//     , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-//     , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
-//     , wstemplate = ''
-//     , tabletemplate = '';
+var tablesToExcel = (function () {
+    var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets>'
+    , templateend = '</x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>'
+    , body = '<body>'
+    , tablevar = '<table>{table'
+    , tablevarend = '}</table>'
+    , bodyend = '</body></html>'
+    , worksheet = '<x:ExcelWorksheet><x:Name>'
+    , worksheetend = '</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet>'
+    , worksheetvar = '{worksheet'
+    , worksheetvarend = '}'
+    , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+    , wstemplate = ''
+    , tabletemplate = '';
+})
 
 function GetFormatDate(a) {
     const b = new Date(a);
@@ -320,13 +321,7 @@ this.list();
                             </button>
                         </div>
                         <div class="col-3"><br />
-                            <ReactHTMLTableToExcel
-                                className="btn btn-danger"
-                                table='example2'
-                                filename={this.state.fromDate + "-->" + this.state.toDate}
-                                sheet="Sheet"
-                                buttonText="Xuất Excel"
-                                style={{ width: '20%' }}/>
+                        <button onclick="tablesToExcel(['t1'], ['Sheet1'], 'export.xls', 'Excel')" class="btn btn-success">Export to Excel</button>
                         </div>
                        
 
@@ -342,7 +337,7 @@ this.list();
                     </h3>
                 </div>
                 <table id="example2">
-                {this.state.showBienXe && <table class="table table-bordered table-hover table2excel" >
+                {this.state.showBienXe && <table id="t1" class="table table-bordered table-hover table2excel" >
 
                     <thead>
                         <tr>
@@ -393,7 +388,7 @@ this.list();
 
                     </>
                 </table>}
-                {this.state.showLoaiXe && <table class="table table-bordered table-hover table2excel" >
+                {this.state.showLoaiXe && <table id="t2" class="table table-bordered table-hover table2excel" >
 
                     <thead>
                         <tr>
@@ -424,7 +419,7 @@ this.list();
 
                     </>
                 </table>}
-                {this.state.showLoaiHang && <table class="table table-bordered table-hover table2excels">
+                {this.state.showLoaiHang && <table id="t3" class="table table-bordered table-hover table2excels">
 
                     <thead>
                         <tr>

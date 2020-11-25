@@ -5,6 +5,8 @@ import user2 from '../dist/img/user2-160x160.jpg'
 import Cookie from 'js-cookie';
 import { requestLogin } from '../../api';
 
+import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import 'react-pro-sidebar/dist/css/styles.css';
 
 // import '../../../node_modules/adminlte-2-react/src/adminlte/js/adminlte.min.js';
 // import '../../../node_modules/jquery/dist/jquery.min.js'
@@ -223,8 +225,17 @@ export default class Layout extends Component {
 
                 </div>
             </aside>
-
 </div>
+
+// <ProSidebar>
+// <Menu >
+//      <MenuItem >Dashboard</MenuItem>
+//      <SubMenu title="Components" >
+//        <MenuItem>Component 1</MenuItem>
+//        <MenuItem>Component 2</MenuItem>
+//    </SubMenu>
+// </Menu>
+// </ProSidebar>
 
         )
     }
