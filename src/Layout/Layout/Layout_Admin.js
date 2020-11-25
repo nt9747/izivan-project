@@ -5,11 +5,6 @@ import user2 from '../dist/img/user2-160x160.jpg'
 import Cookie from 'js-cookie';
 import { requestLogin } from '../../api';
 
-<<<<<<< HEAD
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import 'react-pro-sidebar/dist/css/styles.css';
-=======
->>>>>>> 83b330db8200332cdeb2ac505bd2b125a4c18901
 
 // import '../../../node_modules/adminlte-2-react/src/adminlte/js/adminlte.min.js';
 // import '../../../node_modules/jquery/dist/jquery.min.js'
@@ -129,109 +124,6 @@ export default class Layout extends Component {
                             </li>
                             <li class="nav-item has-treeview menu-close">
                                 <a href="#" class="nav-link active">
-<<<<<<< HEAD
-
-                                    <p>
-                                        Quản trị dịch vụ
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-<a href="pages/Quản trị dịch vụ/boc_xep.html">
-                                           
-                                            <p>Dịch vụ bốc xếp</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="pages/Quản trị dịch vụ/kiem_hoa.html">
-                                           
-                                            <p>Dịch vụ kiểm hóa</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-
-                                    <p>
-                                        Báo cáo tổng hợp
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="pages/Báo cáo tổng hợp/theo_doi_nhap.html">
-                                           
-                                            <p>Phiếu theo dõi nhập</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="pages/Báo cáo tổng hợp/hai_quan_theo_thang.html">
-                                           
-                                            <p>Hải quan theo tháng</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-                                    <p>
-                                        Quản trị
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="./ThongTinXe" >
-                                           
-                                            <p>Theo dõi thông tin xe</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./ThemLoaiHang">
-                                           
-                                            <p>Thêm loại hàng</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./ChoXeRa">
-<p>Cho xe ra</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item has-treeview menu-close">
-                                <a href="#" class="nav-link active">
-
-                                    <p>
-                                        Phòng loa
-                
-                                    </p>
-                                </a>
-                                <ul >
-                                    <li class="nav-item">
-                                        <a href="./XeTrongBai" >
-                                           
-                                            <p>Xe trong bãi</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./XeRaVao">
-                                           
-                                            <p>Xe ra vào</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-
-                </div>
-            </aside>
-</div>
-=======
->>>>>>> 83b330db8200332cdeb2ac505bd2b125a4c18901
 
                                     <p>
                                         Quản trị dịch vụ
