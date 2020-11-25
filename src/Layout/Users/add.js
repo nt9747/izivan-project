@@ -32,6 +32,9 @@ class Content extends React.Component {
         })
         await this.setState({ msg: res.msg, data: res.data});
         console.log(this.state.data, "check data")
+        console.log((this.state.Username).length(), "check username")
+        console.log(this.state.Password, "check password")
+
         if (this.state.data == "Tên đăng nhập đã tồn tại"){
             alert("Tên đăng nhập đã tồn tại") 
         }
