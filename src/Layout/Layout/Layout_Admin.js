@@ -12,6 +12,26 @@ import { requestLogin } from '../../api';
 // import '../../../node_modules/bootstrap//dist/js/bootstrap.bundle.min.js'
 
 export default class Layout extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            showDichVu: true,
+            showTongHop : true,
+        }
+        this.toggleDichVu = this.toggleDichVu.bind(this)
+        this.toggleTongHop = this.toggleTongHop.bind(this)
+        
+    }
+    toggleDichVu = () => {
+        const { showDichVu } = this.state;
+        this.setState({ showDichVu: !showDichVu})
+    }
+
+    toggleTongHop = () => {
+        const { showTongHop } = this.state;
+        this.setState({ showTongHop: !showTongHop})
+    }
+
     async exitLogin() {
         try {
             Cookie.set('SESSION_ID', null)
@@ -125,12 +145,12 @@ export default class Layout extends Component {
                             <li class="nav-item has-treeview menu-close">
                                 <a href="#" class="nav-link active">
 
-                                    <p>
+                                    <p onClick={this.toggleDichVu}>
                                         Quản trị dịch vụ
                 
                                     </p>
                                 </a>
-                                <ul >
+                                {this.state.showDichVu && <ul  >
                                     <li class="nav-item">
 <a href="pages/Quản trị dịch vụ/boc_xep.html">
                                            
@@ -143,17 +163,18 @@ export default class Layout extends Component {
                                             <p>Dịch vụ kiểm hóa</p>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> }
                             </li>
+                            
                             <li class="nav-item has-treeview menu-close">
                                 <a href="#" class="nav-link active">
 
-                                    <p>
+                                    <p onClick={this.toggleTongHop}>
                                         Báo cáo tổng hợp
                 
                                     </p>
                                 </a>
-                                <ul >
+                                {this.state.showTongHop && <ul>
                                     <li class="nav-item">
                                         <a href="pages/Báo cáo tổng hợp/theo_doi_nhap.html">
                                            
@@ -166,7 +187,7 @@ export default class Layout extends Component {
                                             <p>Hải quan theo tháng</p>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul>}
                             </li>
                             <li class="nav-item has-treeview menu-close">
                                 <a href="#" class="nav-link active">
