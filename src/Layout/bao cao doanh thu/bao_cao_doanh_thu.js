@@ -38,15 +38,24 @@ function GetFormatDate(a){
    }
    else return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
 }
-
+function countMoney(n) {
+    n = parseFloat(n);
+    var b = n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
+    if (b == "NaN vnd"){
+        return ""
+    }
+    else {
+        return b;
+    }
+}
 class Content extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '10/01/2020 00:00:00',
-            toDate: '10/02/2200 23:59:59',
+            fromDate: '01/10/2020 00:00:00',
+            toDate: '26/12/2020 00:00:00',
             plateNumber: '',
-            portIn: "0",
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -54,13 +63,32 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "null",
-            SelectCong: "/listCar/listCarIn?",
+            PortOut: '',
+            SelectCong: "/listCar/listCarInOut?",
             total: "",
             dataXe: "",
             loaiXe: "",
-            namePort: "",
+            showBienXe: true,
+            showLoaiXe: false,
+            showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
             totalPage: "",
+            namePort: "",
+            dataThongKeXe: "",
+            thongKeLoaiXe: "/Statistic/statisticCarInOut",
+            TongKetCong: "",
+            countIn: "",
+            countOut: "",
+            countTon: "",
+            totalMoney: "",
+            codeThongKeXe: "",
+            limitPage: "10",
+            orderNumber: "",
         }
     }   
     
@@ -99,7 +127,31 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
+    async Select(row) {
+        // try {
+        //     const res = await requestGetListCarIn({
+        //         FROMDATE: this.state.fromDate,
+        //         TODATE: this.state.toDate,
+        //         PLATENUMBER: this.state.plateNumber,
+        //         PORTIN: this.state.portIn,
+        //         PORTOUT: this.state.PortOut,
+        //         NUMBERCAR: this.state.numberCar,
+        //         LOAIHANG: this.state.loaiHang,
+        //         PAGE: 1,
+        //         CONG: this.state.SelectCong,
+        //         LOAIXE: this.state.loaiXe,
+        //         ORDERNUMBER: row,
 
+        //     })
+        //     await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
+        //     console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
+        // } catch (err) {
+        //     await this.setState({
+        //         isLoading: true
+        //     }, () => console.log(err))
+        // }
+        // console.log(this.state.data, "Check data!");
+    }
     async listInPrevious() {
         await this.setState({
             isLoading: true
@@ -128,22 +180,21 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
-    async start(){
+    async start() {
         await this.setState({
             isLoading: true
         })
         try {
-                const res = await resquestGetListCarType({
-                })
-            await this.setState({dataXe: res.data});
-            console.log(this.state.dataXe, "check total");
+            const res = await resquestGetListCarType({
+            })
+            await this.setState({ dataXe: res.data });
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
     }
-    
+
 
     async list() {
         await this.setState({
@@ -160,15 +211,17 @@ class Content extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe
-                
-  
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
-            this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
-            console.log(this.state.portIn, "check PortIn")
-            console.log(this.state.PortOut, "check PortOut")
-            console.log(this.state.SelectCong, "Cong");
+            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
+            this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
+            console.log(this.state.portIn, "PortIn");
+            console.log(this.state.PortOut, "PortOut");
+            console.log(this.state.SelectCong, "SelectCong")
+
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -231,13 +284,13 @@ class Content extends React.Component {
           <div style={{float: 'left', width: '60%'}}>          
            <div class="row">
                 <div class="col-4">
-                    <b>Biển số xe</b><input value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} type="text" class="form-control" placeholder=""/>
+                <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                 </div>
                 <div class="col-4">
-                    <b>Mã thẻ</b><input value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} type="text" class="form-control" placeholder=""/>
+                <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
                 </div>
                 <div class="col-4">
-                    <b>Số thứ tự</b><input type="text" class="form-control" placeholder="" />
+                <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
                 </div>
               </div>
             <br/>
@@ -316,8 +369,8 @@ class Content extends React.Component {
                 </div>
                 <div class="col-5">
                     <b>Loại xe</b>
-                    <select value = {this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value = {item.ID}>{item.Name}</option>)} 
-                                                <option value = ''>Tất cả</option>  
+                    <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
+                                            <option value=''>Tất cả</option>
                                         </select>
                                   </div>
                   <div class='col-3'>
@@ -371,19 +424,19 @@ class Content extends React.Component {
                       </tr>
                       <tr style={{borderBottom: '1px solid white'}}>
                         <td><b>Làn Trung Quốc</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '30px', height: '30px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '30px', height: '30px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '30px', height: '30px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '170px', height: '30px', display: 'inline-block'}}>d</b></td>
                       </tr>
                       <tr>
                         <td><b>Làn Việt Nam</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '120px', height: '50px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '30px', height: '30px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '30px', height: '30px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '30px', height: '30px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '170px', height: '30px', display: 'inline-block'}}>d</b></td>
                       </tr>
-                    </table><br/><br/><br/>
+                    </table><br/><br/><br/><br/><br/>
                     <div style= {{}}class="col-4">
                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
@@ -409,56 +462,58 @@ class Content extends React.Component {
   <div class="ui grid middle aligned"  style={{overflow: 'auto', width: '100%', height:'600px'}}>
           <div class="card-header" >
               <h3 class="card-title" ></h3>
-              
+               
               
           </div> 
           <table id="example2" class="table table-bordered table-hover">
                           
-                          <thead>
-                              <tr>
-                                  <th>STT</th>
-                                  <th>STT vào bãi</th>
-                                  <th>Biển sô xe vào/ra</th>
-                                  <th>Biển Cont</th>
-                                  <th>Biển Mooc</th>
-                                  <th>Loại xe</th>
-                                  <th>Mã số thẻ</th>
-                                  <th>Thời gian vào bãi</th>
-                                  <th>Thời gia ra bãi</th>
-                                  <th>Thời gian lưu bãi</th>
-                                  <th>Số tiền</th>
-                                  <th>Nhân viên vào / Nhân viên ra</th>
-                                  <th>Nhân cho phép ra</th>
-                                  <th>Loại hàng</th>
-                                  <th>Cổng vào</th>
-                                  <th>Cổng ra</th>
-                                  <th>Phiếu hải quan</th>
-                              </tr>
-                          </thead>
-                  <>
-                 {this.state.data && data.data.map((item, i) => (
-                          <tbody>
-                                  <tr>
-                                  <td key={i}> {(this.state.page-1)*10 + i + 1}</td>
-                                      <td key={i}> {item.EventID}</td>
-                                      <td key={i}> {item.BienXe}</td>
-                                      <td key={i}> {item.BienCont}</td>
-                                      <td key={i}> {item.BienMooc}</td>
-                                      <td key={i}> {item.LoaiXeChiTiet} </td>
-                                      <td key={i}> {item.CarNumber_ID}</td>
-                                      <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                      <td key={i}> {GetFormatDate(item.NgayGioRa)}</td>
-                                      <td key={i}> {item.ThoiGianTrongBai}</td>
-                                      <td key={i}> {item.TongTienThu}</td>
-                                      <td key={i}> {item.NhanVienVao}</td>
-                                      <td key={i}> {item.NhanVienDongYRa}</td>
-                                      <td key={i}> {item.LoaiHangChiTiet}</td>
-                                      <td key={i}> {item.CongVaoName}</td>
-                                      <td key={i}> {item.CongRaName}</td>
-                                      <td key={i}> </td>
-                                  </tr>
-                          </tbody>
-                      ))}
+          <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>STT vào bãi</th>
+                                                <th>Biển số xe vào/ra</th>
+                                                <th>Biển Cont</th>
+                                                <th>Biển Mooc</th>
+                                                <th>Loại xe</th>
+                                                <th>Mã số thẻ</th>
+                                                <th>Thời gian vào bãi</th>
+                                                <th>Thời gia ra bãi</th>
+                                                <th>Thời gian lưu bãi</th>
+                                                <th>Số tiền</th>
+                                                <th>Nhân viên vào/ra</th>
+                                                <th>Nhân cho phép ra</th>
+                                                <th>Loại hàng</th>
+                                                <th>Cổng vào</th>
+                                                <th>Cổng ra</th>
+                                                <th>Phiếu hải quan</th>
+                                            </tr>
+                                        </thead>
+                                        <>
+                                            {this.state.data && data.data.map((item, i) => (
+                                                <tbody>
+                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                    <tr key={item.EventID}>
+
+                                                        <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienCont || item.BienContVao}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienMooc || item.BienMoocVao}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
+                                                        <td onClick={() => this.Select(item.EventID)}> {item.PhieuHaiQuan}</td>
+                                                    </tr>
+                                                </tbody>
+                                            ))}
                  
                       </>
                   </table>
