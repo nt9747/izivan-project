@@ -128,6 +128,9 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
+            if (this.state.nextPage == null){
+                this.setState({nextPage: this.state.totalPage})
+            }
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -136,17 +139,17 @@ class HomeList extends React.Component {
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                PAGE: ++this.state.page,
+                PAGE: this.state.nextPage,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
             })
-            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
-            console.log(this.state.nextPage, "Check next page")
-            if (!(this.state.nextPage)) {
-                return this.state.page--;
-            }
+
+            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -168,7 +171,7 @@ class HomeList extends React.Component {
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                PAGE: --this.state.page,
+                PAGE: this.state.previousPage,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
@@ -177,8 +180,9 @@ class HomeList extends React.Component {
             if (this.state.page < 1) {
                 ++this.state.page
             }
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
-            console.log(this.state.data, "check data")
+            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -206,6 +210,8 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -220,8 +226,9 @@ class HomeList extends React.Component {
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
             })
-            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage});
-            console.log(this.state.data, "check data")
+            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -247,10 +254,13 @@ class HomeList extends React.Component {
 
 
     async list() {
+        console.log(this.state.nextPage, "nextPage");
+        console.log(this.state.previousPage, "previousPage");
         await this.setState({
             isLoading: true
         })
         try {
+            this.setState({page: 1})
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -266,11 +276,8 @@ class HomeList extends React.Component {
                 ORDERNUMBER: this.state.orderNumber,
 
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
+            await this.setState({ data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
-            console.log(this.state.portIn, "PortIn");
-            console.log(this.state.PortOut, "PortOut");
-            console.log(this.state.SelectCong, "SelectCong")
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
                 window.location.href = '/home'
@@ -298,6 +305,8 @@ class HomeList extends React.Component {
             } else if (this.state.countTon < 0){
                 this.setState({countTon: "unk.."})
             }
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -350,10 +359,10 @@ class HomeList extends React.Component {
             this.setState({ portIn: '1', PortOut: '3' })
         }
         else if (event.target.value == '1') {
-            this.setState({ portIn: '', PortOut: '' })
+            this.setState({ portIn: '', PortOut: ''})
         }
         else if (event.target.value == '2') {
-            this.setState({ portIn: '0', PortOut: null })
+            this.setState({ portIn: '0', PortOut: null})
         }
         else if (event.target.value == '3') {
             this.setState({ portIn: null, PortOut: '2' })
