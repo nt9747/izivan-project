@@ -144,11 +144,8 @@ class HomeList extends React.Component {
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
-            // if (!res.data.data){
-            //     return (this.state.page)
-            // }
             if (!(this.state.nextPage)) {
-                return --this.state.page;
+                return this.state.page--;
             }
         } catch (err) {
             await this.setState({
@@ -180,7 +177,7 @@ class HomeList extends React.Component {
             if (this.state.page < 1) {
                 ++this.state.page
             }
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage });
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
             console.log(this.state.data, "check data")
         } catch (err) {
             await this.setState({

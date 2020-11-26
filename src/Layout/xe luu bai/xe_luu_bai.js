@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import pl from '../img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
+import { requestGetListCarIn, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -38,15 +38,26 @@ function GetFormatDate(a) {
     }
     else return hours + ":" + minutes + ":" + seconds + "  " + day + "/" + month + "/" + year
 }
+function countMoney(n) {
+    n = parseFloat(n);
+    var b = n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
+    if (b == "NaN vnd") {
+        return ""
+    }
+    else {
+        return b;
+    }
+}
+
 
 class Content extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '10/01/2020 00:00:00',
-            toDate: '10/30/2020 23:59:59',
+            fromDate: '01/10/2020 00:00:00',
+            toDate: '26/12/2020 00:00:00',
             plateNumber: '',
-            portIn: "",
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -54,16 +65,33 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
-            SelectCong: "ListCar/ListCarIn?",
+            PortOut: '',
+            SelectCong: "/listCar/listCarIn?",
             total: "",
             dataXe: "",
             loaiXe: "",
             showBienXe: true,
             showLoaiXe: false,
             showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
             totalPage: "",
-            portName: "",
+            namePort: "",
+            dataThongKeXe: "",
+            thongKeLoaiXe: "/Statistic/statisticCarIn?",
+            TongKetCong: "",
+            countIn: "",
+            countOut: "",
+            countTon: "",
+            totalMoney: "",
+            codeThongKeXe: "",
+            limitPage: "10",
+            orderNumber: "",
+
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -85,74 +113,11 @@ class Content extends React.Component {
         const { showLoaiHang } = this.state;
         this.setState({ showLoaiHang: true, showBienXe: false, showLoaiXe: false })
     }
-    handlePortChange(field, event) {
-        this.setState({[field]: event.target.value})
-        if (event.target.value == 5) {
-            this.setState({ portIn: '1', PortOut: null})
-        }
-        else if (event.target.value == 1) {
-            this.setState({ portIn: '', PortOut: ''})
-        }
-        else if (event.target.value == 2) {
-            this.setState({ portIn: '0', PortOut: null})
-        }
-        else if (event.target.value == 3) {
-            this.setState({ portIn: null, PortOut: '2' })
-        }
-        else if (event.target.value == 4) {
-            this.setState({ portIn: null, PortOut: '4' })
-        }
-    }
- 
 
     componentDidMount() {
         this.list();
         this.start();
-    }
 
-
-    async start() {
-        await this.setState({
-            isLoading: true
-        })
-        try {
-            const res = await resquestGetListCarType({
-            })
-            await this.setState({ dataXe: res.data });
-            console.log(this.state.dataXe, "check total");
-        } catch (err) {
-            await this.setState({
-                isLoading: false
-            }, () => console.log(err))
-        }
-    }
-    async listInPrevious() {
-        await this.setState({
-            isLoading: true
-        })
-        try {
-            const res = await requestGetListCarIn({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
-                PLATENUMBER: this.state.plateNumber,
-                PORTIN: this.state.portIn,
-                PORTOUT: this.state.PortOut,
-                NUMBERCAR: this.state.numberCar,
-                LOAIHANG: this.state.loaiHang,
-                PAGE: --this.state.page,
-                CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe
-            })
-            if (this.state.page < 1) {
-                ++this.state.page
-            }
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage });
-            console.log(this.state.data, "check data")
-        } catch (err) {
-            await this.setState({
-                isLoading: false
-            }, () => console.log(err))
-        }
     }
     async listInNext() {
         await this.setState({
@@ -170,6 +135,8 @@ class Content extends React.Component {
                 PAGE: ++this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
             })
             await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "Check next page")
@@ -177,7 +144,7 @@ class Content extends React.Component {
             //     return (this.state.page)
             // }
             if (!(this.state.nextPage)) {
-                return (--this.state.page);
+                return --this.state.page;
             }
         } catch (err) {
             await this.setState({
@@ -186,6 +153,96 @@ class Content extends React.Component {
         }
     }
 
+
+    async listInPrevious() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: --this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+            })
+            if (this.state.page < 1) {
+                ++this.state.page
+            }
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage });
+            console.log(this.state.data, "check data")
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+    async start() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await resquestGetListCarType({
+            })
+            await this.setState({ dataXe: res.data });
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+    async listTo() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: this.state.totalPage,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+            })
+            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage });
+            console.log(this.state.data, "check data")
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+
+    async start() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await resquestGetListCarType({
+            })
+            await this.setState({ dataXe: res.data });
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
 
 
     async list() {
@@ -204,28 +261,80 @@ class Content extends React.Component {
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
 
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
-            this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
-            console.log(this.state.portIn, "check PortIn")
-            console.log(this.state.PortOut, "check PortOut")
-            console.log(this.state.data, "check data");
+            this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
+            console.log(this.state.portIn, "PortIn");
+            console.log(this.state.PortOut, "PortOut");
+            console.log(this.state.SelectCong, "SelectCong")
+            if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
+                alert("Wrong choose!")
+                window.location.href = '/home'
+            }
+            if ((this.state.SelectCong == "/listCar/listCarParking?" && this.state.namePort == "3")) {
+                alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
+                window.location.href = '/home'
+            }
+
+            const res2 = await requestGetListLoaiXe({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTOUT: this.state.PortOut,
+                PORTIN: this.state.portIn,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                LOAIXE: this.state.loaiXe,
+                THONGKELOAIXE: this.state.thongKeLoaiXe,
+            })
+            await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
+            this.setState({ countTon: this.state.countIn - this.state.countOut })
+            if (this.state.SelectCong == "/listCar/listCarParking?") {
+                this.setState({ countTon: this.state.total })
+            } else if (this.state.countTon < 0) {
+                this.setState({ countTon: "unk.." })
+            }
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
-        console.log(this.state.data, "Check data!");
-        // if (typeof(this.state.data) == "undefined"){
-        //     return(
-        //         <img src="../img/empty.png" />
-        //     )
-        //     // window.location.href = '/Empty'
-        // }
+        console.log(this.state.SelectCong, "Check Cong");
+        console.log(this.state.codeThongKeXe, "thong ke loai xe");
+        console.log(this.state.dataThongKeXe, "data thong ke xe")
+        console.log(this.state.fromDate, "fromDate");
+        console.log(this.state.toDate, "toDate");
+        console.log(this.state.portIn, "portIn");
+        console.log(this.state.PortOut, "portOut");
     }
-    Select(item) {
 
+    async Select(row) {
+        // try {
+        //     const res = await requestGetListCarIn({
+        //         FROMDATE: this.state.fromDate,
+        //         TODATE: this.state.toDate,
+        //         PLATENUMBER: this.state.plateNumber,
+        //         PORTIN: this.state.portIn,
+        //         PORTOUT: this.state.PortOut,
+        //         NUMBERCAR: this.state.numberCar,
+        //         LOAIHANG: this.state.loaiHang,
+        //         PAGE: 1,
+        //         CONG: this.state.SelectCong,
+        //         LOAIXE: this.state.loaiXe,
+        //         ORDERNUMBER: row,
+
+        //     })
+        //     await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
+        //     console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
+        // } catch (err) {
+        //     await this.setState({
+        //         isLoading: true
+        //     }, () => console.log(err))
+        // }
+        // console.log(this.state.data, "Check data!");
     }
 
     handleTextChange(field, event) {
@@ -234,7 +343,41 @@ class Content extends React.Component {
         })
     }
 
-    
+    handlePortChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '5') {
+            this.setState({ portIn: '1', PortOut: null })
+        }
+        else if (event.target.value == '1') {
+            this.setState({ portIn: '', PortOut: '' })
+        }
+        else if (event.target.value == '2') {
+            this.setState({ portIn: '0', PortOut: null })
+        }
+        else if (event.target.value == '3') {
+            this.setState({ portIn: null, PortOut: '2' })
+        }
+        else if (event.target.value == '4') {
+            this.setState({ portIn: null, PortOut: '4' })
+        }
+    }
+
+    handleAPIChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '1') {
+            this.setState({ SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut" })
+        }
+        else if (event.target.value == '2') {
+            this.setState({ SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn" })
+        }
+        else if (event.target.value == '3') {
+            this.setState({ SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut" })
+        }
+        else if (event.target.value == '4')
+            this.setState({ SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking" })
+    }
+
+
 
     // handleTextChange(field, event) {
     //     if (event.target.value==10){
@@ -271,9 +414,9 @@ class Content extends React.Component {
                                         <tr>
                                             <td><b>Từ ngày:</b><input type="text" name="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} /></td>
                                             <td><b>Đến ngày:</b><input style={{ width: '240px' }} type="text" name="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} /></td>
-                                            <td><b>Cổng vào:</b><select style={{ width: '165px' }} value = {this.state.portName} onChange={(e) => this.handlePortChange('portName',e)}>
-                                                <option disabled hidden selected>Chọn</option>
-                                                <option value='1'>Tất cả</option>
+                                            <td><b>Cổng vào:</b><select style={{ width: '165px' }} value={this.state.portName} onChange={(e) => this.handlePortChange('portName', e)}>
+                                                <option disabled hidden >Chọn</option>
+                                                <option selected value='1'>Tất cả</option>
                                                 <option value='2'>Cổng vào VN</option>
                                                 <option value='5'>Cổng vào CN</option>
                                             </select></td>
@@ -399,21 +542,21 @@ class Content extends React.Component {
                                         </tr>
                                     </table>
                                     <div style={{ float: 'right', width: "320px", height: '30px' }} class=""><br />
-                                    <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
-                                        <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
-                                    </svg>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                                    </svg>
-                                    <b>{this.state.page}/{this.state.totalPage}</b>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                    </svg>
-                                    <svg onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
-                                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                                    </svg>
+                                        <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                                            <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
+                                        </svg>
+                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                        </svg>
+                                        <b>{this.state.page}/{this.state.totalPage}</b>
+                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                        </svg>
+                                        <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                        </svg>
 
                                     </div>
                                 </div>
@@ -456,24 +599,24 @@ class Content extends React.Component {
                                     {this.state.data && data.data.map((item, i) => (
                                         <tbody>
                                             {/* <tr onClick={() => this.Edit()} > */}
-                                            <tr key={item.BienXe}>
-                                                <td onClick={() => this.Select(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.EventID}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienXe}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienCont}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.BienMooc}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.LoaiXeChiTiet} </td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.CarNumber_ID}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {GetFormatDate(item.NgayGioRa)}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.ThoiGianTrongBai}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.TongTienThu}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienVao}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.NhanVienDongYRa}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.LoaiHangChiTiet}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.CongVaoName}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> {item.CongRaName}</td>
-                                                <td onClick={() => this.Select(item.BienXe)}> </td>
+                                            <tr key={item.EventID}>
+                                                <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.BienCont || item.BienContVao}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.BienMooc || item.BienMoocVao}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.PhieuHaiQuan}</td>
                                             </tr>
                                         </tbody>
                                     ))}
