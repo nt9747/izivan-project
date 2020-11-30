@@ -163,6 +163,9 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
+            if (this.state.previousPage == null){
+                this.setState({previousPage: 1})
+            }
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -177,9 +180,6 @@ class HomeList extends React.Component {
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
             })
-            if (this.state.page < 1) {
-                ++this.state.page
-            }
             await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
