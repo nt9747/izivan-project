@@ -86,6 +86,8 @@ export const requestGetListCarIn = (payload) => {
     portOut: payload.PORTOUT,
     loaiXe: payload.LOAIXE,
     orderNumber: payload.ORDERNUMBER,
+    bienCont: payload.BIENCONT,
+    bienMooc: payload.BIENMOOC,
   }))
 }
 export const requestChoXeRa = (payload) => {
@@ -131,7 +133,7 @@ export const requestGetListLoaiXe = (payload) => {
     portIn: payload.PORTIN,
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
-    loaiXe: payload.LOAIXE
+    loaiXe: payload.LOAIXE,
   }))
 }  
 

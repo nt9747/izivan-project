@@ -91,6 +91,11 @@ class Content extends React.Component {
             codeThongKeXe: "",
             limitPage: "10",
             orderNumber: "",
+            bienCont: "",
+            bienMooc: "",
+            countXeAll: "",
+            countXeVN: "",
+            countXeCN: "",
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
@@ -117,7 +122,6 @@ class Content extends React.Component {
     componentDidMount() {
         this.list();
         this.start();
-
     }
     async listInNext() {
         await this.setState({
@@ -140,6 +144,8 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
 
             await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
@@ -175,6 +181,8 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
             await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
@@ -221,6 +229,8 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
             await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
@@ -256,6 +266,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
+            console.log(this.state.namePort, "nameport")
             this.setState({ page: 1 })
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
@@ -270,9 +281,11 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({ data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
@@ -281,6 +294,15 @@ class Content extends React.Component {
             if ((this.state.SelectCong == "/listCar/listCarParking?" && this.state.namePort == "3")) {
                 alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
                 window.location.href = '/home'
+            }
+            if (this.state.namePort == '2'){
+                this.setState({countXeVN: this.state.total})
+            }
+            if (this.state.namePort == '5'){
+                this.setState({countXeCN: this.state.total})
+            }
+            if (this.state.name == '1'){
+                this.setState({countXeAll: this.state.total, countXeVN: this.state.countXeAll - this.state.countXeCN, countXeCN: this.state.countXeAll - this.state.countXeVN})
             }
 
             const res2 = await requestGetListLoaiXe({
@@ -417,8 +439,8 @@ class Content extends React.Component {
                                             </select></td>
                                         </tr>
                                         <tr>
-                                            <td><b>Biển số cont:</b><input type="text" style={{ width: '160px' }} name="" /></td>
-                                            <td><b>Biển số mooc:</b><input type="text" style={{ width: '210px' }} name="" /></td>
+                                            <td><b>Biển số cont:</b><input value={this.state.bienCont} onChange={(e) => this.handleTextChange('bienCont', e)} type="text" style={{ width: '160px' }} name="" /></td>
+                                            <td><b>Biển số mooc:</b><input value={this.state.bienMooc} onChange={(e) => this.handleTextChange('bienMooc', e)} type="text" style={{ width: '210px' }} name="" /></td>
                                             <td style={{ textAlign: 'center' }}><b>Biển số xe:</b><input type="text" style={{ width: '150px' }} name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} /></td>
 
                                             <td><button style={{ width: '100px', height: '50px' }} className="btn btn-danger"
@@ -508,11 +530,11 @@ class Content extends React.Component {
                                             <table style={{ textAlign: 'center', width: '850px', height: '50px', borderStyle: 'inset' }}>
                                                 <tr>
                                                     <td>Tổng số xe lưu bãi</td>
-                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>230</td>
+                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeAll}</td>
                                                     <td>Cổng VN</td>
-                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>400</td>
+                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeVN}</td>
                                                     <td>Cổng TQ</td>
-                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>682</td>
+                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeCN}</td>
                                                 </tr>
                                             </table>
 

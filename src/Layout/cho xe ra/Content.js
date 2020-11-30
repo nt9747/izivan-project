@@ -105,6 +105,8 @@ class Content extends React.Component {
             TongTienChange: "",
             ChoXeRaPort: "",
             msgOut: "",
+            bienCont: "",
+            bienMooc: "",
         }
     }
     componentDidMount() {
@@ -132,6 +134,8 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
 
             await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
@@ -163,6 +167,8 @@ class Content extends React.Component {
                 CONG: this.state.SelectCong,
                 LOAIXE: loaixeSearch,
                 ORDERNUMBER: sothutuSearch,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
 
             })
             await this.setState({
@@ -171,7 +177,7 @@ class Content extends React.Component {
                 loaiXeChange: res.data.data[0].LoaiXeChiTiet, loaiXeIDchange: (res.data.data[0].LoaiXeID).toString(), linkAnhBienSoChange: res.data.data[0].LinkAnhBienSo,
                 linkAnhDauXeChange: res.data.data[0].LinkAnhDauXe, linkAnhFullChange: res.data.data[0].LinkAnhFull, IsDongYXeRa: (res.data.data[0].IsDongYXeRa ? 1 : 0).toString(), IsXeKhongHang: (res.data.data[0].IsXeKhongHang ? 1 : 0).toString(),
                 IsXeQuayDau: (res.data.data[0].IsXeQuayDau ? 1 : 0).toString(), carNumber_IDChange: (res.data.data[0].CarNumber_ID).toString(), fromDataChange: GetFormatDate(res.data.data[0].NgayGioVao), TongTienChange: countMoney(res.data.data[0].TongTienThu),
-                EventIDChange: (res.data.data[0].EventID).toString()});
+                EventIDChange: (res.data.data[0].EventID).toString(), ChoXeRaPort: ""});
             console.log(this.state.EventIDChange, "EventIdChange");
         } catch (err) {
             await this.setState({
@@ -256,6 +262,8 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
             await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
@@ -303,6 +311,9 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+                
             })
             await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
@@ -336,6 +347,8 @@ class Content extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
 
             })
             await this.setState({ data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
@@ -356,7 +369,10 @@ class Content extends React.Component {
         //     // window.location.href = '/Empty'
         // }
     }
-
+    
+    async Cancel() {
+        this.setState({ChoXeRaPort: "",EventIDChange: "null", bienXeChange: "", bienContChange: "", bienMocChange: "", fromDataChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: ""});
+    }
     handleTextChange(field, event) {
         this.setState({
             [field]: event.target.value
@@ -537,7 +553,7 @@ class Content extends React.Component {
                                                                 loaiXeIDchange: "",
                                                                 EventIDChange: "",
                                                                 IsDongYXeRa: "",
-                                                                IsXeKhongHang: "",
+                                                   om             IsXeKhongHang: "",
                                                                 IsXeQuayDau: "",
                                                                 linkAnhBienSoChange: "",
                                                                 linkAnhDauXeChange: "",
@@ -579,7 +595,7 @@ class Content extends React.Component {
                                             </select></td>
                                         </tr>
                                         <tr>
-                                            <td><button class='btn btn-danger'><b>Hủy</b></button></td>
+                                            <td><button onClick={() => this.Cancel()} class='btn btn-danger'><b>Hủy</b></button></td>
                                             <td></td>
                                             <td><button hidden = {this.state.EventIDChange == "null" || this.state.ChoXeRaPort == ""} onClick={() => this.RequestGetCarOut()} class='btn btn-danger'><b>Cho xe ra</b></button></td>
                                         </tr>
