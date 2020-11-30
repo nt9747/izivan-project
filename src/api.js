@@ -88,6 +88,26 @@ export const requestGetListCarIn = (payload) => {
     orderNumber: payload.ORDERNUMBER,
   }))
 }
+export const requestChoXeRa = (payload) => {
+  return handleResult(getAxios.post(`/listCar/exportCar`, {
+    BienSoXe: payload.BIENSOXE,
+    BienCont: payload.BIENCONT,
+    BienMoc: payload.BIENMOC,
+    LoaiHang: payload.LOAIHANG,
+    LoaiXeChiTiet: payload.LOAIXECHITIET,
+    LoaiXe: payload.LOAIXE,
+    CongRa: payload.CONGRA,
+    CongRaName: payload.CONGRANAME,
+    LinkAnhBienSo: payload.LINKANHBIENSO,
+    LinkAnhDauXe: payload.LINKANHDAUXE,
+    LinkAnhFull: payload.LINKANHFULL,
+    IsDongYXeRa: payload.ISDONGYXERA,
+    IsXeKhongHang: payload.ISXEKHONGHANG,
+    IsXeQuayDau: payload.ISXEQUAYDAU,
+    CarNumber_ID: payload.CARNUMBER_ID,
+    EventID: payload.EVENTID,
+  }))
+}
 
 // export const requestGetListLoaiXe = (payload) => {
 //   return handleResult(getAxios.get(`${payload.LX}`, {
