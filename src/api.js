@@ -166,3 +166,9 @@ export const resquestGetListCarType = (payload) => {
   }))
 }
 
+export const resquestGetExportCar = (payload) => {
+  return handleResult(getAxios.get(`/listCar/exportCar`, {
+  }))
+}
+
+

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import izivan from '../img/1.png'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
+import { requestGetListCarIn, requestLogin, resquestGetListCarType,resquestGetExportCar } from '../../api'
 import Cookie from 'js-cookie';
 
 function GetFormatDate(a) {
@@ -33,15 +33,26 @@ function GetFormatDate(a) {
     }
     else return hours + ":" + minutes + ":" + seconds + "  " + day + "/" + month + "/" + year
 }
+function countMoney(n) {
+    n = parseFloat(n);
+    var b = n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
+    if (b == "NaN vnd"){
+        return ""
+    }
+    else {
+        return b;
+    }
+}
+
 
 class Content extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '10/01/2020 00:00:00',
-            toDate: '10/02/2020 23:59:59',
+            fromDate: '01/10/2020 00:00:00',
+            toDate: '26/12/2020 00:00:00',
             plateNumber: '',
-            portIn: "",
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -49,15 +60,37 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
-            SelectCong: "/listCar/ListCarIn?",
+            PortOut: '',
+            SelectCong: "/listCar/listCarInOut?",
             total: "",
             dataXe: "",
             loaiXe: "",
-            bienCont: "",
-            bienMooc: "",
-            tongTienThu: "",
+            showBienXe: true,
+            showLoaiXe: false,
+            showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
             totalPage: "",
+            namePort: "",
+            dataThongKeXe: "",
+            thongKeLoaiXe: "/Statistic/statisticCarInOut",
+            TongKetCong: "",
+            countIn: "",
+            countOut: "",
+            countTon: "",
+            totalMoney: "",
+            codeThongKeXe: "",
+            limitPage: "10",
+            orderNumber: "",
+            bienContEdit: "",
+            bienMoocEdit: "", 
+            plateEdit: "",
+            loaiXeEdit: "",
+            loaiHangEdit: "",
         }
     }
 
@@ -96,7 +129,33 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
+    async Select(row) {
+        // try {
+        //     const res = await requestGetListCarIn({
+        //         FROMDATE: this.state.fromDate,
+        //         TODATE: this.state.toDate,
+        //         PLATENUMBER: this.state.plateNumber,
+        //         PORTIN: this.state.portIn,
+        //         PORTOUT: this.state.PortOut,
+        //         NUMBERCAR: this.state.numberCar,
+        //         LOAIHANG: this.state.loaiHang,
+        //         PAGE: 1,
+        //         CONG: this.state.SelectCong,
+        //         LOAIXE: this.state.loaiXe,
+        //         ORDERNUMBER: row,
 
+        //     })
+        //     await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
+        //     console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
+        // } catch (err) {
+        //     await this.setState({
+        //         isLoading: true
+        //     }, () => console.log(err))
+        // }
+        // console.log(this.state.data, "Check data!");
+    }
+
+    
     async listInPrevious() {
         await this.setState({
             isLoading: true
@@ -125,6 +184,24 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
+    handlePortChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '5') {
+            this.setState({ portIn: '1', PortOut: '3' })
+        }
+        else if (event.target.value == '1') {
+            this.setState({ portIn: '', PortOut: ''})
+        }
+        else if (event.target.value == '2') {
+            this.setState({ portIn: '0', PortOut: null})
+        }
+        else if (event.target.value == '3') {
+            this.setState({ portIn: null, PortOut: '2' })
+        }
+        else if (event.target.value == '4') {
+            this.setState({ portIn: null, PortOut: '4' })
+        }
+    }
     async start() {
         await this.setState({
             isLoading: true
@@ -143,10 +220,13 @@ class Content extends React.Component {
 
 
     async list() {
+        console.log(this.state.nextPage, "nextPage");
+        console.log(this.state.previousPage, "previousPage");
         await this.setState({
             isLoading: true
         })
         try {
+            this.setState({page: 1})
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -158,10 +238,12 @@ class Content extends React.Component {
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
 
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
-            this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
+            await this.setState({ data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
             console.log(this.state.fromDate, "check PortIn")
             console.log(this.state.toDate, "check PortOut")
             console.log(this.state.data, "check data");
@@ -207,6 +289,34 @@ class Content extends React.Component {
         this.setState({ plateNumber: eventid.BienXe, bienCont: eventid.BienCont, bienMooc: eventid.BienMooc, loaiHang: eventid.LoaiHangChiTiet, loaiXe: eventid.LoaiXeChiTiet, fromDate: eventid.NgayGioVao, tongTienThu: eventid.TongTienThu })
     }
 
+    async Edit(userid){
+        try {
+            const res = await requestGetListCarIn({
+                FROMDATE: "10/01/2020",
+                TODATE: "10/01/2200",
+                PLATENUMBER: userid,
+                PORTIN: "",
+                PORTOUT: "",
+                NUMBERCAR: "",
+                LOAIHANG: "",
+                PAGE: 1,
+                CONG: "listCar/ListCarIn?",
+                LOAIXE: "",
+
+            })
+            await this.setState({dataEdit: res.data, plateEdit: res.data.data[0].BienXe, bienContEdit: res.data.data[0].BienCont, bienMoocEdit: res.data.data[0].BienMooc, loaiHangEdit: res.data.data[0].LoaiHangChiTiet, loaiXeEdit: res.data.data[0].LoaiXeChiTiet});
+            console.log(this.state.dataEdit);
+            console.log(this.state.plateEdit);
+            console.log(this.state.bienCont);
+
+        } catch (err) {
+            await this.setState({
+                isLoading: true
+            }, () => console.log(err))
+        }
+        console.log(this.state.data, "Check data!");
+    }
+
     render() {
 
         const { data, isLoading } = this.state;
@@ -229,23 +339,23 @@ class Content extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">
-                                        <b>Từ</b><input value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} type="text" class="form-control" placeholder="" /><br />
-                                        <b>Mã thẻ</b><input value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} type="text" class="form-control" name="" />
+                                        <b>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
 
                                     </div>
                                     <div class="col-3">
-                                        <b>Đến</b><input value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} type="text" class="form-control" placeholder="" /><br />
-                                        <b>Biển số xe</b><input value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} type="text" class="form-control" name="" />
+                                    <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                    <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
                                     <div class="col-3"><br />
-                                        <b>Cổng</b><select onChange={(e) => this.handlePortChange(e)}>
-                                            <option value=''>Chọn</option>
+                                        <b>Cổng</b><select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort', e)}>
+                                            <option value=''>Tất cả</option>
                                             <option value='2'>Cổng vào VN</option>
                                             <option value='5'>Cổng vào CN</option>
                                         </select>
                                     </div>
                                     <div class="col-3"><br /><br />
-                                        <button class="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()} ><h4><b>Tìm Kiếm</b></h4></button>
+                                        <button class="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
                                     </div>
                                     <div class="col-3">
 
@@ -297,20 +407,20 @@ class Content extends React.Component {
                                     </thead>
                                     <tbody>
 
-                                        {data.data && data.data.map((item, i) => (
-                                            <tr>
-                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td key={i}> {item.EventID}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.TongTienThu}</td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> {item.BienCont}</td>
-                                                <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.LoaiXeChiTiet} </td>
-                                                <td key={i}> {item.NhanVienVao}</td>
+                                        {this.state.data && data.data.map((item, i) => (
+                                            <tr key={item.EventID}>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.SoThuTuTrongNgay}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.BienCont || item.BienContVao}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.BienMooc || item.BienMoocVao}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -320,7 +430,7 @@ class Content extends React.Component {
                     </div>
                     <div style={{ width: '35%', height: '20%', float: 'right' }}>
                         <div class="card card-primary">
-                            <div class="card-header">
+                            <div class="card-header"> 
                                 <h3 class="card-title">Hiện Tại</h3>
                             </div>
                             <div class="card-body">
@@ -328,33 +438,42 @@ class Content extends React.Component {
                                     <table>
                                         <tr>
                                             <td><b>Biển số xe</b></td>
-                                            <td><input type="text" name="" id="edit_car" /><b>Ngày vào</b></td>
-                                            <td><input type="text" name="" id="edit_car" /></td>
+                                            <td><input disabled style ={{ backgroundColor: '#C0C8C4'}} value={this.state.plateEdit} onChange={(e) => this.handleTextChange('plateNumber', e)} type="text" name="" id="edit_car" /><b>Ngày vào</b></td>
+                                            <td><input disabled style ={{ backgroundColor: '#C0C8C4'}} type="text" name="" id="edit_car" /></td>
                                         </tr>
                                         <tr>
                                             <td><b>Biển Cont</b></td>
-                                            <td><input type="text" name="" id="edit_car" /><b>Giờ vào</b></td>
-                                            <td><input type="text" name="" id="edit_car" /></td>
+                                            <td><input  disabled style ={{ backgroundColor: '#C0C8C4'}}value={this.state.bienContEdit} onChange={(e) => this.handleTextChange('bienContEdit', e)} type="text" name="" id="edit_car" /><b>Giờ vào</b></td>
+                                            <td><input  disabled style ={{ backgroundColor: '#C0C8C4'}} type="text" name="" id="edit_car" /></td>
                                         </tr>
                                         <tr>
                                             <td><b>Biển Moc</b></td>
-                                            <td><input type="text" name="" id="edit_car" /><b>Tổng tiền</b></td>
+                                            <td><input  disabled style ={{ backgroundColor: '#C0C8C4'}} value={this.state.bienMoocEdit} onChange={(e) => this.handleTextChange('bienMoocEdit', e)} type="text" name="" id="edit_car" /><b>Tổng tiền</b></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td><b>Loại Hàng</b></td>
-                                            <td colspan="2"><input type="text" name="" id="edit_car" /> <input type="text" style={{ width: '185px' }} /></td>
+                                            <td colspan="2"><input  disabled style ={{ backgroundColor: '#C0C8C4'}} value={this.state.loaiHangEdit} onChange={(e) => this.handleTextChange('loaiHangEdit', e)} type="text" name="" id="edit_car" /> <input disabled style ={{width: '185px', backgroundColor: '#C0C8C4'}} type="text"/></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td><b>Loại Xe</b></td>
-                                            <td colspan="2"><input type="text" style={{ width: '310px' }} /></td>
+                                            <td colspan="2"><input  disabled style ={{width: '310px', backgroundColor: '#C0C8C4'}} value={this.state.loaiXeEdit} onChange={(e) => this.handleTextChange('loaiXeEdit', e)} type="text" name="" id="edit_car" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colSpan='2'><b>Cổng cho ra</b><select>
+                                                    <option>Cổng ra quay đầu</option>
+                                                    <option>Cổng ra xuất</option>
+                                                    <option>Cổng ra TQ</option>
+                                                </select></td>
                                         </tr>
                                         <tr>
                                             <td><button class='btn btn-danger'><b>Hủy</b></button></td>
-                                            <td><button class='btn btn-danger'><b>Thay đổi thông tin</b></button></td>
                                             <td></td>
+                                            <td><button class='btn btn-danger'><b>Cho xe ra</b></button></td>
                                         </tr>
+                                        
                                     </table>
                                 </div>
                             </div>

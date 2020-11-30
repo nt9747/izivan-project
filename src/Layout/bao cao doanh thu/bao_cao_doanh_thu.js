@@ -367,7 +367,7 @@ class Content extends React.Component {
                                             <option value="NỘI THẤT">NỘI THẤT</option>
                                         </select>
                 </div>
-                <div class="col-5">
+                <div class="col-4">
                     <b>Loại xe</b>
                     <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
                                             <option value=''>Tất cả</option>
@@ -376,7 +376,7 @@ class Content extends React.Component {
                   <div class='col-3'>
                     <b>Cổng</b>
                         <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort',e)}>
-                            <option selected disabled hidden>Chọn</option>
+                            <option selected>Tất cả</option>
                             <option value = '1'>Làn vào VN</option>
                             <option value = '2'>Làn xuất</option>
                             <option value = '3'>Làn quay đầu</option>
@@ -413,8 +413,8 @@ class Content extends React.Component {
                 
           </div>
           </div>
-          <div style={{float: 'right', width: '35%'}}><br/><br/>
-                    <table style={{fontSize:'20px', height:'100px'}}>
+          <div style={{float: 'right', width: '38%'}}><br/>
+                    <table style={{fontSize:'18px', height:'100px', borderStyle: 'inset', backgroundColor:'#E1E1E1'}}>
                       <tr>
                         <td></td>
                         <td style={{textAlign: 'center'}}><b>Vào</b></td>
@@ -422,22 +422,22 @@ class Content extends React.Component {
                         <td style={{textAlign: 'center'}}><b>Tồn</b></td>
                         <td style={{textAlign: 'center'}}><b>Doanh thu</b></td>
                       </tr>
-                      <tr style={{borderBottom: '1px solid white'}}>
+                      <tr style={{borderStyle: 'inset'}}>
                         <td><b>Làn Trung Quốc</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '60px', height: '60px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '60px', height: '60px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '60px', height: '60px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '220px', height: '60px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block'}}>20.000.000.000</b></td>
                       </tr>
                       <tr>
                         <td><b>Làn Việt Nam</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '60px', height: '60px', display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '60px', height: '60px', display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '60px', height: '60px', display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '220px', height: '60px', display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block'}}>20.000.000.000</b></td>
                       </tr>
-                    </table><br/><br/><br/>
-                    <div style= {{}}class="col-4">
+                    </table><br/>
+                    <div style= {{}}class="col-4"> 
                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
                                         <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
