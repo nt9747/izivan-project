@@ -276,7 +276,7 @@ class HomeList extends React.Component {
                 ORDERNUMBER: this.state.orderNumber,
 
             })
-            await this.setState({ data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
