@@ -41,10 +41,10 @@ class Content extends React.Component {
     constructor(props) {
         super(props)    
         this.state = {
-            fromDate: '2020/07/03',
-            toDate: '2100/10/15',
+            fromDate: '01/10/2020 00:00:00',
+            toDate: '26/12/2020 00:00:00',
             plateNumber: '',
-            portIn: "",
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -52,10 +52,33 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
-            SelectCong: "/listCar/listCarOut?",
+            PortOut: '',
+            SelectCong: "/listCar/listCarInOut?",
+            total: "",
+            dataXe: "",
             loaiXe: "",
+            showBienXe: true,
+            showLoaiXe: false,
+            showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
             totalPage: "",
+            namePort: "",
+            dataThongKeXe: "",
+            thongKeLoaiXe: "/Statistic/statisticCarInOut",
+            TongKetCong: "",
+            countIn: "",
+            countOut: "",
+            countTon: "",
+            totalMoney: "",
+            codeThongKeXe: "",
+            limitPage: "10",
+            orderNumber: "",
+
         }
     }   
     
@@ -65,7 +88,7 @@ class Content extends React.Component {
     async listInNext() {
         await this.setState({
             isLoading: true
-        })
+        }) 
         try {
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,

@@ -317,20 +317,20 @@ class Content extends React.Component {
                                 <>
                                     {this.state.data && data.data.map((item, i) => (
                                         <tbody>
-                                            <tr key={item.BienXe}>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.EventID}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioVao)}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioRa)}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.ThoiGianTrongBai}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.TongTienThu}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.CarNumber_ID}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.BienXe}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.BienCont}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.BienMooc}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiHangChiTiet}</td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiXeChiTiet} </td>
-                                            <td onClick={() => this.Edit(item.BienXe)}> {item.NhanVienVao}</td>
+                                            <tr key={item.EventID}>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.EventID}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioVao)}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioRa)}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.ThoiGianTrongBai}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.TongTienThu}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.CarNumber_ID}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.BienXe}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.BienCont}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.BienMooc}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiHangChiTiet}</td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiXeChiTiet} </td>
+                                                <td onClick={() => this.Edit(item.BienXe)}> {item.NhanVienVao}</td>
                                             </tr>
                                         </tbody>
                                     ))}
