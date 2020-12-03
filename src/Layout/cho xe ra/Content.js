@@ -100,7 +100,7 @@ class Content extends React.Component {
     }
     async listInNext() {
         await this.setState({
-            isLoading: true
+            isLoading: true 
         })
         try {
             const res = await requestGetListCarIn({
@@ -335,7 +335,6 @@ class Content extends React.Component {
                             <div class="card-header" >
                                 <h3 class="card-title"><i>Cho xe ra</i></h3>
                             </div>
-
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">

@@ -414,7 +414,7 @@ class Content extends React.Component {
           </div>
           </div>
           <div style={{float: 'right', width: '35%'}}>
-                    <table>
+          <table style={{fontSize:'18px', height:'100px', borderStyle: 'inset', backgroundColor:'#E1E1E1'}}>
                       <tr>
                         <td></td>
                         <td style={{textAlign: 'center'}}><b>Vào</b></td>
@@ -422,21 +422,21 @@ class Content extends React.Component {
                         <td style={{textAlign: 'center'}}><b>Tồn</b></td>
                         <td style={{textAlign: 'center'}}><b>Doanh thu</b></td>
                       </tr>
-                      <tr style={{borderBottom: '1px solid white'}}>
+                      <tr style={{borderStyle: 'inset'}}>
                         <td><b>Làn Trung Quốc</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '60px', height: '60px' , display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '60px', height: '60px' , display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '60px', height: '60px' , display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '60px' , display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block'}}>20.000.000.000</b></td>
                       </tr>
                       <tr>
                         <td><b>Làn Việt Nam</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#E79FEB', width: '60px', height: '60px' , display: 'inline-block'}}>a</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#8CE135', width: '60px', height: '60px' , display: 'inline-block'}}>b</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35DFE1', width: '60px', height: '60px' , display: 'inline-block'}}>c</b></td>
-                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '200px', height: '60px' , display: 'inline-block'}}>d</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>a</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>b</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block'}}>c</b></td>
+                        <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block'}}>20.000.000.000</b></td>
                       </tr>
-                    </table><br/><br/><br/><br/><br/>
+                    </table><br/><br/>
                     <div style= {{}}class="col-4">
                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />

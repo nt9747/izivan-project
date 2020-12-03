@@ -437,7 +437,8 @@ class Content extends React.Component {
                         <td><b style={{textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block'}}>20.000.000.000</b></td>
                       </tr>
                     </table><br/>
-                    <div style= {{}}class="col-4"> 
+                    <div style={{}} class="row"> 
+                    <div style={{marginRight: "200px"}}>
                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
                                         <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
@@ -452,9 +453,18 @@ class Content extends React.Component {
                                     <svg onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
                                         <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                                    </svg>
-
-                </div>
+                                    </svg></div>
+                                    <div>
+                                    <b>Số trang </b>
+                                    <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({page: 1}) || this.list()}>
+                                        <option selected disabled hidden>Chọn</option>
+                                        <option value='10'>10</option>
+                                        <option value='20'>20</option>
+                                        <option value='35'>35</option>
+                                        <option value='50'>50</option>
+                                    </select>
+                                    </div>
+                    </div>
               </div>
             </div>
       </div>

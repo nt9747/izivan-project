@@ -34,15 +34,26 @@ function GetFormatDate(a) {
     }
     else return hours + ":" + minutes + ":" + seconds + "  " + day + "/" + month + "/" + year
 }
+function countMoney(n) {
+    n = parseFloat(n);
+    var b = n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
+    if (b == "NaN vnd"){
+        return ""
+    }
+    else {
+        return b;
+    }
+}
+
 
 class Content extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '10/01/2020 00:00:00',
-            toDate: '10/01/2021 23:59:59',
+            fromDate: '01/10/2020 00:00:00',
+            toDate: '26/12/2020 00:00:00',
             plateNumber: '',
-            portIn: "",
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
@@ -50,17 +61,37 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: "",
-            SelectCong: "listCar/listCarIn?",
+            PortOut: '',
+            SelectCong: "/listCar/listCarInOut?",
             total: "",
             dataXe: "",
             loaiXe: "",
+            showBienXe: true,
+            showLoaiXe: false,
+            showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
+            totalPage: "",
+            namePort: "",
+            dataThongKeXe: "",
+            thongKeLoaiXe: "/Statistic/statisticCarInOut",
+            TongKetCong: "",
+            countIn: "",
+            countOut: "",
+            countTon: "",
+            totalMoney: "",
+            codeThongKeXe: "",
+            limitPage: "10",
+            orderNumber: "",
             bienContEdit: "",
             bienMoocEdit: "", 
             plateEdit: "",
             loaiXeEdit: "",
-            loaiHangEdit: "",   
-            totalPage: "",
+            loaiHangEdit: "",
         }
     }
 
@@ -70,7 +101,7 @@ class Content extends React.Component {
     }
     async listInNext() {
         await this.setState({
-            isLoading: true
+            isLoading: true 
         })
         try {
             const res = await requestGetListCarIn({
@@ -99,7 +130,33 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
+    async Select(row) {
+        // try {
+        //     const res = await requestGetListCarIn({
+        //         FROMDATE: this.state.fromDate,
+        //         TODATE: this.state.toDate,
+        //         PLATENUMBER: this.state.plateNumber,
+        //         PORTIN: this.state.portIn,
+        //         PORTOUT: this.state.PortOut,
+        //         NUMBERCAR: this.state.numberCar,
+        //         LOAIHANG: this.state.loaiHang,
+        //         PAGE: 1,
+        //         CONG: this.state.SelectCong,
+        //         LOAIXE: this.state.loaiXe,
+        //         ORDERNUMBER: row,
 
+        //     })
+        //     await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
+        //     console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
+        // } catch (err) {
+        //     await this.setState({
+        //         isLoading: true
+        //     }, () => console.log(err))
+        // }
+        // console.log(this.state.data, "Check data!");
+    }
+
+    
     async listInPrevious() {
         await this.setState({
             isLoading: true
@@ -128,6 +185,24 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
+    handlePortChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '5') {
+            this.setState({ portIn: '1', PortOut: '3' })
+        }
+        else if (event.target.value == '1') {
+            this.setState({ portIn: '', PortOut: ''})
+        }
+        else if (event.target.value == '2') {
+            this.setState({ portIn: '0', PortOut: null})
+        }
+        else if (event.target.value == '3') {
+            this.setState({ portIn: null, PortOut: '2' })
+        }
+        else if (event.target.value == '4') {
+            this.setState({ portIn: null, PortOut: '4' })
+        }
+    }
     async start() {
         await this.setState({
             isLoading: true
@@ -146,10 +221,13 @@ class Content extends React.Component {
 
 
     async list() {
+        console.log(this.state.nextPage, "nextPage");
+        console.log(this.state.previousPage, "previousPage");
         await this.setState({
             isLoading: true
         })
         try {
+            this.setState({page: 1})
             const res = await requestGetListCarIn({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -161,10 +239,12 @@ class Content extends React.Component {
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
 
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
-            this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
+            await this.setState({ data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
             console.log(this.state.fromDate, "check PortIn")
             console.log(this.state.toDate, "check PortOut")
             console.log(this.state.data, "check data");
@@ -190,10 +270,10 @@ class Content extends React.Component {
 
     handlePortChange(event) {
         if (event.target.value == 5) {
-            this.setState({ portIn: '1', PortOut: '3' })
+            this.setState({ portIn: '1', PortOut: null })
         }
         else if (event.target.value == 1) {
-            this.setState({ portIn: '', PortOut: '' })
+            this.setState({ portIn: '', PortOut: null })
         }
         else if (event.target.value == 2) {
             this.setState({ portIn: '0', PortOut: null })
@@ -204,6 +284,10 @@ class Content extends React.Component {
         else if (event.target.value == 4) {
             this.setState({ portIn: null, PortOut: '4' })
         }
+    }
+
+    handleDataTable(eventid) {
+        this.setState({ plateNumber: eventid.BienXe, bienCont: eventid.BienCont, bienMooc: eventid.BienMooc, loaiHang: eventid.LoaiHangChiTiet, loaiXe: eventid.LoaiXeChiTiet, fromDate: eventid.NgayGioVao, tongTienThu: eventid.TongTienThu })
     }
 
     async Edit(userid){
@@ -238,12 +322,12 @@ class Content extends React.Component {
 
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        console.log(data.data, "check data")
-        if (isLoading) {
-            return (
-                <p>Loading...</p>
-            )
-        }
+        // console.log(data.data, "check data")
+        // if (isLoading) {
+        //     return (
+        //         <p>Loading...</p>
+        //     )
+        // }
         return (
             <div class="content-wrapper">
                 <section class="content">
@@ -254,17 +338,21 @@ class Content extends React.Component {
                             </div>
 
                             <div class="card-body">
-                                <div class="row">
+                            <div class="row">
                                     <div class="col-4">
-                                        <b>Từ</b><input type="text" class="form-control" placeholder=".col-3" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} /><br />
-                                        <b>Đến</b><input type="text" class="form-control" placeholder=".col-3" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                        <b>Từ</b><input type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
+
                                     </div>
-                                    <div class="col-5">
-                                        <b>Mã thẻ</b><input style={{width: '350px'}} type="text" class="form-control" name="" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /><br />
-                                        <b>Biển số xe</b><input style={{width: '350px'}} type="text" class="form-control" name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
+                                    <div class="col-4">
+                                    <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                    <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
-                                    <div class="col-3"><br /><br />
+                                    <div class="col-4"><br/>
                                         <button class="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
+                                    </div>
+                                    <div class="col-4">
+
                                     </div>
                                 </div>
                             </div>
@@ -296,45 +384,42 @@ class Content extends React.Component {
                                 <h3 class="card-title" ></h3>
                             </div>
                             <table id="example2" class="table table-bordered table-hover"  >
-
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>STT vào bãi</th>
-                                        <th>Thời gian vào bãi</th>
-                                        <th>Thời gian ra bãi</th>
-                                        <th>Thời gian lưu bãi</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Mã số thẻ</th>
-                                        <th>Biển số xe</th>
-                                        <th>Biển số cont</th>
-                                        <th>Biển số mooc</th>
-                                        <th>Loại hàng</th>
-                                        <th>Loại xe</th>
-                                        <th>Nhân viên</th>
-                                    </tr>
-                                </thead>
                                 <>
-                                    {this.state.data && data.data.map((item, i) => (
-                                        <tbody>
-                                            <tr key={item.EventID}>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.EventID}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioRa)}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.ThoiGianTrongBai}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.TongTienThu}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.CarNumber_ID}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.BienXe}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.BienCont}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.BienMooc}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiHangChiTiet}</td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiXeChiTiet} </td>
-                                                <td onClick={() => this.Edit(item.BienXe)}> {item.NhanVienVao}</td>
-                                            </tr>
-                                        </tbody>
-                                    ))}
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>STT vào bãi</th>
+                                            <th>Thời gian vào bãi</th>
+                                            <th>Thời gian lưu bãi</th>
+                                            <th>Số tiền</th>
+                                            <th>Mã thẻ</th>
+                                            <th>Biển số xe</th>
+                                            <th>Biển Cont</th>
+                                            <th>Biển Mooc</th>
+                                            <th>Loại hàng</th>
+                                            <th>Loại xe</th>
+                                            <th>Nhân viên</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
+                                        {this.state.data && data.data.map((item, i) => (
+                                            <tr key={item.EventID}>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.SoThuTuTrongNgay}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.BienCont || item.BienContVao}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.BienMooc || item.BienMoocVao}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td onClick={() => this.Edit(item.BienXe)}> {item.NhanVienVao}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
                                 </>
                             </table>
                             {!this.state.data && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
@@ -373,12 +458,7 @@ class Content extends React.Component {
                                         <tr>
                                             <td><b>Loại Xe</b></td>
                                             <td><input disabled style ={{ backgroundColor: '#C0C8C4'}} value={this.state.loaiXeEdit} onChange={(e) => this.handleTextChange('loaiXeEdit', e)} type="text" name="" id="edit_car1" /></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td><input type="checkbox" name="" /> Thay đổi loại xe</td>
-                                            <td></td>
+                                            <td><input type="text" name="" id="edit_car1" /></td>
                                         </tr>
                                         <tr>
                                             <td><button class="btn btn-danger">Hủy</button></td>
