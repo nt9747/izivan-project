@@ -86,6 +86,28 @@ export const requestGetListCarIn = (payload) => {
     portOut: payload.PORTOUT,
     loaiXe: payload.LOAIXE,
     orderNumber: payload.ORDERNUMBER,
+    bienCont: payload.BIENCONT,
+    bienMooc: payload.BIENMOOC,
+  }))
+}
+export const requestChoXeRa = (payload) => {
+  return handleResult(getAxios.post(`/listCar/exportCar`, {
+    BienSoXe: payload.BIENSOXE,
+    BienCont: payload.BIENCONT,
+    BienMoc: payload.BIENMOC,
+    LoaiHang: payload.LOAIHANG,
+    LoaiXeChiTiet: payload.LOAIXECHITIET,
+    LoaiXe: payload.LOAIXE,
+    CongRa: payload.CONGRA,
+    CongRaName: payload.CONGRANAME,
+    LinkAnhBienSo: payload.LINKANHBIENSO,
+    LinkAnhDauXe: payload.LINKANHDAUXE,
+    LinkAnhFull: payload.LINKANHFULL,
+    IsDongYXeRa: payload.ISDONGYXERA,
+    IsXeKhongHang: payload.ISXEKHONGHANG,
+    IsXeQuayDau: payload.ISXEQUAYDAU,
+    CarNumber_ID: payload.CARNUMBER_ID,
+    EventID: payload.EVENTID,
   }))
 }
 
@@ -111,7 +133,7 @@ export const requestGetListLoaiXe = (payload) => {
     portIn: payload.PORTIN,
     numberCar: payload.NUMBERCAR,
     loaiHang: payload.LOAIHANG,
-    loaiXe: payload.LOAIXE
+    loaiXe: payload.LOAIXE,
   }))
 }  
 
