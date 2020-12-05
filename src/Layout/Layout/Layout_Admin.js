@@ -108,7 +108,7 @@ export default class Layout extends Component {
                                     <li class="nav-item">
                                         <a href="./ListUser">
                                            
-                                            <p>Quản trị hoạt động</p>
+                                            <p>Quản trị tài khoản</p>
                                         </a>
                                     </li>
                                 </ul>

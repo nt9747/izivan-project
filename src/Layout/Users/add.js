@@ -20,32 +20,30 @@ class Content extends React.Component {
             data: ""
         }
     }
-    async Register(){
+    async Register() {
         try {
-            const res = await requestRegisterUser({
-                USERNAME: this.state.Username,
-                FULLNAME: this.state.Fullname,
-                PASSWORD: this.state.Password,
-                ISSUPERADMIN: this.state.IsSuperAdmin,
-                ISKETOAN: this.state.IsKeToan,
-                ISPHONGLOA: this.state.IsPhongLoa,
-        })
-        await this.setState({ msg: res.msg, data: res.data});
-        console.log(this.state.data, "check data")
-        console.log((this.state.Username).length(), "check username")
-        console.log(this.state.Password, "check password")
-
-        if (this.state.data == "Tên đăng nhập đã tồn tại"){
-            alert("Tên đăng nhập đã tồn tại") 
+          const res = await requestRegisterUser({
+            USERNAME: this.state.Username,
+            FULLNAME: this.state.Fullname,
+            PASSWORD: this.state.Password,
+            ISSUPERADMIN: this.state.IsSuperAdmin,
+            ISKETOAN: this.state.IsKeToan,
+            ISPHONGLOA: this.state.IsPhongLoa,
+          })
+          await this.setState({ msg: res.msg, data1: res.data });
+          console.log(this.state.data1, "check data")
+          if (this.state.data1 == "Tên đăng nhập đã tồn tại") {
+            alert("Tên đăng nhập đã tồn tại")
+          }
+          else {
+            alert("Success!")
+          }
         }
-        else {
-          alert ("Success!")
+        catch (err) {
+          alert("Fail")
         }
-    }
-    catch (err) {
-        alert("Fail")
-    }
- }
+        window.location.reload(false);
+      }
 
 handleTextChange(field, event) {
     this.setState({
@@ -111,7 +109,7 @@ handleTextChange(field, event) {
                 </div>
                 <div class='form-group'>
                 <span class="group-btn">
-                            <a  onClick={() => this.Register()}><h4 class='text-white'><button class="btn btn-danger">Thêm</button></h4></a>
+                            <a><h4 class='text-white'><button onClick={() => this.Register()} class="btn btn-danger">Thêm</button></h4></a>
                         </span>
                 </div>
               </form>
