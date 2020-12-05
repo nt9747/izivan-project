@@ -10,8 +10,6 @@ thead{background-color: #4BA0B8}
 #edit_car1{width: 150px; height: 30px;}
 #empty1{background-image: url(Layout/img/empty.png)}
 #nut{margin-right: 3px}
-<<<<<<< HEAD
-=======
 
 .myButton {
 	box-shadow: 0px 1px 0px -8px #1c1b18;
@@ -45,7 +43,6 @@ thead{background-color: #4BA0B8}
 	top:1px;
 }
 
->>>>>>> 0ac3d1645a3f74fb2057549c4814cc14ab775312
 #backgr{
     background-image: url(./Layout/img/truck.jpg);
     background-position:center;

@@ -4,11 +4,7 @@ import Cookie from 'js-cookie';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import TableScrollbar from 'react-table-scrollbar';
 import empty from './Layout/img/empty.png'
-<<<<<<< HEAD
- 
-=======
 import ReactDOM from 'react-dom';
->>>>>>> 0ac3d1645a3f74fb2057549c4814cc14ab775312
 
 
 
@@ -468,11 +464,6 @@ class FullList extends React.Component {
                         <div class="col-3"><br />
                             <button onClick={() => this.XuatExcel()}>Xuất excel</button>
                         </div>
-<<<<<<< HEAD
-                        {/* <button onclick={tablesToExcel(['t1','t2','t3'],['Sheet1','Sheet2','Sheet3'], 'export.xls', 'Excel')} class="btn btn-success">Export to Excel</button> */}
-=======
-
->>>>>>> 0ac3d1645a3f74fb2057549c4814cc14ab775312
 
                     </div>
                 </div>
