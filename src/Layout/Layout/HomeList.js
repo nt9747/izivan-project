@@ -42,11 +42,12 @@ function GetFormatDate(a) {
     }
     else return hours + ":" + minutes + ":" + seconds + "  " + day + "/" + month + "/" + year
 }
+
 function countMoney(n) {
     n = parseFloat(n);
     var b = n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
     if (b == "NaN vnd"){
-        return ""
+        return ""   
     }
     else {
         return b;
@@ -196,20 +197,7 @@ class HomeList extends React.Component {
         }
     }
 
-    async start() {
-        await this.setState({
-            isLoading: true
-        })
-        try {
-            const res = await resquestGetListCarType({
-            })
-            await this.setState({ dataXe: res.data });
-        } catch (err) {
-            await this.setState({
-                isLoading: false
-            }, () => console.log(err))
-        }
-    }
+
 
     async listTo() {
         await this.setState({
@@ -307,14 +295,17 @@ class HomeList extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 LOAIXE: this.state.loaiXe,
                 THONGKELOAIXE: this.state.thongKeLoaiXe,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
             await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
             this.setState({ countTon: this.state.countIn - this.state.countOut })
             if (this.state.SelectCong == "/listCar/listCarParking?") {
                 this.setState({ countTon: this.state.total })
-            } else if (this.state.countTon < 0){
-                this.setState({countTon: "unk.."})
-            }
+            } 
+            // else if (this.state.countTon < 0){
+            //     this.setState({countTon: "unk.."})
+            // }
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -784,7 +775,6 @@ class HomeList extends React.Component {
                                                 <th>Giấy</th>
                                                 <th>Xốp</th>
                                                 <th>Cau tươi</th>
-
                                                 <th>Đỗ</th>
                                                 <th>Hoa hồi</th>
                                                 <th>Hành tỏi</th>
@@ -797,7 +787,7 @@ class HomeList extends React.Component {
                                             </tr>
                                         </thead>
                                         <>
-                                            {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
+                                       {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr>
