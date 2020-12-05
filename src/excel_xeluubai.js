@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import pl from '../img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
+import pl from './Layout/img/placeholder.jpg'
+import { requestGetListCarIn, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from './api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
-import empty from '../img/empty.png'
+import empty from './Layout/img/empty.png'
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 
 
@@ -50,7 +51,7 @@ function countMoney(n) {
 }
 
 
-class Content extends React.Component {
+class excelxeluubai extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -415,7 +416,6 @@ class Content extends React.Component {
             )
         }
         return (
-            <div class="content-wrapper">
 
 
                 <section class="content">
@@ -441,7 +441,7 @@ class Content extends React.Component {
                                         <tr>
                                             <td><b>Biển số cont:</b><input value={this.state.bienCont} onChange={(e) => this.handleTextChange('bienCont', e)} type="text" style={{ width: '160px' }} name="" /></td>
                                             <td><b>Biển số mooc:</b><input value={this.state.bienMooc} onChange={(e) => this.handleTextChange('bienMooc', e)} type="text" style={{ width: '210px' }} name="" /></td>
-                                            <td style={{ textAlign: 'center' }}><b>Biển số xe:</b><input type="text" style={{ width: '150px' }} name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} /></td>
+                                            <td style={{ textAlign: 'center'}}><b>Biển số xe:</b><input type="text" style={{ width: '150px' }} name="" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} /></td>
 
                                             <td><button style={{ width: '100px', height: '50px' }} className="btn btn-danger"
                                                 onClick={() => this.list()}><b>Tìm</b></button></td>
@@ -526,7 +526,7 @@ class Content extends React.Component {
                                         </tr>
                                     </table><br />
                                     <div class="row">
-                                        <div>
+                                        <div style={{marginRight: "30px"}}>
                                             <table style={{ textAlign: 'center', width: '850px', height: '50px', borderStyle: 'inset' }}>
                                                 <tr>
                                                     <td>Tổng số xe lưu bãi</td>
@@ -541,9 +541,13 @@ class Content extends React.Component {
                                         </div>
 
                                         <div>
-                                        <form action="/ExcelXeLuuBai">
-                                            <button type="submit" className="btn btn-danger" style={{ width: '100px', height: '50px' }}><b>Excel</b></button>
-                                        </form>
+                                        <ReactHTMLTableToExcel
+                                                className="btn btn-danger"
+                                                table='example2'
+                                                filename={this.state.fromDate + "-->" + this.state.toDate}
+                                                sheet="Sheet"
+                                                buttonText="Excel"
+                                                style={{ width: '150px', height: '80px' }}/>
                                         </div>
 
                                     </div><br />
@@ -826,9 +830,9 @@ class Content extends React.Component {
                         </div>
                     </div>
                 </section>
-            </div>
+          
         )
     }
 }
 
-export default Content
+export default excelxeluubai
