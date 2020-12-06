@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { requestLogin, requestGetListLoaiXe, requestGetListCarIn, requestGetListCarExcel, resquestGetListCarType } from './api'
+import { requestLogin, requestGetListLoaiXe, requestGetListCar, requestGetListCarExcel, resquestGetListCarType } from './api'
 import Cookie from 'js-cookie';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import TableScrollbar from 'react-table-scrollbar';
@@ -201,7 +201,7 @@ class FullList extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -265,7 +265,7 @@ class FullList extends React.Component {
 
     async Select(row) {
         // try {
-        //     const res = await requestGetListCarIn({
+        //     const res = await requestGetListCar({
         //         FROMDATE: this.state.fromDate,
         //         TODATE: this.state.toDate,
         //         PLATENUMBER: this.state.plateNumber,

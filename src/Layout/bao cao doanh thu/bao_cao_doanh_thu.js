@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import pl from '../img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -138,7 +138,7 @@ class Content extends React.Component {
             if (this.state.nextPage == null) {
                 this.setState({ nextPage: this.state.totalPage })
             }
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -175,7 +175,7 @@ class Content extends React.Component {
             if (this.state.previousPage == null) {
                 this.setState({ previousPage: 1 })
             }
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -210,7 +210,7 @@ class Content extends React.Component {
         try {
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -261,7 +261,7 @@ class Content extends React.Component {
         })
         try {
             this.setState({ page: 1 })
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,

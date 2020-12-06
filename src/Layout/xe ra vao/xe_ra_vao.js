@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import izivan from '../dist/img/izivan.png'
-import { requestGetListCarInfo, requestLogin, requestGetListCarIn } from '../../api'
+import { requestGetListCarfo, requestLogin, requestGetListCar } from '../../api'
 import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
 import empty from '../img/empty.png'
@@ -90,7 +90,7 @@ class Content extends React.Component {
             isLoading: true
         }) 
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -122,7 +122,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -151,7 +151,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
