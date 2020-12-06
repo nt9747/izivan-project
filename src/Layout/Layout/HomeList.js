@@ -783,7 +783,8 @@ class HomeList extends React.Component {
                                                 <th>Máy móc</th>
                                                 <th>Mít lạnh</th>
                                                 <th>Long nhãn</th>
-                                                <th>Đỗ xanh </th>
+                                                <th>Đỗ xanh</th>
+                                                <th>loaiHang</th>
                                             </tr>
                                         </thead>
                                         <>
@@ -841,7 +842,7 @@ class HomeList extends React.Component {
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
-
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("loaiHang")])} </td>
                                                     </tr>
                                                 </tbody>
                                             ))}

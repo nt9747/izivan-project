@@ -462,7 +462,13 @@ class FullList extends React.Component {
                             </button>
                         </div>
                         <div class="col-3"><br />
-                            <button onClick={() => this.XuatExcel()}>Xuất excel</button>
+                            <ReactHTMLTableToExcel
+                                className="btn btn-danger"
+                                table= "example2"
+                                filename={this.state.fromDate + "-->" + this.state.toDate}
+                                sheet="Sheet"
+                                buttonText="Xuất Excel"
+                                style={{ width: '20%' }} />
                         </div>
 
                     </div>
@@ -615,6 +621,7 @@ class FullList extends React.Component {
                                 <th>Máy móc</th>
                                 <th>Mít lạnh</th>
                                 <th>Long nhãn</th>
+                                <th>loaiHang </th>
                             </tr>
                         </thead>
                         <>
@@ -672,7 +679,7 @@ class FullList extends React.Component {
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
-
+                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("loaiHang")])} </td>
                                     </tr>
                                 </tbody>
                             ))}
