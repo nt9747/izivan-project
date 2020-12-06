@@ -465,7 +465,7 @@ class FullList extends React.Component {
                             <ReactHTMLTableToExcel
                                 className="btn btn-danger"
                                 table= "example2"
-                                filename={this.state.fromDate + "-->" + this.state.toDate}
+                                filename={this.state.fromDate + " to " + this.state.toDate}
                                 sheet="Sheet"
                                 buttonText="Xuất Excel"
                                 style={{ width: '20%' }} />

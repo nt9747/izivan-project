@@ -315,13 +315,13 @@ class Content extends React.Component {
                 this.setState({ countTon: "unk.." })
             }
             if (this.state.portIn == '0'){
-                this.setState({countXeVN: res.data.total, countXeAll: "noCount" , countXeCN: "noCount"})
+                this.setState({countXeVN: res.data.total, countXeAll: "0" , countXeCN: "0"})
             }
             else if (this.state.portIn == '1'){
-                this.setState({countXeCN: res.data.total, countXeVN: "noCount", countXeAll: "noCount"})
+                this.setState({countXeCN: res.data.total, countXeVN: "0", countXeAll: "0"})
             }
             else if (this.state.portIn == ''){
-                this.setState({countXeAll: res.data.total, countXeVN: "noCount", countXeCN: "noCount"})
+                this.setState({countXeAll: res.data.total, countXeVN: "0", countXeCN: "0"})
             }
             console.log(this.state.namePort, "nameport")
         } catch (err) {

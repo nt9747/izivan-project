@@ -94,14 +94,14 @@ class Content extends React.Component {
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
-            countInVn: "",
-            countOutVn: "",
-            countTonVn: "",
-            countDoanhThuVn: "",
-            countInCN: "",
-            countOutCN: "",
-            countTonCN: "",
-            countDoanhThuCn: "",
+            countInVn: "0",
+            countOutVn: "0",
+            countTonVn: "0",
+            countDoanhThuVn: "0",
+            countInCN: "0",
+            countOutCN: "0",
+            countTonCN: "0",
+            countDoanhThuCn: "0",
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
@@ -245,6 +245,22 @@ class Content extends React.Component {
             const res = await resquestGetListCarType({
             })
             await this.setState({ dataXe: res.data });
+            // const res2 = await requestGetListLoaiXe({
+            //     FROMDATE: this.state.fromDate,
+            //     TODATE: this.state.toDate,
+            //     PLATENUMBER: this.state.plateNumber,
+            //     PORTOUT: "",
+            //     PORTIN: "",
+            //     NUMBERCAR: this.state.numberCar,
+            //     LOAIHANG: this.state.loaiHang,
+            //     LOAIXE: this.state.loaiXe,
+            //     THONGKELOAIXE: "/Statistic/statisticCarInOut",
+            //     BIENCONT: this.state.bienCont,
+            //     BIENMOOC: this.state.bienMooc,
+            // })
+            // await this.setState({countInVn: res2.data.countIn, countOutVn: res2.data.countOut, countDoanhThuVn: res2.data.totalMoney})
+            // this.setState({countTonVn: this.state.countInVn - this.state.countOutVn})
+
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -312,24 +328,39 @@ class Content extends React.Component {
             }
             if (this.state.namePort == 2) {
                 this.setState({
-                    countInVn: 'unk...', countOutVn: 'unk...', countDoanhThuVn: 'unk...', countTonVn: 'unk...',
-                 countInCN: 'unk...', countOutCN: 'unk...', countDoanhThuCn: 'unk...', countTonCN: 'unk...'
+                    countInVn: '0', countOutVn: '0', countDoanhThuVn: '0', countTonVn: '0',
+                    countInCN: this.state.countIn, countOutCN: this.state.countOut, countDoanhThuCn: this.state.totalMoney
                 })
+                this.setState({ countTonCN: this.state.countInCN - this.state.countOutCN })
             }
             if (this.state.namePort == 3) {
                 this.setState({
-                    countInVn: '0', countOutVn: '0', countDoanhThuVn: '0', countDoanhThuVn: '0',
-                    countInCN: this.state.countIn, countOutCN: this.state.countOut, countDoanhThuCn: this.state.totalMoney
+                    countInVn: this.state.countIn, countOutVn: this.state.countOut, countDoanhThuVn: this.state.totalMoney,
+                    countInCN: '0', countOutCN: '0', countDoanhThuCn: '0', countTonCN: '0'
                 })
-                this.setState({ countTonCn: this.state.countInCN - this.state.countOutCN })
+                this.setState({ countTonVn: this.state.countInVn - this.state.countOutVn })
             }
             if (this.state.namePort == 4) {
                 this.setState({
                     countInVn: '0', countOutVn: '0', countDoanhThuVn: '0', countTonVn: '0',
-                    countInCN: this.state.countIn, countOutCN: this.state.countOut, countDoanhThuCn: this.state.totalMoney, countTonCN: ''
+                    countInCN: this.state.countIn, countOutCN: this.state.countOut, countDoanhThuCn: this.state.totalMoney
                 })
-                this.setState({ countTonVn: this.state.countInVn - this.state.countOutVn })
+                this.setState({ countTonCN: this.state.countInCN - this.state.countOutCN })
             }
+            if (this.state.namePort == 5) {
+                this.setState({
+                    countInVn: '0', countOutVn: '0', countDoanhThuVn: '0', countTonVn: '0',
+                    countInCN: this.state.countIn, countOutCN: this.state.countOut, countDoanhThuCn: this.state.totalMoney
+                })
+                this.setState({ countTonCN: this.state.countInCN - this.state.countOutCN })
+            }
+            if (this.state.namePort == 6) {
+                this.setState({
+                    countInVn: '0', countOutVn: '0', countDoanhThuVn: '0', countTonVn: '0',
+                    countInCN: '0', countOutCN: '0', countDoanhThuCn: '0', countTonCN: '0'
+                })
+            }
+
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -353,19 +384,19 @@ class Content extends React.Component {
     handlePortChange(field, event) {
         this.setState({ [field]: event.target.value })
         if (event.target.value == 1) {
-            this.setState({ portIn: '0', PortOut: null, SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: '/Statistic/statisticCarIn' })
+            this.setState({ portIn: '0', PortOut: null, SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: '/Statistic/statisticCarInOut' })
         }
         else if (event.target.value == 2) {
-            this.setState({ portIn: null, PortOut: '4', SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: '/Statistic/statisticCarOut' })
+            this.setState({ portIn: null, PortOut: '4', SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: '/Statistic/statisticCarInOut' })
         }
         else if (event.target.value == 3) {
-            this.setState({ portIn: null, PortOut: '2', SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: '/Statistic/statisticCarOut' })
+            this.setState({ portIn: null, PortOut: '2', SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: '/Statistic/statisticCarInOut' })
         }
         else if (event.target.value == 4) {
-            this.setState({ portIn: '1', PortOut: null, SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: '/Statistic/statisticCarIn' })
+            this.setState({ portIn: '1', PortOut: null, SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: '/Statistic/statisticCarInOut' })
         }
         else if (event.target.value == 5) {
-            this.setState({ portIn: null, PortOut: '3', SelectCong: 'listCar/listCarOut?', thongKeLoaiXe: '/Statistic/statisticCarOut' })
+            this.setState({ portIn: null, PortOut: '3', SelectCong: 'listCar/listCarInOut?', thongKeLoaiXe: '/Statistic/statisticCarInOut' })
         }
         else if (event.target.value == 6) {
             this.setState({ portIn: '', PortOut: '', SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: '/Statistic/statisticCarInOut' })
@@ -536,17 +567,17 @@ class Content extends React.Component {
                                         </tr>
                                         <tr style={{ borderStyle: 'inset' }}>
                                             <td><b>Làn Trung Quốc</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>a</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>b</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>c</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block' }}>20.000.000.000</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countInCN}</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countOutCN}</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countTonCN}</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block' }}>{countMoney(this.state.countDoanhThuCn)}</b></td>
                                         </tr>
                                         <tr>
                                             <td><b>Làn Việt Nam</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>a</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>b</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>c</b></td>
-                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block' }}>20.000.000.000</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countInVn}</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countOutVn}</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '50px', height: '50px', display: 'inline-block' }}>{this.state.countTonVn}</b></td>
+                                            <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block' }}>{countMoney(this.state.countDoanhThuVn)}</b></td>
                                         </tr>
                                     </table><br />
                                     <div style={{ float: "right", width: "150px" }}>
