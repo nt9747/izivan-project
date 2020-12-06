@@ -35,7 +35,6 @@ export default class Layout extends Component {
     async exitLogin() {
         try {
             Cookie.set('SESSION_ID', null)
-            alert("Hết quyền truy cập rồi!")
             window.location.href = '/';
         } catch (err) {
             throw (err)
@@ -77,7 +76,7 @@ export default class Layout extends Component {
                             <img src={user2}class="img-circle elevation-2" alt="User Image" />
                         </div>
                         <div class="info">
-                            <p style = {{color: "red"}}>HELLO ADMIN!</p>
+        <p style = {{color: "red"}}>HELLO ADMIN!</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         <br/>
                             <a style={{float:'right'}}>

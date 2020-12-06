@@ -40,7 +40,7 @@ class Content extends React.Component {
                 alert("Tên đăng nhập đã tồn tại")
             }
             else {
-                alert("Success!")
+                alert("Thành công!")
             }
         }
         catch (err) {

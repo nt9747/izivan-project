@@ -85,11 +85,11 @@ class Content extends React.Component {
         alert("Tên đăng nhập đã tồn tại")
       }
       else {
-        alert("Success!")
+        alert("Thành công!")
       }
     }
     catch (err) {
-      alert("Fail")
+      alert("Chọn quyền!")
     }
     window.location.reload(false);
   }
@@ -155,7 +155,7 @@ class Content extends React.Component {
     const token = Cookie.get("SESSION_ID");
     if (isLoading) {
       return (
-        <p>Loading...</p>
+        <div style={{ height: '100%', width: '100%' }}> <p style={{ textAlign: "center" }}>Loading...</p> </div>
       )
     }
     return (
