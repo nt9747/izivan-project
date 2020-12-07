@@ -622,7 +622,7 @@ class Content extends React.Component {
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '80%', height: '800px' }}>
+                        <div class="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '80%', height: '900px' }}>
                             <table id="example2" class="table table-bordered table-hover"  >
 
                                 <thead>

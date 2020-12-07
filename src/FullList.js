@@ -159,9 +159,10 @@ class FullList extends React.Component {
             countOut: "",
             totalMoney: "",
             codeThongKeXe: "",
-            limitPage: "100000000",
+            limitPage: "100000000000000000",
             orderNumber: "",
-
+            bienCont: "",
+            bienMooc: "",
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
@@ -228,6 +229,8 @@ class FullList extends React.Component {
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
 
             })
             await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total });
