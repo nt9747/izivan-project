@@ -507,7 +507,7 @@ class FullList extends React.Component {
 			</div>
 
 			<div style={{textAlign: 'center', fontSize: '15px'}}>
-				(Ngày xuất dữ liệu:04/12/2020)
+				(Ngày xuất dữ liệu: <input type="local-time"/>)
 			</div>
 </td></tr>
 <tr><td></td></tr>
