@@ -219,7 +219,7 @@ class Content extends React.Component {
               <TableScrollbar rows={15} >
                 <table id="example2" class="table table-bordered table-hover" style={{ textAlign: 'center' }}>
                   <thead>
-                    <tr>
+                    <tr >
                       <th>STT</th>
                       <th>Tài khoản</th>
                       <th>Kế toán</th>
@@ -231,7 +231,7 @@ class Content extends React.Component {
                   </thead>
                   <tbody>
                     {data && data.map((item, i) => (
-                      <tr key={item.UserID}>
+                      <tr key={item.UserID }>
                         <td> {item.UserID}</td>
                         <td> {item.UserName} </td>
                         <td> {item.IsKeToan.toString()}</td>
