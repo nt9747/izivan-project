@@ -76,13 +76,7 @@ export default class Layout extends Component {
 
                                <font color="white"><p style={{ textAlign: 'center', fontSize: '28px'}}>HELLO ADMIN</p></font>
                             </div>
-                            <div>
-                                <button style={{width: '235px'}} type="submit" onClick={() => this.exitLogin()}
-                                    className="btn btn-danger">
-                                    <b>Đăng xuất</b>
-                                </button>
-                            </div>
-
+                        
                     <nav class="mt-2">
                         <ul class="nav nav-pills  flex-column" data-widget="treeview" role="menu" data-accordion="false">
 <li class="nav-item has-treeview menu-close">
@@ -234,6 +228,12 @@ export default class Layout extends Component {
                                     </li>
                                 </ul>
                             </li>
+                            <div>
+                                <button style={{width: '235px'}} type="submit" onClick={() => this.exitLogin()}
+                                    className="btn btn-danger">
+                                    <b>Đăng xuất</b>
+                                </button>
+                            </div>
                         </ul>
                     </nav>
 
