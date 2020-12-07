@@ -107,6 +107,8 @@ function countMoney(n) {
 //       document.body.removeChild(link);
 //     }
 //   })();
+
+
 class FullList extends React.Component {
     constructor(props) {
         super(props)
@@ -463,12 +465,12 @@ class FullList extends React.Component {
                         </div>
                         <div class="col-3"><br />
                             <ReactHTMLTableToExcel
-                                className="btn btn-danger"
-                                table= "example2"
+                                id="test-table-xls-button"
+                                className="btn btn-success"
+                                table="example2"
                                 filename={this.state.fromDate + " to " + this.state.toDate}
-                                sheet="Sheet"
-                                buttonText="Xuất Excel"
-                                style={{ width: '20%' }} />
+                                sheet="sheet1"
+                                buttonText="Export Excel"/>
                         </div>
 
                     </div>
@@ -479,11 +481,38 @@ class FullList extends React.Component {
                         <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleBienXe}>Biển Số</button>
                         <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
                         <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
-                        <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleTatCa}>Tất cả</button>
+                        {/* <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleTatCa}>Tất cả</button> */}
                     </h3>
                 </div>
                 <table id="example2">
-                    {this.state.showBienXe && <table id="t1" class="table table-bordered table-hover table2excel" >
+                {this.state.showBienXe && <table>
+                <tr><td>
+			<div>
+			<table style={{width: '100%'}}>
+				<tr>
+					<td colspan="2">
+						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+					</td>
+					<td colspan="11"></td>
+					<td>
+						<b>Mẫu số: 01-GSHQ</b>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<br/><br/>
+
+			<div style={{textAlign: 'center', fontSize: '20px'}}>
+				<b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LƯỢT XE</b>
+			</div>
+
+			<div style={{textAlign: 'center', fontSize: '15px'}}>
+				(Ngày xuất dữ liệu:04/12/2020)
+			</div>
+</td></tr>
+<tr><td></td></tr>
+<tr><td>
+                    <table id="t1" class="table table-bordered table-hover table2excel" >
 
                         <thead>
                             <tr>
@@ -534,8 +563,37 @@ class FullList extends React.Component {
                             ))}
 
                         </>
-                    </table>}
-                    {this.state.showLoaiXe && <table id="t2" class="table table-bordered table-hover table2excel" >
+                    
+                    </table>
+                    </td></tr></table>}
+                    {this.state.showLoaiXe && <table>
+                        <tr><td>
+			<div>
+			<table style={{width: '100%'}}>
+				<tr>
+					<td colspan="2">
+						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+					</td>
+					<td colspan="11"></td>
+					<td>
+						<b>Mẫu số: 02-GSHQ</b>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<br/><br/>
+
+			<div style={{textAlign: 'center', fontSize: '20px'}}>
+				<b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LOẠI XE</b>
+			</div>
+
+			<div style={{textAlign: 'center', fontSize: '15px'}}>
+				(Ngày xuất dữ liệu:04/12/2020)
+			</div>
+</td></tr>
+<tr><td></td></tr>
+                    <tr><td>
+                    <table id="t2" class="table table-bordered table-hover table2excel" >
 
                         <thead>
                             <tr>
@@ -565,8 +623,35 @@ class FullList extends React.Component {
                             ))}
 
                         </>
-                    </table>}
-                    {this.state.showLoaiHang && <table id="t3" class="table table-bordered table-hover table2excels">
+                    </table>
+                    </td></tr></table>}
+                    {this.state.showLoaiHang && <table>
+                        <tr><td>
+			<div>
+			<table style={{width: '100%'}}>
+				<tr>
+					<td colspan="2">
+						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+					</td>
+					<td colspan="11"></td>
+					<td>
+						<b>Mẫu số: 03-GSHQ</b>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<br/><br/>
+                <div style={{textAlign: 'center', fontSize: '20px'}}>
+                    <b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LOẠI HÀNG</b>
+                </div>
+                <div style={{marginRight: '600px'}}></div>
+                <div style={{textAlign: 'center', fontSize: '15px'}}>
+                    (Ngày xuất dữ liệu:04/12/2020)
+                </div>
+</td></tr>
+<tr><td></td></tr>
+                    <tr><td>
+                    <table id="t3" class="table table-bordered table-hover table2excels">
 
                         <thead>
                             <tr>
@@ -684,9 +769,13 @@ class FullList extends React.Component {
                                 </tbody>
                             ))}
                         </>
-                    </table>}
-                    {this.state.total == 0 && <img src={empty} style={{ width: '2000px', height: '1000px' }} />}
-                </table>
+                    </table></td></tr>
+                   
+                            </table>}
+                            {this.state.total == 0 && <img src={empty} style={{ width: '2000px', height: '1000px' }} />}
+                        </table>
+                    
+                    
             </div>
 
         )
