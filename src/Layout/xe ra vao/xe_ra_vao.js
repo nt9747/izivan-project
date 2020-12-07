@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import empty from '../img/empty.png'
-import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -99,10 +99,10 @@ class Content extends React.Component {
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
-
+            EventIdPhieuHaiQuan: "",
+            PhieuHaiQuan: "",
         }
     }
-
 
     toggleBienXe = () => {
         const { showBienXe } = this.state;
@@ -320,30 +320,59 @@ class Content extends React.Component {
         console.log(this.state.PortOut, "portOut");
     }
 
-    async Select(row) {
-        // try {
-        //     const res = await requestGetListCar({
-        //         FROMDATE: this.state.fromDate,
-        //         TODATE: this.state.toDate,
-        //         PLATENUMBER: this.state.plateNumber,
-        //         PORTIN: this.state.portIn,
-        //         PORTOUT: this.state.PortOut,
-        //         NUMBERCAR: this.state.numberCar,
-        //         LOAIHANG: this.state.loaiHang,
-        //         PAGE: 1,
-        //         CONG: this.state.SelectCong,
-        //         LOAIXE: this.state.loaiXe,
-        //         ORDERNUMBER: row,
+    async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
+        try {
+            await this.setState({
+                isLoading: true
+            })
+            console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
+            const res = await requestGetListCar({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: bienxeSearch,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: "",
+                LOAIHANG: loaihangSearch,
+                PAGE: 1,
+                CONG: this.state.SelectCong,
+                LOAIXE: "",
+                ORDERNUMBER: "",
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
 
-        //     })
-        //     await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
-        //     console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
-        // } catch (err) {
-        //     await this.setState({
-        //         isLoading: true
-        //     }, () => console.log(err))
-        // }
-        // console.log(this.state.data, "Check data!");
+            })
+            await this.setState({EventIdPhieuHaiQuan: res.data.data[0].EventID, isLoading: false })
+            console.log(res, "EventIDPhieuHAiQuan")
+        } catch (err) {
+            await this.setState({
+                isLoading: true
+            }, () => console.log(err))
+        }
+        console.log(this.state.data, "Check data!");
+    }
+    async RequestThemPhieuHaiQuan() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await resquestThemPhieuHaiQuan({
+                EVENTID: this.state.EventIdPhieuHaiQuan,
+                PHIEUHAIQUAN: this.state.PhieuHaiQuan
+            })
+            await this.setState({ msgOut: res.msg });
+            if (this.state.msgOut == "Thành công") {
+                alert("Thành công!")
+                this.list();
+            } else {
+                alert("Thất bại!")
+                this.list();
+            }
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
     }
 
     handleTextChange(field, event) {
@@ -413,10 +442,10 @@ class Content extends React.Component {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-3">
-                                        <b>Từ</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                                        <b>Từ</b><input  type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                     </div>
                                     <div class="col-3">
-                                        <b>Đến</b><input min="2000-01-01" max="2300-12-31" type="date" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                        <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
                                     <div class="col-3">
                                         <b>Loại Hàng</b><br />
@@ -559,23 +588,23 @@ class Content extends React.Component {
                                         </form>
                                     </div>
                                     <div class="col-4"><br />
-                                        <div class="row">
+                                    <div class= "row">
                                         <div style={{ marginRight: "90px" }}>
-                                        <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
-                                            <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
-                                        </svg>
-                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                                        </svg>
-                                        <b>{this.state.page}/{this.state.totalPage}</b>
-                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                        </svg>
-                                        <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
-                                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                                        </svg>
+                                            <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                                                <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
+                                            </svg>
+                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                            </svg>
+                                            <b>{this.state.page}/{this.state.totalPage}</b>
+                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                            </svg>
+                                            <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                            </svg>
                                         </div>
                                         <div>
                                             <b>Số trang </b>
@@ -620,26 +649,24 @@ class Content extends React.Component {
                                 <>
                                     {this.state.data && data.data.map((item, i) => (
                                         <tbody>
-
-
-                                            <tr key={item.EventID} style={{ textAlign: 'center' }}>
-                                                <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.BienCont || item.BienContVao}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.BienMooc || item.BienMoocVao}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"} </td>
-                                                <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.PhieuHaiQuan}</td>
+                                            <tr key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.SoThuTuTrongNgay}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienCont || item.BienContVao}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienMooc || item.BienMoocVao}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.CongVaoName}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.CongRaName || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.PhieuHaiQuan}</td>
                                             </tr>
                                         </tbody>
                                     ))}
@@ -653,14 +680,15 @@ class Content extends React.Component {
                         <div class="card card-order">
                             <div class="card-header">
                                 <h3 class="card-title">
+                                    <b>{this.state.EventIdPhieuHaiQuan}</b>
                                     <table>
                                         <tr>
                                             <td><b>Phiếu hải quan</b></td>
-                                            <td><input type="text" style={{ width: '200px' }} /></td>
+                                            <td><input style = {{width: '200px'}}type="text" class="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td><button class="btn btn-danger" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
+                                            <td><button onClick={() => this.RequestThemPhieuHaiQuan()} class="btn btn-danger" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
                                         </tr>
                                     </table>
                                 </h3>

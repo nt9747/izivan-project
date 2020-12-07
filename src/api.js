@@ -183,6 +183,12 @@ export const resquestEditUser = (payload) => {
   }))
 }
 
+export const resquestThemPhieuHaiQuan = (payload) => {
+  return handleResult(getAxios.post(`UpdatePhieuHaiQuan?EventID=${payload.EVENTID}`, {
+    PhieuHaiQuan: payload.PHIEUHAIQUAN
+  }))
+}
+
 export const resquestGetListCarType = (payload) => {
   return handleResult(getAxios.get(`/listCar/listCarType`, {
   }))
