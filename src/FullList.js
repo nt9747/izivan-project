@@ -527,7 +527,7 @@ class FullList extends React.Component {
                     <table id="t1" class="table table-bordered table-hover table2excel" >
 
                         <thead>
-                            <tr>
+                            <tr style = {{textAlign: 'center'}}>
                                 <th></th>
                                 <th>STT vào bãi</th>
                                 <th>Biển số xe vào/ra</th>
@@ -551,7 +551,7 @@ class FullList extends React.Component {
                             {this.state.data && data.data.map((item, i) => (
                                 <tbody>
                                     {/* <tr onClick={() => this.Edit()} > */}
-                                    <tr key={item.EventID}>
+                                    <tr key={item.EventID} style = {{textAlign: 'center'}}>
 
                                         <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                         <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
@@ -608,7 +608,7 @@ class FullList extends React.Component {
                     <table id="t2" class="table table-bordered table-hover table2excel" >
 
                         <thead>
-                            <tr>
+                            <tr style = {{textAlign: 'center'}}>
                                 <th>Ngày</th>
                                 <th>Xe có trọng tải dưới 4 tấn</th>
                                 <th>Xe có trọng tải 4 đến 10 tấn</th>
@@ -622,7 +622,7 @@ class FullList extends React.Component {
                             {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                 <tbody >
                                     {/* <tr onClick={() => this.Edit()} > */}
-                                    <tr >
+                                    <tr style = {{textAlign: 'center'}} >
                                         <td key={i}> {item[0].ngayGioVao}</td>
                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("4 đến 10 tấn")])} </td>
@@ -666,66 +666,65 @@ class FullList extends React.Component {
                     <table id="t3" class="table table-bordered table-hover table2excels">
 
                         <thead>
-                            <tr>
-                                <th>Ngày</th>
-                                <th>Cau khô</th>
-                                <th>Thanh long</th>
-                                <th>Bột sắn</th>
-                                <th>Mít lạnh</th>
-                                <th>Hạt sen</th>
-                                <th>Lá tre</th>
-                                <th>Mít nóng</th>
-                                <th>ST</th>
-                                <th>Xoài nóng</th>
-                                <th>Hành tây</th>
-                                <th>Khoai tây</th>
-                                <th>Nấm</th>
-                                <th>Hàng hộp</th>
-                                <th>Sắn</th>
-                                <th>Chuối nóng</th>
-                                <th>Nội thất</th>
-                                <th>Hạt dưa</th>
-                                <th>Cà rốt</th>
-                                <th>Lạc</th>
-                                <th>Tỏi</th>
-                                <th>Tạp hóa</th>
-                                <th>Rau</th>
-                                <th>Chôm chôm</th>
-                                <th>Nón</th>
-                                <th>Nhãn lạnh</th>
-                                <th>Hạt châu</th>
-                                <th>Cói</th>
-                                <th>Cau</th>
-                                <th>Bánh pía</th>
-                                <th>Xoài lạnh</th>
-                                <th>Dưa vàng</th>
-                                <th>Củ cải</th>
-                                <th>Linh kiện ĐT</th>
-                                <th>Chậu cây cảnh</th>
-                                <th>Dưa hấu</th>
-                                <th>Cây cảnh</th>
-                                <th>OT</th>
-                                <th>Giấy</th>
-                                <th>Xốp</th>
-                                <th>Cau tươi</th>
-                                <th>Bột sắn</th>
-                                <th>Quả hồng</th>
-                                <th>Đỗ</th>
-                                <th>Hoa hồi</th>
-                                <th>Hành tỏi</th>
-                                <th>Hồng</th>
-                                <th>Khoai sọ</th>
-                                <th>Máy móc</th>
-                                <th>Mít lạnh</th>
-                                <th>Long nhãn</th>
-                                <th>loaiHang </th>
+                            <tr style = {{textAlign: 'center'}}>
+                            <th>Ngày</th>
+                                                <th>Cau khô</th>
+                                                <th>Thanh long</th>
+                                                <th>Bột sắn</th>
+                                                <th>Mít lạnh</th>
+                                                <th>Hạt sen</th>
+                                                <th>Lá tre</th>
+                                                <th>Mít nóng</th>
+                                                <th>ST</th>
+                                                <th>Xoài nóng</th>
+                                                <th>Hành tây</th>
+                                                <th>Khoai tây</th>
+                                                <th>Nấm</th>
+                                                <th>Hàng hộp</th>
+                                                <th>Sắn</th>
+                                                <th>Chuối nóng</th>
+                                                <th>Nội thất</th>
+                                                <th>Hạt dưa</th>
+                                                <th>Cà rốt</th>
+                                                <th>Lạc</th>
+                                                <th>Tỏi</th>
+                                                <th>Tạp hóa</th>
+                                                <th>Rau</th>
+                                                <th>Chôm chôm</th>
+                                                <th>Nón</th>
+                                                <th>Nhãn lạnh</th>
+                                                <th>Hạt trẩu</th>
+                                                <th>Cói</th>
+                                                <th>Cau</th>
+                                                <th>Bánh pía</th>
+                                                <th>Xoài lạnh</th>
+                                                <th>Dưa vàng</th>
+                                                <th>Củ cải</th>
+                                                <th>Linh kiện ĐT</th>
+                                                <th>Chậu cây cảnh</th>
+                                                <th>Dưa hấu</th>
+                                                <th>Cây cảnh</th>
+                                                <th>OT</th>
+                                                <th>Giấy</th>
+                                                <th>Xốp</th>
+                                                <th>Cau tươi</th>
+                                                <th>Đỗ</th>
+                                                <th>Hoa hồi</th>
+                                                <th>Hành tỏi</th>
+                                                <th>Hồng</th>
+                                                <th>Khoai sọ</th>
+                                                <th>Máy móc</th>
+                                                <th>Mít lạnh</th>
+                                                <th>Long nhãn</th>
+                                                <th>Đỗ xanh</th>
+                                                <th>loaiHang</th>
                             </tr>
                         </thead>
                         <>
                             {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                 <tbody>
                                     {/* <tr onClick={() => this.Edit()} > */}
-                                    <tr>
+                                    <tr style = {{textAlign: 'center'}}>
                                         <td key={i}> {item[0].ngayGioVao}</td>
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU KHÔ")])}</td>
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("THANH LONG")])} </td>

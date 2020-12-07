@@ -641,7 +641,7 @@ class HomeList extends React.Component {
                                     <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
-                                            <tr>
+                                            <tr style = {{textAlign: 'center'}}>
                                                 <th></th>
                                                 <th>STT vào bãi</th>
                                                 <th>Biển số xe vào/ra</th>
@@ -665,7 +665,7 @@ class HomeList extends React.Component {
                                             {this.state.data && data.data.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr key={item.EventID}>
+                                                    <tr key={item.EventID} style = {{textAlign: 'center'}}>
 
                                                         <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                         <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
@@ -698,7 +698,7 @@ class HomeList extends React.Component {
                                     <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
 
                                         <thead>
-                                            <tr>
+                                            <tr style = {{textAlign: 'center'}}>
                                                 <th>Ngày</th>
                                                 <th>Xe có trọng tải dưới 4 tấn</th>
                                                 <th>Xe có trọng tải 4 đến 10 tấn</th>
@@ -712,7 +712,7 @@ class HomeList extends React.Component {
                                             {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                                 <tbody >
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr >
+                                                    <tr style = {{textAlign: 'center'}} >
                                                         <td key={i}> {item[0].ngayGioVao}</td>
                                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
                                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("4 đến 10 tấn")])} </td>
@@ -734,7 +734,7 @@ class HomeList extends React.Component {
                                     <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
-                                            <tr>
+                                            <tr style = {{textAlign: 'center'}}>
                                                 <th>Ngày</th>
                                                 <th>Cau khô</th>
                                                 <th>Thanh long</th>
@@ -792,7 +792,7 @@ class HomeList extends React.Component {
                                        {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr>
+                                                    <tr style = {{textAlign: 'center'}}>
                                                         <td key={i}> {item[0].ngayGioVao}</td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU KHÔ")])}</td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("THANH LONG")])} </td>
