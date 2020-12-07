@@ -272,7 +272,7 @@ class Content extends React.Component {
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: this.state.plateNumber,
+                PLATENUMBER: this.state.plateNumber,    
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
@@ -288,22 +288,6 @@ class Content extends React.Component {
             })
             await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
-<<<<<<< HEAD
-            console.log(this.state.total, "Total");
-            console.log(this.state.namePort, "nameport");
-
-            if (this.state.namePort == '2'){
-                this.setState({countXeVN: this.state.total})
-            }
-            else if (this.state.namePort == '5'){
-                this.setState({countXeCN: this.state.total})
-            }
-            else if (this.state.name == '1'){
-                this.setState({countXeAll: this.state.total})
-            }
-
-
-=======
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
                 window.location.href = '/home'
@@ -312,7 +296,6 @@ class Content extends React.Component {
                 alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
                 window.location.href = '/home'
             }
->>>>>>> 81b9dd33a727efd334b2ebda12aa4320775fa9a3
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
