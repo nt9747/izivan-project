@@ -655,12 +655,12 @@ class FullList extends React.Component {
                         <tr><td>
 			<div style={{float: 'left', width: '45%'}}>
             <div>
-			<table style={{width: '100%'}}>
+			<table style={{textAlign: 'center', width: '100%'}}>
 				<tr>
-					<td colspan="2">
+                    <td colspan="11"></td>
+					<td colspan="23">
 						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
 					</td>
-					<td colspan="11"></td>
 					<td>
 						<b>Mẫu số: 03-GSHQ</b>
 					</td>
