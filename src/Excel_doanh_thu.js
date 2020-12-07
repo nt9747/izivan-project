@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import pl from './Layout/img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType } from './api'
+import { requestGetListCar, requestLogin, resquestGetListCarType } from './api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom'; 
@@ -101,7 +101,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -129,7 +129,7 @@ class Content extends React.Component {
     }
     async Select(row) {
         // try {
-        //     const res = await requestGetListCarIn({
+        //     const res = await requestGetListCar({
         //         FROMDATE: this.state.fromDate,
         //         TODATE: this.state.toDate,
         //         PLATENUMBER: this.state.plateNumber,
@@ -157,7 +157,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -201,7 +201,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
