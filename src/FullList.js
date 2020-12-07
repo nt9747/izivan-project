@@ -639,7 +639,8 @@ class FullList extends React.Component {
                     </td></tr></table>}
                     {this.state.showLoaiHang && <table>
                         <tr><td>
-			<div>
+			<div style={{float: 'left', width: '45%'}}>
+            <div>
 			<table style={{width: '100%'}}>
 				<tr>
 					<td colspan="2">
@@ -659,6 +660,7 @@ class FullList extends React.Component {
                 <div style={{marginRight: '600px'}}></div>
                 <div style={{textAlign: 'center', fontSize: '15px'}}>
                     (Ngày xuất dữ liệu: {getFormatToday(today)})
+                </div>
                 </div>
 </td></tr>
 <tr><td></td></tr>

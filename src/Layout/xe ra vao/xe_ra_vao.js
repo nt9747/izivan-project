@@ -487,25 +487,31 @@ class Content extends React.Component {
           </div>
       </div>
  
-      <div class="card-body">
+      
+      <div class="card card-warning">
       <div class="card-header">
               <h3 class="card-title">Ảnh vào</h3>
           </div>
+          <div class="card-body">
           <div class="row">
               <div class="">
                   <img src={izivan} id="imglayout"/>
               </div>
+          </div>
           </div>
       </div>
 
-      <div class="card-body">
+      
+      <div class="card card-warning">
           <div class="card-header">
               <h3 class="card-title">Ảnh ra</h3>
           </div>
+          <div class="card-body">
           <div class="row">
               <div class="">
                   <img src={izivan} id="imglayout"/>
               </div>
+          </div>
           </div>
       </div>
 
