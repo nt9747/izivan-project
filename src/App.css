@@ -47,6 +47,13 @@ thead{background-color: #4BA0B8}
     background-image: url(./Layout/img/truck.jpg);
     background-position:center;
     background-size:cover;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+  
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
   }
 #logo1{width: 300px; height: 60px;}
 
