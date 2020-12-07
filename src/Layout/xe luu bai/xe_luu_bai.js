@@ -287,23 +287,19 @@ class Content extends React.Component {
             })
             await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
-            if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
-                alert("Wrong choose!")
-                window.location.href = '/home'
-            }
-            if ((this.state.SelectCong == "/listCar/listCarParking?" && this.state.namePort == "3")) {
-                alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
-                window.location.href = '/home'
-            }
+            console.log(this.state.total, "Total");
+            console.log(this.state.namePort, "nameport");
+
             if (this.state.namePort == '2'){
                 this.setState({countXeVN: this.state.total})
             }
-            if (this.state.namePort == '5'){
+            else if (this.state.namePort == '5'){
                 this.setState({countXeCN: this.state.total})
             }
-            if (this.state.name == '1'){
-                this.setState({countXeAll: this.state.total, countXeVN: this.state.countXeAll - this.state.countXeCN, countXeCN: this.state.countXeAll - this.state.countXeVN})
+            else if (this.state.name == '1'){
+                this.setState({countXeAll: this.state.total})
             }
+
 
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
@@ -315,6 +311,8 @@ class Content extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 LOAIXE: this.state.loaiXe,
                 THONGKELOAIXE: this.state.thongKeLoaiXe,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
             await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
             this.setState({ countTon: this.state.countIn - this.state.countOut })
@@ -608,7 +606,7 @@ class Content extends React.Component {
 
 
                             {this.state.showBienXe && <div>
-                                <div style={{ overflow: 'auto', width: '100%', height: '800px' }}>
+                                <div >
                                     <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
