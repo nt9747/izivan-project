@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { requestLogin, requestGetListLoaiXe, requestGetListCarIn, requestGetListCarExcel, resquestGetListCarType } from './api'
+import { requestLogin, requestGetListLoaiXe, requestGetListCar, requestGetListCarExcel, resquestGetListCarType } from './api'
 import Cookie from 'js-cookie';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import TableScrollbar from 'react-table-scrollbar';
@@ -203,7 +203,7 @@ class FullList extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -267,7 +267,7 @@ class FullList extends React.Component {
 
     async Select(row) {
         // try {
-        //     const res = await requestGetListCarIn({
+        //     const res = await requestGetListCar({
         //         FROMDATE: this.state.fromDate,
         //         TODATE: this.state.toDate,
         //         PLATENUMBER: this.state.plateNumber,
@@ -466,9 +466,9 @@ class FullList extends React.Component {
                         <div class="col-3"><br />
                             <ReactHTMLTableToExcel
                                 id="test-table-xls-button"
-                                className="download-table-xls-button"
+                                className="btn btn-success"
                                 table="example2"
-                                filename="tablexls"
+                                filename={this.state.fromDate + " to " + this.state.toDate}
                                 sheet="sheet1"
                                 buttonText="Export Excel"/>
                         </div>
@@ -706,6 +706,7 @@ class FullList extends React.Component {
                                 <th>Máy móc</th>
                                 <th>Mít lạnh</th>
                                 <th>Long nhãn</th>
+                                <th>loaiHang </th>
                             </tr>
                         </thead>
                         <>
@@ -763,7 +764,7 @@ class FullList extends React.Component {
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
-
+                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("loaiHang")])} </td>
                                     </tr>
                                 </tbody>
                             ))}

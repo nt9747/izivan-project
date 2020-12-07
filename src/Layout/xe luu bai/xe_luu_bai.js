@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import pl from '../img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -131,7 +131,7 @@ class Content extends React.Component {
             if (this.state.nextPage == null) {
                 this.setState({ nextPage: this.state.totalPage })
             }
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -168,7 +168,7 @@ class Content extends React.Component {
             if (this.state.previousPage == null) {
                 this.setState({ previousPage: 1 })
             }
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -216,7 +216,7 @@ class Content extends React.Component {
         try {
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -257,6 +257,7 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
+    
 
 
     async list() {
@@ -268,7 +269,7 @@ class Content extends React.Component {
         try {
             console.log(this.state.namePort, "nameport")
             this.setState({ page: 1 })
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -295,16 +296,6 @@ class Content extends React.Component {
                 alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
                 window.location.href = '/home'
             }
-            if (this.state.namePort == '2'){
-                this.setState({countXeVN: this.state.total})
-            }
-            if (this.state.namePort == '5'){
-                this.setState({countXeCN: this.state.total})
-            }
-            if (this.state.name == '1'){
-                this.setState({countXeAll: this.state.total, countXeVN: this.state.countXeAll - this.state.countXeCN, countXeCN: this.state.countXeAll - this.state.countXeVN})
-            }
-
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -323,8 +314,16 @@ class Content extends React.Component {
             } else if (this.state.countTon < 0) {
                 this.setState({ countTon: "unk.." })
             }
-            console.log(this.state.nextPage, "nextPage");
-            console.log(this.state.previousPage, "previousPage");
+            if (this.state.portIn == '0'){
+                this.setState({countXeVN: res.data.total, countXeAll: "0" , countXeCN: "0"})
+            }
+            else if (this.state.portIn == '1'){
+                this.setState({countXeCN: res.data.total, countXeVN: "0", countXeAll: "0"})
+            }
+            else if (this.state.portIn == ''){
+                this.setState({countXeAll: res.data.total, countXeVN: "0", countXeCN: "0"})
+            }
+            console.log(this.state.namePort, "nameport")
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -341,7 +340,7 @@ class Content extends React.Component {
 
     async Select(row) {
         // try {
-        //     const res = await requestGetListCarIn({
+        //     const res = await requestGetListCar({
         //         FROMDATE: this.state.fromDate,
         //         TODATE: this.state.toDate,
         //         PLATENUMBER: this.state.plateNumber,
@@ -529,7 +528,7 @@ class Content extends React.Component {
                                         <div>
                                             <table style={{ textAlign: 'center', width: '850px', height: '50px', borderStyle: 'inset' }}>
                                                 <tr>
-                                                    <td>Tổng số xe lưu bãi</td>
+                                                    <td >Tổng số xe lưu bãi</td>
                                                     <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeAll}</td>
                                                     <td>Cổng VN</td>
                                                     <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeVN}</td>
@@ -608,7 +607,7 @@ class Content extends React.Component {
 
 
                             {this.state.showBienXe && <div>
-                                <div style={{ overflow: 'auto', width: '100%', height: '800px' }}>
+                                <div>
                                     <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
@@ -757,6 +756,7 @@ class Content extends React.Component {
                                                 <th>Mít lạnh</th>
                                                 <th>Long nhãn</th>
                                                 <th>Đỗ xanh </th>
+                                                <th>loaiHang </th>
                                             </tr>
                                         </thead>
                                         <>
@@ -814,7 +814,7 @@ class Content extends React.Component {
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
-
+                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("loaiHang")])} </td>
                                                     </tr>
                                                 </tbody>
                                             ))}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import izivan from '../img/1.png'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType, resquestGetExportCar, requestChoXeRa } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, resquestGetExportCar, requestChoXeRa } from '../../api'
 import Cookie from 'js-cookie';
 
 function GetFormatDate(a) {
@@ -121,7 +121,7 @@ class Content extends React.Component {
             if (this.state.nextPage == null) {
                 this.setState({ nextPage: this.state.totalPage })
             }
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -155,7 +155,7 @@ class Content extends React.Component {
                 isLoading: true
             })
             console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: bienxeSearch,
@@ -249,7 +249,7 @@ class Content extends React.Component {
             if (this.state.previousPage == null) {
                 this.setState({ previousPage: 1 })
             }
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -298,7 +298,7 @@ class Content extends React.Component {
         try {
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -334,7 +334,7 @@ class Content extends React.Component {
         })
         try {
             this.setState({ page: 1 })
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,

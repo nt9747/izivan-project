@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import pl from '../img/placeholder.jpg'
-import { requestGetListCarIn, requestLogin, resquestGetListCarType } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType } from '../../api'
 import Cookie from 'js-cookie';
 import empty from '../img/empty.png'
 
@@ -104,7 +104,7 @@ class Content extends React.Component {
             isLoading: true 
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -132,7 +132,7 @@ class Content extends React.Component {
     }
     async Select(row) {
         // try {
-        //     const res = await requestGetListCarIn({
+        //     const res = await requestGetListCar({
         //         FROMDATE: this.state.fromDate,
         //         TODATE: this.state.toDate,
         //         PLATENUMBER: this.state.plateNumber,
@@ -162,7 +162,7 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -228,7 +228,7 @@ class Content extends React.Component {
         })
         try {
             this.setState({page: 1})
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: this.state.plateNumber,
@@ -292,7 +292,7 @@ class Content extends React.Component {
 
     async Edit(userid){
         try {
-            const res = await requestGetListCarIn({
+            const res = await requestGetListCar({
                 FROMDATE: "10/01/2020",
                 TODATE: "10/01/2200",
                 PLATENUMBER: userid,
