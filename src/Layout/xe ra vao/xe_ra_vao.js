@@ -560,21 +560,21 @@ class Content extends React.Component {
                                     </div>
                                     <div class="col-4"><br />
                                         <div style={{ marginRight: "30px" }}>
-                                        <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
-                                            <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
-                                        </svg>
-                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                                        </svg>
-                                        <b>{this.state.page}/{this.state.totalPage}</b>
-                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                        </svg>
-                                        <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
-                                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                                        </svg>
+                                            <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                                                <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
+                                            </svg>
+                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                            </svg>
+                                            <b>{this.state.page}/{this.state.totalPage}</b>
+                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                            </svg>
+                                            <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                            </svg>
                                         </div>
                                         <div>
                                             <b>Số trang </b>
@@ -595,9 +595,10 @@ class Content extends React.Component {
                             <table id="example2" class="table table-bordered table-hover"  >
 
                                 <thead>
-                                    <tr>
+                                    <tr style={{ textAlign: 'center' }}>
+                                        <th></th>
                                         <th>STT vào bãi</th>
-                                        <th>Biển sô xe vào/ Biển số xe ra</th>
+                                        <th>Biển số xe vào/ra</th>
                                         <th>Biển Cont</th>
                                         <th>Biển Mooc</th>
                                         <th>Loại xe</th>
@@ -606,7 +607,8 @@ class Content extends React.Component {
                                         <th>Thời gia ra bãi</th>
                                         <th>Thời gian lưu bãi</th>
                                         <th>Số tiền</th>
-                                        <th>Nhân viên vào / Nhân viên ra</th>
+                                        <th>Nhân viên vào/ra</th>
+                                        <th>Nhân cho phép ra</th>
                                         <th>Loại hàng</th>
                                         <th>Cổng vào</th>
                                         <th>Cổng ra</th>
@@ -618,22 +620,24 @@ class Content extends React.Component {
                                         <tbody>
 
 
-                                            <tr>
-                                                <td key={i}> {(this.state.page - 1) * 10 + i + 1}</td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> {item.BienCont}</td>
-                                                <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> ??? </td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioVao)}</td>
-                                                <td key={i}> {GetFormatDate(item.NgayGioDongYXuat)}</td>
-                                                <td key={i}> {item.ThoiGianTrongBai}</td>
-                                                <td key={i}> {item.PhiLuuDem + item.PhiLuuNgay + item.PhiVaoBai}</td>
-                                                <td key={i}> {item.UserID_Vao + " / " + item.USerID_DongYra}</td>
-                                                <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.CongVao + ":" + item.CongVaoName}</td>
-                                                <td key={i}> {item.IsRaKhoiBai}</td>
-                                                <td> </td>
+                                            <tr key={item.EventID} style={{ textAlign: 'center' }}>
+                                                <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.BienCont || item.BienContVao}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.BienMooc || item.BienMoocVao}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
+                                                <td onClick={() => this.Select(item.EventID)}> {item.PhieuHaiQuan}</td>
                                             </tr>
                                         </tbody>
                                     ))}
