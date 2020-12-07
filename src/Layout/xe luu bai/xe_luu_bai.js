@@ -6,7 +6,8 @@ import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
 import empty from '../img/empty.png'
 
-
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
 function GetFormatDate(a) {
     const b = new Date(a);

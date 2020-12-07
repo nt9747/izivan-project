@@ -10,7 +10,8 @@ import c from '../img/c.jpg';
 import d from '../img/d.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
 function GetFormatDate(a) {
     const b = new Date(a);

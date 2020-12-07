@@ -6,7 +6,19 @@ import TableScrollbar from 'react-table-scrollbar';
 import empty from './Layout/img/empty.png'
 import ReactDOM from 'react-dom';
 
-
+var today = new Date();
+function getFormatToday(a){
+    var month = a.getUTCMonth() + 1;
+    var day = a.getUTCDate();
+    var year = a.getUTCFullYear();
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+     return  day + "/" + month + "/" + year
+}
 
 function GetFormatDate(a) {
     const b = new Date(a);
@@ -507,7 +519,7 @@ class FullList extends React.Component {
 			</div>
 
 			<div style={{textAlign: 'center', fontSize: '15px'}}>
-				(Ngày xuất dữ liệu:04/12/2020)
+				(Ngày xuất dữ liệu: {getFormatToday(today)})
 			</div>
 </td></tr>
 <tr><td></td></tr>
@@ -588,7 +600,7 @@ class FullList extends React.Component {
 			</div>
 
 			<div style={{textAlign: 'center', fontSize: '15px'}}>
-				(Ngày xuất dữ liệu:04/12/2020)
+				(Ngày xuất dữ liệu: {getFormatToday(today)})
 			</div>
 </td></tr>
 <tr><td></td></tr>
@@ -646,7 +658,7 @@ class FullList extends React.Component {
                 </div>
                 <div style={{marginRight: '600px'}}></div>
                 <div style={{textAlign: 'center', fontSize: '15px'}}>
-                    (Ngày xuất dữ liệu:04/12/2020)
+                    (Ngày xuất dữ liệu: {getFormatToday(today)})
                 </div>
 </td></tr>
 <tr><td></td></tr>
