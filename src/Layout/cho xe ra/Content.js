@@ -169,7 +169,6 @@ class Content extends React.Component {
                 ORDERNUMBER: sothutuSearch,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
-
             })
             await this.setState({
                 isLoading: false, dataChange: res.data,
