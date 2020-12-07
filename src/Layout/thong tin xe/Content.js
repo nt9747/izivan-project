@@ -322,12 +322,19 @@ class Content extends React.Component {
 
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        // console.log(data.data, "check data")
-        // if (isLoading) {
-        //     return (
-        //         <p>Loading...</p>
-        //     )
-        // }
+        console.log(data.data, "check data")
+        if (isLoading) {
+            return (
+                <div style={{textAlign: 'center', marginTop: '100px'}}>
+                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
+                        <span class="sr-only">a</span>
+                    </div>
+                    <div>
+                        <p style={{fontSize: '20px'}}>Loading...</p>
+                    </div>
+                </div>
+            )
+        }
         return (
             <div class="content-wrapper">
                 <section class="content">

@@ -339,14 +339,28 @@ class FullList extends React.Component {
     render() {
         const { data, dataThongKeXe, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        // if (isLoading) {
-        //     return (
-        //         <p>Loading...</p>
-        //     )
-        // }
         if (isLoading) {
             return (
-                <p>Loading...</p>
+                <div style={{textAlign: 'center', marginTop: '100px'}}>
+                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
+                        <span class="sr-only">a</span>
+                    </div>
+                    <div>
+                        <p style={{fontSize: '20px'}}>Loading...</p>
+                    </div>
+                </div>
+            )
+        }
+        if (isLoading) {
+            return (
+                <div style={{textAlign: 'center'}}>
+                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
+                        <span class="sr-only">a</span>
+                    </div>
+                    <div>
+                        <p style={{fontSize: '20px'}}>Loading...</p>
+                    </div>
+                </div>
             )
         }
         return (
