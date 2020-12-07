@@ -90,7 +90,7 @@ class excelxeluubai extends React.Component {
             countTon: "",
             totalMoney: "",
             codeThongKeXe: "",
-            limitPage: "1",
+            limitPage: "100000",
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
