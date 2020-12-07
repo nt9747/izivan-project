@@ -72,22 +72,17 @@ export default class Layout extends Component {
                 </a>
                 <br/>
                 <div class="sidebar">
-                    <div class="user-panel mt-1 pb-3 mb-3 d-flex" style = {{height: '120px'}}>
-                        <div class="image">
-                            <img src={user2}class="img-circle elevation-2" alt="User Image" />
-                        </div>
-                        <div class="info">
-        <p style = {{color: "red"}}>HELLO ADMIN!</p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        <br/>
-                            <a style={{float:'right'}}>
-                                <button type="submit" onClick={() => this.exitLogin()}
-                                    className="btn btn-success">
+                            <div>
+
+                               <font color="white"><p style={{ textAlign: 'center', fontSize: '28px'}}>HELLO ADMIN</p></font>
+                            </div>
+                            <div>
+                                <button style={{width: '235px'}} type="submit" onClick={() => this.exitLogin()}
+                                    className="btn btn-danger">
                                     <b>Đăng xuất</b>
                                 </button>
-                            </a>
-                        </div>
-                    </div>
+                            </div>
+
                     <nav class="mt-2">
                         <ul class="nav nav-pills  flex-column" data-widget="treeview" role="menu" data-accordion="false">
 <li class="nav-item has-treeview menu-close">
