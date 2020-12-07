@@ -7,7 +7,6 @@ import { Redirect } from 'react-router-dom';
 import empty from '../img/empty.png'
 
 
-
 function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
@@ -272,7 +271,7 @@ class Content extends React.Component {
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: this.state.plateNumber,
+                PLATENUMBER: this.state.plateNumber,    
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
@@ -306,6 +305,8 @@ class Content extends React.Component {
                 LOAIHANG: this.state.loaiHang,
                 LOAIXE: this.state.loaiXe,
                 THONGKELOAIXE: this.state.thongKeLoaiXe,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
             await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
             this.setState({ countTon: this.state.countIn - this.state.countOut })
