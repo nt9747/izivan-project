@@ -5397,6 +5397,11 @@ document.contains@^1.0.1:
   dependencies:
     define-properties "^1.1.3"
 
+dojo@^1.16.3:
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/dojo/-/dojo-1.16.3.tgz#f9d2343184b5e5ffda2ee5666029da20508e1013"
+  integrity sha512-+mPovtmbULx5V69lWji496gMfhXuL1WCC0KBq0hig4Tz6WGAYxTOJV6ch3bewNzSJHmaHiSsIMYkW8jcUrhLIQ==
+
 dom-accessibility-api@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/dom-accessibility-api/-/dom-accessibility-api-0.3.0.tgz#511e5993dd673b97c87ea47dba0e3892f7e0c983"
