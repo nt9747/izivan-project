@@ -81,7 +81,7 @@ class Content extends React.Component {
             pictureBienSo: "",
             dataPicture: "",
             totalPage: "",
-            namePort: "",
+            namePort: "6",
             dataThongKeXe: "",
             thongKeLoaiXe: "/Statistic/statisticCarInOut",
             TongKetCong: "",
