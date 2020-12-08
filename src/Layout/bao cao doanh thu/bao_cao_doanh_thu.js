@@ -349,7 +349,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
+            await this.setState({countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
             if (this.state.namePort == 1) {
                 this.setState({
                     countInVn: this.state.countIn, countOutVn: this.state.countOut, countDoanhThuVn: this.state.totalMoney,
@@ -420,7 +420,7 @@ class Content extends React.Component {
                         BIENCONT: this.state.bienCont,
                         BIENMOOC: this.state.bienMooc,
                     })
-                    await this.setState({ isLoading: false, countInCN: res4.data.countIn, countOutCN: res4.data.countOut, countDoanhThuCn: res4.data.totalMoney })
+                    await this.setState({countInCN: res4.data.countIn, countOutCN: res4.data.countOut, countDoanhThuCn: res4.data.totalMoney })
                     this.setState({ countTonCN: this.state.countInCN - this.state.countOutCN })
                     console.log(this.state.portInCN, this.state.portOutCN)
                 }
@@ -430,6 +430,7 @@ class Content extends React.Component {
                 if (this.state.countTonCN < 0){
                     this.setState({countTonCN: 0})
                 }
+                this.setState({isLoading: false})
         } catch (err) {
                 await this.setState({
                     isLoading: false
