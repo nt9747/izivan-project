@@ -730,15 +730,9 @@ class Content extends React.Component {
                         </div>
 
 
-<<<<<<< HEAD
-                        <div className="card card-warning">
-                            <div className="card-header">
-                                <h3 className="card-title">Ảnh vào</h3>
-=======
                         <div class="card card-warning">
                             <div class="card-header">
                                 <h3 class="card-title">Ảnh ra</h3>
->>>>>>> 811637f596fd04796f295804b39985b21860d96a
                             </div>
                             <div className="card-body">
                                 <div className="row">
@@ -750,15 +744,9 @@ class Content extends React.Component {
                         </div>
 
 
-<<<<<<< HEAD
-                        <div className="card card-warning">
-                            <div className="card-header">
-                                <h3 className="card-title">Ảnh ra</h3>
-=======
                         <div class="card card-warning">
                             <div class="card-header">
                                 <h3 class="card-title">Ảnh vào</h3>
->>>>>>> 811637f596fd04796f295804b39985b21860d96a
                             </div>
                             <div className="card-body">
                                 <div className="row">

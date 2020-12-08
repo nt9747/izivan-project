@@ -671,15 +671,9 @@ class Content extends React.Component {
                                 </div>
                             </div>
 
-<<<<<<< HEAD
-                            <div className="ui grid middle aligned" style={{ overflow: 'auto', width: '100%', height: '800px' }}>
-                                <div className="card-header" >
-                                    <h3 className="card-title" ></h3>
-=======
                             <div class="ui grid middle aligned" style={{ width: '100%', height: '800px' }}>
                                 <div class="card-header" >
                                     <h3 class="card-title" ></h3>
->>>>>>> 811637f596fd04796f295804b39985b21860d96a
 
 
                                 </div>
