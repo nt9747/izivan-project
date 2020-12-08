@@ -487,8 +487,8 @@ class Content extends React.Component {
             if (isLoading) {
                 return (
                     <div style={{ textAlign: 'center', marginTop: '100px' }}>
-                        <div style={{ width: '50px', height: '50px' }} class="spinner-border text-primary" role="status">
-                            <span class="sr-only">a</span>
+                        <div style={{ width: '50px', height: '50px' }} className="spinner-border text-primary" role="status">
+                            <span className="sr-only">a</span>
                         </div>
                         <div>
                             <p style={{ fontSize: '20px' }}>Loading...</p>
@@ -499,29 +499,29 @@ class Content extends React.Component {
             return (
 
 
-                    <section class="content">
-                        <div class="container-fluid">
-                            <div class="card card-warning">
-                                <div class="card-header">
-                                    <h3 class="card-title"><i>Báo cáo doanh thu</i></h3>
+                    <section className="content">
+                        <div className="container-fluid">
+                            <div className="card card-warning">
+                                <div className="card-header">
+                                    <h3 className="card-title"><i>Báo cáo doanh thu</i></h3>
                                 </div>
 
-                                <div class="card-body" >
+                                <div className="card-body" >
                                     <div style={{ float: 'left', width: '60%' }}>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
+                                        <div className="row">
+                                            <div className="col-4">
+                                                <b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                             </div>
-                                            <div class="col-4">
-                                                <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
+                                            <div className="col-4">
+                                                <b>Mã số thẻ</b><input type="text" className="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
                                             </div>
-                                            <div class="col-4">
-                                                <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
+                                            <div className="col-4">
+                                                <b>Số thứ tự</b><input type="text" className="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
                                             </div>
                                         </div>
                                         <br />
-                                        <div class="row">
-                                            <div class="col-4">
+                                        <div className="row">
+                                            <div className="col-4">
                                                 <b>Loại hàng</b>
                                                 <select value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                                     <option disabled hidden value={null}>Chọn</option>
@@ -593,13 +593,13 @@ class Content extends React.Component {
                                                     <option value="NỘI THẤT">NỘI THẤT</option>
                                                 </select>
                                             </div>
-                                            <div class="col-4">
+                                            <div className="col-4">
                                                 <b>Loại xe</b>
                                                 <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
                                                     <option value=''>Tất cả</option>
                                                 </select>
                                             </div>
-                                            <div class='col-3'>
+                                            <div className='col-3'>
                                                 <b>Cổng</b>
                                                 <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort', e)}>
                                                     <option disabled hidden> Chọn </option>
@@ -616,19 +616,19 @@ class Content extends React.Component {
                                             <table style={{ width: '900px', textAlign: 'right' }}>
                                                 <tr>
                                                     <td><b>Từ</b></td>
-                                                    <td><input value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} style={{ width: '400px' }} min="2000-01-01" max="2300-12-31" type="text" class="form-control" placeholder="" /></td>
+                                                    <td><input value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} style={{ width: '400px' }} min="2000-01-01" max="2300-12-31" type="text" className="form-control" placeholder="" /></td>
                                                     <td><b>Đến</b></td>
-                                                    <td><input value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} style={{ width: '400px' }} min="2000-01-01" max="2300-12-31" type="text" class="form-control" placeholder="" /></td>
+                                                    <td><input value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} style={{ width: '400px' }} min="2000-01-01" max="2300-12-31" type="text" className="form-control" placeholder="" /></td>
                                                 </tr>
                                             </table>
 
                                         </div>
-                                        <div class="row">
+                                        <div className="row">
 
-                                            <div class="col-6"><br />
-                                                <button onClick={() => this.list()} class="btn btn-danger"><b>Tìm Kiếm</b></button>
+                                            <div className="col-6"><br />
+                                                <button onClick={() => this.list()} className="btn btn-danger"><b>Tìm Kiếm</b></button>
                                             </div>
-                                            <div class="col-6 "><br />
+                                            <div className="col-6 "><br />
                                             <ReactHTMLTableToExcel
                                                 id="test-table-xls-button"
                                                 className="btn btn-success"
@@ -704,7 +704,7 @@ class Content extends React.Component {
                 </td></tr>
                 <tr><td></td></tr>
                 <tr><td>
-                                <table class="table table-bordered table-hover">
+                                <table className="table table-bordered table-hover">
 
                                     <thead>
                                         <tr style = {{textAlign: 'center'}}>

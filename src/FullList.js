@@ -345,8 +345,8 @@ class FullList extends React.Component {
         if (isLoading) {
             return (
                 <div style={{textAlign: 'center', marginTop: '100px'}}>
-                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
-                        <span class="sr-only">a</span>
+                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                        <span className="sr-only">a</span>
                     </div>
                     <div>
                         <p style={{fontSize: '20px'}}>Loading...</p>
@@ -357,8 +357,8 @@ class FullList extends React.Component {
         if (isLoading) {
             return (
                 <div style={{textAlign: 'center'}}>
-                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
-                        <span class="sr-only">a</span>
+                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                        <span className="sr-only">a</span>
                     </div>
                     <div>
                         <p style={{fontSize: '20px'}}>Loading...</p>
@@ -367,16 +367,16 @@ class FullList extends React.Component {
             )
         }
         return (
-            <div class="ui grid middle aligned"  >
-                <div class="card-body" style={{ margin: '0 auto', width: '80%' }}>
-                    <div class="row">
-                        <div class="col-3" >
-                            <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+            <div className="ui grid middle aligned"  >
+                <div className="card-body" style={{ margin: '0 auto', width: '80%' }}>
+                    <div className="row">
+                        <div className="col-3" >
+                            <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="text" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                         </div>
-                        <div class="col-3">
-                            <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                        <div className="col-3">
+                            <b>Đến</b><input type="text" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                         </div>
-                        <div class="col-5">
+                        <div className="col-5">
                             <b>Loại Hàng</b><br />
                             <select value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                 <option value disabled hidden>Chọn</option>
@@ -449,25 +449,25 @@ class FullList extends React.Component {
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-3">
+                    <div className="row">
+                        <div className="col-3">
                             <b>Loại xe</b><br />
                             <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
                                 <option value=''>Tất cả</option>
                             </select>
                         </div>
-                        <div class="col-3" >
-                            <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
+                        <div className="col-3" >
+                            <b>Số thứ tự</b><input type="text" className="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
                         </div>
-                        <div class="col-3" >
-                            <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
+                        <div className="col-3" >
+                            <b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                         </div>
-                        <div class="col-3" >
-                            <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
+                        <div className="col-3" >
+                            <b>Mã số thẻ</b><input type="text" className="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-4">
+                    <div className="row">
+                        <div className="col-4">
                             <b>Cổng</b><br />
                             <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort', e)}>
                                 <option selected disabled hidden>Chọn</option>
@@ -485,14 +485,14 @@ class FullList extends React.Component {
                                 <option value='4'>3. Số lượng xe tồn</option>
                             </select>
                         </div>
-                        <div class="col-3"><br />
+                        <div className="col-3"><br />
                             <button type="submit"
                                 className="btn btn-danger"
                                 onClick={() => this.list()}>
                                 <b>Tìm kiếm</b>
                             </button>
                         </div>
-                        <div class="col-3"><br />
+                        <div className="col-3"><br />
                             <ReactHTMLTableToExcel
                                 id="test-table-xls-button"
                                 className="btn btn-success"
@@ -504,13 +504,13 @@ class FullList extends React.Component {
 
                     </div>
                 </div>
-                <div class="card-header" >
+                <div className="card-header" >
 
-                    <h3 class="card-title" >
-                        <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleBienXe}>Biển Số</button>
-                        <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
-                        <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
-                        {/* <button style={{ marginRight: "3px" }} class="btn btn-outline-primary" onClick={this.toggleTatCa}>Tất cả</button> */}
+                    <h3 className="card-title" >
+                        <button style={{ marginRight: "3px" }} className="btn btn-outline-primary" onClick={this.toggleBienXe}>Biển Số</button>
+                        <button style={{ marginRight: "3px" }} className="btn btn-outline-primary" onClick={this.toggleLoaiXe}>Loại Xe</button>
+                        <button style={{ marginRight: "3px" }} className="btn btn-outline-primary" onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                        {/* <button style={{ marginRight: "3px" }} className="btn btn-outline-primary" onClick={this.toggleTatCa}>Tất cả</button> */}
                     </h3>
                 </div>
                 <table id="example2">
@@ -541,7 +541,7 @@ class FullList extends React.Component {
 </td></tr>
 <tr><td></td></tr>
 <tr><td>
-                    <table id="t1" class="table table-bordered table-hover table2excel" >
+                    <table id="t1" className="table table-bordered table-hover table2excel" >
 
                         <thead>
                             <tr style = {{textAlign: 'center'}}>
@@ -622,7 +622,7 @@ class FullList extends React.Component {
 </td></tr>
 <tr><td></td></tr>
                     <tr><td>
-                    <table id="t2" class="table table-bordered table-hover table2excel" >
+                    <table id="t2" className="table table-bordered table-hover table2excel" >
 
                         <thead>
                             <tr style = {{textAlign: 'center'}}>
@@ -682,7 +682,7 @@ class FullList extends React.Component {
 </td></tr>
 <tr><td></td></tr>
                     <tr><td>
-                    <table id="t3" class="table table-bordered table-hover table2excels">
+                    <table id="t3" className="table table-bordered table-hover table2excels">
 
                         <thead>
                             <tr style = {{textAlign: 'center'}}>

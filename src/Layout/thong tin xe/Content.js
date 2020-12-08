@@ -326,8 +326,8 @@ class Content extends React.Component {
         if (isLoading) {
             return (
                 <div style={{textAlign: 'center', marginTop: '100px'}}>
-                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
-                        <span class="sr-only">a</span>
+                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                        <span className="sr-only">a</span>
                     </div>
                     <div>
                         <p style={{fontSize: '20px'}}>Loading...</p>
@@ -336,48 +336,48 @@ class Content extends React.Component {
             )
         }
         return (
-            <div class="content-wrapper">
-                <section class="content">
-                    <div class="container-fluid" style={{ float: 'left', width: '70%', height: '250px' }}>
-                        <div class="card card-warning" >
-                            <div class="card-header" >
-                                <h3 class="card-title"></h3>
+            <div className="content-wrapper">
+                <section className="content">
+                    <div className="container-fluid" style={{ float: 'left', width: '70%', height: '250px' }}>
+                        <div className="card card-warning" >
+                            <div className="card-header" >
+                                <h3 className="card-title"></h3>
                             </div>
 
-                            <div class="card-body">
-                            <div class="row">
-                                    <div class="col-4">
-                                        <b>Từ</b><input type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
-                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
+                            <div className="card-body">
+                            <div className="row">
+                                    <div className="col-4">
+                                        <b>Từ</b><input type="text" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                                        <b>Mã số thẻ</b><input type="text" className="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
 
                                     </div>
-                                    <div class="col-4">
-                                    <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
-                                    <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
+                                    <div className="col-4">
+                                    <b>Đến</b><input type="text" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                    <b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
-                                    <div class="col-4"><br/>
-                                        <button class="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
+                                    <div className="col-4"><br/>
+                                        <button className="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
                                     </div>
-                                    <div class="col-4">
+                                    <div className="col-4">
 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3"  ><br />
-                        <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                        <div className="col-3"  ><br />
+                        <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
                                         <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
                                     </svg>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                                     </svg>
                                     <b>{this.state.page}/{this.state.totalPage}</b>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                                     </svg>
-                                    <svg onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                    <svg onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
                                         <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
                                     </svg>
 
@@ -386,11 +386,11 @@ class Content extends React.Component {
 
 
 
-                        <div class="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '100%', height: '800px' }}>
-                            <div class="card-header" >
-                                <h3 class="card-title" ></h3>
+                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '100%', height: '800px' }}>
+                            <div className="card-header" >
+                                <h3 className="card-title" ></h3>
                             </div>
-                            <table id="example2" class="table table-bordered table-hover"  >
+                            <table id="example2" className="table table-bordered table-hover"  >
                                 <>
                                     <thead>
                                         <tr>
@@ -433,12 +433,12 @@ class Content extends React.Component {
                         </div>
                     </div>
                     <div style={{ width: '30%', height: '20%', float: 'right' }}>
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Hiện Tại</h3>
+                        <div className="card card-primary">
+                            <div className="card-header">
+                                <h3 className="card-title">Hiện Tại</h3>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
+                            <div className="card-body">
+                                <div className="row">
                                     <table>
                                         <tr>
                                             <td><b>Biển số xe</b></td>
@@ -468,21 +468,21 @@ class Content extends React.Component {
                                             <td><input type="text" name="" id="edit_car1" /></td>
                                         </tr>
                                         <tr>
-                                            <td><button class="btn btn-danger">Hủy</button></td>
+                                            <td><button className="btn btn-danger">Hủy</button></td>
                                             <td></td>
-                                            <td><button class="btn btn-danger">Thay đổi thông tin</button></td>
+                                            <td><button className="btn btn-danger">Thay đổi thông tin</button></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title"></h3>
+                        <div className="card card-primary">
+                            <div className="card-header">
+                                <h3 className="card-title"></h3>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="">
                                         <img src={pl} id="img_xetrongbai" />
                                         <img src={pl} id="img_xetrongbai" />
                                     </div>
