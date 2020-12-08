@@ -683,24 +683,24 @@ class Content extends React.Component {
                                 <>
                                     {this.state.data && data.data.map((item, i) => (
                                         <tbody>
-                                            <tr key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.SoThuTuTrongNgay}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienCont || item.BienContVao}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienMooc || item.BienMoocVao}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.MaSoTrenThe || "Chưa có"} </td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.NhanVienDongYRa || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.CongVaoName}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.CongRaName || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.PhieuHaiQuan}</td>
+                                            <tr id = "selectPhieuHaiQuan" onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}  key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
+                                                <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                <td > {item.SoThuTuTrongNgay}</td>
+                                                <td > {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                <td > {item.BienCont || item.BienContVao}</td>
+                                                <td > {item.BienMooc || item.BienMoocVao}</td>
+                                                <td > {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                <td > {item.MaSoTrenThe || "Chưa có"} </td>
+                                                <td > {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                <td > {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                <td > {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                <td > {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                <td > {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                <td > {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                <td > {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                <td > {item.CongVaoName}</td>
+                                                <td > {item.CongRaName || "Chưa có"}</td>
+                                                <td > {item.PhieuHaiQuan}</td>
                                             </tr>
                                         </tbody>
                                     ))}

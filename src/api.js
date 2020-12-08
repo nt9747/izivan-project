@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 
 function createAxios() {
   var axiosInstant = axios.create();
-  axiosInstant.defaults.baseURL = "http://192.168.1.150:3001/";
+  axiosInstant.defaults.baseURL = "http://localhost:3001/";
   axiosInstant.defaults.timeout = 20000;
   axiosInstant.defaults.headers = { "Content-Type": "application/json" };
 
