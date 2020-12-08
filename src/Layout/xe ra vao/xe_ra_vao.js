@@ -72,7 +72,7 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: '',
-            SelectCong: "/listCar/listCarOut?",
+            SelectCong: "/listCar/listCarIn?",
             total: "",
             dataXe: "",
             loaiXe: "",
@@ -88,7 +88,7 @@ class Content extends React.Component {
             totalPage: "",
             namePort: "",
             dataThongKeXe: "",
-            thongKeLoaiXe: "/Statistic/statisticCarOut",
+            thongKeLoaiXe: "/Statistic/statisticCarIn",
             TongKetCong: "",
             countIn: "",
             countOut: "",
@@ -230,6 +230,40 @@ class Content extends React.Component {
         }
     }
 
+    async listToCurrent() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+            const res = await requestGetListCar({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+            })
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+
 
     async start() {
         await this.setState({
@@ -360,13 +394,13 @@ class Content extends React.Component {
                 EVENTID: this.state.EventIdPhieuHaiQuan,
                 PHIEUHAIQUAN: this.state.PhieuHaiQuan
             })
-            await this.setState({ msgOut: res.msg });
+            await this.setState({ msgOut: res.msg, isLoading: false });
             if (this.state.msgOut == "Thành công") {
                 alert("Thành công!")
-                this.list();
+                this.listToCurrent();
             } else {
                 alert("Thất bại!")
-                this.list();
+                this.listToCurrent();
             }
         } catch (err) {
             await this.setState({
@@ -698,7 +732,7 @@ class Content extends React.Component {
 
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title">Ảnh vào</h3>
+                                <h3 class="card-title">Ảnh ra</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -712,7 +746,7 @@ class Content extends React.Component {
 
                         <div class="card card-warning">
                             <div class="card-header">
-                                <h3 class="card-title">Ảnh ra</h3>
+                                <h3 class="card-title">Ảnh vào</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
