@@ -519,10 +519,10 @@ class FullList extends React.Component {
 			<div>
 			<table style={{width: '100%'}}>
 				<tr>
-					<td colspan="2">
+					<td colSpan="2">
 						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
 					</td>
-					<td colspan="11"></td>
+					<td colSpan="11"></td>
 					<td>
 						<b>Mẫu số: 01-GSHQ</b>
 					</td>
@@ -600,10 +600,10 @@ class FullList extends React.Component {
 			<div>
 			<table style={{width: '100%'}}>
 				<tr>
-					<td colspan="2">
+					<td colSpan="2">
 						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
 					</td>
-					<td colspan="11"></td>
+					<td colSpan="11"></td>
 					<td>
 						<b>Mẫu số: 02-GSHQ</b>
 					</td>
@@ -660,8 +660,8 @@ class FullList extends React.Component {
             <div>
 			<table style={{textAlign: 'center', width: '100%'}}>
 				<tr>
-                    <td colspan="11"></td>
-					<td colspan="23">
+                    <td colSpan="11"></td>
+					<td colSpan="23">
 						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
 					</td>
 					<td>

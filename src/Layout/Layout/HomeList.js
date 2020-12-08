@@ -573,7 +573,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '73%', height: '700px' }}>
+                        <div className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '77%', height: '700px' }}>
                             <div className="card-header" >
                                 <h3 className="card-title" >
                                     <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleBienXe}>Biển Số</button>
@@ -864,7 +864,7 @@ class HomeList extends React.Component {
 
                         </div>
                     </div>
-                    <div style={{ float: 'right', width: '27%' }}>
+                    <div style={{ float: 'right', width: '22%' }}>
                         <div className="card card-warning" >
                             <div className="card-header">
                                 <h3 className="card-title">Ảnh vào</h3>

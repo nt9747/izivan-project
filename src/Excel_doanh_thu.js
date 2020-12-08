@@ -682,10 +682,10 @@ class Content extends React.Component {
                             <div>
                             <table style={{width: '100%'}}>
                                 <tr>
-                                    <td colspan="3">
+                                    <td colSpan="3">
                                         <b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
                                     </td>
-                                    <td colspan="11"></td>
+                                    <td colSpan="11"></td>
                                     <td>
                                         <b>Mẫu số: 01-GSHQ</b>
                                     </td>

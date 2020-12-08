@@ -582,12 +582,12 @@ class Content extends React.Component {
                                         </tr>
                                         <tr>
                                             <td><b>Loại Hàng</b></td>
-                                            <td colspan="2"><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.loaiHangChange} onChange={(e) => this.handleTextChange('loaiHangChange', e)} type="text" name="" id="edit_car" /> <input value={this.state.TongTienChange} onChange={(e) => this.handleTextChange('TongTienChange', e)} disabled style={{ width: '185px', backgroundColor: '#C0C8C4' }} type="text" /></td>
+                                            <td colSpan="2"><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.loaiHangChange} onChange={(e) => this.handleTextChange('loaiHangChange', e)} type="text" name="" id="edit_car" /> <input value={this.state.TongTienChange} onChange={(e) => this.handleTextChange('TongTienChange', e)} disabled style={{ width: '185px', backgroundColor: '#C0C8C4' }} type="text" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td><b>Loại Xe</b></td>
-                                            <td colspan="2"><input value={this.state.loaiXeChange} onChange={(e) => this.handleTextChange('loaiXeChange', e)} disabled style={{ width: '310px', backgroundColor: '#C0C8C4' }} type="text" name="" id="edit_car" /></td>
+                                            <td colSpan="2"><input value={this.state.loaiXeChange} onChange={(e) => this.handleTextChange('loaiXeChange', e)} disabled style={{ width: '310px', backgroundColor: '#C0C8C4' }} type="text" name="" id="edit_car" /></td>
                                         </tr>
                                         <tr>
                                             <td></td>
