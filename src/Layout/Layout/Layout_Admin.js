@@ -77,7 +77,8 @@ export default class Layout extends Component {
                                <font color="white"><p style={{ textAlign: 'center', fontSize: '28px'}}>HELLO ADMIN</p></font>
                             </div>
                         
-                    <nav class="mt-2">
+                    <nav class="mt-2" style= {{height: "950px"}}>
+
                         <ul class="nav nav-pills  flex-column" data-widget="treeview" role="menu" data-accordion="false">
 <li class="nav-item has-treeview menu-close">
                                 <a href="#" class="nav-link active">
