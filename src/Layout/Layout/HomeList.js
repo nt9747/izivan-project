@@ -395,8 +395,8 @@ class HomeList extends React.Component {
         if (isLoading) {
             return (
                 <div style={{textAlign: 'center', marginTop: '100px'}}>
-                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
-                        <span class="sr-only">a</span>
+                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                        <span className="sr-only">a</span>
                     </div>
                     <div>
                         <p style={{fontSize: '20px'}}>Loading...</p>
@@ -405,22 +405,22 @@ class HomeList extends React.Component {
             )
         }
         return (
-            <div class="content-wrapper" id="root">
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="card card-warning">
-                            <div class="card-header">
-                                <h3 class="card-title"><i>Quản lí xe tổng hợp </i></h3>
+            <div className="content-wrapper" id="root">
+                <section className="content">
+                    <div className="container-fluid">
+                        <div className="card card-warning">
+                            <div className="card-header">
+                                <h3 className="card-title"><i>Quản lí xe tổng hợp </i></h3>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-3" style={{ marginRight: '40px' }}>
-                                        <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="text" class="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-3" style={{ marginRight: '40px' }}>
+                                        <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="text" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                     </div>
-                                    <div class="col-3" style={{ marginRight: '40px' }}>
-                                        <b>Đến</b><input type="text" class="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                    <div className="col-3" style={{ marginRight: '40px' }}>
+                                        <b>Đến</b><input type="text" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
-                                    <div class="col-2" style={{ marginRight: '70px' }}>
+                                    <div className="col-2" style={{ marginRight: '70px' }}>
                                         <b>Loại Hàng</b><br />
                                         <select value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
                                             <option value disabled hidden>Chọn</option>
@@ -510,25 +510,25 @@ class HomeList extends React.Component {
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-1" style={{ marginRight: '150px' }}>
+                                <div className="row">
+                                    <div className="col-1" style={{ marginRight: '150px' }}>
                                         <b>Loại xe</b><br />
                                         <select value={this.state.loaiXe} onChange={(e) => this.handleTextChange('loaiXe', e)}>{this.state.dataXe && this.state.dataXe.map((item, i) => <option value={item.ID}>{item.Name}</option>)}
                                             <option value=''>Tất cả</option>
                                         </select>
                                     </div>
-                                    <div class="col-2" style={{ marginRight: '31px' }}>
-                                        <b>Số thứ tự</b><input type="text" class="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
+                                    <div className="col-2" style={{ marginRight: '31px' }}>
+                                        <b>Số thứ tự</b><input type="text" className="form-control" placeholder="Nhập Số thứ tự" value={this.state.orderNumber} onChange={(e) => this.handleTextChange('orderNumber', e)} />
                                     </div>
-                                    <div class="col-2" style={{ marginRight: '31px' }}>
-                                        <b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
+                                    <div className="col-2" style={{ marginRight: '31px' }}>
+                                        <b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
-                                    <div class="col-2" style={{ marginRight: '31px' }}>
-                                        <b>Mã số thẻ</b><input type="text" class="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
+                                    <div className="col-2" style={{ marginRight: '31px' }}>
+                                        <b>Mã số thẻ</b><input type="text" className="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-4">
+                                <div className="row">
+                                    <div className="col-4">
                                         <b>Cổng</b><br />
                                         <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort', e)}>
                                             <option selected disabled hidden>Chọn</option>
@@ -546,7 +546,7 @@ class HomeList extends React.Component {
                                             <option value='4'>3. Số lượng xe tồn</option>
                                         </select>
                                     </div>
-                                    <div class="col-2"><br />
+                                    <div className="col-2"><br />
                                         <button type="submit"
                                             className="btn btn-danger"
                                             onClick={() => this.list()}>
@@ -554,7 +554,7 @@ class HomeList extends React.Component {
                                         </button>
                                     </div>
 
-                                    <div class="col-2"><br />
+                                    <div className="col-2"><br />
                                         <form action="/ExportExcel">
                                             <button type="submit"
                                                 className="btn btn-success"
@@ -563,19 +563,19 @@ class HomeList extends React.Component {
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="col-2"><br />
+                                    <div className="col-2"><br />
 
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '73%', height: '700px' }}>
-                            <div class="card-header" >
-                                <h3 class="card-title" >
-                                    <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleBienXe}>Biển Số</button>
-                                    <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiXe}>Loại Xe</button>
-                                    <button class="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                        <div className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '73%', height: '700px' }}>
+                            <div className="card-header" >
+                                <h3 className="card-title" >
+                                    <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleBienXe}>Biển Số</button>
+                                    <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiXe}>Loại Xe</button>
+                                    <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiHang}>Loại Hàng</button>
                                 </h3>
                             </div>
                             {this.state.showBienXe && <div>
@@ -590,62 +590,62 @@ class HomeList extends React.Component {
                                     </select>
                                 </div>
                                 <div style={{ float: "right", width: "310px", border: "none" }}>
-                                    {/* <button class="myButton1" type="submit"
+                                    {/* <button className="myButton1" type="submit"
                                         style={{ color: '#C8C8C8', marginRight: "10px" }}
                                         onClick={() => this.listInPrevious()}>
                                         <b style={{ color: 'black' }}>Previous</b>
                                     </button> */}
 
-                                    {/* <button id="nut" class="myButton" hidden={(this.state.page < 3)} onClick={() => this.list()}> 1 </button><a hidden={this.state.page < 5}>...</a>
-                                    <button id="nut" class="myButton" hidden={(this.state.page <= 3)} onClick={() => this.setState({ page: this.state.page - 1 }) || this.listInPrevious()}>{this.state.page - 2}</button>
-                                    <button id="nut" class="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button> */}
-                                    {/* <button id="nut" class="myButton" style={{ color: 'red' }}>{this.state.page}</button> */}
-                                    {/* <button id="nut" class="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button> */}
-                                    {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button> */}
-                                    {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button> */}
-                                    {/* <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
-                                    <button id="nut" class="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button>  */}
+                                    {/* <button id="nut" className="myButton" hidden={(this.state.page < 3)} onClick={() => this.list()}> 1 </button><a hidden={this.state.page < 5}>...</a>
+                                    <button id="nut" className="myButton" hidden={(this.state.page <= 3)} onClick={() => this.setState({ page: this.state.page - 1 }) || this.listInPrevious()}>{this.state.page - 2}</button>
+                                    <button id="nut" className="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button> */}
+                                    {/* <button id="nut" className="myButton" style={{ color: 'red' }}>{this.state.page}</button> */}
+                                    {/* <button id="nut" className="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button> */}
+                                    {/* <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button> */}
+                                    {/* <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button> */}
+                                    {/* <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
+                                    <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button>  */}
                                     {/* <a>/</a>
-                                    <button id="nut" class="myButton" onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button> */}
+                                    <button id="nut" className="myButton" onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button> */}
 
-                                    {/* <button class="myButton1" type="submit"
+                                    {/* <button className="myButton1" type="submit"
                                         style={{ color: '#C8C8C8' }}
                                         onClick={() => this.listInNext()}>
                                         <b style={{ color: 'black' }}>Next</b>
                                     </button> */}
-                                    <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                                    <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
                                         <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
                                     </svg>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                                     </svg>
                                     <b>{this.state.page}/{this.state.totalPage}</b>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                                     </svg>
-                                    <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                    <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
                                         <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
                                     </svg>
 
-                                    {/* <div style={{ float: 'right', width: "230px", height: '32px' }} class="">
-                                        <svg width="1.7em" height="1.7em" style={{ marginRight: "5px" }} viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                    {/* <div style={{ float: 'right', width: "230px", height: '32px' }} className="">
+                                        <svg width="1.7em" height="1.7em" style={{ marginRight: "5px" }} viewBox="0 0 16 16" className="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                                             onClick={() => this.listInPrevious()}>
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z" />
+                                            <path fillRule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z" />
                                         </svg>
                                         <b style={{ marginRight: "5px" }}>{this.state.page}</b>
                                         <a> / </a>
                                         <button onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button>
-                                        <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                        <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                                             onClick={() => this.listInNext()}>
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z" />
+                                            <path fillRule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z" />
                                         </svg>
                                     </div> */}
                                 </div>
 
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
+                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
                                             <tr style = {{textAlign: 'center'}}>
@@ -701,7 +701,7 @@ class HomeList extends React.Component {
                             </div>}
                             {this.state.showLoaiXe && <div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
+                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
 
                                         <thead>
                                             <tr style = {{textAlign: 'center'}}>
@@ -737,7 +737,7 @@ class HomeList extends React.Component {
                             </div>}
                             {this.state.showLoaiHang && <div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" class="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
+                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
                                             <tr style = {{textAlign: 'center'}}>
@@ -862,24 +862,24 @@ class HomeList extends React.Component {
                         </div>
                     </div>
                     <div style={{ float: 'right', width: '27%' }}>
-                        <div class="card card-warning" >
-                            <div class="card-header">
-                                <h3 class="card-title">Ảnh vào</h3>
+                        <div className="card card-warning" >
+                            <div className="card-header">
+                                <h3 className="card-title">Ảnh vào</h3>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="">
                                         <img src={c} id="imglayout" /> <img src={a} id="imglayout" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="card-header">
-                                <h3 class="card-title">Ảnh ra</h3>
+                            <div className="card-header">
+                                <h3 className="card-title">Ảnh ra</h3>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="">
                                         <img src={d} id="imglayout" /><img src={b} id="imglayout" />
                                     </div>
                                 </div>

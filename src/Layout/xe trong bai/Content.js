@@ -187,8 +187,8 @@ class Content extends React.Component {
         if (isLoading) {
             return (
                 <div style={{textAlign: 'center', marginTop: '100px'}}>
-                    <div style={{width: '50px', height: '50px'}} class="spinner-border text-primary" role="status">
-                        <span class="sr-only">a</span>
+                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                        <span className="sr-only">a</span>
                     </div>
                     <div>
                         <p style={{fontSize: '20px'}}>Loading...</p>
@@ -197,21 +197,21 @@ class Content extends React.Component {
             )
         }   
         return (
-            <div class="content-wrapper">
-     <section class="content"  >
-<div class="container-fluid">
-  <div class="card card-warning">
-    <div class="card-header">
-        <h3 class="card-title"><i>Danh sách xe trong bãi</i></h3>
+            <div className="content-wrapper">
+     <section className="content"  >
+<div className="container-fluid">
+  <div className="card card-warning">
+    <div className="card-header">
+        <h3 className="card-title"><i>Danh sách xe trong bãi</i></h3>
     </div>
 
-        <div class="card-body">
-            <div class="row">
-                <div class="" style={{float: 'left', width: '64%'}}>
+        <div className="card-body">
+            <div className="row">
+                <div className="" style={{float: 'left', width: '64%'}}>
                     <table style={{width: '100%'}}>
                         <tr>
-                            <td><b>Loại hàng</b><input type="text" class="form-control" placeholder="Nhập loại hàng"/></td>
-                            <td><b>Biển số xe</b><input type="text" class="form-control" placeholder="Nhập biển số xe"/></td>
+                            <td><b>Loại hàng</b><input type="text" className="form-control" placeholder="Nhập loại hàng"/></td>
+                            <td><b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập biển số xe"/></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -222,8 +222,8 @@ class Content extends React.Component {
                                         <option value = '2'>Cổng vào VN</option>
                                         <option value = '5'>Cổng vao ra CN</option>
                                      </select></td>
-                            <td><b>Mã Thẻ</b><input type="text" class="form-control" placeholder="Nhập mã thẻ"/></td>
-                            <td><button class="btn btn-danger" onClick={() => this.list()} style={{height: '40px', width: '300px'}}><h6><b>Tìm</b></h6></button></td>
+                            <td><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ"/></td>
+                            <td><button className="btn btn-danger" onClick={() => this.list()} style={{height: '40px', width: '300px'}}><h6><b>Tìm</b></h6></button></td>
                         </tr>
                     </table>
                     <table style={{textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset'}}>
@@ -246,9 +246,9 @@ class Content extends React.Component {
                     </form><br/>
                     <table>
                         <tr>
-                            <td><button class="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cho ra</b></h9></button></td>
-                            <td><button class="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý Xuất</b></h9></button></td>
-                            <td><button class="btn btn-danger" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cả hai</b></h9></button></td>
+                            <td><button className="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cho ra</b></h9></button></td>
+                            <td><button className="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý Xuất</b></h9></button></td>
+                            <td><button className="btn btn-danger" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cả hai</b></h9></button></td>
                         </tr>    
                     </table>
                
@@ -258,28 +258,28 @@ class Content extends React.Component {
 
           </div>
       </div>
-  <div class="ui grid middle aligned"  id="bang" style={{overflow:'auto', float:'left', width: '80%', height:'600px'}}>
-          <div class="card-header" >
-              <h3 class="card-title">
-              <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+  <div className="ui grid middle aligned"  id="bang" style={{overflow:'auto', float:'left', width: '80%', height:'600px'}}>
+          <div className="card-header" >
+              <h3 className="card-title">
+              <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
                                         <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
                                     </svg>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
                                     </svg>
                                     <b>{this.state.page}/{this.state.totalPage}</b>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
                                     </svg>
-                                    <svg onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                    <svg onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
                                         <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
                                     </svg>
 
               </h3>
           </div> 
-          <table id="example2" class="table table-bordered table-hover"  >
+          <table id="example2" className="table table-bordered table-hover"  >
                                 <>
                                     <thead>
                                         <tr>
@@ -318,26 +318,26 @@ class Content extends React.Component {
    </div>
 </div>
 <div style={{width: '20%', height: '20%', float:'right'}}>
-      <div class="card card-primary">
-          <div class="card-header">
-              <h3 class="card-title"></h3>
+      <div className="card card-primary">
+          <div className="card-header">
+              <h3 className="card-title"></h3>
           </div>
-      <div class="card-body">
-          <div class="row">
-              <div class="">
+      <div className="card-body">
+          <div className="row">
+              <div className="">
                   <img src={izivan} id="img_xetrongbai"/>
               </div>
           </div>
       </div>
       
 
-      <div class="card-body">
-          <div class="row">
-              <div class="">
+      <div className="card-body">
+          <div className="row">
+              <div className="">
                   <img src={izivan} id="img_xetrongbai"/>
               </div>
-              <div class="card-body">                                   
-               <div class="col-3"><br/>
+              <div className="card-body">                                   
+               <div className="col-3"><br/>
                       <button style={{height: '50px', width: '200px'}}><h9>Đồng ý</h9></button><br/><br/>
                       <button style={{height: '50px', width: '200px'}}><h9>Đồng ý</h9></button>
                 </div>

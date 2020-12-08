@@ -47,11 +47,11 @@ class App extends React.Component {
         // }
         return (
             
-    <div class="container" className="App" id="backgr" style={{ height: '950px' }}>
-    <div class="row"  style={{marginLeft:'18%', marginRight: '10%'}}>
-        <div class="col-md-offset-5 col-md-4 text-center" >
+    <div className="container" className="App" id="backgr" style={{ height: '950px' }}>
+    <div className="row"  style={{marginLeft:'18%', marginRight: '10%'}}>
+        <div className="col-md-offset-5 col-md-4 text-center" >
             
-              <div class="form-login" style={{marginTop: '50%'}}><br/>
+              <div className="form-login" style={{marginTop: '50%'}}><br/>
                     <img src={logo} id="logo1" />
                 <br/><br/>
                <input type="username"
@@ -68,9 +68,9 @@ class App extends React.Component {
                                     onChange={(e) => this.handleTextChange('password', e)}
                                 />
                 <br/>
-                <div class="wrapper">
-                        <span class="group-btn">
-                            <a  onClick={() => this.login()}><h4 class='text-white'><button class="btn btn-danger">Đăng nhập</button></h4></a>
+                <div className="wrapper">
+                        <span className="group-btn">
+                            <a  onClick={() => this.login()}><h4 className='text-white'><button className="btn btn-danger">Đăng nhập</button></h4></a>
                         </span>
                 </div>
             </div>
