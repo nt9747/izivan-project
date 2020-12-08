@@ -296,7 +296,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isLoading: false, countInCN: res4.data.countIn, countOutCN: res4.data.countOut, countDoanhThuCn: res4.data.totalMoney })
+            await this.setState({countInCN: res4.data.countIn, countOutCN: res4.data.countOut, countDoanhThuCn: res4.data.totalMoney })
             this.setState({ countTonCN: this.state.countInCN - this.state.countOutCN })
             console.log(this.state.portInCN, this.state.portOutCN)
         
@@ -671,9 +671,15 @@ class Content extends React.Component {
                                 </div>
                             </div>
 
+<<<<<<< HEAD
                             <div className="ui grid middle aligned" style={{ overflow: 'auto', width: '100%', height: '800px' }}>
                                 <div className="card-header" >
                                     <h3 className="card-title" ></h3>
+=======
+                            <div class="ui grid middle aligned" style={{ width: '100%', height: '800px' }}>
+                                <div class="card-header" >
+                                    <h3 class="card-title" ></h3>
+>>>>>>> 811637f596fd04796f295804b39985b21860d96a
 
 
                                 </div>
@@ -707,7 +713,7 @@ class Content extends React.Component {
                                 <table className="table table-bordered table-hover">
 
                                     <thead>
-                                        <tr>
+                                        <tr style = {{textAlign: 'center'}}>
                                             <th></th>
                                             <th>STT vào bãi</th>
                                             <th>Biển số xe vào/ra</th>
@@ -731,7 +737,7 @@ class Content extends React.Component {
                                         {this.state.data && data.data.map((item, i) => (
                                             <tbody>
                                                 {/* <tr onClick={() => this.Edit()} > */}
-                                                <tr key={item.EventID}>
+                                                <tr key={item.EventID} style = {{textAlign: 'center'}}>
                                                     <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                     <td> {item.SoThuTuTrongNgay}</td>
                                                     <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>

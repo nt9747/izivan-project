@@ -309,6 +309,9 @@ class HomeList extends React.Component {
             // }
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            if(this.state.countTon < 0){
+                this.setState({countTon: 0})
+            }
         } catch (err) {
             await this.setState({
                 isLoading: false
