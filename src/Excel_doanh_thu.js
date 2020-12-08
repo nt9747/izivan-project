@@ -8,6 +8,21 @@ import empty from './Layout/img/empty.png'
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 
+
+var today = new Date();
+function getFormatToday(a){
+    var month = a.getUTCMonth() + 1;
+    var day = a.getUTCDate();
+    var year = a.getUTCFullYear();
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+     return  day + "/" + month + "/" + year
+}
+
 function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
@@ -81,7 +96,7 @@ class Content extends React.Component {
             pictureBienSo: "",
             dataPicture: "",
             totalPage: "",
-            namePort: "",
+            namePort: "6",
             dataThongKeXe: "",
             thongKeLoaiXe: "/Statistic/statisticCarInOut",
             TongKetCong: "",
@@ -90,7 +105,7 @@ class Content extends React.Component {
             countTon: "",
             totalMoney: "",
             codeThongKeXe: "",
-            limitPage: "100000",
+            limitPage: "100000000000000",
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
@@ -482,10 +497,9 @@ class Content extends React.Component {
                 )
             }
             return (
-           
-  
 
-<section class="content">
+
+                    <section class="content">
                         <div class="container-fluid">
                             <div class="card card-warning">
                                 <div class="card-header">
@@ -651,24 +665,7 @@ class Content extends React.Component {
                                                 <td><b style={{ textAlign: 'center', backgroundColor: '#35E17E', width: '180px', height: '50px', display: 'inline-block' }}>{countMoney(this.state.countDoanhThuVn)}</b></td>
                                             </tr>
                                         </table><br />
-                                       
-                                        <div style={{}} class="col-5">
-                                            <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
-                                                <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
-                                            </svg>
-                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                                            </svg>
-                                            <b>{this.state.page}/{this.state.totalPage}</b>
-                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                            </svg>
-                                            <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" class="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
-                                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                                            </svg>
-                                        </div>
+                                    
 
                                     </div>
                                 </div>
@@ -680,7 +677,34 @@ class Content extends React.Component {
 
 
                                 </div>
-                                <table id="example2" class="table table-bordered table-hover">
+                                <table id="example2">
+                                <tr><td>
+                            <div>
+                            <table style={{width: '100%'}}>
+                                <tr>
+                                    <td colspan="3">
+                                        <b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+                                    </td>
+                                    <td colspan="11"></td>
+                                    <td>
+                                        <b>Mẫu số: 01-GSHQ</b>
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+                            <br/><br/>
+
+                            <div style={{textAlign: 'center', fontSize: '20px'}}>
+                                <b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LƯỢT XE</b>
+                            </div>
+
+                            <div style={{textAlign: 'center', fontSize: '15px'}}>
+                                (Ngày xuất dữ liệu: {getFormatToday(today)})
+                            </div>
+                </td></tr>
+                <tr><td></td></tr>
+                <tr><td>
+                                <table class="table table-bordered table-hover">
 
                                     <thead>
                                         <tr>
@@ -731,11 +755,12 @@ class Content extends React.Component {
 
                                     </>
                                 </table>
+                                </td></tr>
+                                </table>
                             </div>
 
                         </div>
                     </section>
-
         )
     }
 }
