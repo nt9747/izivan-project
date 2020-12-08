@@ -281,7 +281,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isLoading: false, countInCN: res4.data.countIn, countOutCN: res4.data.countOut, countDoanhThuCn: res4.data.totalMoney })
+            await this.setState({countInCN: res4.data.countIn, countOutCN: res4.data.countOut, countDoanhThuCn: res4.data.totalMoney })
             this.setState({ countTonCN: this.state.countInCN - this.state.countOutCN })
             console.log(this.state.portInCN, this.state.portOutCN)
         
