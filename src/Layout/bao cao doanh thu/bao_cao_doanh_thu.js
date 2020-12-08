@@ -64,7 +64,7 @@ class Content extends React.Component {
             data: "",
             isLoading: true,
             page: 1,
-            nextPage: "",
+            nextPage: "", 
             previousPage: "",
             PortOut: '',
             SelectCong: "/listCar/listCarInOut?",
