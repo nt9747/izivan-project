@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import empty from '../img/empty.png'
-import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -104,11 +104,12 @@ class Content extends React.Component {
             countXeVN: "",
             countXeCN: "",
             EventIdXuLy: "",
+            PhieuHaiQuan: "",
         }
-        
-    
+
+
     }
-    
+
     componentDidMount() {
         this.start()
         this.list()
@@ -283,33 +284,96 @@ class Content extends React.Component {
     }
 
     ///////////Parking chi search dc theo loai hang va bien xe, ko tra ve loaiXeid
-    async Select(bienxeSearch, loaihangSearch) {
+    // =>>>>>>>>>>>> In
+    async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
         try {
+            console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: bienxeSearch,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
-                NUMBERCAR: this.state.numberCar,
+                NUMBERCAR: matheSearch,
                 LOAIHANG: loaihangSearch,
                 PAGE: 1,
                 CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe,
-                ORDERNUMBER: this.state.orderNumber,
+                LOAIXE: loaixeSearch,
+                ORDERNUMBER: sothutuSearch,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ EventIdXuLy: res.data.data[0].Eventid})
-            console.log(res, "EventIdXuly")
+            await this.setState({
+                EventIdXuLy: res.data.data[0].EventID
+            });
+            console.log(res.data)
         } catch (err) {
             await this.setState({
+                isLoading: true
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
     }
 
-    async list() {
+    async listToCurrent() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+            const res = await requestGetListCar({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+            })
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+    async RequestThemPhieuHaiQuan() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            const res = await resquestThemPhieuHaiQuan({
+                EVENTID: this.state.EventIdXuLy,
+                PHIEUHAIQUAN: this.state.PhieuHaiQuan
+            })
+            await this.setState({ msgOut: res.msg, isLoading: false });
+            if (this.state.msgOut == "Thành công") {
+                alert("Thành công!")
+                this.listToCurrent();
+            } else {
+                alert("Thất bại!")
+                this.listToCurrent();
+            }
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+
+    async list() {  
         await this.setState({
             isLoading: true
         })
@@ -529,7 +593,7 @@ class Content extends React.Component {
                                     </thead>
                                     <tbody>
                                         {this.state.data && data.data.map((item, i) => (
-                                            <tr onClick={() => this.Select(item.BienXeVao, item.LoaiHangChiTiet)} style={{ textAlign: 'center' }}>
+                                            <tr onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)} style={{ textAlign: 'center' }}>
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td> {item.MaSoTrenThe || "Chưa có"}</td>
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
@@ -539,7 +603,7 @@ class Content extends React.Component {
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                <td> {item.Name}</td>
+                                                <td> {item.Name || item.LoaiXeChiTiet}</td>
                                                 <td>{item.PhieuHaiQuan}</td>
                                             </tr>
                                         ))}
