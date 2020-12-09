@@ -615,7 +615,7 @@ class Content extends React.Component {
                                     <div className="col-2"><br />
                                         <form action="/ExportExcel">
                                             <button type="submit"
-                                                className="btn btn-danger"
+                                                className="btn btn-success"
                                             >
                                                 <b>Export Excel</b>
                                             </button>
@@ -683,7 +683,7 @@ class Content extends React.Component {
                                 <>
                                     {this.state.data && data.data.map((item, i) => (
                                         <tbody>
-                                            <tr id = "selectPhieuHaiQuan" onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}  key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
+                                            <tr id="xeravao" onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}  key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td > {item.SoThuTuTrongNgay}</td>
                                                 <td > {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
@@ -722,7 +722,7 @@ class Content extends React.Component {
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-danger" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
+                                            <td><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
                                         </tr>
                                     </table>
                                 </h3>

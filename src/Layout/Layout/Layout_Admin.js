@@ -15,13 +15,31 @@ export default class Layout extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            showNguoidung: true,
+            showQlyxe: true,
             showDichVu: true,
-            showTongHop : true,
+            showTongHop: true,
+            showQuantri: true,
+            showPhongloa: true,
         }
+        this.toggleNguoidung = this.toggleNguoidung.bind(this)
+        this.toggleQlyxe = this.toggleQlyxe.bind(this)
         this.toggleDichVu = this.toggleDichVu.bind(this)
         this.toggleTongHop = this.toggleTongHop.bind(this)
+        this.toggleQuantri = this.toggleQuantri.bind(this)
+        this.togglePhongloa = this.togglePhongloa.bind(this)
         
     }
+    toggleNguoidung = () => {
+        const { showNguoidung } = this.state;
+        this.setState({ showNguoidung: !showNguoidung})
+    }
+
+    toggleQlyxe = () => {
+        const { showQlyxe } = this.state;
+        this.setState({ showQlyxe: !showQlyxe})
+    }
+
     toggleDichVu = () => {
         const { showDichVu } = this.state;
         this.setState({ showDichVu: !showDichVu})
@@ -30,6 +48,16 @@ export default class Layout extends Component {
     toggleTongHop = () => {
         const { showTongHop } = this.state;
         this.setState({ showTongHop: !showTongHop})
+    }
+
+    toggleQuantri = () => {
+        const { showQuantri } = this.state;
+        this.setState({ showQuantri: !showQuantri})
+    }
+
+    togglePhongloa = () => {
+        const { showPhongloa } = this.state;
+        this.setState({ showPhongloa: !showPhongloa})
     }
 
     async exitLogin() {
@@ -80,12 +108,12 @@ export default class Layout extends Component {
 <li className="nav-item has-treeview menu-close">
                                 <a href="#" className="nav-link active">
 
-                                    <p>
+                                    <p  onClick={this.toggleNguoidung}>
                                         Quản lí người dùng
                 
                                     </p>
                                 </a>
-                                <ul >
+                                {this.state.showNguoidung && <ul >
                                     <li className="nav-item">
                                         <a href="./AddUser" >
                                            
@@ -98,17 +126,17 @@ export default class Layout extends Component {
                                             <p>Quản trị tài khoản</p>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul>}
                             </li>
                             <li className="nav-item has-treeview menu-close">
                                 <a href="#" className="nav-link active">
 
-                                    <p>
+                                    <p  onClick={this.toggleQlyxe}>
                                         Quản lí xe
                 
                                     </p>
                                 </a>
-                                <ul >
+                                {this.state.showQlyxe &&  <ul >
                                     <li className="nav-item">
                                         <a href="/home">
                                            
@@ -127,7 +155,7 @@ export default class Layout extends Component {
                                             <p>Báo cáo doanh thu</p>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul>}
                             </li>
                             <li className="nav-item has-treeview menu-close">
                                 <a href="#" className="nav-link active">
@@ -139,7 +167,7 @@ export default class Layout extends Component {
                                 </a>
                                 {this.state.showDichVu && <ul  >
                                     <li className="nav-item">
-<a href="pages/Quản trị dịch vụ/boc_xep.html">
+                                        <a href="pages/Quản trị dịch vụ/boc_xep.html">
                                            
                                             <p>Dịch vụ bốc xếp</p>
                                         </a>
@@ -178,12 +206,12 @@ export default class Layout extends Component {
                             </li>
                             <li className="nav-item has-treeview menu-close">
                                 <a href="#" className="nav-link active">
-                                    <p>
+                                    <p  onClick={this.toggleQuantri}>
                                         Quản trị
                 
                                     </p>
                                 </a>
-                                <ul >
+                                {this.state.showQuantri && <ul >
                                     <li className="nav-item">
                                         <a href="./ThongTinXe" >
                                            
@@ -198,20 +226,20 @@ export default class Layout extends Component {
                                     </li>
                                     <li className="nav-item">
                                         <a href="./ChoXeRa">
-<p>Cho xe ra</p>
+                                            <p>Cho xe ra</p>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul>}
                             </li>
                             <li className="nav-item has-treeview menu-close">
                                 <a href="#" className="nav-link active">
 
-                                    <p>
+                                    <p  onClick={this.togglePhongloa}>
                                         Phòng loa
                 
                                     </p>
                                 </a>
-                                <ul >
+                                {this.state.showPhongloa && <ul >
                                     <li className="nav-item">
                                         <a href="./XeTrongBai" >
                                            
@@ -224,7 +252,7 @@ export default class Layout extends Component {
                                             <p>Xe ra vào</p>
                                         </a>
                                     </li>
-                                </ul>
+                                </ul>}
                             </li>
                             <div>
                                 <button style={{width: '235px'}} type="submit" onClick={() => this.exitLogin()}
