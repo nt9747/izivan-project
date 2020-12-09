@@ -472,11 +472,7 @@ class Content extends React.Component {
 
 
 
-<<<<<<< HEAD
                         <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '70%', height: '600px' }}>
-=======
-                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '65%', height: '800px' }}>
->>>>>>> 6b0d07d5fdec99b12171e84d815afc63850e205a
                             <div className="card-header" >
                                 <h3 className="card-title" >
                                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -608,12 +604,7 @@ class Content extends React.Component {
                                         </tr>
                                         <tr>
                                             <td><button onClick={() => this.Cancel()} className='btn btn-danger'><b>Hủy</b></button></td>
-<<<<<<< HEAD
                                             <td style={{ textAlign: "center"}} colSpan="2"><button style={{width: '200px'}} hidden = {this.state.EventIDChange == "null" || this.state.ChoXeRaPort == ""} onClick={() => this.RequestGetCarOut()} className='btn btn-danger'><b>Cho xe ra</b></button></td>
-=======
-                                            <td></td>
-                                            <td><button hidden={this.state.EventIDChange == "null" || this.state.ChoXeRaPort == ""} onClick={() => this.RequestGetCarOut()} className='btn btn-danger'><b>Cho xe ra</b></button></td>
->>>>>>> 6b0d07d5fdec99b12171e84d815afc63850e205a
                                         </tr>
 
                                     </table>
