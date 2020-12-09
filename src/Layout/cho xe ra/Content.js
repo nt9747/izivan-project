@@ -153,9 +153,6 @@ class Content extends React.Component {
 
     async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
         try {
-            await this.setState({
-                isLoading: true
-            })
             console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
@@ -189,26 +186,7 @@ class Content extends React.Component {
         console.log(this.state.data, "Check data!");
     }
     async RequestGetCarOut() {
-        await this.setState({
-            isLoading: true
-        })
         try {
-            console.log(this.state.CongRaNameChange, "CongRaNamechange");
-            console.log(this.state.CongRaChange, "CongRachange")
-            console.log(this.state.bienXeChange, "BienXechange");
-            console.log(this.state.bienContChange, "BienContchange");
-            console.log(this.state.bienMocChange, "BienMocchange");
-            console.log(this.state.loaiHangChange, "LoaiHangchange");
-            console.log(this.state.loaiXeChange, "LoaiXechange");
-            console.log(this.state.loaiXeIDchange, "LoaiXeIDchange");
-            console.log(this.state.linkAnhBienSoChange, "LinkAnhBienSochange");
-            console.log(this.state.linkAnhDauXeChange, "LinkAnhDauXechange");
-            console.log(this.state.linkAnhFullChange, "LinkAnhFullchange");
-            console.log(this.state.IsDongYXeRa, "IsDongYXeRa");
-            console.log(this.state.IsXeKhongHang, "IsXeKhonghang");
-            console.log(this.state.IsXeQuayDau, "IsXeQuayDau");
-            console.log(this.state.carNumber_IDChange, "CarNumber_IDchange");
-            console.log(this.state.EventIDChange, "EventIDchange");
             const res = await requestChoXeRa({
                 BIENSOXE: this.state.bienXeChange,
                 BIENCONT: this.state.bienContChange,
@@ -229,11 +207,12 @@ class Content extends React.Component {
             })
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
-                alert("Thành công!")
-                window.location.href = '/ChoXeRa'
+                alert("Cho xe ra thành công!")
+                this.Cancel();
+                this.listToCurrent();
             } else {
                 alert("Thất bại!")
-                window.location.href = '/ChoXeRa'
+                this.listToCurrent();
             }
         } catch (err) {
             await this.setState({
@@ -416,6 +395,39 @@ class Content extends React.Component {
         }
     }
 
+    async listToCurrent() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+            const res = await requestGetListCar({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+            })
+            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
 
     render() {
 
@@ -506,7 +518,7 @@ class Content extends React.Component {
                             <table id="example2" className="table table-bordered table-hover"  >
                                 <>
                                     <thead>
-                                        <tr>
+                                        <tr style={{ textAlign: "center"}}>
                                             <th>STT</th>
                                             <th>STT vào bãi</th>
                                             <th>Thời gian vào bãi</th>
@@ -519,12 +531,13 @@ class Content extends React.Component {
                                             <th>Loại hàng</th>
                                             <th>Loại xe</th>
                                             <th>Nhân viên</th>
+                                            <th>IsDongYXeRa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         {this.state.data && data.data.map((item, i) => (
-                                            <tr key={item.SoThuTuTrongNgay} onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
+                                            <tr style={{ textAlign: "center"}} key={i} onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
                                                 <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td > {item.SoThuTuTrongNgay}</td>
                                                 <td > {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
@@ -537,6 +550,7 @@ class Content extends React.Component {
                                                 <td > {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
                                                 <td > {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
                                                 <td > {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                <td> {(item.IsDongYXeRa).toString()} </td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -545,7 +559,7 @@ class Content extends React.Component {
                         </div>
                     </div>
                     <div style={{ width: '30%', height: '20%', float: 'right' }}>
-                        <div className="card card-info">
+                        <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title">Hiện Tại</h3>
                             </div>

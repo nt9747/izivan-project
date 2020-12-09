@@ -190,7 +190,7 @@ export const resquestThemPhieuHaiQuan = (payload) => {
 }
 
 export const resquestExportKiemhoa = (payload) => {
-  return handleResult(getAxios.post(`/listCar/listCarIn/UpdateExportCar?EventID=${payload.EVENTID}`, {
+  return handleResult(getAxios.get(`/listCar/listCarIn/UpdateExportCar?EventID=${payload.EVENTID}`, {
   }))
 }
 

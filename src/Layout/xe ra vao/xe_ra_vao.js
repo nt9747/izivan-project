@@ -202,8 +202,6 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            console.log(this.state.nextPage, "nextPage");
-            console.log(this.state.previousPage, "previousPage");
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -235,8 +233,6 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
-            console.log(this.state.nextPage, "nextPage");
-            console.log(this.state.previousPage, "previousPage");
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -356,9 +352,6 @@ class Content extends React.Component {
 
     async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
         try {
-            await this.setState({
-                isLoading: true
-            })
             console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
@@ -376,7 +369,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({EventIdPhieuHaiQuan: res.data.data[0].EventID, isLoading: false })
+            await this.setState({EventIdPhieuHaiQuan: res.data.data[0].EventID})
             console.log(res, "EventIDPhieuHAiQuan")
         } catch (err) {
             await this.setState({

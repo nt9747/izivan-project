@@ -12,7 +12,10 @@ thead{background-color: #4BA0B8}
 #nut{margin-right: 3px}
 #xeravao:visited {background-color: springgreen;}
 
-.myButton {
+
+table tr.active {background: #ccc;}
+
+.myButton { 
 	box-shadow: 0px 1px 0px -8px #1c1b18;
 	border-radius:12px;
 	border:1px solid #333029;
