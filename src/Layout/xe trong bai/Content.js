@@ -1,10 +1,20 @@
-import React, { Component } from 'react';
-import izivan from '../img/1.png'
-import { requestGetListCar, requestLogin } from '../../api'
-import Cookie from 'js-cookie';
-import empty from '../img/empty.png'
 
-function GetFormatDate(a){
+import React, { Component } from 'react';
+import empty from '../img/empty.png'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe } from '../../api'
+import Cookie from 'js-cookie';
+import TableScrollbar from 'react-table-scrollbar';
+import { Redirect } from 'react-router-dom';
+import a from '../img/a.jpg';
+import b from '../img/b.jpg';
+import c from '../img/c.jpg';
+import d from '../img/d.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
     var minutes = b.getUTCMinutes();
@@ -13,49 +23,86 @@ function GetFormatDate(a){
     var day = b.getUTCDate();
     var year = b.getUTCFullYear();
 
-    
-   if(month.toString().length == 1) {
-        month = '0'+month;
-   }
-   if(day.toString().length == 1) {
-        day = '0'+day;
-   }   
-   if(hours.toString().length == 1) {
-        hours = '0'+hours;
-   }
-   if(minutes.toString().length == 1) {
-        minutes = '0'+minutes;
-   }
-   if(seconds.toString().length == 1) {
-        seconds = '0'+seconds;
-   }  
-   if (year == 1970){
-       return ""
-   }
-   else return hours + ":" + minutes + ":" + seconds + "  "  + day + "/" + month + "/" + year
+
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+    if (hours.toString().length == 1) {
+        hours = '0' + hours;
+    }
+    if (minutes.toString().length == 1) {
+        minutes = '0' + minutes;
+    }
+    if (seconds.toString().length == 1) {
+        seconds = '0' + seconds;
+    }
+    if (year == 1970) {
+        return ""
+    }
+    else return hours + ":" + minutes + ":" + seconds + "  " + day + "/" + month + "/" + year
 }
+
+function countMoney(n) {
+    n = parseFloat(n);
+    var b = n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
+    if (b == "NaN vnd"){
+        return ""   
+    }
+    else {
+        return b;
+    }
+}
+
 
 class Content extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '2020/07/03',
-            toDate: '2020/10/15',
+            fromDate: '01/10/2020 00:00:00',
+            toDate: '26/12/2020 00:00:00',
             plateNumber: '',
-            portIn: "",
-            PortOut: "",
+            portIn: '',
             numberCar: "",
             loaiHang: "",
             data: "",
             isLoading: true,
             page: 1,
             nextPage: "",
+            previousPage: "",
+            PortOut: '',
             SelectCong: "/listCar/listCarParking?",
+            total: "",
+            dataXe: "",
             loaiXe: "",
-            data2: "",
+            showBienXe: true,
+            showLoaiXe: false,
+            showLoaiHang: false,
+            pictureDauXeVao: "",
+            pictureDauXeRa: "",
+            pictureVaoFull: "",
+            pictureRaFull: "",
+            pictureBienSo: "",
+            dataPicture: "",
             totalPage: "",
+            namePort: "",
+            dataThongKeXe: "",
+            thongKeLoaiXe: "/Statistic/statisticCarInOut",
+            TongKetCong: "",
+            countIn: "",
+            countOut: "",
+            countTon: "",
+            totalMoney: "",
+            codeThongKeXe: "",
+            limitPage: "10",
+            orderNumber: "",
+            bienCont: "",
+            bienMooc: "",
+
         }
-    }        
+    }
     componentDidMount() {
         this.list();
     }
@@ -64,6 +111,9 @@ class Content extends React.Component {
             isLoading: true
         })
         try {
+            if (this.state.nextPage == null){
+                this.setState({nextPage: this.state.totalPage})
+            }
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -72,30 +122,35 @@ class Content extends React.Component {
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                PAGE: ++this.state.page,
+                PAGE: this.state.nextPage,
                 CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, nextPage: res.data.nextPage });
-            console.log(this.state.nextPage, "Check next page")
-            // if (!res.data.data){
-            //     return (this.state.page)
-            // }
-            if(!(this.state.nextPage)){
-                return(--this.state.page);
-            }
+
+            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
     }
+
 
     async listInPrevious() {
         await this.setState({
             isLoading: true
         })
         try {
+            if (this.state.previousPage == null){
+                this.setState({previousPage: 1})
+            }
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -104,15 +159,17 @@ class Content extends React.Component {
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
-                PAGE: --this.state.page,
+                PAGE: this.state.previousPage,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
             })
-            if (this.state.page < 1){
-                ++this.state.page
-            }
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage});
-            console.log(this.state.data, "check data")
+            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -120,11 +177,48 @@ class Content extends React.Component {
         }
     }
 
+
+
+    async listTo() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+            const res = await requestGetListCar({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: this.state.totalPage,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+            })
+            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+
+
     async list() {
         await this.setState({
             isLoading: true
         })
         try {
+            this.setState({page: 1})
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -136,24 +230,64 @@ class Content extends React.Component {
                 PAGE: this.state.page,
                 CONG: this.state.SelectCong,
                 LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+
             })
-            await this.setState({ data: res.data, isLoading: false, page: 1, total: res.data.total});
-            this.setState({ totalPage: Math.floor(this.state.total / 10) + 1 })
-            console.log(this.state.portIn, "check PortIn")
-            console.log(this.state.PortOut, "check PortOut")
-            console.log(this.state.data, "check dataXe")
+            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
+            if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
+                alert("Wrong choose!")
+                window.location.href = '/home'
+            }
+            if ((this.state.SelectCong == "/listCar/listCarParking?" && this.state.namePort == "3")) {
+                alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
+                window.location.href = '/home'
+            }
+
+            const res2 = await requestGetListLoaiXe({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTOUT: this.state.PortOut,
+                PORTIN: this.state.portIn,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                LOAIXE: this.state.loaiXe,
+                THONGKELOAIXE: this.state.thongKeLoaiXe,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+            })
+            await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
+            this.setState({ countTon: this.state.countIn - this.state.countOut })
+            if (this.state.SelectCong == "/listCar/listCarParking?") {
+                this.setState({ countTon: this.state.total })
+            } 
+            // else if (this.state.countTon < 0){
+            //     this.setState({countTon: "unk.."})
+            // }
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+            if(this.state.countTon < 0){
+                this.setState({countTon: 0})
+            }
         } catch (err) {
             await this.setState({
                 isLoading: false
             }, () => console.log(err))
         }
-        console.log(this.state.data, "Check data!");
-        // if (typeof(this.state.data) == "undefined"){
-        //     return(
-        //         <img src="../img/empty.png" />
-        //     )
-        //     // window.location.href = '/Empty'
-        // }
+        console.log(this.state.SelectCong, "Check Cong");
+        console.log(this.state.codeThongKeXe, "thong ke loai xe");
+        console.log(this.state.dataThongKeXe, "data thong ke xe")
+        console.log(this.state.fromDate, "fromDate");
+        console.log(this.state.toDate, "toDate");
+        console.log(this.state.portIn, "portIn");
+        console.log(this.state.PortOut, "portOut");
+    }
+
+    async Select(row) {
     }
 
     handleTextChange(field, event) {
@@ -162,23 +296,40 @@ class Content extends React.Component {
         })
     }
 
-    handlePortChange(event) {
-        if (event.target.value==5){
-            this.setState({portIn: '1', PortOut: '3'})
+    handlePortChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '5') {
+            this.setState({ portIn: '1', PortOut: '3' })
         }
-        else if (event.target.value==1){
-            this.setState({portIn: '', PortOut: ''})
+        else if (event.target.value == '1') {
+            this.setState({ portIn: '', PortOut: ''})
         }
-        else if (event.target.value==2){
-            this.setState({portIn: '0', PortOut: null})
+        else if (event.target.value == '2') {
+            this.setState({ portIn: '0', PortOut: null})
         }
-        else if (event.target.value==3){
-            this.setState({portIn: null, PortOut: '2'})
+        else if (event.target.value == '3') {
+            this.setState({ portIn: null, PortOut: '2' })
         }
-        else if (event.target.value==4){
-            this.setState({portIn: null, PortOut: '4'})
+        else if (event.target.value == '4') {
+            this.setState({ portIn: null, PortOut: '4' })
         }
     }
+
+    handleAPIChange(field, event) {
+        this.setState({ [field]: event.target.value })
+        if (event.target.value == '1') {
+            this.setState({ SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut"})
+        }
+        else if (event.target.value == '2') {
+            this.setState({ SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn"})
+        }
+        else if (event.target.value == '3') {
+            this.setState({ SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut"})
+        }
+        else if (event.target.value == '4')
+            this.setState({ SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking"})
+    }
+
 
     render() {
         
@@ -297,19 +448,25 @@ class Content extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.state.data2 && this.state.data2.data.map((item, i) => (
+                                        {this.state.data && data.data.map((item, i) => (
                                             <tr>
-                                                <td key={i}> {item.EventParkingID}</td>
-                                                <td key={i}> {item.CarNumber_ID}</td>
-                                                <td key={i}> {GetFormatDate(item.DateInParking)}</td>
-                                                <td key={i}> {item.BienXe}</td>
-                                                <td key={i}> Cho ra</td>
-                                                <td key={i}> Cho xuất</td>  
-                                                <td key={i}> {item.BienCont}</td>
-                                                <td key={i}> {item.BienMooc}</td>
-                                                <td key={i}> {item.LoaiHangChiTiet}</td>
-                                                <td key={i}> {item.LoaiXeID}</td>
-                                                <td key={i}> Phiếu hải quan </td>
+                                        <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> </td>
+                                        <td onClick={() => this.Select(item.EventID)}> </td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.bienCont} </td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.bienMooc}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
+                                        <td onClick={() => this.Select(item.EventID)}> {item.PhieuHaiQuan}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -325,7 +482,7 @@ class Content extends React.Component {
       <div className="card-body">
           <div className="row">
               <div className="">
-                  <img src={izivan} id="img_xetrongbai"/>
+                  <img src={a} id="img_xetrongbai"/>
               </div>
           </div>
       </div>
@@ -334,7 +491,7 @@ class Content extends React.Component {
       <div className="card-body">
           <div className="row">
               <div className="">
-                  <img src={izivan} id="img_xetrongbai"/>
+                  <img src={b} id="img_xetrongbai"/>
               </div>
               <div className="card-body">                                   
                <div className="col-3"><br/>
