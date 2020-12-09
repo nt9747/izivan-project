@@ -150,9 +150,6 @@ class Content extends React.Component {
         }
     }
     async start() {
-        await this.setState({
-            isLoading: true
-        })
         try {
             const res3 = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
@@ -304,7 +301,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
             await this.setState({
-                EventIdXuLy: res.data.data[0].EventID
+                EventIdXuLy: res.data.data[0].EventID, PhieuHaiQuan: res.data.data[0].PhieuHaiQuan
             });
             console.log(res.data)
         } catch (err) {
@@ -350,16 +347,16 @@ class Content extends React.Component {
 
     async RequestThemPhieuHaiQuan() {
         await this.setState({
-            isLoading: true
         })
         try {
             const res = await resquestThemPhieuHaiQuan({
                 EVENTID: this.state.EventIdXuLy,
                 PHIEUHAIQUAN: this.state.PhieuHaiQuan
             })
-            await this.setState({ msgOut: res.msg, isLoading: false });
+            await this.setState({ msgOut: res.msg});
             if (this.state.msgOut == "Thành công") {
                 alert("Thành công!")
+                this.setState({PhieuHaiQuan: ""});
                 this.listToCurrent();
             } else {
                 alert("Thất bại!")
@@ -543,7 +540,7 @@ class Content extends React.Component {
 
                             </div>
                         </div>
-                        <div className="ui grid middle aligned" id="bang" style={{ overflow: 'auto', float: 'left', width: '75%', height: '800px' }}>
+                        <div className="ui grid middle aligned" id="bang" style={{ overflow: 'auto', float: 'left', width: '80%', height: '800px' }}>
                             <div className="card-header" >
                                 <div style={{ float: "right", width: "150px" }}>
                                     <b>Số trang </b>
@@ -599,7 +596,7 @@ class Content extends React.Component {
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                 <td> Chưa</td>
-                                                <td> Chưa</td>
+                                                <td> {(item.IsXeDongYXuat).toString()}</td>
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
@@ -614,7 +611,7 @@ class Content extends React.Component {
                             {this.state.total == 0 && <img src={empty} style={{ width: '1500px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div style={{ width: '25%', height: '20%', float: 'right' }}>
+                    <div style={{ width: '20%', height: '20%', float: 'right' }}>
                         <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
