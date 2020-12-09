@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import izivan from '../img/1.png'
 import { requestGetListCar, requestLogin } from '../../api'
 import Cookie from 'js-cookie';
 import empty from '../img/empty.png'
+import a from '../img/a.jpg';
+import b from '../img/b.jpg';
 
 function GetFormatDate(a){
     const b = new Date(a);
@@ -212,7 +213,7 @@ class Content extends React.Component {
                         <tr>
                             <td><b>Loại hàng</b><input type="text" className="form-control" placeholder="Nhập loại hàng"/></td>
                             <td><b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập biển số xe"/></td>
-                            <td></td>
+                            <td style={{borderBottom: 'white solid 40px'}}></td>
                         </tr>
                         <tr>
                             <td><b>Cổng</b>
@@ -222,8 +223,8 @@ class Content extends React.Component {
                                         <option value = '2'>Cổng vào VN</option>
                                         <option value = '5'>Cổng vao ra CN</option>
                                      </select></td>
-                            <td><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ"/></td>
-                            <td><button className="btn btn-danger" onClick={() => this.list()} style={{height: '40px', width: '300px'}}><h6><b>Tìm</b></h6></button></td>
+                            <td style={{ borderRight: 'white solid 10px' }}><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ"/></td>
+                            <td><button className="btn btn-primary" onClick={() => this.list()} style={{height: '40px', width: '250px'}}><h6><b>Tìm</b></h6></button></td>
                         </tr>
                     </table>
                     <table style={{textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset'}}>
@@ -245,11 +246,14 @@ class Content extends React.Component {
                         <input type="checkbox" name=""/><b>Bốc</b>
                     </form><br/>
                     <table>
-                        <tr>
-                            <td><button className="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cho ra</b></h9></button></td>
-                            <td><button className="btn btn-info" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý Xuất</b></h9></button></td>
-                            <td><button className="btn btn-danger" style={{height: '50px', width: '150px'}}><h9><b>Đồng ý cả hai</b></h9></button></td>
-                        </tr>    
+                        <tr style={{ textAlign: 'center'}}>
+                            <td style={{ borderBottom: 'white solid 10px', borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#909090'}}><h9><b>Đồng ý cho ra</b></h9></td>
+                            <td style={{ height: '30px', width: '130px', backgroundColor: '#4AE10E'}}><h9><b>Đồng ý cả hai</b></h9></td>
+                        </tr>
+                        <tr style={{ textAlign: 'center'}}>
+                            <td style={{ borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#FAF022'}}><h9><b>Đồng ý Xuất</b></h9></td>
+                            <td></td>
+                        </tr>
                     </table>
                
                                     
@@ -258,7 +262,7 @@ class Content extends React.Component {
 
           </div>
       </div>
-  <div className="ui grid middle aligned"  id="bang" style={{overflow:'auto', float:'left', width: '80%', height:'600px'}}>
+  <div className="ui grid middle aligned"  id="bang" style={{overflow:'auto', float:'left', width: '75%', height:'600px'}}>
           <div className="card-header" >
               <h3 className="card-title">
               <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -317,7 +321,7 @@ class Content extends React.Component {
                             </table>       
    </div>
 </div>
-<div style={{width: '20%', height: '20%', float:'right'}}>
+<div style={{width: '25%', height: '20%', float:'right'}}>
       <div className="card card-primary">
           <div className="card-header">
               <h3 className="card-title"></h3>
@@ -325,7 +329,7 @@ class Content extends React.Component {
       <div className="card-body">
           <div className="row">
               <div className="">
-                  <img src={izivan} id="img_xetrongbai"/>
+                  <img src={a} id="img_xetrongbai"/>
               </div>
           </div>
       </div>
@@ -334,12 +338,24 @@ class Content extends React.Component {
       <div className="card-body">
           <div className="row">
               <div className="">
-                  <img src={izivan} id="img_xetrongbai"/>
+                  <img src={b} id="img_xetrongbai"/>
               </div>
               <div className="card-body">                                   
-               <div className="col-3"><br/>
-                      <button style={{height: '50px', width: '200px'}}><h9>Đồng ý</h9></button><br/><br/>
-                      <button style={{height: '50px', width: '200px'}}><h9>Đồng ý</h9></button>
+               <div className="col-4"><br/>
+                      
+                      <table style = {{width: '380px'}}>
+                                        <tr>
+                                            <td style={{ textAlign: 'center', borderBottom: 'white solid 20px'}} colSpan="2"><button className="btn btn-danger" style={{height: '50px', width: '350px'}}><h9>Đồng ý</h9></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Phiếu hải quan</b></td>
+                                            <td style = {{width: '300px'}}><input type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
+                                        </tr>
+                                    </table>
                 </div>
                 </div>
           </div>
