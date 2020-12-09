@@ -101,6 +101,7 @@ class Content extends React.Component {
             countXeAll: "",
             countXeVN: "",
             countXeCN: "",
+            EventIdXuLy: "",
         }
     }
     componentDidMount() {
@@ -276,6 +277,37 @@ class Content extends React.Component {
         }
     }
 
+    async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
+        try {
+            await this.setState({
+                isLoading: true
+            })
+            console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
+            const res = await requestGetListCar({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: bienxeSearch,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: "",
+                LOAIHANG: loaihangSearch,
+                PAGE: 1,
+                CONG: this.state.SelectCong,
+                LOAIXE: "",
+                ORDERNUMBER: "",
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+
+            })
+            await this.setState({EventIdXuLy: res.data.data[0].EventID, isLoading: false })
+            console.log(res, "EventIDPhieuHAiQuan")
+        } catch (err) {
+            await this.setState({
+                isLoading: true
+            }, () => console.log(err))
+        }
+        console.log(this.state.data, "Check data!");
+    }
 
     async list() {
         await this.setState({
@@ -499,18 +531,18 @@ class Content extends React.Component {
                                     </thead>
                                     <tbody>
                                         {this.state.data && data.data.map((item, i) => (
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> Cho ra</td>
-                                                <td onClick={() => this.Select(item.EventID)}> Cho xuất</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.BienCont} </td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.BienMooc}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                <td onClick={() => this.Select(item.EventID)}> {item.Name}</td>
-                                                <td onClick={() => this.Select(item.EventID)}>{item.PhieuHaiQuan}</td>
+                                            <tr style={{ textAlign: 'center' }} onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
+                                                <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                <td> {item.MaSoTrenThe || "Chưa có"}</td>
+                                                <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
+                                                <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                <td> Chưa</td>
+                                                <td> Chưa</td>
+                                                <td> {item.BienCont} </td>
+                                                <td> {item.BienMooc}</td>
+                                                <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                <td> {item.Name}</td>
+                                                <td>{item.PhieuHaiQuan}</td>
                                             </tr>
                                         ))}
                                     </tbody>
