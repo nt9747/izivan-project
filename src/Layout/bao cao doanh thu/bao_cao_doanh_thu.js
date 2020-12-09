@@ -692,7 +692,7 @@ class Content extends React.Component {
                                 <table id="example2" className="table table-bordered table-hover">
 
                                     <thead>
-                                        <tr>
+                                        <tr style = {{textAlign: 'center'}}>
                                             <th></th>
                                             <th>STT vào bãi</th>
                                             <th>Biển số xe vào/ra</th>
@@ -716,7 +716,7 @@ class Content extends React.Component {
                                         {this.state.data && data.data.map((item, i) => (
                                             <tbody>
                                                 {/* <tr onClick={() => this.Edit()} > */}
-                                                <tr key={item.EventID}>
+                                                <tr key={item.EventID} style = {{textAlign: 'center'}}>
                                                     <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                     <td> {item.SoThuTuTrongNgay}</td>
                                                     <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
@@ -740,6 +740,7 @@ class Content extends React.Component {
 
                                     </>
                                 </table>
+                                {this.state.total == 0 && <img src={empty} style={{ width: '1850px', height: '800px' }} />}
                             </div>
 
                         </div>

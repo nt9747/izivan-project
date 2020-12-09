@@ -513,6 +513,7 @@ class Content extends React.Component {
                                     </tbody>
                                 </>
                             </table>
+                            {this.state.total == 0 && <img src={empty} style={{ width: '1500px', height: '800px' }} />}
                         </div>
                     </div>
                     <div style={{ width: '20%', height: '20%', float: 'right' }}>
