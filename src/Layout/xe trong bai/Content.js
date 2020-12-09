@@ -71,7 +71,7 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: '',
-            SelectCong: "/listCar/listCarParking?",
+            SelectCong: "/listCar/listCarIn?", //in
             total: "",
             dataXe: "",
             loaiXe: "",
@@ -87,7 +87,7 @@ class Content extends React.Component {
             totalPage: "",
             namePort: "",
             dataThongKeXe: "",
-            thongKeLoaiXe: "/Statistic/statisticCarParking",
+            thongKeLoaiXe: "/Statistic/statisticCarIn", //in
             TongKetCong: "",
             countIn: "",
             countOut: "",
@@ -157,7 +157,7 @@ class Content extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
-                CONG: '/listCar/listCarParking?',
+                CONG: '/listCar/listCarIn?',
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
@@ -175,7 +175,7 @@ class Content extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
-                CONG: '/listCar/listCarParking?',
+                CONG: '/listCar/listCarIn?',
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
@@ -193,7 +193,7 @@ class Content extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
-                CONG: '/listCar/listCarParking?',
+                CONG: '/listCar/listCarIn?',
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
@@ -295,7 +295,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ EventIdXuLy: res.data.data[0].EventParkingID})
+            await this.setState({ EventIdXuLy: res.data.data[0].Eventid})
             console.log(res, "EventIdXuly")
         } catch (err) {
             await this.setState({
