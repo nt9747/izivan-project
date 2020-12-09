@@ -552,7 +552,7 @@ class Content extends React.Component {
                         </div>
                     </div>
                     <div style={{ width: '25%', height: '20%', float: 'right' }}>
-                        <div className="card card-primary">
+                        <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
                             </div>
