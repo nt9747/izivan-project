@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import izivan from '../img/1.png'
 import { requestGetListCar, requestLogin, resquestGetListCarType, resquestGetExportCar, requestChoXeRa } from '../../api'
 import Cookie from 'js-cookie';
+
+import a from '../img/a.jpg';
+import c from '../img/c.jpg';
 
 function GetFormatDate(a) {
     const b = new Date(a);
@@ -469,7 +471,7 @@ class Content extends React.Component {
 
 
 
-                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '65%', height: '600px' }}>
+                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '70%', height: '600px' }}>
                             <div className="card-header" >
                                 <h3 className="card-title" >
                                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -541,7 +543,7 @@ class Content extends React.Component {
                             </table>
                         </div>
                     </div>
-                    <div style={{ width: '35%', height: '20%', float: 'right' }}>
+                    <div style={{ width: '30%', height: '20%', float: 'right' }}>
                         <div className="card card-primary">
                             <div className="card-header">
                                 <h3 className="card-title">Hiện Tại</h3>
@@ -567,27 +569,27 @@ class Content extends React.Component {
                                                                 fromDataChange: "",
                                                                 TongTienChange: "", */}
                                             <td><b>Biển số xe</b></td>
-                                            <td><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.bienXeChange} onChange={(e) => this.handleTextChange('bienXeChange', e)} type="text" name="" id="edit_car" /><b>Ngày vào</b></td>
-                                            <td><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.fromDataChange} onChange={(e) => this.handleTextChange('fromDataChange', e)} type="text" name="" id="edit_car" /></td>
+                                            <td><input disabled style={{ backgroundColor: '#C0C8C4',marginRight: '10px' }} value={this.state.bienXeChange} onChange={(e) => this.handleTextChange('bienXeChange', e)} type="text" name="" id="edit_car" /><b>Ngày vào</b></td>
+                                            <td></td>
                                         </tr>
                                         <tr>
                                             <td><b>Biển Cont</b></td>
-                                            <td><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.bienContChange} onChange={(e) => this.handleTextChange('bienContChange', e)} type="text" name="" id="edit_car" /></td>
+                                            <td><input disabled style={{ backgroundColor: '#C0C8C4', marginRight: '20px' }} value={this.state.bienContChange} onChange={(e) => this.handleTextChange('bienContChange', e)} type="text" name="" id="edit_car" /> <input disabled style={{ width: '185px', backgroundColor: '#C0C8C4' }} value={this.state.fromDataChange} onChange={(e) => this.handleTextChange('fromDataChange', e)} type="text" name="" id="edit_car" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td><b>Biển Moc</b></td>
-                                            <td><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.bienMocChange} onChange={(e) => this.handleTextChange('bienMocChange', e)} type="text" name="" id="edit_car" /><b>Tổng tiền</b></td>
+                                            <td><input disabled style={{ backgroundColor: '#C0C8C4', marginRight: '10px' }} value={this.state.bienMocChange} onChange={(e) => this.handleTextChange('bienMocChange', e)} type="text" name="" id="edit_car" /><b>Tổng tiền</b></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td><b>Loại Hàng</b></td>
-                                            <td colSpan="2"><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.loaiHangChange} onChange={(e) => this.handleTextChange('loaiHangChange', e)} type="text" name="" id="edit_car" /> <input value={this.state.TongTienChange} onChange={(e) => this.handleTextChange('TongTienChange', e)} disabled style={{ width: '185px', backgroundColor: '#C0C8C4' }} type="text" /></td>
+                                            <td colSpan="2"><input disabled style={{ backgroundColor: '#C0C8C4', marginRight: '20px' }} value={this.state.loaiHangChange} onChange={(e) => this.handleTextChange('loaiHangChange', e)} type="text" name="" id="edit_car" /> <input value={this.state.TongTienChange} onChange={(e) => this.handleTextChange('TongTienChange', e)} disabled style={{ width: '185px', backgroundColor: '#C0C8C4' }} type="text" /></td>
                                             <td></td>
                                         </tr>
                                         <tr>
                                             <td><b>Loại Xe</b></td>
-                                            <td colSpan="2"><input value={this.state.loaiXeChange} onChange={(e) => this.handleTextChange('loaiXeChange', e)} disabled style={{ width: '310px', backgroundColor: '#C0C8C4' }} type="text" name="" id="edit_car" /></td>
+                                            <td colSpan="2"><input value={this.state.loaiXeChange} onChange={(e) => this.handleTextChange('loaiXeChange', e)} disabled style={{ width: '330px', backgroundColor: '#C0C8C4' }} type="text" name="" id="edit_car" /></td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -601,31 +603,22 @@ class Content extends React.Component {
                                         </tr>
                                         <tr>
                                             <td><button onClick={() => this.Cancel()} className='btn btn-danger'><b>Hủy</b></button></td>
-                                            <td></td>
-                                            <td><button hidden = {this.state.EventIDChange == "null" || this.state.ChoXeRaPort == ""} onClick={() => this.RequestGetCarOut()} className='btn btn-danger'><b>Cho xe ra</b></button></td>
+                                            <td style={{ textAlign: "center"}} colSpan="2"><button style={{width: '200px'}} hidden = {this.state.EventIDChange == "null" || this.state.ChoXeRaPort == ""} onClick={() => this.RequestGetCarOut()} className='btn btn-danger'><b>Cho xe ra</b></button></td>
                                         </tr>
 
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <div className="card card-primary">
+                        <div className="card card-warning">
                             <div className="card-header">
-                                <h3 className="card-title"></h3>
+                                <h3 className="card-title"><i>Xe vào</i></h3>
                             </div>
                             <div className="card-body">
                                 <div className="row">
                                     <div className="">
-                                        <img src={izivan} id="img_xetrongbai" />
-                                        <img src={izivan} id="img_xetrongbai" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="">
-                                        <img src={izivan} id="img_xetrongbai" />
-                                        <img src={izivan} id="img_xetrongbai" />
+                                        <img src={c} id="img_xetrongbai" /><br/><br/>
+                                        <img src={a} id="img_xetrongbai" />
                                     </div>
                                 </div>
                             </div>

@@ -5,9 +5,11 @@ import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetList
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
+
+
 import a from '../img/a.jpg';
 import b from '../img/b.jpg';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -103,7 +105,10 @@ class Content extends React.Component {
             countXeCN: "",
             EventIdXuLy: "",
         }
+        
+    
     }
+    
     componentDidMount() {
         this.start()
         this.list()
@@ -540,6 +545,7 @@ class Content extends React.Component {
                                             </tr>
                                         ))}
                                     </tbody>
+                                    <tfoot></tfoot>
                                 </>
                             </table>
                             {this.state.total == 0 && <img src={empty} style={{ width: '1500px', height: '800px' }} />}

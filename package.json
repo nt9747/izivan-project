@@ -12,7 +12,6 @@
     "axios": "^0.20.0",
     "bootstrap": "4.5.3",
     "core-js": "^3.7.0",
-    "datatables.net-dt": "^1.10.22",
     "dojo": "^1.16.3",
     "file-saver": "^2.0.2",
     "jquery": "^3.5.1",
