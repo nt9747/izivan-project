@@ -189,6 +189,11 @@ export const resquestThemPhieuHaiQuan = (payload) => {
   }))
 }
 
+export const resquestExportKiemhoa = (payload) => {
+  return handleResult(getAxios.post(`/listCar/listCarIn/UpdateExportCar?EventID=${payload.EVENTID}`, {
+  }))
+}
+
 export const resquestGetListCarType = (payload) => {
   return handleResult(getAxios.get(`/listCar/listCarType`, {
   }))

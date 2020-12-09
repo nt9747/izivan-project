@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import empty from '../img/empty.png'
-import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan, resquestExportKiemhoa } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -346,8 +346,6 @@ class Content extends React.Component {
     }
 
     async RequestThemPhieuHaiQuan() {
-        await this.setState({
-        })
         try {
             const res = await resquestThemPhieuHaiQuan({
                 EVENTID: this.state.EventIdXuLy,
@@ -355,16 +353,37 @@ class Content extends React.Component {
             })
             await this.setState({ msgOut: res.msg});
             if (this.state.msgOut == "Thành công") {
-                alert("Thành công!")
+                alert("Thêm phiếu hải quan thành công!")
                 this.setState({PhieuHaiQuan: ""});
                 this.listToCurrent();
             } else {
-                alert("Thất bại!")
+                alert("Thêm phiếu hải quan thất bại!")
                 this.listToCurrent();
             }
         } catch (err) {
             await this.setState({
-                isLoading: false
+                isLoading: true
+            }, () => console.log(err))
+        }
+    }
+
+    async RequestKiemHoa() {
+        try {
+            const res = await resquestExportKiemhoa({
+                EVENTID: this.state.EventIdXuLy,
+            })
+            await this.setState({ msgOut: res.msg});
+            if (this.state.msgOut == "Thành công") {
+                alert("Kiểm hóa thành công!")
+                this.setState({PhieuHaiQuan: ""});
+                this.listToCurrent();
+            } else {
+                alert("Kiểm hóa thất bại!")
+                this.listToCurrent();
+            }
+        } catch (err) {
+            await this.setState({
+                isLoading: true
             }, () => console.log(err))
         }
     }
