@@ -393,12 +393,12 @@ class Content extends React.Component {
 
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="" style={{ float: 'left', width: '64%' }}>
+                                    <div className="" style={{ float: 'left', width: '75%' }}>
                                         <table style={{ width: '100%' }}>
                                             <tr>
                                                 <td><b>Loại hàng</b><input type="text" className="form-control" placeholder="Nhập loại hàng" value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)} /></td>
                                                 <td><b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập biển số xe" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} /></td>
-                                                <td style={{borderBottom: 'white solid 40px'}}></td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <td><b>Cổng</b>
@@ -408,10 +408,11 @@ class Content extends React.Component {
                                                         <option value='2'>Cổng vào VN</option>
                                                         <option value='5'>Cổng vao ra CN</option>
                                                     </select></td>
-                                                <td style={{ borderRight: 'white solid 10px' }}><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /></td>
-                                                <td><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
+                                                <td><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /></td>
+                                                <td style={{ textAlign: 'center'}}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
                                             </tr>
                                         </table>
+                                        <form style={{ float: 'right', width: '80%'}}>
                                         <table style={{ textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset' }}>
                                             <tr>
                                                 <td>Tổng số xe trong bãi</td>
@@ -422,8 +423,9 @@ class Content extends React.Component {
                                                 <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeCN}</td>
                                             </tr>
                                         </table>
+                                        </form>
                                     </div>
-                                    <div style={{ float: 'right', width: '36%' }}>
+                                    <div style={{ float: 'right', width: '25%' }}>
                                         <form>
                                             <input type="checkbox" name="" /><b>Cho xuất</b><br />
                                             <input type="checkbox" name="" /><b>Cho phép ra</b><br />
