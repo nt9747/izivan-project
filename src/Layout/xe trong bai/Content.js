@@ -549,7 +549,7 @@ class Content extends React.Component {
                         <div className="card card-primary">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
-                                <b>{this.state.EventIdXuLy}</b>
+                                <b>EventID: {this.state.EventIdXuLy || 'none'}</b>
                             </div>
                             <div className="card-body">
                                 <div className="row">
