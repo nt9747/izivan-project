@@ -277,33 +277,29 @@ class Content extends React.Component {
         }
     }
 
-    async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
+    ///////////Parking chi search dc theo loai hang va bien xe, ko tra ve loaiXeid
+    async Select(bienxeSearch, loaihangSearch) {
         try {
-            await this.setState({
-                isLoading: true
-            })
-            console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: bienxeSearch,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
-                NUMBERCAR: "",
+                NUMBERCAR: this.state.numberCar,
                 LOAIHANG: loaihangSearch,
                 PAGE: 1,
                 CONG: this.state.SelectCong,
-                LOAIXE: "",
-                ORDERNUMBER: "",
+                LOAIXE: this.state.loaiXe,
+                ORDERNUMBER: this.state.orderNumber,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({EventIdXuLy: res.data.data[0].EventID, isLoading: false })
-            console.log(res, "EventIDPhieuHAiQuan")
+            await this.setState({ EventIdXuLy: res.data.data[0].EventParkingID })
+            console.log(res, "EventIdXuly")
         } catch (err) {
             await this.setState({
-                isLoading: true
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
@@ -332,7 +328,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
@@ -376,8 +372,6 @@ class Content extends React.Component {
         }
     }
 
-    async Select(row) {
-    }
 
     handleTextChange(field, event) {
         this.setState({
@@ -441,20 +435,20 @@ class Content extends React.Component {
                                                         <option value='5'>Cổng vao ra CN</option>
                                                     </select></td>
                                                 <td><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /></td>
-                                                <td style={{ textAlign: 'center'}}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
+                                                <td style={{ textAlign: 'center' }}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
                                             </tr>
                                         </table>
                                         <form style={{}}>
-                                        <table style={{ textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset' }}>
-                                            <tr>
-                                                <td>Tổng số xe trong bãi</td>
-                                                <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeAll}</td>
-                                                <td>Tổng số xe cổng VN</td>
-                                                <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeVN}</td>
-                                                <td>Tổng số xe cổng TQ</td>
-                                                <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeCN}</td>
-                                            </tr>
-                                        </table>
+                                            <table style={{ textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset' }}>
+                                                <tr>
+                                                    <td>Tổng số xe trong bãi</td>
+                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeAll}</td>
+                                                    <td>Tổng số xe cổng VN</td>
+                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeVN}</td>
+                                                    <td>Tổng số xe cổng TQ</td>
+                                                    <td style={{ backgroundColor: 'yellow', width: '150px' }}>{this.state.countXeCN}</td>
+                                                </tr>
+                                            </table>
                                         </form>
                                     </div>
                                     <div style={{ float: 'right', width: '25%' }}>
@@ -465,14 +459,14 @@ class Content extends React.Component {
                                             <input type="checkbox" name="" /><b>Bốc</b>
                                         </form><br />
                                         <table>
-                                        <tr style={{ textAlign: 'center'}}>
-                                            <td style={{ borderBottom: 'white solid 10px', borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#909090'}}><h9><b>Đồng ý cho ra</b></h9></td>
-                                            <td style={{ height: '30px', width: '130px', backgroundColor: '#4AE10E'}}><h9><b>Đồng ý cả hai</b></h9></td>
-                                        </tr>
-                                        <tr style={{ textAlign: 'center'}}>
-                                            <td style={{ borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#FAF022'}}><h9><b>Đồng ý Xuất</b></h9></td>
-                                            <td></td>
-                                        </tr>
+                                            <tr style={{ textAlign: 'center' }}>
+                                                <td style={{ borderBottom: 'white solid 10px', borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#909090' }}><h9><b>Đồng ý cho ra</b></h9></td>
+                                                <td style={{ height: '30px', width: '130px', backgroundColor: '#4AE10E' }}><h9><b>Đồng ý cả hai</b></h9></td>
+                                            </tr>
+                                            <tr style={{ textAlign: 'center' }}>
+                                                <td style={{ borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#FAF022' }}><h9><b>Đồng ý Xuất</b></h9></td>
+                                                <td></td>
+                                            </tr>
                                         </table>
 
 
@@ -531,8 +525,8 @@ class Content extends React.Component {
                                     </thead>
                                     <tbody>
                                         {this.state.data && data.data.map((item, i) => (
-                                            <tr style={{ textAlign: 'center' }} onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
-                                                <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                            <tr onClick={() => this.Select(item.BienXeVao, item.LoaiHangChiTiet)} style={{ textAlign: 'center' }}>
+                                                <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td> {item.MaSoTrenThe || "Chưa có"}</td>
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
@@ -555,6 +549,7 @@ class Content extends React.Component {
                         <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
+                                <b>EventID: {this.state.EventIdXuLy || 'none'}</b>
                             </div>
                             <div className="card-body">
                                 <div className="row">
@@ -563,8 +558,6 @@ class Content extends React.Component {
                                     </div>
                                 </div>
                             </div>
-
-
                             <div className="card-body">
                                 <div className="row">
                                     <div className="">
@@ -572,19 +565,19 @@ class Content extends React.Component {
                                     </div>
                                     <div className="card-body">
                                         <div className="col-4"><br />
-                                        <table style = {{width: '380px'}}>
-                                        <tr>
-                                            <td style={{ textAlign: 'center', borderBottom: 'white solid 20px'}} colSpan="2"><button className="btn btn-danger" style={{height: '50px', width: '350px'}}><h9>Đồng ý</h9></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Phiếu hải quan</b></td>
-                                            <td style = {{width: '300px'}}><input type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
-                                        </tr>
-                                    </table>
+                                            <table style={{ width: '380px' }}>
+                                                <tr>
+                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan="2"><button className="btn btn-danger" style={{ height: '50px', width: '350px' }}><h9>Cho xe ra</h9></button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Phiếu hải quan</b></td>
+                                                    <td style={{ width: '300px' }}><input type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
