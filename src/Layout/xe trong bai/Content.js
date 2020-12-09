@@ -539,7 +539,7 @@ class Content extends React.Component {
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                <td> {item.Name}</td>
+                                                <td> {item.Name || item.LoaiXeChiTiet}</td>
                                                 <td>{item.PhieuHaiQuan}</td>
                                             </tr>
                                         ))}
