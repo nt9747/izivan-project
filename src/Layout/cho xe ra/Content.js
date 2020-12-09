@@ -472,7 +472,7 @@ class Content extends React.Component {
 
 
 
-                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '70%', height: '600px' }}>
+                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '70%', height: '1000px' }}>
                             <div className="card-header" >
                                 <h3 className="card-title" >
                                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -545,7 +545,7 @@ class Content extends React.Component {
                         </div>
                     </div>
                     <div style={{ width: '30%', height: '20%', float: 'right' }}>
-                        <div className="card card-primary">
+                        <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title">Hiện Tại</h3>
                             </div>
@@ -611,9 +611,9 @@ class Content extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="card card-warning">
+                        <div className="">
                             <div className="card-header">
-                                <h3 className="card-title"><i>Xe vào</i></h3>
+                                <h3 className="card-title"></h3>
                             </div>
                             <div className="card-body">
                                 <div className="row">
