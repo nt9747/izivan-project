@@ -115,7 +115,7 @@ class Content extends React.Component {
     }
     async listInNext() {
         await this.setState({
-            isLoading: true 
+            isLoading: true
         })
         try {
             if (this.state.nextPage == null) {
@@ -176,7 +176,8 @@ class Content extends React.Component {
                 loaiXeChange: res.data.data[0].LoaiXeChiTiet, loaiXeIDchange: (res.data.data[0].LoaiXeID).toString(), linkAnhBienSoChange: res.data.data[0].LinkAnhBienSo,
                 linkAnhDauXeChange: res.data.data[0].LinkAnhDauXe, linkAnhFullChange: res.data.data[0].LinkAnhFull, IsDongYXeRa: (res.data.data[0].IsDongYXeRa ? 1 : 0).toString(), IsXeKhongHang: (res.data.data[0].IsXeKhongHang ? 1 : 0).toString(),
                 IsXeQuayDau: (res.data.data[0].IsXeQuayDau ? 1 : 0).toString(), carNumber_IDChange: (res.data.data[0].CarNumber_ID).toString(), fromDataChange: GetFormatDate(res.data.data[0].NgayGioVao), TongTienChange: countMoney(res.data.data[0].TongTienThu),
-                EventIDChange: (res.data.data[0].EventID).toString(), ChoXeRaPort: ""});
+                EventIDChange: (res.data.data[0].EventID).toString(), ChoXeRaPort: ""
+            });
             console.log(this.state.EventIDChange, "EventIdChange");
         } catch (err) {
             await this.setState({
@@ -312,7 +313,7 @@ class Content extends React.Component {
                 ORDERNUMBER: this.state.orderNumber,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
-                
+
             })
             await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
@@ -368,9 +369,9 @@ class Content extends React.Component {
         //     // window.location.href = '/Empty'
         // }
     }
-    
+
     async Cancel() {
-        this.setState({ChoXeRaPort: "",EventIDChange: "null", bienXeChange: "", bienContChange: "", bienMocChange: "", fromDataChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: ""});
+        this.setState({ ChoXeRaPort: "", EventIDChange: "null", bienXeChange: "", bienContChange: "", bienMocChange: "", fromDataChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: "" });
     }
     handleTextChange(field, event) {
         this.setState({
@@ -421,12 +422,12 @@ class Content extends React.Component {
         console.log(data.data, "check data")
         if (isLoading) {
             return (
-                <div style={{textAlign: 'center', marginTop: '100px'}}>
-                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                <div style={{ textAlign: 'center', marginTop: '100px' }}>
+                    <div style={{ width: '50px', height: '50px' }} className="spinner-border text-primary" role="status">
                         <span className="sr-only">a</span>
                     </div>
                     <div>
-                        <p style={{fontSize: '20px'}}>Loading...</p>
+                        <p style={{ fontSize: '20px' }}>Loading...</p>
                     </div>
                 </div>
             )
@@ -469,7 +470,7 @@ class Content extends React.Component {
 
 
 
-                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '65%', height: '600px' }}>
+                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '65%', height: '800px' }}>
                             <div className="card-header" >
                                 <h3 className="card-title" >
                                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -521,19 +522,19 @@ class Content extends React.Component {
                                     <tbody>
 
                                         {this.state.data && data.data.map((item, i) => (
-                                            <tr key={item.SoThuTuTrongNgay}>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.SoThuTuTrongNgay}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.MaSoTrenThe || "Chưa có"} </td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienCont || item.BienContVao}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.BienMooc || item.BienMoocVao}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                <td onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                            <tr key={item.SoThuTuTrongNgay} onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
+                                                <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                <td > {item.SoThuTuTrongNgay}</td>
+                                                <td > {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                <td > {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                <td > {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                <td > {item.MaSoTrenThe || "Chưa có"} </td>
+                                                <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                <td > {item.BienCont || item.BienContVao}</td>
+                                                <td > {item.BienMooc || item.BienMoocVao}</td>
+                                                <td > {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                <td > {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                <td > {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -602,7 +603,7 @@ class Content extends React.Component {
                                         <tr>
                                             <td><button onClick={() => this.Cancel()} className='btn btn-danger'><b>Hủy</b></button></td>
                                             <td></td>
-                                            <td><button hidden = {this.state.EventIDChange == "null" || this.state.ChoXeRaPort == ""} onClick={() => this.RequestGetCarOut()} className='btn btn-danger'><b>Cho xe ra</b></button></td>
+                                            <td><button hidden={this.state.EventIDChange == "null" || this.state.ChoXeRaPort == ""} onClick={() => this.RequestGetCarOut()} className='btn btn-danger'><b>Cho xe ra</b></button></td>
                                         </tr>
 
                                     </table>
