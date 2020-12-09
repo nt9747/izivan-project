@@ -150,9 +150,6 @@ class Content extends React.Component {
         }
     }
     async start() {
-        await this.setState({
-            isLoading: true
-        })
         try {
             const res3 = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
@@ -304,7 +301,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
             await this.setState({
-                EventIdXuLy: res.data.data[0].EventID
+                EventIdXuLy: res.data.data[0].EventID, PhieuHaiQuan: res.data.data[0].PhieuHaiQuan
             });
             console.log(res.data)
         } catch (err) {
@@ -350,16 +347,16 @@ class Content extends React.Component {
 
     async RequestThemPhieuHaiQuan() {
         await this.setState({
-            isLoading: true
         })
         try {
             const res = await resquestThemPhieuHaiQuan({
                 EVENTID: this.state.EventIdXuLy,
                 PHIEUHAIQUAN: this.state.PhieuHaiQuan
             })
-            await this.setState({ msgOut: res.msg, isLoading: false });
+            await this.setState({ msgOut: res.msg});
             if (this.state.msgOut == "Thành công") {
                 alert("Thành công!")
+                this.setState({PhieuHaiQuan: ""});
                 this.listToCurrent();
             } else {
                 alert("Thất bại!")
@@ -543,7 +540,7 @@ class Content extends React.Component {
 
                             </div>
                         </div>
-                        <div className="ui grid middle aligned" id="bang" style={{ overflow: 'auto', float: 'left', width: '75%', height: '800px' }}>
+                        <div className="ui grid middle aligned" id="bang" style={{ overflow: 'auto', float: 'left', width: '80%', height: '800px' }}>
                             <div className="card-header" >
                                 <div style={{ float: "right", width: "150px" }}>
                                     <b>Số trang </b>
@@ -599,7 +596,7 @@ class Content extends React.Component {
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                 <td> Chưa</td>
-                                                <td> Chưa</td>
+                                                <td> {(item.IsXeDongYXuat).toString()}</td>
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
@@ -614,7 +611,7 @@ class Content extends React.Component {
                             {this.state.total == 0 && <img src={empty} style={{ width: '1500px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div style={{ width: '25%', height: '20%', float: 'right' }}>
+                    <div style={{ width: '20%', height: '20%', float: 'right' }}>
                         <div className="card card-info">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
@@ -634,17 +631,17 @@ class Content extends React.Component {
                                     </div>
                                     <div className="card-body">
                                         <div className="col-4"><br />
-                                            <table style={{ width: '380px' }}>
+                                            <table style={{ width: '280px' }}>
                                                 <tr>
-                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan="2"><button className="btn btn-danger" style={{ height: '50px', width: '350px' }}><h9>Cho xe ra</h9></button></td>
+                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan= '2'><button className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '20px' }}><h9>Kiểm hóa</h9></button><button className="btn btn-danger" style={{ height: '50px', width: '110px' }}><h9>Cho xe ra</h9></button></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Phiếu hải quan</b></td>
-                                                    <td style={{ width: '300px' }}><input type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+                                                    <td colSpan= '2'><b>Phiếu hải quan</b>
+                                                    <input style={{ width: '' }} type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
-                                                    <td><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
+                                                    <td style={{ textAlign: 'center'}}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>Thêm phiếu hải quan</b></button></td>
                                                 </tr>
                                             </table>
                                         </div>
