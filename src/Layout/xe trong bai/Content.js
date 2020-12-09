@@ -412,7 +412,7 @@ class Content extends React.Component {
                                                 <td style={{ textAlign: 'center'}}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
                                             </tr>
                                         </table>
-                                        <form style={{ float: 'right', width: '80%'}}>
+                                        <form style={{}}>
                                         <table style={{ textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset' }}>
                                             <tr>
                                                 <td>Tổng số xe trong bãi</td>
