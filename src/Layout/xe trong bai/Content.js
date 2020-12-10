@@ -15,7 +15,6 @@ import b from '../img/b.jpg';
 
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
 function GetFormatDate(a) {
     const b = new Date(a);
     var hours = b.getUTCHours();
@@ -533,8 +532,12 @@ class Content extends React.Component {
                                                 <td><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /></td>
                                                 <td style={{ textAlign: 'center' }}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
                                             </tr>
-                                        </table>
+
+                                        </table><br/>
+
+                                 
                                         <br />
+
                                         <form style={{}}>
                                             <table style={{ textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset' }}>
                                                 <tr>

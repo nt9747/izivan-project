@@ -6,10 +6,6 @@ import Cookie from 'js-cookie';
 import { requestLogin } from '../../api';
 
 
-// import '../../../node_modules/adminlte-2-react/src/adminlte/js/adminlte.min.js';
-// import '../../../node_modules/jquery/dist/jquery.min.js'
-// import "../../../node_modules/jquery-ui-dist/jquery-ui.min.js"
-// import '../../../node_modules/bootstrap//dist/js/bootstrap.bundle.min.js'
 
 export default class Layout extends Component {
     constructor(props) {
@@ -30,6 +26,9 @@ export default class Layout extends Component {
         this.togglePhongloa = this.togglePhongloa.bind(this)
         
     }
+
+
+
     toggleNguoidung = () => {
         const { showNguoidung } = this.state;
         this.setState({ showNguoidung: !showNguoidung})

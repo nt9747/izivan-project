@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import pl from '../img/placeholder.jpg'
 import { requestGetListCar, requestLogin, resquestGetListCarType } from '../../api'
 import Cookie from 'js-cookie';
 import empty from '../img/empty.png'
@@ -346,27 +345,38 @@ class Content extends React.Component {
 
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-4">
+                                    <div className="col-3">
                                         <b>Từ</b><input type="text" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                         <b>Mã số thẻ</b><input type="text" className="form-control" placeholder="Nhập Mã số thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} />
 
                                     </div>
-                                    <div className="col-4">
+                                    <div className="col-3">
                                         <b>Đến</b><input type="text" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                         <b>Biển số xe</b><input type="text" className="form-control" placeholder="Nhập Biển Số" value={this.state.plateNumber} onChange={(e) => this.handleTextChange('plateNumber', e)} />
                                     </div>
-                                    <div className="col-4"><br />
-                                        <button className="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
+                                    <div className="col-1" style={{marginRight: '100px'}}>
+                                                <b>Cổng</b>
+                                                    <select value={this.state.namePort} onChange={(e) => this.handlePortChange('namePort', e)}>
+                                                        <option value disabled hidden>Chọn</option>
+                                                        <option selected value='1'>Tất cả</option>
+                                                        <option value='2'>Cổng vào VN</option>
+                                                        <option value='5'>Cổng vao ra CN</option>
+                                                    </select>
                                     </div>
-                                    <div className="col-4">
-
+                                    <div className="col-2"><br />
+                                        <button className="btn btn-danger" style={{ height: '80px', width: '150px' }} onClick={() => this.list()}><h4><b>Tìm Kiếm</b></h4></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div   >
-                            <div>
-                                <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+
+                               
+
+
+
+                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '100%', height: '800px' }}>
+                            <div className="card-header" >
+                                <h3 className="card-title" > <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
                                     <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
                                 </svg>
@@ -381,7 +391,7 @@ class Content extends React.Component {
                                     <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
                                     <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
                                 </svg>
-                            </div>
+</h3>
 
                             <div style={{ float: "right", width: "150px" }}>
                                 <b>Số trang </b>
@@ -394,13 +404,6 @@ class Content extends React.Component {
                                 </select>
                             </div>
 
-                        </div>
-
-
-
-                        <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '100%', height: '800px' }}>
-                            <div className="card-header" >
-                                <h3 className="card-title" ></h3>
                             </div>
                             <table id="example2" className="table table-bordered table-hover" style={{ textAlign: 'center' }}>
                                 <>
@@ -507,6 +510,7 @@ class Content extends React.Component {
                                         <img src={a} id="img_xetrongbai" /> 
                        
                                     </div>
+                                    <div></div>
                                 </div>
                             </div>
                         </div>
