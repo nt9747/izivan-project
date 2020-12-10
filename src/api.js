@@ -189,6 +189,17 @@ export const resquestThemPhieuHaiQuan = (payload) => {
   }))
 }
 
+export const resquestChangeInfoCar = (payload) => {
+  return handleResult(getAxios.post(`/listCar/${payload.UPDATEXEPORT}`, {
+    EventID: payload.EVENTID,
+    BienSoXe: payload.BIENSOXE,
+    BienCont: payload.BIENCONT,
+    BienMoc: payload.BIENMOC,
+    LoaiHang: payload.LOAIHANG,
+    LoaiXeID: payload.LOAIXEID
+  }))
+}
+
 export const resquestExportKiemhoa = (payload) => {
   return handleResult(getAxios.get(`/listCar/listCarIn/UpdateExportCar?EventID=${payload.EVENTID}`, {
   }))
@@ -199,8 +210,9 @@ export const resquestGetListCarType = (payload) => {
   }))
 }
 
+
 export const resquestGetExportCar = (payload) => {
-  return handleResult(getAxios.get(`/listCar/exportCar`, {
+  return handleResult(getAxios.post(`/listCar/exportCar`, {
   }))
 }
 
