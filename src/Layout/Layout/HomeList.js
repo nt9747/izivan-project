@@ -675,7 +675,7 @@ class HomeList extends React.Component {
                                             {this.state.data && data.data.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr key={item.EventID} style = {{textAlign: 'center'}}>
+                                                    <tr key={i} style = {{textAlign: 'center'}}>
                                                         <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                         <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
                                                         <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>

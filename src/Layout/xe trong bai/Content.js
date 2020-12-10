@@ -355,38 +355,6 @@ class Content extends React.Component {
         console.log(this.state.data, "Check data!");
     }
 
-    async listToCurrent() {
-        await this.setState({   
-            isLoading: true
-        })
-        try {
-            console.log(this.state.nextPage, "nextPage");
-            console.log(this.state.previousPage, "previousPage");
-            const res = await requestGetListCar({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
-                PLATENUMBER: this.state.plateNumber,
-                PORTIN: this.state.portIn,
-                PORTOUT: this.state.PortOut,
-                NUMBERCAR: this.state.numberCar,
-                LOAIHANG: this.state.loaiHang,
-                PAGE: this.state.page,
-                CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe,
-                LIMIT: this.state.limitPage,
-                ORDERNUMBER: this.state.orderNumber,
-                BIENCONT: this.state.bienCont,
-                BIENMOOC: this.state.bienMooc,
-            })
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
-            console.log(this.state.nextPage, "nextPage");
-            console.log(this.state.previousPage, "previousPage");
-        } catch (err) {
-            await this.setState({
-                isLoading: false
-            }, () => console.log(err))
-        }
-    }
 
     async RequestThemPhieuHaiQuan() {
         try {
