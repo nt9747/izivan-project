@@ -150,7 +150,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
 
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage, isActive: null });
+            await this.setState({EventIdXuLy: "", data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage, isActive: null });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
 
@@ -246,7 +246,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -278,7 +278,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isActive: null, data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -313,7 +313,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -366,7 +366,7 @@ class Content extends React.Component {
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
                 alert("Thêm phiếu hải quan thành công!")
-                this.setState({ PhieuHaiQuan: "" });
+                this.setState({ PhieuHaiQuan: "", EventIdXuLy: ""});
                 this.listToCurrent();
             } else {
                 alert("Thêm phiếu hải quan thất bại!")
@@ -387,7 +387,7 @@ class Content extends React.Component {
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
                 alert("Kiểm hóa thành công!")
-                this.setState({ PhieuHaiQuan: "" });
+                this.setState({ PhieuHaiQuan: "", EventIdXuLy: ""});
                 this.listToCurrent();
             } else {
                 alert("Kiểm hóa thất bại!")
@@ -424,7 +424,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({EventIdXuLy: "", data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
@@ -635,6 +635,7 @@ class Content extends React.Component {
                                                 key={i}
                                                 onClick={() => this.toggleActive(i) || this.Select(item.BienXeVao, item.LoaihangChiTiet, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
                                                 <td>{item.EventIn_ID} </td>
+                                                <td>{item.SoThuTuTrongNgay} </td>
                                                 <td> {item.MaSoTrenThe || "Chưa có"}</td>
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
