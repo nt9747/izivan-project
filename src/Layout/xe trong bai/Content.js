@@ -346,6 +346,7 @@ class Content extends React.Component {
             })
             await this.setState({
                 EventIdXuLy: res.data.data[0].EventIn_ID
+
             });
             console.log(res.data)
         } catch (err) {
@@ -640,7 +641,7 @@ class Content extends React.Component {
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                 <td> {(item.IsDongYXeRa).toString()}</td>
-                                                <td> { }</td>
+                                                <td> {(item.IsXeXuatThang).toString() }</td>
                                                 {/* (item.IsXeXuatThang).toString() */}
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
