@@ -567,7 +567,7 @@ class Content extends React.Component {
 
                                         </table><br/>
 
-                                        </table>
+                                 
                                         <br />
 
                                         <form style={{}}>
@@ -657,9 +657,6 @@ class Content extends React.Component {
                                     </thead>
                                     <tbody >
                                         {this.state.data && data.data.map((item, i) => (
-<<<<<<< HEAD
-                                            <tr id="example3" onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)} style={{ textAlign: 'center' }}>
-=======
                                             <tr style={
                                                 this.state.isActive === i
                                                     ? { background: '#BEC6C1' , textAlign: 'center' }
@@ -667,7 +664,6 @@ class Content extends React.Component {
                                             }
                                                 key={i}
                                                 onClick={() => this.toggleActive(i) || this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
->>>>>>> 21eeca3a40053721b320d9485b4543803df40b47
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td> {item.MaSoTrenThe || "Chưa có"}</td>
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
@@ -713,13 +709,8 @@ class Content extends React.Component {
                                                     <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '20px' }}><h9>Kiểm hóa</h9></button><button className="btn btn-danger" style={{ height: '50px', width: '110px' }}><h9>Cho xe ra</h9></button></td>
                                                 </tr>
                                                 <tr>
-<<<<<<< HEAD
-                                                    <td style={{ borderBottom: 'white solid 10px' }} colSpan= '2'><b>Phiếu hải quan</b>
-                                                    <input type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
-=======
                                                     <td style={{ borderBottom: 'white solid 10px' }} colSpan='2'><b>Phiếu hải quan</b>
                                                         <input style={{ width: '' }} type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
->>>>>>> 21eeca3a40053721b320d9485b4543803df40b47
                                                 </tr>
                                                 <tr>
                                                     <td></td>
