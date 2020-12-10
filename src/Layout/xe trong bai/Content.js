@@ -74,7 +74,7 @@ class Content extends React.Component {
             nextPage: "",
             previousPage: "",
             PortOut: '',
-            SelectCong: "/listCar/listCarIn?", //in
+            SelectCong: "/listCar/listCarParking?",
             total: "",
             dataXe: "",
             loaiXe: "",
@@ -90,7 +90,7 @@ class Content extends React.Component {
             totalPage: "",
             namePort: "",
             dataThongKeXe: "",
-            thongKeLoaiXe: "/Statistic/statisticCarIn", //in
+            thongKeLoaiXe: "/Statistic/statisticCarParking",
             TongKetCong: "",
             countIn: "",
             countOut: "",
@@ -171,7 +171,7 @@ class Content extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
-                CONG: '/listCar/listCarIn?',
+                CONG: '/listCar/listCarParking?',
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
@@ -189,7 +189,7 @@ class Content extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
-                CONG: '/listCar/listCarIn?',
+                CONG: '/listCar/listCarParking?',
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
@@ -207,7 +207,7 @@ class Content extends React.Component {
                 NUMBERCAR: this.state.numberCar,
                 LOAIHANG: this.state.loaiHang,
                 PAGE: this.state.page,
-                CONG: '/listCar/listCarIn?',
+                CONG: '/listCar/listCarParking?',
                 LOAIXE: this.state.loaiXe,
                 LIMIT: this.state.limitPage,
                 ORDERNUMBER: this.state.orderNumber,
@@ -313,7 +313,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -325,26 +325,27 @@ class Content extends React.Component {
 
     ///////////Parking chi search dc theo loai hang va bien xe, ko tra ve loaiXeid
     // =>>>>>>>>>>>> In
-    async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
+    async Select(bienxeSearch, loaihangSearch, matheSearch, sothutuSearch) {
         try {
-            console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
+            console.log(bienxeSearch, loaihangSearch, matheSearch, sothutuSearch)
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
                 PLATENUMBER: bienxeSearch,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
-                NUMBERCAR: matheSearch,
+                NUMBERCAR: this.state.numberCar,
                 LOAIHANG: loaihangSearch,
                 PAGE: 1,
                 CONG: this.state.SelectCong,
-                LOAIXE: loaixeSearch,
+                LOAIXE: this.state.loaiXe,
                 ORDERNUMBER: sothutuSearch,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
+                LIMIT: 1
             })
             await this.setState({
-                EventIdXuLy: res.data.data[0].EventID
+                EventIdXuLy: res.data.data[0].EventIn_ID
             });
             console.log(res.data)
         } catch (err) {
@@ -533,9 +534,9 @@ class Content extends React.Component {
                                                 <td style={{ textAlign: 'center' }}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
                                             </tr>
 
-                                        </table><br/>
+                                        </table><br />
 
-                                 
+
                                         <br />
 
                                         <form style={{}}>
@@ -610,6 +611,7 @@ class Content extends React.Component {
                                 <>
                                     <thead>
                                         <tr style={{ textAlign: 'center' }}>
+                                            <th>EventIn_ID </th>
                                             <th>STT vào bãi</th>
                                             <th>Mã thẻ</th>
                                             <th>Ngày vào bãi</th>
@@ -627,17 +629,18 @@ class Content extends React.Component {
                                         {this.state.data && data.data.map((item, i) => (
                                             <tr style={
                                                 this.state.isActive === i
-                                                    ? { background: '#BEC6C1' , textAlign: 'center' }
-                                                    : { background: '' , textAlign: 'center'}      
+                                                    ? { background: '#BEC6C1', textAlign: 'center' }
+                                                    : { background: '', textAlign: 'center' }
                                             }
                                                 key={i}
-                                                onClick={() => this.toggleActive(i) || this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
-                                                <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                onClick={() => this.toggleActive(i) || this.Select(item.BienXeVao, item.LoaihangChiTiet, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
+                                                <td>{item.EventIn_ID} </td>
                                                 <td> {item.MaSoTrenThe || "Chưa có"}</td>
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                 <td> {(item.IsDongYXeRa).toString()}</td>
-                                                <td> {(item.IsXeXuatThang).toString()}</td>
+                                                <td> { }</td>
+                                                {/* (item.IsXeXuatThang).toString() */}
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
