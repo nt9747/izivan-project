@@ -101,8 +101,21 @@ class Content extends React.Component {
             bienMooc: "",
             EventIdPhieuHaiQuan: "",
             PhieuHaiQuan: "",
+            isActive: null,
         }
     }
+    toggleActive = i => {
+
+        if (i === this.state.isActive) {
+            this.setState({
+                isActive: null
+            });
+        } else {
+            this.setState({
+                isActive: i
+            });
+        }
+    };
 
     toggleBienXe = () => {
         const { showBienXe } = this.state;
@@ -149,9 +162,10 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
 
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
+            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage,isActive: null });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
 
         } catch (err) {
             await this.setState({
@@ -185,9 +199,10 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -218,9 +233,10 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -249,9 +265,10 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -304,6 +321,7 @@ class Content extends React.Component {
             })
             await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
+            this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
                 window.location.href = '/home'
@@ -328,6 +346,7 @@ class Content extends React.Component {
             })
             await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
             this.setState({ countTon: this.state.countIn - this.state.countOut })
+            this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
             if (this.state.SelectCong == "/listCar/listCarParking?") {
                 this.setState({ countTon: this.state.total })
             }
@@ -389,6 +408,7 @@ class Content extends React.Component {
             await this.setState({ msgOut: res.msg, isLoading: false });
             if (this.state.msgOut == "Thành công") {
                 alert("Thành công!")
+                this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
                 this.listToCurrent();
             } else {
                 alert("Thất bại!")
@@ -674,8 +694,14 @@ class Content extends React.Component {
                                 </thead>
                                 <>
                                     {this.state.data && data.data.map((item, i) => (
-                                        <tbody>
-                                            <tr id="xeravao" onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}  key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
+                                        <tbody style={
+                                            this.state.isActive === i
+                                                ? { background: '#BEC6C1' , textAlign: 'center' }
+                                                : { background: '' , textAlign: 'center'}      
+                                        }
+                                            key={i}
+                                            onClick={() => this.toggleActive(i)}>
+                                            <tr onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}  key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td > {item.SoThuTuTrongNgay}</td>
                                                 <td > {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
@@ -706,15 +732,17 @@ class Content extends React.Component {
                         <div className="card card-order">
                             <div className="card-header">
                                 <h3 className="card-title">
-                                    <b>{this.state.EventIdPhieuHaiQuan}</b>
+                                    <b>Thông tin xe EventID:{this.state.EventIdPhieuHaiQuan || 'none'}</b>
+                                    
                                     <table>
                                         <tr>
                                             <td><b>Phiếu hải quan</b></td>
-                                            <td><input style = {{width: '200px'}}type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+                                            <td><input style = {{width: ''}}type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+                                            <td></td>
                                         </tr>
                                         <tr>
+                                            <td colSpan='2'><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
                                             <td></td>
-                                            <td><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
                                         </tr>
                                     </table>
                                 </h3>
