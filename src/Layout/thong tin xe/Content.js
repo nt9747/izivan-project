@@ -3,6 +3,10 @@ import pl from '../img/placeholder.jpg'
 import { requestGetListCar, requestLogin, resquestGetListCarType } from '../../api'
 import Cookie from 'js-cookie';
 import empty from '../img/empty.png'
+import a from '../img/a.jpg';
+import b from '../img/b.jpg';
+import c from '../img/c.jpg';
+import d from '../img/d.jpg';
 
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -486,15 +490,22 @@ class Content extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="card card-primary">
+                        <div className="card card-primary" >
                             <div className="card-header">
-                                <h3 className="card-title"></h3>
+                                <h3 className="card-title">Ảnh xe</h3>
                             </div>
                             <div className="card-body">
                                 <div className="row">
                                     <div className="">
-                                        <img src={pl} id="img_xetrongbai" />
-                                        <img src={pl} id="img_xetrongbai" />
+
+                                        <img src={b} id="img_xetrongbai" />
+                                    </div>
+                                </div>
+                            </div><div className="card-body">
+                                <div className="row">
+                                    <div className="">
+                                        <img src={a} id="img_xetrongbai" /> 
+                       
                                     </div>
                                 </div>
                             </div>
