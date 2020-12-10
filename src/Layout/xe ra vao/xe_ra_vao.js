@@ -476,9 +476,9 @@ class Content extends React.Component {
                                     </div>
                                     <div className="col-3">
                                         <b>Loại Hàng</b><br />
-                                        <select loaiHang={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
-                                            <option>Chọn</option>
-                                            <option value="">Tất cả</option>
+                                        <select value={this.state.loaiHang} onChange={(e) => this.handleTextChange('loaiHang', e)}>
+                                            <option disabled hidden>Chọn</option>
+                                            <option selected value="">Tất cả</option>
                                             <option value="CAU KHÔ">CAU KHÔ</option>
                                             <option value="THANH LONG">THANH LONG</option>
                                             <option value="CHUỐI NÓNG">CHUỐI NÓNG</option>
