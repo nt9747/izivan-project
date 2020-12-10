@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import empty from '../img/empty.png'
-import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan, resquestExportKiemhoa } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -9,6 +9,8 @@ import { Redirect } from 'react-router-dom';
 
 import a from '../img/a.jpg';
 import b from '../img/b.jpg';
+
+
 
 
 var today = new Date();
@@ -95,7 +97,7 @@ class Content extends React.Component {
             countTon: "",
             totalMoney: "",
             codeThongKeXe: "",
-            limitPage: "10",
+            limitPage: "20",
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
@@ -104,11 +106,21 @@ class Content extends React.Component {
             countXeCN: "",
             EventIdXuLy: "",
             PhieuHaiQuan: "",
+            isActive: null
         }
-
-
     }
+    toggleActive = i => {
 
+        if (i === this.state.isActive) {
+            this.setState({
+                isActive: null
+            });
+        } else {
+            this.setState({
+                isActive: i
+            });
+        }
+    };
     componentDidMount() {
         this.start()
         this.list()
@@ -138,7 +150,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
 
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
+            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage, isActive: null });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
 
@@ -234,7 +246,39 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+        } catch (err) {
+            await this.setState({
+                isLoading: false
+            }, () => console.log(err))
+        }
+    }
+    async listToCurrent() {
+        await this.setState({
+            isLoading: true
+        })
+        try {
+            console.log(this.state.nextPage, "nextPage");
+            console.log(this.state.previousPage, "previousPage");
+            const res = await requestGetListCar({
+                FROMDATE: this.state.fromDate,
+                TODATE: this.state.toDate,
+                PLATENUMBER: this.state.plateNumber,
+                PORTIN: this.state.portIn,
+                PORTOUT: this.state.PortOut,
+                NUMBERCAR: this.state.numberCar,
+                LOAIHANG: this.state.loaiHang,
+                PAGE: this.state.page,
+                CONG: this.state.SelectCong,
+                LOAIXE: this.state.loaiXe,
+                LIMIT: this.state.limitPage,
+                ORDERNUMBER: this.state.orderNumber,
+                BIENCONT: this.state.bienCont,
+                BIENMOOC: this.state.bienMooc,
+            })
+            await this.setState({ isActive: null, data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -269,7 +313,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -300,7 +344,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
             await this.setState({
-                EventIdXuLy: res.data.data[0].EventID, PhieuHaiQuan: res.data.data[0].PhieuHaiQuan
+                EventIdXuLy: res.data.data[0].EventID
             });
             console.log(res.data)
         } catch (err) {
@@ -312,7 +356,7 @@ class Content extends React.Component {
     }
 
     async listToCurrent() {
-        await this.setState({
+        await this.setState({   
             isLoading: true
         })
         try {
@@ -345,31 +389,50 @@ class Content extends React.Component {
     }
 
     async RequestThemPhieuHaiQuan() {
-        await this.setState({
-        })
         try {
             const res = await resquestThemPhieuHaiQuan({
                 EVENTID: this.state.EventIdXuLy,
                 PHIEUHAIQUAN: this.state.PhieuHaiQuan
             })
-            await this.setState({ msgOut: res.msg});
+            await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
-                alert("Thành công!")
-                this.setState({PhieuHaiQuan: ""});
+                alert("Thêm phiếu hải quan thành công!")
+                this.setState({ PhieuHaiQuan: "" });
                 this.listToCurrent();
             } else {
-                alert("Thất bại!")
+                alert("Thêm phiếu hải quan thất bại!")
                 this.listToCurrent();
             }
         } catch (err) {
             await this.setState({
-                isLoading: false
+                isLoading: true
+            }, () => console.log(err))
+        }
+    }
+
+    async RequestKiemHoa() {
+        try {
+            const res = await resquestExportKiemhoa({
+                EVENTID: this.state.EventIdXuLy,
+            })
+            await this.setState({ msgOut: res.msg });
+            if (this.state.msgOut == "Thành công") {
+                alert("Kiểm hóa thành công!")
+                this.setState({ PhieuHaiQuan: "" });
+                this.listToCurrent();
+            } else {
+                alert("Kiểm hóa thất bại!")
+                this.listToCurrent();
+            }
+        } catch (err) {
+            await this.setState({
+                isLoading: true
             }, () => console.log(err))
         }
     }
 
 
-    async list() {  
+    async list() {
         await this.setState({
             isLoading: true
         })
@@ -501,7 +564,12 @@ class Content extends React.Component {
                                                 <td><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /></td>
                                                 <td style={{ textAlign: 'center' }}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
                                             </tr>
+
                                         </table><br/>
+
+                                        </table>
+                                        <br />
+
                                         <form style={{}}>
                                             <table style={{ textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset' }}>
                                                 <tr>
@@ -587,15 +655,25 @@ class Content extends React.Component {
                                             <th>Phiểu hải quan</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody >
                                         {this.state.data && data.data.map((item, i) => (
+<<<<<<< HEAD
                                             <tr id="example3" onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)} style={{ textAlign: 'center' }}>
+=======
+                                            <tr style={
+                                                this.state.isActive === i
+                                                    ? { background: '#BEC6C1' , textAlign: 'center' }
+                                                    : { background: '' , textAlign: 'center'}      
+                                            }
+                                                key={i}
+                                                onClick={() => this.toggleActive(i) || this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
+>>>>>>> 21eeca3a40053721b320d9485b4543803df40b47
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td> {item.MaSoTrenThe || "Chưa có"}</td>
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                <td> Chưa</td>
-                                                <td> {(item.IsXeDongYXuat).toString()}</td>
+                                                <td> {(item.IsDongYXeRa).toString()}</td>
+                                                <td> {(item.IsXeXuatThang).toString()}</td>
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
@@ -611,10 +689,10 @@ class Content extends React.Component {
                         </div>
                     </div>
                     <div style={{ width: '20%', height: '20%', float: 'right' }}>
-                        <div className="card card-info">
+                        <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
-                                <b>EventID: {this.state.EventIdXuLy || 'none'}</b>
+                                <b>Thông tin xe EventID: {this.state.EventIdXuLy || 'none'}</b>
                             </div>
                             <div className="card-body">
                                 <div className="row">
@@ -632,15 +710,20 @@ class Content extends React.Component {
                                         <div className="col-4"><br />
                                             <table style={{ width: '280px' }}>
                                                 <tr>
-                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan= '2'><button className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '20px' }}><h9>Kiểm hóa</h9></button><button className="btn btn-danger" style={{ height: '50px', width: '110px' }}><h9>Cho xe ra</h9></button></td>
+                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '20px' }}><h9>Kiểm hóa</h9></button><button className="btn btn-danger" style={{ height: '50px', width: '110px' }}><h9>Cho xe ra</h9></button></td>
                                                 </tr>
                                                 <tr>
+<<<<<<< HEAD
                                                     <td style={{ borderBottom: 'white solid 10px' }} colSpan= '2'><b>Phiếu hải quan</b>
                                                     <input type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+=======
+                                                    <td style={{ borderBottom: 'white solid 10px' }} colSpan='2'><b>Phiếu hải quan</b>
+                                                        <input style={{ width: '' }} type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+>>>>>>> 21eeca3a40053721b320d9485b4543803df40b47
                                                 </tr>
                                                 <tr>
                                                     <td></td>
-                                                    <td style={{ textAlign: 'center'}}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>Thêm phiếu hải quan</b></button></td>
+                                                    <td style={{ textAlign: 'center' }}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>Thêm phiếu hải quan</b></button></td>
                                                 </tr>
                                             </table>
                                         </div>
