@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import empty from '../img/empty.png'
-import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan } from '../../api'
+import empty from './Layout/img/empty.png'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan } from './api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
-import a from '../img/a.jpg';
-import b from '../img/b.jpg';
-import c from '../img/c.jpg';
-import d from '../img/d.jpg';
+import a from './Layout/img/a.jpg';
+import b from './Layout/img/b.jpg';
+import c from './Layout/img/c.jpg';
+import d from './Layout/img/d.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 var today = new Date();
@@ -56,7 +56,7 @@ function countMoney(n) {
 }
 
 
-class Content extends React.Component {
+class excelxeravao extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -95,7 +95,7 @@ class Content extends React.Component {
             countTon: "",
             totalMoney: "",
             codeThongKeXe: "",
-            limitPage: "10",
+            limitPage: "100000000",
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
@@ -478,7 +478,7 @@ class Content extends React.Component {
             )
         }
         return (
-            <div className="content-wrapper" id="root">
+            
                 <section className="content">
                     <div className="container-fluid">
                         <div className="card card-warning">
@@ -625,7 +625,7 @@ class Content extends React.Component {
                                     </div>
 
                                     <div className="col-2"><br />
-                                        <form action="/ExcelXeRaVao">
+                                        <form action="/ExportExcel">
                                             <button type="submit"
                                                 className="btn btn-success"
                                             >
@@ -634,41 +634,13 @@ class Content extends React.Component {
                                         </form>
                                     </div>
                                     <div className="col-4"><br />
-                                    <div className= "row">
-                                        <div style={{ marginRight: "90px" }}>
-                                            <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
-                                                <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
-                                            </svg>
-                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                                            </svg>
-                                            <b>{this.state.page}/{this.state.totalPage}</b>
-                                            <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                            </svg>
-                                            <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
-                                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <b>Số trang </b>
-                                            <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({ page: 1 }) || this.list()}>
-                                                <option selected disabled hidden>Chọn</option>
-                                                <option value='10'>10</option>
-                                                <option value='20'>20</option>
-                                                <option value='35'>35</option>
-                                                <option value='50'>50</option>
-                                            </select>
-                                        </div>
-                                        </div>
+                                    
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', float: 'left', width: '80%', height: '900px' }}>
+                        <div className="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', height: '900px' }}>
                             <table id="example2" className="table table-bordered table-hover"  >
 
                                 <thead>
@@ -725,62 +697,13 @@ class Content extends React.Component {
 
                                 </>
                             </table>
-                            {!this.state.data && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
+                            {!this.state.data && <img src={empty} style={{ width: '100%', height: '1000px' }} />}
                         </div>
                     </div>
-                    <div style={{ width: '20%', height: '40%', float: 'right' }}>
-                        <div className="card card-order">
-                            <div className="card-header">
-                                <h3 className="card-title">
-                                    <b>Thông tin xe EventID:{this.state.EventIdPhieuHaiQuan || 'none'}</b>
-                                    
-                                    <table>
-                                        <tr>
-                                            <td><b>Phiếu hải quan</b></td>
-                                            <td><input style = {{width: ''}}type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td colSpan='2'><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
-                                            <td></td>
-                                        </tr>
-                                    </table>
-                                </h3>
-                            </div>
-                        </div>
-
-
-                        <div class="card card-warning">
-                            <div class="card-header">
-                                <h3 class="card-title">Ảnh ra</h3>
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="">
-                                        <img src={b} id="imglayout" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="card card-warning">
-                            <div class="card-header">
-                                <h3 class="card-title">Ảnh vào</h3>
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="">
-                                        <img src={a} id="imglayout" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    
                 </section>
-            </div>
+
         )
     }
 }
-export default Content
+export default excelxeravao
