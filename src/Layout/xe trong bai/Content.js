@@ -689,7 +689,7 @@ class Content extends React.Component {
                                                     <td style={{ textAlign: 'center' }}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>Thêm phiếu hải quan</b></button></td>
                                                 </tr>
                                             </table>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>

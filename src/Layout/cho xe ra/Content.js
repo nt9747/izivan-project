@@ -109,8 +109,22 @@ class Content extends React.Component {
             msgOut: "",
             bienCont: "",
             bienMooc: "",
+            isActive: null,
         }
     }
+    toggleActive = i => {
+
+        if (i === this.state.isActive) {
+            this.setState({
+                isActive: null
+            });
+        } else {
+            this.setState({
+                isActive: i
+            });
+        }
+    };
+
     componentDidMount() {
         this.list();
         this.start();
@@ -140,9 +154,10 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
 
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({ bienXeChange: "",bienContChange: "",bienMocChange: "",loaiHangChange: "",TongTienChange: "",loaiXeChange: "",fromDataChange: ""});
 
         } catch (err) {
             await this.setState({
@@ -168,6 +183,7 @@ class Content extends React.Component {
                 ORDERNUMBER: sothutuSearch,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
+                LIMIT: 1
             })
             await this.setState({
                 isLoading: false, dataChange: res.data,
@@ -208,6 +224,7 @@ class Content extends React.Component {
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
                 alert("Cho xe ra thành công!")
+                this.setState({ fromDataChange: "",bienXeChange: "",bienContChange: "",bienMocChange: "",loaiHangChange: "",TongTienChange: "",loaiXeChange: ""});
                 this.Cancel();
                 this.listToCurrent();
             } else {
@@ -246,9 +263,10 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({ fromDataChange: "",bienXeChange: "",bienContChange: "",bienMocChange: "",loaiHangChange: "",TongTienChange: "",loaiXeChange: ""});
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -296,9 +314,10 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({ fromDataChange: "",bienXeChange: "",bienContChange: "",bienMocChange: "",loaiHangChange: "",TongTienChange: "",loaiXeChange: ""});
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -332,10 +351,11 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({ data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
             console.log(this.state.portIn, "check PortIn")
             console.log(this.state.PortOut, "check PortOut")
+            this.setState({ fromDataChange: "",bienXeChange: "",bienContChange: "",bienMocChange: "",loaiHangChange: "",TongTienChange: "",loaiXeChange: ""});
             console.log(this.state.data, "check data");
         } catch (err) {
             await this.setState({
@@ -418,9 +438,10 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null,data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
+            this.setState({ fromDataChange: "",bienXeChange: "",bienContChange: "",bienMocChange: "",loaiHangChange: "",TongTienChange: "",loaiXeChange: ""});
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -532,12 +553,18 @@ class Content extends React.Component {
                                             <th>Loại xe</th>
                                             <th>Nhân viên</th>
                                             <th>IsDongYXeRa</th>
-                                        </tr>
+                                        </tr> 
                                     </thead>
                                     <tbody>
 
                                         {this.state.data && data.data.map((item, i) => (
-                                            <tr style={{ textAlign: "center"}} key={i} onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
+                                            <tr style={
+                                                this.state.isActive === i
+                                                    ? { background: '#BEC6C1' , textAlign: 'center' }
+                                                    : { background: '' , textAlign: 'center'}      
+                                            }
+                                                key={i}
+                                                onClick={() => this.toggleActive(i) || this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
                                                 <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td > {item.SoThuTuTrongNgay}</td>
                                                 <td > {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>

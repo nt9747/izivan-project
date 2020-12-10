@@ -5,7 +5,6 @@ import Cookie from 'js-cookie';
 import { render } from '@testing-library/react';
 import TableScrollbar from 'react-table-scrollbar';
 
-
 class Content extends React.Component {
     render(){
         return(

@@ -422,7 +422,7 @@ class Content extends React.Component {
                     <div className="container-fluid" style={{ float: 'left', width: '70%', height: '250px' }}>
                         <div className="card card-warning" >
                             <div className="card-header" >
-                                <h3 className="card-title"></h3>
+                                <h3 className="card-title"><i>Thông tin xe</i></h3>
                             </div>
 
                             <div className="card-body">
@@ -519,7 +519,7 @@ class Content extends React.Component {
                                                 onClick={() => this.toggleActive(i) || this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
                                                 <td>{item.EventID} </td>
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                <td> {item.SoThuTuTrongNgay}</td>
+                                                <td > {item.SoThuTuTrongNgay}</td>
                                                 <td > {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
                                                 <td > {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
                                                 <td > {item.ThoiGianTrongBai || "Chưa có"}</td>
