@@ -352,7 +352,6 @@ class Content extends React.Component {
 
     async Select(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch) {
         try {
-            console.log(bienxeSearch, loaihangSearch, loaixeSearch, matheSearch, sothutuSearch)
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -369,7 +368,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({EventIdPhieuHaiQuan: res.data.data[0].EventID})
+            await this.setState({EventIdPhieuHaiQuan: res.data.data[0].EventIn_ID})
             console.log(res, "EventIDPhieuHAiQuan")
         } catch (err) {
             await this.setState({
