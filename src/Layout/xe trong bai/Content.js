@@ -617,8 +617,8 @@ class Content extends React.Component {
                                             <th>Mã thẻ</th>
                                             <th>Ngày vào bãi</th>
                                             <th>Biển số xe</th>
+                                            {/* <th>Cho xuất</th> */}
                                             <th>Cho ra</th>
-                                            <th>Cho xuất</th>
                                             <th>Biển Cont</th>
                                             <th>Biển Mooc</th>
                                             <th>Loại hàng</th>
@@ -641,7 +641,7 @@ class Content extends React.Component {
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                 <td> {(item.IsDongYXeRa).toString()}</td>
-                                                <td> {(item.IsXeXuatThang).toString() }</td>
+                                                {/* <td> {(item.IsXeXuatThang).toString() }</td> */}
                                                 {/* (item.IsXeXuatThang).toString() */}
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
@@ -679,7 +679,9 @@ class Content extends React.Component {
                                         <div className="col-4"><br />
                                             <table style={{ width: '280px' }}>
                                                 <tr>
-                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '20px' }}><h9>Kiểm hóa</h9></button><button className="btn btn-danger" style={{ height: '50px', width: '110px' }}><h9>Cho xe ra</h9></button></td>
+                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '200px' }}><h9>Kiểm hóa</h9></button>
+                                                    {/* <button className="btn btn-danger" style={{ height: '50px', width: '110px' }}><h9>Cho ra</h9></button> */}
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td style={{ borderBottom: 'white solid 10px' }} colSpan='2'><b>Phiếu hải quan</b>

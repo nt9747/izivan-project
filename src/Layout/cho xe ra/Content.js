@@ -223,10 +223,10 @@ class Content extends React.Component {
             })
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
-                alert("Cho xe ra thành công!")
-                this.setState({ fromDataChange: "", bienXeChange: "", bienContChange: "", bienMocChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: "" });
+                alert("Cho xe ra thành công!")    
                 this.Cancel();
                 this.listToCurrent();
+                this.setState({ fromDataChange: "", bienXeChange: "", bienContChange: "", bienMocChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: "" });
             } else {
                 alert("Thất bại!")
                 this.listToCurrent();
@@ -577,7 +577,7 @@ class Content extends React.Component {
                                                 <td > {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
                                                 <td > {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
                                                 <td > {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
-                                                <td> {(item.IsDongYXeRa).toString()} </td>
+                                                <td > {(item.IsDongYXeRa).toString()} </td>
                                             </tr>
                                         ))}
                                     </tbody>

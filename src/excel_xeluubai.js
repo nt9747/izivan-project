@@ -7,10 +7,22 @@ import { Redirect } from 'react-router-dom';
 import empty from './Layout/img/empty.png'
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
-
+var today = new Date();
+function getFormatToday(a){
+    var month = a.getUTCMonth() + 1;
+    var day = a.getUTCDate();
+    var year = a.getUTCFullYear();
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+     return  day + "/" + month + "/" + year
+}
 
 function GetFormatDate(a) {
-    const b = new Date(a);
+    const b = new Date(a); 
     var hours = b.getUTCHours();
     var minutes = b.getUTCMinutes();
     var seconds = b.getUTCSeconds();
@@ -592,11 +604,37 @@ class excelxeluubai extends React.Component {
 
 
 
-                            {this.state.showBienXe && <div>
-                                <div style={{ width: '100%', height: '800px' }}>
-                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
+                        <table id="example2">
+                {this.state.showBienXe && <table>
+                <tr><td>
+			<div>
+			<table style={{width: '100%'}}>
+				<tr>
+					<td colSpan="2">
+						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+					</td>
+					<td colSpan="11"></td>
+					<td>
+						<b>Mẫu số: 01-GSHQ</b>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<br/><br/>
 
-                                        <thead>
+			<div style={{textAlign: 'center', fontSize: '20px'}}>
+				<b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LƯỢT XE</b>
+			</div>
+
+			<div style={{textAlign: 'center', fontSize: '15px'}}>
+				(Ngày xuất dữ liệu: {getFormatToday(today)})
+			</div>
+</td></tr>
+<tr><td></td></tr>
+<tr><td>
+                    <table id="t1" className="table table-bordered table-hover table2excel" >
+
+                    <thead>
                                             <tr>
                                                 <th></th>
                                                 <th>STT vào bãi</th>
@@ -644,16 +682,40 @@ class excelxeluubai extends React.Component {
                                                 </tbody>
                                             ))}
 
-                                        </>
-                                    </table>
-                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
-                                </div>
-                            </div>}
-                            {this.state.showLoaiXe && <div>
-                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
+                        </>
+                    
+                    </table>
+                    </td></tr></table>}
+                    {this.state.showLoaiXe && <table>
+                        <tr><td>
+			<div>
+			<table style={{width: '100%'}}>
+				<tr>
+					<td colSpan="2">
+						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+					</td>
+					<td colSpan="11"></td>
+					<td>
+						<b>Mẫu số: 02-GSHQ</b>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<br/><br/>
 
-                                        <thead>
+			<div style={{textAlign: 'center', fontSize: '20px'}}>
+				<b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LOẠI XE</b>
+			</div>
+
+			<div style={{textAlign: 'center', fontSize: '15px'}}>
+				(Ngày xuất dữ liệu: {getFormatToday(today)})
+			</div>
+</td></tr>
+<tr><td></td></tr>
+                    <tr><td>
+                    <table id="t2" className="table table-bordered table-hover table2excel" >
+
+                    <thead>
                                             <tr>
                                                 <th>Ngày</th>
                                                 <th>Xe có trọng tải dưới 4 tấn</th>
@@ -680,16 +742,40 @@ class excelxeluubai extends React.Component {
                                                 </tbody>
                                             ))}
 
-                                        </>
-                                    </table>
-                                    {/* {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />} */}
-                                </div>
-                            </div>}
-                            {this.state.showLoaiHang && <div>
-                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
+                        </>
+                    </table>
+                    </td></tr></table>}
+                    {this.state.showLoaiHang && <table>
+                        <tr><td>
+			<div style={{float: 'left', width: '45%'}}>
+            <div>
+			<table style={{textAlign: 'center', width: '100%'}}>
+				<tr>
+                    <td colSpan="11"></td>
+					<td colSpan="23">
+						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+					</td>
+					<td>
+						<b>Mẫu số: 03-GSHQ</b>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<br/><br/>
+                <div style={{textAlign: 'center', fontSize: '20px'}}>
+                    <b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LOẠI HÀNG</b>
+                </div>
+                <div style={{marginRight: '600px'}}></div>
+                <div style={{textAlign: 'center', fontSize: '15px'}}>
+                    (Ngày xuất dữ liệu: {getFormatToday(today)})
+                </div>
+                </div>
+</td></tr>
+<tr><td></td></tr>
+                    <tr><td>
+                    <table id="t3" className="table table-bordered table-hover table2excels">
 
-                                        <thead>
+                         <thead>
                                             <tr>
                                                 <th>Ngày</th>
                                                 <th>Cau khô</th>
@@ -803,11 +889,12 @@ class excelxeluubai extends React.Component {
                                                     </tr>
                                                 </tbody>
                                             ))}
-                                        </>
-                                    </table>
-                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
-                                </div>
-                            </div>}
+                        </>
+                    </table></td></tr>
+                   
+                            </table>}
+                            {this.state.total == 0 && <img src={empty} style={{ width: '2000px', height: '1000px' }} />}
+                        </table>
                         </div>
                     </div>
                 </section>

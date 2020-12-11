@@ -732,17 +732,18 @@ class Content extends React.Component {
                         <div className="card card-order">
                             <div className="card-header">
                                 <h3 className="card-title">
-                                    <b>Thông tin xe EventID:{this.state.EventIdPhieuHaiQuan || 'none'}</b>
+                                    
                                     
                                     <table>
-                                        <tr>
+                                        <tr style={{ borderBottom: 'white solid 15px' }}>
+                                            <td colSpan="3"><b>Thông tin xe EventID:{this.state.EventIdPhieuHaiQuan || 'none'}</b></td>
+                                        </tr>
+                                        <tr style={{ borderBottom: 'white solid 15px' }}>
                                             <td><b>Phiếu hải quan</b></td>
-                                            <td><input style = {{width: ''}}type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
-                                            <td></td>
+                                            <td colSpan="2"><input type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
                                         </tr>
                                         <tr>
-                                            <td colSpan='2'><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
-                                            <td></td>
+                                            <td colSpan='3' style={{textAlign: 'center'}}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '200px' }}><b>Thêm phiếu hải quan</b></button></td>
                                         </tr>
                                     </table>
                                 </h3>
