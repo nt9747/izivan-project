@@ -9,9 +9,21 @@ import b from './Layout/img/b.jpg';
 import c from './Layout/img/c.jpg';
 import d from './Layout/img/d.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 var today = new Date();
-var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+function getFormatToday(a){
+    var month = a.getUTCMonth() + 1;
+    var day = a.getUTCDate();
+    var year = a.getUTCFullYear();
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+     return  day + "/" + month + "/" + year
+}
 
 function GetFormatDate(a) {
     const b = new Date(a);
@@ -625,13 +637,13 @@ class excelxeravao extends React.Component {
                                     </div>
 
                                     <div className="col-2"><br />
-                                        <form action="/ExportExcel">
-                                            <button type="submit"
-                                                className="btn btn-success"
-                                            >
-                                                <b>Export Excel</b>
-                                            </button>
-                                        </form>
+                                        <ReactHTMLTableToExcel
+                                            id="test-table-xls-button"
+                                            className="btn btn-success"
+                                            table="example2"
+                                            filename={this.state.fromDate + " to " + this.state.toDate}
+                                            sheet="sheet1"
+                                            buttonText="Export Excel"/>
                                     </div>
                                     <div className="col-4"><br />
                                     
@@ -641,8 +653,34 @@ class excelxeravao extends React.Component {
                         </div>
 
                         <div className="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', height: '900px' }}>
-                            <table id="example2" className="table table-bordered table-hover"  >
+                        <table id="example2">
+                <tr><td>
+			<div>
+			<table style={{width: '100%'}}>
+				<tr>
+					<td colSpan="2">
+						<b>CÔNG TY VẬN TẢI THƯƠNG MẠI BẢO NGUYÊN</b>
+					</td>
+					<td colSpan="11"></td>
+					<td>
+						<b>Mẫu số: 01-GSHQ</b>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<br/><br/>
 
+			<div style={{textAlign: 'center', fontSize: '20px'}}>
+				<b>PHIẾU THEO DÕI PHƯƠNG TIỆN VÀO BÃI THEO LƯỢT XE</b>
+			</div>
+
+			<div style={{textAlign: 'center', fontSize: '15px'}}>
+				(Ngày xuất dữ liệu: {getFormatToday(today)})
+			</div>
+</td></tr>
+<tr><td></td></tr>
+<tr><td>
+                            <table  className="table table-bordered table-hover"  >
                                 <thead>
                                     <tr style={{ textAlign: 'center' }}>
                                         <th></th>
@@ -696,7 +734,7 @@ class excelxeravao extends React.Component {
                                     ))}
 
                                 </>
-                            </table>
+                            </table></td></tr></table>
                             {!this.state.data && <img src={empty} style={{ width: '100%', height: '1000px' }} />}
                         </div>
                     </div>

@@ -568,7 +568,14 @@ class Content extends React.Component {
                                         <tr>
                                             <td><b>Loại Xe</b></td>
                                             <td><input disabled style={{ backgroundColor: '#C0C8C4' }} value={this.state.loaiXeOld} onChange={(e) => this.handleTextChange('loaiXeEdit', e)} type="text" name="" id="edit_car1" /></td>
-                                            <td><input type="text" value={this.state.loaiXeNew} onChange={(e) => this.handleTextChange('loaiXeNew', e)} name="" id="edit_car1" /></td>
+                                            <td><select value={this.state.loaiXeNew} onChange={(e) => this.handleTextChange('loaiXeNew', e)}>
+                                                    <option value="1">Xe có trọng tải dưới 4 tấn</option>
+                                                    <option value="2">Xe có trọng tải từ 4 đến 10 tấn</option>
+                                                    <option value="3">Xe có trọng tải từ 10 đến 18 tấn</option>
+                                                    <option value="4">Xe có trọng tải trên 18 tấn</option>
+                                                    <option value="5">Container 20"</option>
+                                                    <option value="6">Container 40"</option>
+                                                </select></td>
                                         </tr>
                                         <tr>
                                             <td><button onClick={() => this.Cancel()} className="btn btn-danger" > Hủy</button></td>
