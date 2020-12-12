@@ -553,7 +553,7 @@ class Content extends React.Component {
                                             </table>
                                         </form>
                                     </div>
-                                    <div style={{ float: 'right', width: '25%' }}>
+                                    {/* <div style={{ float: 'right', width: '25%' }}>
                                         <form>
                                             <input type="checkbox" name="" /><b>Cho xuất</b><br />
                                             <input type="checkbox" name="" /><b>Cho phép ra</b><br />
@@ -572,7 +572,7 @@ class Content extends React.Component {
                                         </table>
 
 
-                                    </div>
+                                    </div> */}
                                 </div>
 
                             </div>
@@ -617,8 +617,8 @@ class Content extends React.Component {
                                             <th>Mã thẻ</th>
                                             <th>Ngày vào bãi</th>
                                             <th>Biển số xe</th>
-                                            {/* <th>Cho xuất</th> */}
                                             <th>Cho ra</th>
+                                            <th>Cho xuất</th>
                                             <th>Biển Cont</th>
                                             <th>Biển Mooc</th>
                                             <th>Loại hàng</th>
@@ -641,7 +641,7 @@ class Content extends React.Component {
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                 <td> {(item.IsDongYXeRa).toString()}</td>
-                                                {/* <td> {(item.IsXeXuatThang).toString() }</td> */}
+                                                <td> {(item.IsXeXuatThang).toString() }</td>
                                                 {/* (item.IsXeXuatThang).toString() */}
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
