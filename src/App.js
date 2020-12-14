@@ -55,10 +55,9 @@ class App extends React.Component {
             <div className="container" className="App" id="backgr" style={{ height: '950px' }}>
                 <div className="row" style={{ marginLeft: '38%' }}>
                     <div className="col-md-offset-5 col-md-4 text-center" >
-
-                        <div className="form-login" style={{ marginTop: '65%' }}><br />
+                        <div className="form-login" style={{ marginTop: '60%' }}><br />
                             <img src={logo} id="logo1" />
-                            <br /><br />
+                            <br /><br /><br />
                             <input type="username"
                                 placeholder="Tài khoản"
                                 className="form-control"
@@ -72,24 +71,23 @@ class App extends React.Component {
                                 value={password}
                                 onChange={(e) => this.handleTextChange('password', e)}
                             />
+                            <a href="/QuenMatKhau"> Quên mật khẩu </a>
+                            <br />
                             <br />
                             <div className="wrapper">
                                 <span className="group-btn">
-                                    <a onClick={() => this.login()}><h4 className='text-white'><button className="btn btn-danger">Đăng nhập</button></h4></a>
+                                    <a onClick={() => this.login()}><h4 className='text-white'><button hidden={this.state.isLoading == true} className="btn btn-danger">Đăng nhập</button></h4></a>
                                 </span>
                             </div>
                         </div>
-                        {this.state.isLoading && <div style={{ textAlign: 'center', marginTop: '100px' }}>
+                        {this.state.isLoading && <div style={{ textAlign: 'center'   }}>
                             <div style={{ width: '50px', height: '50px' }} className="spinner-border text-primary" role="status">
                                 <span className="sr-only">a</span>
-                            </div>
-                            <div>
-                                <p style={{ fontSize: '20px' }}>Loading...</p>
                             </div>
                         </div>}
                     </div>
                 </div>
-            </div>
+            </div >
 
         )
     }
