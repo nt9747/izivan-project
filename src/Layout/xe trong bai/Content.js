@@ -642,7 +642,6 @@ class Content extends React.Component {
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
                                                 <td> {(item.IsDongYXeRa).toString()}</td>
                                                 <td> {(item.IsXeXuatThang).toString() }</td>
-                                                {/* (item.IsXeXuatThang).toString() */}
                                                 <td> {item.BienCont} </td>
                                                 <td> {item.BienMooc}</td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
