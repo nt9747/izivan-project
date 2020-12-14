@@ -397,15 +397,12 @@ class Content extends React.Component {
         console.log(this.state.data, "Check data!");
     }
     async RequestThemPhieuHaiQuan() {
-        await this.setState({
-            isLoading: true
-        })
         try {
             const res = await resquestThemPhieuHaiQuan({
                 EVENTID: this.state.EventIdPhieuHaiQuan,
                 PHIEUHAIQUAN: this.state.PhieuHaiQuan
             })
-            await this.setState({ msgOut: res.msg, isLoading: false });
+            await this.setState({ msgOut: res.msg});
             if (this.state.msgOut == "Thành công") {
                 alert("Thành công!")
                 this.setState({PhieuHaiQuan: "", EventIdPhieuHaiQuan: "" });
