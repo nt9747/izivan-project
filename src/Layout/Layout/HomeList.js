@@ -99,6 +99,7 @@ class HomeList extends React.Component {
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
+            isActive: null,
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
@@ -106,6 +107,18 @@ class HomeList extends React.Component {
         this.toggleLoaiXe = this.toggleLoaiXe.bind(this)
     }
 
+    toggleActive = i => {
+
+        if (i === this.state.isActive) {
+            this.setState({
+                isActive: null
+            });
+        } else {
+            this.setState({
+                isActive: i
+            });
+        }
+    };
 
     toggleBienXe = () => {
         const { showBienXe } = this.state;
@@ -152,7 +165,7 @@ class HomeList extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
 
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
 
@@ -188,7 +201,7 @@ class HomeList extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -223,7 +236,7 @@ class HomeList extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -275,7 +288,7 @@ class HomeList extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null, data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
@@ -299,7 +312,7 @@ class HomeList extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
+            await this.setState({ isActive: null, codeThongKeXe: res2.data, dataThongKeXe: res2.data, isLoading: false, countIn: res2.data.countIn, countOut: res2.data.countOut, totalMoney: res2.data.totalMoney })
             this.setState({ countTon: this.state.countIn - this.state.countOut })
             if (this.state.SelectCong == "/listCar/listCarParking?") {
                 this.setState({ countTon: this.state.total })
@@ -675,7 +688,13 @@ class HomeList extends React.Component {
                                             {this.state.data && data.data.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr key={i} style = {{textAlign: 'center'}}>
+                                                    <tr style={
+                                                this.state.isActive === i
+                                                    ? { background: '#BEC6C1', textAlign: 'center' }
+                                                    : { background: '', textAlign: 'center' }
+                                            }
+                                                key={i}
+                                                onClick={() => this.toggleActive(i)}>
                                                         <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                         <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
                                                         <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
