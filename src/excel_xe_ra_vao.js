@@ -652,7 +652,7 @@ class excelxeravao extends React.Component {
                             </div>
                         </div>
 
-                        <div className="ui grid middle aligned" id="admin1" style={{ overflow: 'auto', height: '900px' }}>
+                        <div className="ui grid middle aligned" id="admin1" style={{height: '900px' }}>
                         <table id="example2">
                 <tr><td>
 			<div>
