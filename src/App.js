@@ -35,6 +35,7 @@ class App extends React.Component {
 
         } catch (err) {
             alert("Sai tên tài khoản hoặc mật khẩu rồi!!! ")
+            window.location.href = '/';
         }
     }
 
