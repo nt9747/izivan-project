@@ -627,7 +627,7 @@ class Content extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody >
-                                        {this.state.data && data.data.map((item, i) => (
+                                        {this.state.data && data.data.map((item, i) => (    
                                             <tr style={
                                                 this.state.isActive === i
                                                     ? { background: '#BEC6C1', textAlign: 'center' }

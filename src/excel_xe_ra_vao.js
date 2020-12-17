@@ -704,9 +704,14 @@ class excelxeravao extends React.Component {
                                 </thead>
                                 <>
                                     {this.state.data && data.data.map((item, i) => (
+<<<<<<< HEAD
                                         <tbody style={{ textAlign: 'center'}}
                                             >
                                             <tr>
+=======
+                                        <tbody>
+                                            <tr style={{ textAlign: 'center' }}>
+>>>>>>> d05c3a6a957e152f09b7fc8e87864bbf1f1c5263
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td > {item.SoThuTuTrongNgay}</td>
                                                 <td > {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
