@@ -419,7 +419,7 @@ class Content extends React.Component {
         return (
             <div className="content-wrapper">
                 <section className="content">
-                    <div className="container-fluid" style={{ float: 'left', width: '70%', height: '250px' }}>
+                    <div className="container-fluid" style={{ float: 'left', width: '75%', height: '250px' }}>
                         <div className="card card-warning" >
                             <div className="card-header" >
                                 <h3 className="card-title"><i>Thông tin xe</i></h3>
@@ -539,8 +539,8 @@ class Content extends React.Component {
                             {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div style={{ width: '30%', height: '20%', float: 'right' }}>
-                        <div className="card card-primary">
+                    <div style={{ width: '25%', height: '20%', float: 'right' }}>
+                        <div className="card card-info">
                             <div className="card-header">
                                 <h3 className="card-title">Hiện Tại {this.state.EventIdXuLy || 'none'}</h3>
                             </div>
@@ -589,7 +589,7 @@ class Content extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="card card-primary" >
+                        <div className="card card-info" >
                             <div className="card-header">
                                 <h3 className="card-title">Ảnh xe</h3>
                             </div>
