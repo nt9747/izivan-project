@@ -110,6 +110,8 @@ class Content extends React.Component {
             bienCont: "",
             bienMooc: "",
             isActive: null,
+            CongRaChange: "",
+            CongRaNameChange: "",
         }
     }
     toggleActive = i => {
@@ -363,12 +365,7 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
-        // if (typeof(this.state.data) == "undefined"){
-        //     return(
-        //         <img src="../img/empty.png" />
-        //     )
-        //     // window.location.href = '/Empty'
-        // }
+
     }
 
     async Cancel() {

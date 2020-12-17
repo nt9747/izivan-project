@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import empty from '../img/empty.png'
-import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan, resquestExportKiemhoa } from '../../api'
+import { requestGetListCar, requestLogin, resquestGetListCarType, requestGetListLoaiXe, resquestThemPhieuHaiQuan, resquestExportKiemhoa, requestChoXeRa } from '../../api'
 import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
@@ -106,7 +106,24 @@ class Content extends React.Component {
             countXeCN: "",
             EventIdXuLy: "",
             PhieuHaiQuan: "",
-            isActive: null
+            isActive: null,
+            bienXeChange: "",
+            bienContChange: "",
+            bienMocChange: "",
+            loaiHangChange: "",
+            loaiXeChange: "",
+            loaiXeIDchange: "",
+            EventIDChange: "null",
+            IsDongYXeRa: "",
+            IsXeKhongHang: "",
+            IsXeQuayDau: "",
+            linkAnhBienSoChange: "",
+            linkAnhDauXeChange: "",
+            linkAnhFullChange: "",
+            carNumber_IDChange: "",
+            CongRaChange: "",
+            CongRaNameChange: "",
+            phieuHaiQuanOld: "",
         }
     }
     toggleActive = i => {
@@ -345,7 +362,11 @@ class Content extends React.Component {
                 LIMIT: 1
             })
             await this.setState({
-                EventIdXuLy: res.data.data[0].EventIn_ID, phieuHaiQuanOld: res.data.data[0].PhieuHaiQuan
+                EventIdXuLy: res.data.data[0].EventIn_ID, phieuHaiQuanOld: res.data.data[0].PhieuHaiQuan,
+                bienXeChange: res.data.data[0].BienXeVao, bienContChange: res.data.data[0].BienCont, bienMocChange: res.data.data[0].BienMooc, loaiHangChange: res.data.data[0].LoaihangChiTiet,
+                loaiXeChange: res.data.data[0].Name, loaiXeIDchange: "", linkAnhBienSoChange: res.data.data[0].LinkAnhBienSo,
+                linkAnhDauXeChange: res.data.data[0].LinkAnhDauXe, linkAnhFullChange: res.data.data[0].LinkAnhFull, IsDongYXeRa: (res.data.data[0].IsDongYXeRa ? 1 : 0).toString(), IsXeKhongHang: (res.data.data[0].IsXeKhongHang ? 1 : 0).toString(),
+                IsXeQuayDau: "", carNumber_IDChange: (res.data.data[0].CarNumber_ID).toString()
 
             });
             console.log(res.data)
@@ -374,9 +395,8 @@ class Content extends React.Component {
                 this.listToCurrent();
             }
         } catch (err) {
-            await this.setState({
-                isLoading: true
-            }, () => console.log(err))
+            alert("Vui lòng chọn xe!")
+            this.listToCurrent();
         }
     }
 
@@ -395,9 +415,48 @@ class Content extends React.Component {
                 this.listToCurrent();
             }
         } catch (err) {
-            await this.setState({
-                isLoading: true
-            }, () => console.log(err))
+            alert("Vui lòng chọn xe!")
+            this.listToCurrent();
+        }
+    }
+
+    async Cancel() {
+        this.setState({ EventIdXuLy: "", bienXeChange: "", bienContChange: "", bienMocChange: "", fromDataChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: "" });
+    }
+
+    async RequestGetCarOut() {
+        try {
+            const res = await requestChoXeRa({
+                BIENSOXE: this.state.bienXeChange,
+                BIENCONT: this.state.bienContChange,
+                BIENMOC: this.state.bienMocChange,
+                LOAIHANG: this.state.loaiHangChange,
+                LOAIXECHITIET: this.state.loaiXeChange,
+                LOAIXE: this.state.loaiXeIDchange,
+                CONGRA: this.state.CongRaChange,
+                CONGRANAME: this.state.CongRaNameChange,
+                LINKANHBIENSO: this.state.linkAnhBienSoChange,
+                LINKANHDAUXE: this.state.linkAnhDauXeChange,
+                LINKANHFULL: this.state.linkAnhFullChange,
+                ISDONGYXERA: this.state.IsDongYXeRa,
+                ISXEKHONGHANG: this.state.IsXeKhongHang,
+                ISXEQUAYDAU: this.state.IsXeQuayDau,
+                CARNUMBER_ID: this.state.carNumber_IDChange,
+                EVENTID: this.state.EventIDChange
+            })
+            await this.setState({ msgOut: res.msg });
+            if (this.state.msgOut == "Thành công") {
+                alert("Cho xe ra thành công!")    
+                this.Cancel();
+                this.listToCurrent();
+                this.setState({ fromDataChange: "", bienXeChange: "", bienContChange: "", bienMocChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: "" });
+            } else {
+                alert("Thất bại!")
+                this.listToCurrent();
+            }
+        } catch (err) {
+            alert("Vui lòng chọn xe!")
+            this.listToCurrent();
         }
     }
 
@@ -636,7 +695,7 @@ class Content extends React.Component {
                             {this.state.total == 0 && <img src={empty} style={{ width: '1500px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div style={{ width: '20%', height: '20%', float: 'right' }}>
+                    <div style={{ width: '20%', height: '20%', float: 'right'}}>
                         <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
@@ -659,7 +718,7 @@ class Content extends React.Component {
                                             <table style={{ width: '280px' }}>
                                                 <tr>
                                                     <td style={{borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '55px'}}><h9>Kiểm hóa</h9></button>
-                                                    <button className="btn btn-success" style={{ height: '50px', width: '110px' }}><h9>Cho ra</h9></button>
+                                                    <button onClick={() => this.RequestGetCarOut()} className="btn btn-success" style={{ height: '50px', width: '110px' }}><h9>Cho ra</h9></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -668,7 +727,7 @@ class Content extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td> </td>
-                                                    <td style={{ textAlign: 'center' }}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>Thêm phiếu hải quan</b></button></td>
+                                                    <td style={{ textAlign: 'center' }}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>"Thêm phiếu hải quan"</b></button></td>
                                                 </tr>
                                             </table>
                                         </div> 
