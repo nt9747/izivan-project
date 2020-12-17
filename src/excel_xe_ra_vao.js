@@ -704,14 +704,9 @@ class excelxeravao extends React.Component {
                                 </thead>
                                 <>
                                     {this.state.data && data.data.map((item, i) => (
-                                        <tbody style={
-                                            this.state.isActive === i
-                                                ? { background: '#BEC6C1' , textAlign: 'center' }
-                                                : { background: '' , textAlign: 'center'}      
-                                        }
-                                            key={i}
-                                            onClick={() => this.toggleActive(i)}>
-                                            <tr onClick={() => this.Select(item.BienXe, item.LoaiHangChiTiet, item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay)}  key={item.SoThuTuTrongNgay} style={{ textAlign: 'center' }}>
+                                        <tbody style={{ textAlign: 'center'}}
+                                            >
+                                            <tr>
                                                 <td > {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                 <td > {item.SoThuTuTrongNgay}</td>
                                                 <td > {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>

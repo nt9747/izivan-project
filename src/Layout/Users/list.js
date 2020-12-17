@@ -175,7 +175,7 @@ class Content extends React.Component {
               </div>
               <div className="card-body">
                 <div className="row">
-                  <div className="col-7">
+                  <div className="col-6">
                     <table style={{ width: '700px' }}>
                       <tr>
                         <td><b>Tài Khoản</b></td>
@@ -198,7 +198,7 @@ class Content extends React.Component {
                       </tr>
                     </table>
                   </div>
-                  <div className="col-3">
+                  <div className="col-4">
                     <button onClick={() => this.Register()} type="button" className="btn btn-outline-primary">
                       <h5>Đăng ký nhanh</h5>
                       <svg  width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
