@@ -345,7 +345,7 @@ class Content extends React.Component {
                 LIMIT: 1
             })
             await this.setState({
-                EventIdXuLy: res.data.data[0].EventIn_ID
+                EventIdXuLy: res.data.data[0].EventIn_ID, phieuHaiQuanOld: res.data.data[0].PhieuHaiQuan
 
             });
             console.log(res.data)
@@ -658,16 +658,16 @@ class Content extends React.Component {
                                         <div className="col-4"><br />
                                             <table style={{ width: '280px' }}>
                                                 <tr>
-                                                    <td style={{ textAlign: 'center', borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '200px' }}><h9>Kiểm hóa</h9></button>
-                                                    {/* <button className="btn btn-danger" style={{ height: '50px', width: '110px' }}><h9>Cho ra</h9></button> */}
+                                                    <td style={{borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '55px'}}><h9>Kiểm hóa</h9></button>
+                                                    <button className="btn btn-success" style={{ height: '50px', width: '110px' }}><h9>Cho ra</h9></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style={{ borderBottom: 'white solid 10px' }} colSpan='2'><b>Phiếu hải quan</b>
-                                                        <input style={{ width: '' }} type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /></td>
+                                                        <input style={{ width: '' }} type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /><b>cũ: </b> {this.state.phieuHaiQuanOld || 'none'} </td>
                                                 </tr>
                                                 <tr>
-                                                    <td></td>
+                                                    <td> </td>
                                                     <td style={{ textAlign: 'center' }}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>Thêm phiếu hải quan</b></button></td>
                                                 </tr>
                                             </table>

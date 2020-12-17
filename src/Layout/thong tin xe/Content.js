@@ -161,7 +161,6 @@ class Content extends React.Component {
             console.log(this.state.previousPage, "previousPage");
             this.setState({ bienXeOld: "", bienContOld: "", bienMocOld: "", loaiHangOld: "", loaiXeOld: "", EventIdXuLy: "" })
             this.setState({ EventIdXuLy: '', bienXeNew: '', bienContNew: '', bienMocNew: '', loaiHangNew: '', loaiXeNew: '' });
-
         } catch (err) {
             await this.setState({
                 isLoading: false
