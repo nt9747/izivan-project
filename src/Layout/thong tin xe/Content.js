@@ -339,8 +339,8 @@ class Content extends React.Component {
             this.setState({ SelectCong: '/listCar/listCarOut?', updateXePort: 'updateCarOut' })
         }
     }
-    //////////////////////// bo sung tim kiem chuan hon 
-    async Select(bienxeSearch, loaihangSearch) {
+    //////////////////////// bo sung tim kiem chuan hon  item.LoaiXeID, item.MaSoTrenThe, item.SoThuTuTrongNgay
+    async Select(bienxeSearch, loaihangSearch, loaiXeSearch, maTheSearch, soThuTuSearch) {
         try {
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
@@ -348,19 +348,21 @@ class Content extends React.Component {
                 PLATENUMBER: bienxeSearch,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
-                NUMBERCAR: this.state.numberCar,
+                NUMBERCAR: maTheSearch,
                 LOAIHANG: loaihangSearch,
                 PAGE: 1,
                 CONG: this.state.SelectCong,
-                LOAIXE: this.state.loaiXe,
-                ORDERNUMBER: this.state.orderNumber,
+                LOAIXE: loaiXeSearch,
+                ORDERNUMBER: soThuTuSearch,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
                 LIMIT: 1,
             })
             await this.setState({
                 EventIdXuLy: res.data.data[0].EventID, bienXeOld: res.data.data[0].BienXe, bienContOld: res.data.data[0].BienCont,
-                bienMocOld: res.data.data[0].BienMooc, loaiHangOld: res.data.data[0].LoaiHangChiTiet, loaiXeOld: res.data.data[0].LoaiXeID
+                bienMocOld: res.data.data[0].BienMooc, loaiHangOld: res.data.data[0].LoaiHangChiTiet, loaiXeOld: res.data.data[0].LoaiXeChiTiet,
+                bienXeNew: res.data.data[0].BienXe, bienContNew: res.data.data[0].BienCont,
+                bienMocNew: res.data.data[0].BienMooc, loaiHangNew: res.data.data[0].LoaiHangChiTiet, loaiXeNew: res.data.data[0].LoaiXeChiTiet
             });
             console.log(res.data)
         } catch (err) {

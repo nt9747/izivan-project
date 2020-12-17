@@ -216,4 +216,9 @@ export const resquestGetExportCar = (payload) => {
   }))
 }
 
+export const resquestGetListLoaiHang = (payload) => {
+  return handleResult(getAxios.get(`/loaihang/`, {
+  }))
+}
+
 

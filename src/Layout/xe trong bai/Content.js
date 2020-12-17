@@ -553,26 +553,6 @@ class Content extends React.Component {
                                             </table>
                                         </form>
                                     </div>
-                                    {/* <div style={{ float: 'right', width: '25%' }}>
-                                        <form>
-                                            <input type="checkbox" name="" /><b>Cho xuất</b><br />
-                                            <input type="checkbox" name="" /><b>Cho phép ra</b><br />
-                                            <input type="checkbox" name="" /><b>Kiểm hóa</b><br />
-                                            <input type="checkbox" name="" /><b>Bốc</b>
-                                        </form><br />
-                                        <table>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td style={{ borderBottom: 'white solid 10px', borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#909090' }}><h9><b>Đồng ý cho ra</b></h9></td>
-                                                <td style={{ height: '30px', width: '130px', backgroundColor: '#4AE10E' }}><h9><b>Đồng ý cả hai</b></h9></td>
-                                            </tr>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td style={{ borderRight: 'white solid 10px', height: '30px', width: '130px', backgroundColor: '#FAF022' }}><h9><b>Đồng ý Xuất</b></h9></td>
-                                                <td></td>
-                                            </tr>
-                                        </table>
-
-
-                                    </div> */}
                                 </div>
 
                             </div>
