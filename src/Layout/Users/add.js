@@ -22,9 +22,6 @@ class Content extends React.Component {
         }
     }
     async Register() {
-        await this.setState({
-            isLoading: true
-        })
         try {
             const res = await requestRegisterUser({
                 USERNAME: this.state.Username,
@@ -34,7 +31,7 @@ class Content extends React.Component {
                 ISKETOAN: this.state.IsKeToan,
                 ISPHONGLOA: this.state.IsPhongLoa,
             })
-            await this.setState({ msg: res.msg, data1: res.data, isLoading: false });
+            await this.setState({ msg: res.msg, data1: res.data});
             console.log(this.state.data1, "check data")
             if (this.state.data1 == "Tên đăng nhập đã tồn tại") {
                 alert("Tên đăng nhập đã tồn tại")

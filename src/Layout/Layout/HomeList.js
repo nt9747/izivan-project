@@ -95,7 +95,7 @@ class HomeList extends React.Component {
             countTon: "",
             totalMoney: "",
             codeThongKeXe: "",
-            limitPage: "10",
+            limitPage: "20",
             orderNumber: "",
             bienCont: "",
             bienMooc: "",
@@ -586,7 +586,7 @@ class HomeList extends React.Component {
                             </div>
                         </div>
 
-                        <div className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '77%', height: '700px' }}>
+                        <div className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '80%', height: '700px' }}>
                             <div className="card-header" >
                                 <h3 className="card-title" >
                                     <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleBienXe}>Biển Số</button>
@@ -660,7 +660,7 @@ class HomeList extends React.Component {
                                     </div> */}
                                 </div>
 
-                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
+                                <div style={{ overflow: 'auto', width: '100%', height: '1000px' }}>
                                     <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
@@ -883,7 +883,7 @@ class HomeList extends React.Component {
 
                         </div>
                     </div>
-                    <div style={{ float: 'right', width: '22%' }}>
+                    <div style={{ float: 'right', width: '20%' }}>
                         <div className="card card-warning" >
                             <div className="card-header">
                                 <h3 className="card-title">Ảnh vào</h3>
@@ -891,7 +891,8 @@ class HomeList extends React.Component {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="">
-                                        <img src={c} id="imglayout" /> <img src={a} id="imglayout" />
+                                        <img src={c} id="imglayout" />
+                                        <img src={a} id="imglayout" />
                                     </div>
                                 </div>
                             </div>

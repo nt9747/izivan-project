@@ -5,6 +5,8 @@ import Cookie from 'js-cookie';
 import TableScrollbar from 'react-table-scrollbar';
 import { Redirect } from 'react-router-dom';
 import empty from '../img/empty.png'
+import a from '../img/a.jpg';
+import b from '../img/b.jpg';
 
 
 function GetFormatDate(a) {
@@ -64,7 +66,7 @@ class Content extends React.Component {
             page: 1,
             nextPage: "",
             previousPage: "",
-            PortOut: '', 
+            PortOut: '',
             SelectCong: "/listCar/listCarParking?",
             total: "",
             dataXe: "",
@@ -95,12 +97,25 @@ class Content extends React.Component {
             countXeAll: "",
             countXeVN: "",
             countXeCN: "",
+            isActive: null,
 
         }
         this.toggleBienXe = this.toggleBienXe.bind(this)
         this.toggleLoaiHang = this.toggleLoaiHang.bind(this)
         this.toggleLoaiXe = this.toggleLoaiXe.bind(this)
     }
+    toggleActive = i => {
+
+        if (i === this.state.isActive) {
+            this.setState({
+                isActive: null
+            });
+        } else {
+            this.setState({
+                isActive: i
+            });
+        }
+    };
 
 
     toggleBienXe = () => {
@@ -147,7 +162,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
             })
 
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
 
@@ -183,7 +198,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -193,20 +208,6 @@ class Content extends React.Component {
         }
     }
 
-    async start() {
-        await this.setState({
-            isLoading: true
-        })
-        try {
-            const res = await resquestGetListCarType({
-            })
-            await this.setState({ dataXe: res.data });
-        } catch (err) {
-            await this.setState({
-                isLoading: false
-            }, () => console.log(err))
-        }
-    }
 
     async listTo() {
         await this.setState({
@@ -231,7 +232,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -256,7 +257,7 @@ class Content extends React.Component {
             }, () => console.log(err))
         }
     }
-    
+
 
 
     async list() {
@@ -271,7 +272,7 @@ class Content extends React.Component {
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
-                PLATENUMBER: this.state.plateNumber,    
+                PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
                 NUMBERCAR: this.state.numberCar,
@@ -285,7 +286,7 @@ class Content extends React.Component {
                 BIENMOOC: this.state.bienMooc,
 
             })
-            await this.setState({ data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ isActive: null, data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
@@ -315,14 +316,14 @@ class Content extends React.Component {
             } else if (this.state.countTon < 0) {
                 this.setState({ countTon: "unk.." })
             }
-            if (this.state.portIn == '0'){
-                this.setState({countXeVN: res.data.total, countXeAll: "0" , countXeCN: "0"})
+            if (this.state.portIn == '0') {
+                this.setState({ countXeVN: res.data.total, countXeAll: "0", countXeCN: "0" })
             }
-            else if (this.state.portIn == '1'){
-                this.setState({countXeCN: res.data.total, countXeVN: "0", countXeAll: "0"})
+            else if (this.state.portIn == '1') {
+                this.setState({ countXeCN: res.data.total, countXeVN: "0", countXeAll: "0" })
             }
-            else if (this.state.portIn == ''){
-                this.setState({countXeAll: res.data.total, countXeVN: "0", countXeCN: "0"})
+            else if (this.state.portIn == '') {
+                this.setState({ countXeAll: res.data.total, countXeVN: "0", countXeCN: "0" })
             }
             console.log(this.state.namePort, "nameport")
         } catch (err) {
@@ -411,12 +412,12 @@ class Content extends React.Component {
         const token = Cookie.get("SESSION_ID");
         if (isLoading) {
             return (
-                <div style={{textAlign: 'center', marginTop: '100px'}}>
-                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                <div style={{ textAlign: 'center', marginTop: '100px' }}>
+                    <div style={{ width: '50px', height: '50px' }} className="spinner-border text-primary" role="status">
                         <span className="sr-only">a</span>
                     </div>
                     <div>
-                        <p style={{fontSize: '20px'}}>Loading...</p>
+                        <p style={{ fontSize: '20px' }}>Loading...</p>
                     </div>
                 </div>
             )
@@ -548,9 +549,9 @@ class Content extends React.Component {
                                         </div>
 
                                         <div>
-                                        <form action="/ExcelXeLuuBai">
-                                            <button type="submit" className="btn btn-danger" style={{ width: '100px', height: '50px' }}><b>Excel</b></button>
-                                        </form>
+                                            <form action="/ExcelXeLuuBai">
+                                                <button type="submit" className="btn btn-danger" style={{ width: '100px', height: '50px' }}><b>Excel</b></button>
+                                            </form>
                                         </div>
 
                                     </div><br />
@@ -563,45 +564,45 @@ class Content extends React.Component {
                                 <div style={{ float: 'right', width: '35%' }}>
                                     <table>
                                         <tr>
-                                            <td style={{ backgroundColor: 'green', width: '300px', height: '190px', borderRight: '1px solid white' }}></td>
-                                            <td style={{ backgroundColor: 'green', width: '300px', height: '190px' }}></td>
+                                            <td style={{ borderRight: '1px solid white' }} ><img style={{ width: '280px', height: '190px' }} src={a} /></td>
+                                            <td ><img style={{ width: '280px', height: '190px' }} src={b} /></td>
                                         </tr>
                                     </table>
-                                    <br/>
+                                    <br />
 
 
 
                                 </div>
-                                
+
                                 {this.state.showBienXe && <div>
-                            <div style={{ float: "right", width: "150px"}}>
-                            <b>Số trang </b>
-                            <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({ page: 1 }) || this.list()}>
-                                <option selected disabled hidden>Chọn</option>
-                                <option value='10'>10</option>
-                                <option value='20'>20</option>
-                                <option value='35'>35</option>
-                                <option value='50'>50</option>
-                            </select>
-                        </div>
-                        <div style={{ float: "right", width: "310px", border: "none" }}>
-                            <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
-                                <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
-                            </svg>
-                            <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                            </svg>
-                            <b>{this.state.page}/{this.state.totalPage}</b>
-                            <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                            </svg>
-                            <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
-                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                            </svg>
-                            </div>
-                        </div>}
+                                    <div style={{ float: "right", width: "150px" }}>
+                                        <b>Số trang </b>
+                                        <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({ page: 1 }) || this.list()}>
+                                            <option selected disabled hidden>Chọn</option>
+                                            <option value='10'>10</option>
+                                            <option value='20'>20</option>
+                                            <option value='35'>35</option>
+                                            <option value='50'>50</option>
+                                        </select>
+                                    </div>
+                                    <div style={{ float: "right", width: "310px", border: "none" }}>
+                                        <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                                            <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
+                                        </svg>
+                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                        </svg>
+                                        <b>{this.state.page}/{this.state.totalPage}</b>
+                                        <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                        </svg>
+                                        <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                        </svg>
+                                    </div>
+                                </div>}
 
                             </div>
 
@@ -643,25 +644,30 @@ class Content extends React.Component {
                                             {this.state.data && data.data.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr key={item.EventID}>
-
-                                                        <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienCont || item.BienContVao}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienMooc || item.BienMoocVao}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"} </td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.PhieuHaiQuan}</td>
+                                                    <tr style={
+                                                this.state.isActive === i
+                                                    ? { background: '#BEC6C1', textAlign: 'center' }
+                                                    : { background: '', textAlign: 'center' }
+                                            }
+                                                key={i}
+                                                onClick={() => this.toggleActive(i) || this.Select(item.EventID)}>
+                                                        <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                        <td> {item.SoThuTuTrongNgay}</td>
+                                                        <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                        <td > {item.BienCont || item.BienContVao}</td>
+                                                        <td > {item.BienMooc || item.BienMoocVao}</td>
+                                                        <td > {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td > {item.MaSoTrenThe || "Chưa có"} </td>
+                                                        <td > {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td > {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                        <td > {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td > {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                        <td > {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                        <td > {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                        <td > {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td > {item.CongVaoName}</td>
+                                                        <td > {item.CongRaName || "Chưa có"}</td>
+                                                        <td > {item.PhieuHaiQuan}</td>
                                                     </tr>
                                                 </tbody>
                                             ))}

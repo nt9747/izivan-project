@@ -104,9 +104,6 @@ class Content extends React.Component {
   }
 
   async Save(userid) {
-    await this.setState({
-      isLoading: true
-    })
     try {
       const res = await resquestEditUser({
         USERID: userid,
@@ -114,7 +111,7 @@ class Content extends React.Component {
         ISPHONGLOA: this.state.IsPhongLoa,
         ISKETOAN: this.state.IsKeToan,
       })
-      await this.setState({ data3: res.data, isLoading: false })
+      await this.setState({ data3: res.data})
       alert("Sửa thành công!")
     }
     catch (err) {
@@ -123,7 +120,7 @@ class Content extends React.Component {
       }, () => console.log(err))
       alert("Sửa thẩt bại!")
     }
-    window.location.reload(false);
+    this.list();
   }
 
 
@@ -175,7 +172,7 @@ class Content extends React.Component {
               </div>
               <div className="card-body">
                 <div className="row">
-                  <div className="col-7">
+                  <div className="col-6">
                     <table style={{ width: '700px' }}>
                       <tr>
                         <td><b>Tài Khoản</b></td>
@@ -198,7 +195,7 @@ class Content extends React.Component {
                       </tr>
                     </table>
                   </div>
-                  <div className="col-3">
+                  <div className="col-4">
                     <button onClick={() => this.Register()} type="button" className="btn btn-outline-primary">
                       <h5>Đăng ký nhanh</h5>
                       <svg  width="2em" height="2em" viewBox="0 0 16 16" className="bi bi-person-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
