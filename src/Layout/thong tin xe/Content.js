@@ -579,7 +579,7 @@ class Content extends React.Component {
                                                     <option value="5">Container 20"</option>
                                                     <option value="6">Container 40"</option>
                                                 </select> </td>
-                                             </tr>
+                                        </tr>
                                         <tr>
                                             <td><button onClick={() => this.Cancel()} className="btn btn-danger" > Hủy</button></td>
                                             <td></td>
