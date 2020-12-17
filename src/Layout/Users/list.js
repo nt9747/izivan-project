@@ -104,9 +104,6 @@ class Content extends React.Component {
   }
 
   async Save(userid) {
-    await this.setState({
-      isLoading: true
-    })
     try {
       const res = await resquestEditUser({
         USERID: userid,
@@ -114,7 +111,7 @@ class Content extends React.Component {
         ISPHONGLOA: this.state.IsPhongLoa,
         ISKETOAN: this.state.IsKeToan,
       })
-      await this.setState({ data3: res.data, isLoading: false })
+      await this.setState({ data3: res.data})
       alert("Sửa thành công!")
     }
     catch (err) {
@@ -123,7 +120,7 @@ class Content extends React.Component {
       }, () => console.log(err))
       alert("Sửa thẩt bại!")
     }
-    window.location.reload(false);
+    this.list();
   }
 
 
