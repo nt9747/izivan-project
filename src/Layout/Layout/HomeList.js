@@ -11,7 +11,39 @@ import d from '../img/d.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+function GetFormatDatePicker(a) {
+    const b = new Date(a);
+    var hours = b.getUTCHours();
+    var minutes = b.getUTCMinutes();
+    var seconds = b.getUTCSeconds();
+    var month = b.getUTCMonth() + 1;
+    var day = b.getUTCDate();
+    var year = b.getUTCFullYear();
+
+
+    if (month.toString().length == 1) {
+        month = '0' + month;
+    }
+    if (day.toString().length == 1) {
+        day = '0' + day;
+    }
+    if (hours.toString().length == 1) {
+        hours = '0' + hours;
+    }
+    if (minutes.toString().length == 1) {
+        minutes = '0' + minutes;
+    }
+    if (seconds.toString().length == 1) {
+        seconds = '0' + seconds;
+    }
+    if (year == 1970) {
+        return ""
+    }
+    else return day + "/" + month + "/" + year + " " + hours + ":" + minutes + ":" + seconds
+}
+
 
 function GetFormatDate(a) {
     const b = new Date(a);
@@ -47,8 +79,8 @@ function GetFormatDate(a) {
 function countMoney(n) {
     n = parseFloat(n);
     var b = n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " vnd";
-    if (b == "NaN vnd"){
-        return ""   
+    if (b == "NaN vnd") {
+        return ""
     }
     else {
         return b;
@@ -60,8 +92,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '01/10/2020 00:00:00',
-            toDate: '26/12/2020 00:00:00',
+            fromDate: '',
+            toDate: '',
             plateNumber: '',
             portIn: '',
             numberCar: "",
@@ -146,12 +178,12 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
-            if (this.state.nextPage == null){
-                this.setState({nextPage: this.state.totalPage})
+            if (this.state.nextPage == null) {
+                this.setState({ nextPage: this.state.totalPage })
             }
             const res = await requestGetListCar({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
+                FROMDATE: GetFormatDatePicker(this.state.fromDate),
+                TODATE: GetFormatDatePicker(this.state.toDate),
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
@@ -183,12 +215,12 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
-            if (this.state.previousPage == null){
-                this.setState({previousPage: 1})
+            if (this.state.previousPage == null) {
+                this.setState({ previousPage: 1 })
             }
             const res = await requestGetListCar({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
+                FROMDATE: GetFormatDatePicker(this.state.fromDate),
+                TODATE: GetFormatDatePicker(this.state.toDate),
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
@@ -202,7 +234,7 @@ class HomeList extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -222,8 +254,8 @@ class HomeList extends React.Component {
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
             const res = await requestGetListCar({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
+                FROMDATE: GetFormatDatePicker(this.state.fromDate),
+                TODATE: GetFormatDatePicker(this.state.toDate),
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
@@ -237,7 +269,7 @@ class HomeList extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage});
+            await this.setState({ isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -258,7 +290,7 @@ class HomeList extends React.Component {
             await this.setState({ dataXe: res.data });
             const res2 = await resquestGetListLoaiHang({
             })
-            await this.setState({dataHang: res2.data});
+            await this.setState({ dataHang: res2.data });
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -274,10 +306,10 @@ class HomeList extends React.Component {
             isLoading: true
         })
         try {
-            this.setState({page: 1})
+            this.setState({ page: 1 })
             const res = await requestGetListCar({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
+                FROMDATE: GetFormatDatePicker(this.state.fromDate),
+                TODATE: GetFormatDatePicker(this.state.toDate),
                 PLATENUMBER: this.state.plateNumber,
                 PORTIN: this.state.portIn,
                 PORTOUT: this.state.PortOut,
@@ -290,10 +322,9 @@ class HomeList extends React.Component {
                 ORDERNUMBER: this.state.orderNumber,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
-
             })
             await this.setState({ isActive: null, data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
-            this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage)})
+            this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
                 window.location.href = '/home'
@@ -304,8 +335,8 @@ class HomeList extends React.Component {
             }
 
             const res2 = await requestGetListLoaiXe({
-                FROMDATE: this.state.fromDate,
-                TODATE: this.state.toDate,
+                FROMDATE: GetFormatDatePicker(this.state.fromDate),
+                TODATE: GetFormatDatePicker(this.state.toDate),
                 PLATENUMBER: this.state.plateNumber,
                 PORTOUT: this.state.PortOut,
                 PORTIN: this.state.portIn,
@@ -320,14 +351,14 @@ class HomeList extends React.Component {
             this.setState({ countTon: this.state.countIn - this.state.countOut })
             if (this.state.SelectCong == "/listCar/listCarParking?") {
                 this.setState({ countTon: this.state.total })
-            } 
+            }
             // else if (this.state.countTon < 0){
             //     this.setState({countTon: "unk.."})
             // }
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
-            if(this.state.countTon < 0){
-                this.setState({countTon: 0})
+            if (this.state.countTon < 0) {
+                this.setState({ countTon: 0 })
             }
         } catch (err) {
             await this.setState({
@@ -381,10 +412,10 @@ class HomeList extends React.Component {
             this.setState({ portIn: '1', PortOut: '3' })
         }
         else if (event.target.value == '1') {
-            this.setState({ portIn: '', PortOut: ''})
+            this.setState({ portIn: '', PortOut: '' })
         }
         else if (event.target.value == '2') {
-            this.setState({ portIn: '0', PortOut: null})
+            this.setState({ portIn: '0', PortOut: null })
         }
         else if (event.target.value == '3') {
             this.setState({ portIn: null, PortOut: '2' })
@@ -397,16 +428,16 @@ class HomeList extends React.Component {
     handleAPIChange(field, event) {
         this.setState({ [field]: event.target.value })
         if (event.target.value == '1') {
-            this.setState({ SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut"})
+            this.setState({ SelectCong: '/listCar/listCarInOut?', thongKeLoaiXe: "/Statistic/statisticCarInOut" })
         }
         else if (event.target.value == '2') {
-            this.setState({ SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn"})
+            this.setState({ SelectCong: '/listCar/listCarIn?', thongKeLoaiXe: "/Statistic/statisticCarIn" })
         }
         else if (event.target.value == '3') {
-            this.setState({ SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut"})
+            this.setState({ SelectCong: '/listCar/listCarOut?', thongKeLoaiXe: "/Statistic/statisticCarOut" })
         }
         else if (event.target.value == '4')
-            this.setState({ SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking"})
+            this.setState({ SelectCong: '/listCar/listCarParking?', thongKeLoaiXe: "/Statistic/statisticCarParking" })
     }
 
     render() {
@@ -414,12 +445,12 @@ class HomeList extends React.Component {
         const token = Cookie.get("SESSION_ID");
         if (isLoading) {
             return (
-                <div style={{textAlign: 'center', marginTop: '100px'}}>
-                    <div style={{width: '50px', height: '50px'}} className="spinner-border text-primary" role="status">
+                <div style={{ textAlign: 'center', marginTop: '100px' }}>
+                    <div style={{ width: '50px', height: '50px' }} className="spinner-border text-primary" role="status">
                         <span className="sr-only">a</span>
                     </div>
                     <div>
-                        <p style={{fontSize: '20px'}}>Loading...</p>
+                        <p style={{ fontSize: '20px' }}>Loading...</p>
                     </div>
                 </div>
             )
@@ -435,10 +466,10 @@ class HomeList extends React.Component {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-3" style={{ marginRight: '40px' }}>
-                                        <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="text" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                                        <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="date" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                     </div>
                                     <div className="col-3" style={{ marginRight: '40px' }}>
-                                        <b>Đến</b><input type="text" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                        <b>Đến</b><input type="date" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
                                     <div className="col-2" style={{ marginRight: '70px' }}>
                                         <b>Loại Hàng</b><br />
@@ -535,7 +566,7 @@ class HomeList extends React.Component {
                             {this.state.showBienXe && <div>
                                 <div style={{ float: "right", width: "150px" }}>
                                     <b>Số trang </b>
-                                    <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({page: 1}) || this.list()}>
+                                    <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({ page: 1 }) || this.list()}>
                                         <option selected disabled hidden>Chọn</option>
                                         <option value='10'>10</option>
                                         <option value='20'>20</option>
@@ -602,7 +633,7 @@ class HomeList extends React.Component {
                                     <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
-                                            <tr style = {{textAlign: 'center'}}>
+                                            <tr style={{ textAlign: 'center' }}>
                                                 <th></th>
                                                 <th>STT vào bãi</th>
                                                 <th>Biển số xe vào/ra</th>
@@ -627,12 +658,12 @@ class HomeList extends React.Component {
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
                                                     <tr style={
-                                                this.state.isActive === i
-                                                    ? { background: '#BEC6C1', textAlign: 'center' }
-                                                    : { background: '', textAlign: 'center' }
-                                            }
-                                                key={i}
-                                                onClick={() => this.toggleActive(i)}>
+                                                        this.state.isActive === i
+                                                            ? { background: '#BEC6C1', textAlign: 'center' }
+                                                            : { background: '', textAlign: 'center' }
+                                                    }
+                                                        key={i}
+                                                        onClick={() => this.toggleActive(i)}>
                                                         <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                         <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
                                                         <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
@@ -656,7 +687,7 @@ class HomeList extends React.Component {
 
                                         </>
                                     </table>
-                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
+                                    {this.state.total == 0 && <img src={empty} style={{ width: '1300px', height: '800px' }} />}
                                 </div>
                             </div>}
                             {this.state.showLoaiXe && <div>
@@ -664,7 +695,7 @@ class HomeList extends React.Component {
                                     <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
 
                                         <thead>
-                                            <tr style = {{textAlign: 'center'}}>
+                                            <tr style={{ textAlign: 'center' }}>
                                                 <th>Ngày</th>
                                                 <th>Xe có trọng tải dưới 4 tấn</th>
                                                 <th>Xe có trọng tải 4 đến 10 tấn</th>
@@ -678,7 +709,7 @@ class HomeList extends React.Component {
                                             {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                                 <tbody >
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr style = {{textAlign: 'center'}} >
+                                                    <tr style={{ textAlign: 'center' }} >
                                                         <td key={i}> {item[0].ngayGioVao}</td>
                                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
                                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("4 đến 10 tấn")])} </td>
@@ -700,7 +731,7 @@ class HomeList extends React.Component {
                                     <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
 
                                         <thead>
-                                            <tr style = {{textAlign: 'center'}}>
+                                            <tr style={{ textAlign: 'center' }}>
                                                 <th>Ngày</th>
                                                 <th>Cau khô</th>
                                                 <th>Thanh long</th>
@@ -755,10 +786,10 @@ class HomeList extends React.Component {
                                             </tr>
                                         </thead>
                                         <>
-                                       {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
+                                            {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
                                                 <tbody>
                                                     {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr style = {{textAlign: 'center'}}>
+                                                    <tr style={{ textAlign: 'center' }}>
                                                         <td key={i}> {item[0].ngayGioVao}</td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU KHÔ")])}</td>
                                                         <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("THANH LONG")])} </td>

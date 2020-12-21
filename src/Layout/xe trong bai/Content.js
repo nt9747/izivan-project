@@ -494,7 +494,6 @@ class Content extends React.Component {
                 alert("Cổng quay đầu ko xem được danh sách xe tồn, vui lòng chọn đúng cổng!")
                 window.location.href = '/home'
             }
-
             const res2 = await requestGetListLoaiXe({
                 FROMDATE: this.state.fromDate,
                 TODATE: this.state.toDate,
@@ -549,7 +548,6 @@ class Content extends React.Component {
     }
 
     render() {
-
         const { data, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
         if (isLoading) {
