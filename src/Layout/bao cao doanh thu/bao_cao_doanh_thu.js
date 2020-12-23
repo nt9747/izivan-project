@@ -386,6 +386,7 @@ class Content extends React.Component {
                 this.setState({ countTonCN: this.state.countInCN - this.state.countOutCN })
             }
             if (this.state.namePort == 6) {
+                
                 await this.setState({
                     isLoading: true
                 })

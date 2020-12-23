@@ -12,9 +12,8 @@ thead{background-color: #4BA0B8}
 #nut{margin-right: 3px}
 #xeravao:visited {background-color: springgreen;}
 
-
-table tr.active {background: #ccc;}
-
+td.whenchange {background-color: red;}
+table tr.active {background: #ccc;} 
 .myButton { 
 	box-shadow: 0px 1px 0px -8px #1c1b18;
 	border-radius:12px;

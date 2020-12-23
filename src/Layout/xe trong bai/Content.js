@@ -12,7 +12,6 @@ import b from '../img/b.jpg';
 
 
 
-
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 function GetFormatDate(a) {
@@ -124,20 +123,14 @@ class Content extends React.Component {
             CongRaChange: "",
             CongRaNameChange: "",
             phieuHaiQuanOld: "",
+            statusRa: "",
         }
     }
     toggleActive = i => {
-
-        if (i === this.state.isActive) {
-            this.setState({
-                isActive: null
-            });
-        } else {
             this.setState({
                 isActive: i
-            });
+            })
         }
-    };
     componentDidMount() {
         this.start()
         this.list()
@@ -166,8 +159,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-
-            await this.setState({EventIdXuLy: "", data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage, isActive: null });
+            await this.setState({ EventIdXuLy: "", data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage, isActive: null });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
 
@@ -263,7 +255,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -295,9 +287,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
-            console.log(this.state.nextPage, "nextPage");
-            console.log(this.state.previousPage, "previousPage");
+            await this.setState({ EventIdXuLy: "", data: res.data, isLoading: false, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
         } catch (err) {
             await this.setState({
                 isLoading: false
@@ -330,7 +320,7 @@ class Content extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-            await this.setState({EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ EventIdXuLy: "", isActive: null, data: res.data, isLoading: false, page: this.state.totalPage, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
         } catch (err) {
@@ -340,10 +330,9 @@ class Content extends React.Component {
         }
     }
 
-    ///////////Parking chi search dc theo loai hang va bien xe, ko tra ve loaiXeid
-    // =>>>>>>>>>>>> In
-    async Select(bienxeSearch, loaihangSearch, matheSearch, sothutuSearch) {
+    async Select(bienxeSearch, loaihangSearch, matheSearch, sothutuSearch, eventID) {
         try {
+            console.log(eventID, "eventID")
             console.log(bienxeSearch, loaihangSearch, matheSearch, sothutuSearch)
             const res = await requestGetListCar({
                 FROMDATE: this.state.fromDate,
@@ -369,13 +358,16 @@ class Content extends React.Component {
                 IsXeQuayDau: "", carNumber_IDChange: (res.data.data[0].CarNumber_ID).toString()
 
             });
-            console.log(res.data)
         } catch (err) {
             await this.setState({
                 isLoading: true
             }, () => console.log(err))
         }
         console.log(this.state.data, "Check data!");
+    }
+
+    changeRowColor() {
+        this.setState({ EventIdXuLy: "", isActive: null });
     }
 
 
@@ -388,7 +380,7 @@ class Content extends React.Component {
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
                 alert("Thêm phiếu hải quan thành công!")
-                this.setState({ PhieuHaiQuan: "", EventIdXuLy: ""});
+                this.setState({ PhieuHaiQuan: "", EventIdXuLy: "", isActive: "" });
                 this.listToCurrent();
             } else {
                 alert("Thêm phiếu hải quan thất bại!")
@@ -400,6 +392,9 @@ class Content extends React.Component {
         }
     }
 
+
+    
+
     async RequestKiemHoa() {
         try {
             const res = await resquestExportKiemhoa({
@@ -408,7 +403,7 @@ class Content extends React.Component {
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
                 alert("Kiểm hóa thành công!")
-                this.setState({ PhieuHaiQuan: "", EventIdXuLy: ""});
+                this.setState({PhieuHaiQuan: "", EventIdXuLy: "", isActive: "" });
                 this.listToCurrent();
             } else {
                 alert("Kiểm hóa thất bại!")
@@ -442,21 +437,24 @@ class Content extends React.Component {
                 ISXEKHONGHANG: this.state.IsXeKhongHang,
                 ISXEQUAYDAU: this.state.IsXeQuayDau,
                 CARNUMBER_ID: this.state.carNumber_IDChange,
-                EVENTID: this.state.EventIDChange
+                EVENTID: this.state.EventIdXuLy
             })
             await this.setState({ msgOut: res.msg });
             if (this.state.msgOut == "Thành công") {
-                alert("Cho xe ra thành công!")    
+                alert("Cho xe ra thành công!")
                 this.Cancel();
                 this.listToCurrent();
-                this.setState({ fromDataChange: "", bienXeChange: "", bienContChange: "", bienMocChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: "" });
+                this.setState({ fromDataChange: "", bienXeChange: "", bienContChange: "", bienMocChange: "", loaiHangChange: "", TongTienChange: "", loaiXeChange: "", isActive: "" });
             } else {
                 alert("Thất bại!")
                 this.listToCurrent();
             }
         } catch (err) {
             alert("Vui lòng chọn xe!")
-            this.listToCurrent();
+            this.listToCurrent(
+
+
+            );
         }
     }
 
@@ -482,9 +480,8 @@ class Content extends React.Component {
                 ORDERNUMBER: this.state.orderNumber,
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
-
             })
-            await this.setState({EventIdXuLy: "", data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
+            await this.setState({ EventIdXuLy: "", data: res.data, total: res.data.total, previousPage: res.data.previousPage, nextPage: res.data.nextPage });
             this.setState({ totalPage: Math.ceil(this.state.total / this.state.limitPage) })
             if ((this.state.SelectCong == "/listCar/listCarIn?" && (this.state.PortOut == "2" || this.state.PortOut == "4")) || (this.state.SelectCong == "/listCar/listCarOut?" && (this.state.portIn == "0" || (this.state.portIn == "1" && this.state.PortOut == null)))) {
                 alert("Wrong choose!")
@@ -512,9 +509,6 @@ class Content extends React.Component {
             if (this.state.SelectCong == "/listCar/listCarParking?") {
                 this.setState({ countTon: this.state.total })
             }
-            // else if (this.state.countTon < 0){
-            //     this.setState({countTon: "unk.."})
-            // }
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
             if (this.state.countTon < 0) {
@@ -586,17 +580,14 @@ class Content extends React.Component {
                                                         <option value disabled hidden>Chọn</option>
                                                         <option selected value='1'>Tất cả</option>
                                                         <option value='2'>Cổng vào VN</option>
-                                                        <option value='5'>Cổng vao ra CN</option>
+                                                        <option value='5'>Cổng vào ra CN</option>
                                                     </select></td>
                                                 <td><b>Mã Thẻ</b><input type="text" className="form-control" placeholder="Nhập mã thẻ" value={this.state.numberCar} onChange={(e) => this.handleTextChange('numberCar', e)} /></td>
                                                 <td style={{ textAlign: 'center' }}><button className="btn btn-primary" onClick={() => this.list()} style={{ height: '40px', width: '250px' }}><h6><b>Tìm</b></h6></button></td>
                                             </tr>
 
                                         </table><br />
-
-
                                         <br />
-
                                         <form style={{}}>
                                             <table style={{ textAlign: 'center', width: '800px', height: '50px', borderStyle: 'outset' }}>
                                                 <tr>
@@ -664,23 +655,23 @@ class Content extends React.Component {
                                         </tr>
                                     </thead>
                                     <tbody >
-                                        {this.state.data && data.data.map((item, i) => (    
+                                        {this.state.data && data.data.map((item, i) => (
                                             <tr style={
                                                 this.state.isActive === i
                                                     ? { background: '#BEC6C1', textAlign: 'center' }
                                                     : { background: '', textAlign: 'center' }
                                             }
                                                 key={i}
-                                                onClick={() => this.toggleActive(i) || this.Select(item.BienXeVao, item.LoaihangChiTiet, item.MaSoTrenThe, item.SoThuTuTrongNgay)}>
-                                                <td>{item.EventIn_ID} </td>
-                                                <td>{item.SoThuTuTrongNgay} </td>
+                                                onClick={() => this.toggleActive(i) || this.Select(item.BienXeVao, item.LoaihangChiTiet, item.MaSoTrenThe, item.SoThuTuTrongNgay, item.EventIn_ID)}>
+                                                <td>{item.EventIn_ID}</td>
+                                                <td>{item.SoThuTuTrongNgay}</td>
                                                 <td> {item.MaSoTrenThe || "Chưa có"}</td>
                                                 <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"} </td>
                                                 <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                <td> {(item.IsDongYXeRa).toString()}</td>
-                                                <td> {(item.IsXeXuatThang).toString() }</td>
+                                                <td style = {(item.IsDongYXeRa).toString() === 'true' ? {textShadow: '2px 2px 5px blue', color: 'blue', fontSize: '140%'} : {color: '', textShadow: '', fontSize: ''}} > {(item.IsDongYXeRa).toString()}</td>
+                                                <td style = {(item.IsDongYXeRa).toString() === 'true' ? {textShadow: '2px 2px 5px blue', color: 'blue', fontSize: '140%'} : {color: '', textShadow: '', fontSize: ''}}> {(item.IsDongYXeRa).toString()}</td>
                                                 <td> {item.BienCont} </td>
-                                                <td> {item.BienMooc}</td>
+                                                <td> {item.BienMooc} </td>
                                                 <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
                                                 <td> {item.Name || item.LoaiXeChiTiet}</td>
                                                 <td>{item.PhieuHaiQuan}</td>
@@ -693,7 +684,7 @@ class Content extends React.Component {
                             {this.state.total == 0 && <img src={empty} style={{ width: '1500px', height: '800px' }} />}
                         </div>
                     </div>
-                    <div style={{ width: '20%', height: '20%', float: 'right'}}>
+                    <div style={{ width: '20%', height: '20%', float: 'right' }}>
                         <div className="card card-warning">
                             <div className="card-header">
                                 <h3 className="card-title"></h3>
@@ -715,20 +706,22 @@ class Content extends React.Component {
                                         <div className="col-4"><br />
                                             <table style={{ width: '280px' }}>
                                                 <tr>
-                                                    <td style={{borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '55px'}}><h9>Kiểm hóa</h9></button>
-                                                    <button onClick={() => this.RequestGetCarOut()} className="btn btn-success" style={{ height: '50px', width: '110px' }}><h9>Cho ra</h9></button>
+                                                    <td style={{ borderBottom: 'white solid 20px' }} colSpan='2'><button onClick={() => this.RequestKiemHoa()} className="btn btn-danger" style={{ height: '50px', width: '110px', marginRight: '55px' }}><h9>Kiểm hóa</h9></button>
+                                                        <button onClick={() => this.RequestGetCarOut()} className="btn btn-success" style={{ height: '50px', width: '110px' }}><h9>Cho ra</h9></button>
                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><button onClick={() => this.changeRowColor()} style={{ height: '50px', width: '110px' }}><h9>Hủy</h9></button> </td>
                                                 </tr>
                                                 <tr>
                                                     <td style={{ borderBottom: 'white solid 10px' }} colSpan='2'><b>Phiếu hải quan</b>
                                                         <input style={{ width: '' }} type="text" className="form-control" placeholder="" value={this.state.PhieuHaiQuan} onChange={(e) => this.handleTextChange('PhieuHaiQuan', e)} /><b>cũ: </b> {this.state.phieuHaiQuanOld || 'none'} </td>
                                                 </tr>
                                                 <tr>
-                                                    <td> </td>
-                                                    <td style={{ textAlign: 'center' }}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>"Thêm phiếu hải quan"</b></button></td>
+                                                    <td style={{ textAlign: 'center' }}><button onClick={() => this.RequestThemPhieuHaiQuan()} className="btn btn-primary" style={{ width: '230px' }}><b>Thêm phiếu hải quan</b></button></td>
                                                 </tr>
                                             </table>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>

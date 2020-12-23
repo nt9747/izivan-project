@@ -760,7 +760,6 @@ class Content extends React.Component {
                                                 <th>Giấy</th>
                                                 <th>Xốp</th>
                                                 <th>Cau tươi</th>
-
                                                 <th>Đỗ</th>
                                                 <th>Hoa hồi</th>
                                                 <th>Hành tỏi</th>

@@ -56,7 +56,7 @@ class Content extends React.Component {
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Name</th>
+                                    <th>Loại hàng</th>
                                 </tr>
                             </thead>
                             {this.state.data && data.map((item, i) => (

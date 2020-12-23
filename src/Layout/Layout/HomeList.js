@@ -10,6 +10,7 @@ import c from '../img/c.jpg';
 import d from '../img/d.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
@@ -92,8 +93,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '',
-            toDate: '',
+            fromDate: '2020-10-01',
+            toDate: '2022-10-01',
             plateNumber: '',
             portIn: '',
             numberCar: "",
@@ -300,8 +301,8 @@ class HomeList extends React.Component {
 
 
     async list() {
-        console.log(this.state.nextPage, "nextPage");
-        console.log(this.state.previousPage, "previousPage");
+        console.log(this.state.fromDate, "fromDate");
+        console.log(this.state.toDate, "toDate");
         await this.setState({
             isLoading: true
         })
@@ -375,29 +376,7 @@ class HomeList extends React.Component {
     }
 
     async Select(row) {
-        // try {
-        //     const res = await requestGetListCar({
-        //         FROMDATE: this.state.fromDate,
-        //         TODATE: this.state.toDate,
-        //         PLATENUMBER: this.state.plateNumber,
-        //         PORTIN: this.state.portIn,
-        //         PORTOUT: this.state.PortOut,
-        //         NUMBERCAR: this.state.numberCar,
-        //         LOAIHANG: this.state.loaiHang,
-        //         PAGE: 1,
-        //         CONG: this.state.SelectCong,
-        //         LOAIXE: this.state.loaiXe,
-        //         ORDERNUMBER: row,
 
-        //     })
-        //     await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
-        //     console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
-        // } catch (err) {
-        //     await this.setState({
-        //         isLoading: true
-        //     }, () => console.log(err))
-        // }
-        // console.log(this.state.data, "Check data!");
     }
 
     handleTextChange(field, event) {
@@ -543,8 +522,7 @@ class HomeList extends React.Component {
                                         <form action="/ExportExcel">
                                             <button type="submit"
                                                 className="btn btn-success"
-                                            >
-                                                <b>Export Excel</b>
+                                            >                                           <b>Export Excel</b>
                                             </button>
                                         </form>
                                     </div>
@@ -554,7 +532,6 @@ class HomeList extends React.Component {
                                 </div>
                             </div>
                         </div>
-
                         <div className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '80%', height: '700px' }}>
                             <div className="card-header" >
                                 <h3 className="card-title" >
@@ -575,29 +552,6 @@ class HomeList extends React.Component {
                                     </select>
                                 </div>
                                 <div style={{ float: "right", width: "310px", border: "none" }}>
-                                    {/* <button className="myButton1" type="submit"
-                                        style={{ color: '#C8C8C8', marginRight: "10px" }}
-                                        onClick={() => this.listInPrevious()}>
-                                        <b style={{ color: 'black' }}>Previous</b>
-                                    </button> */}
-
-                                    {/* <button id="nut" className="myButton" hidden={(this.state.page < 3)} onClick={() => this.list()}> 1 </button><a hidden={this.state.page < 5}>...</a>
-                                    <button id="nut" className="myButton" hidden={(this.state.page <= 3)} onClick={() => this.setState({ page: this.state.page - 1 }) || this.listInPrevious()}>{this.state.page - 2}</button>
-                                    <button id="nut" className="myButton" hidden={(this.state.page < 2)} onClick={() => this.listInPrevious()} >{this.state.page - 1}</button> */}
-                                    {/* <button id="nut" className="myButton" style={{ color: 'red' }}>{this.state.page}</button> */}
-                                    {/* <button id="nut" className="myButton" hidden={(this.state.page == this.state.totalPage)} onClick={() => this.listInNext()}>{this.state.page + 1}</button> */}
-                                    {/* <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1))} onClick={() => this.setState({ page: this.state.page + 1 }) || this.listInNext()}>{this.state.page + 2}</button> */}
-                                    {/* <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2))} onClick={() => this.setState({ page: this.state.page + 2 }) || this.listInNext()}>{this.state.page + 3}</button> */}
-                                    {/* <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3))} onClick={() => this.setState({ page: this.state.page + 3 }) || this.listInNext()}>{this.state.page + 4}</button> 
-                                    <button id="nut" className="myButton" hidden={((this.state.page == this.state.totalPage) || (this.state.page == this.state.totalPage - 1) || (this.state.page == this.state.totalPage - 2) || (this.state.page == this.state.totalPage - 3) || (this.state.page == this.state.totalPage - 4))} onClick={() => this.setState({ page: this.state.page + 4 }) || this.listInNext()}>{this.state.page + 5}</button>  */}
-                                    {/* <a>/</a>
-                                    <button id="nut" className="myButton" onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button> */}
-
-                                    {/* <button className="myButton1" type="submit"
-                                        style={{ color: '#C8C8C8' }}
-                                        onClick={() => this.listInNext()}>
-                                        <b style={{ color: 'black' }}>Next</b>
-                                    </button> */}
                                     <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
                                         <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
@@ -613,20 +567,6 @@ class HomeList extends React.Component {
                                         <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
                                         <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
                                     </svg>
-
-                                    {/* <div style={{ float: 'right', width: "230px", height: '32px' }} className="">
-                                        <svg width="1.7em" height="1.7em" style={{ marginRight: "5px" }} viewBox="0 0 16 16" className="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                                            onClick={() => this.listInPrevious()}>
-                                            <path fillRule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z" />
-                                        </svg>
-                                        <b style={{ marginRight: "5px" }}>{this.state.page}</b>
-                                        <a> / </a>
-                                        <button onClick={() => this.setState({ page: this.state.totalPage - 1 }) || this.listInNext()}>{this.state.totalPage}</button>
-                                        <svg width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                                            onClick={() => this.listInNext()}>
-                                            <path fillRule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z" />
-                                        </svg>
-                                    </div> */}
                                 </div>
 
                                 <div style={{ overflow: 'auto', width: '100%', height: '1000px' }}>
@@ -707,8 +647,7 @@ class HomeList extends React.Component {
                                         </thead>
                                         <>
                                             {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
-                                                <tbody >
-                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                <tbody>
                                                     <tr style={{ textAlign: 'center' }} >
                                                         <td key={i}> {item[0].ngayGioVao}</td>
                                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
@@ -720,10 +659,8 @@ class HomeList extends React.Component {
                                                     </tr>
                                                 </tbody>
                                             ))}
-
                                         </>
                                     </table>
-                                    {/* {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />} */}
                                 </div>
                             </div>}
                             {this.state.showLoaiHang && <div>
