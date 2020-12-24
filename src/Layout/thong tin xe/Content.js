@@ -372,7 +372,7 @@ class Content extends React.Component {
         console.log(this.state.data, "Check data!");
     }
 
-
+ 
     async RequestChangeInfo() {
         try {
             const res = await resquestChangeInfoCar({
@@ -451,11 +451,6 @@ class Content extends React.Component {
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
                         <div className="ui grid middle aligned" style={{ overflow: 'auto', float: 'left', width: '100%', height: '800px' }}>
                             <div className="card-header" >
                                 <h3 className="card-title" >
@@ -598,7 +593,6 @@ class Content extends React.Component {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="">
-
                                         <img src={b} id="img_xetrongbai" />
                                     </div>
                                 </div>
@@ -606,14 +600,11 @@ class Content extends React.Component {
                                 <div className="row">
                                     <div className="">
                                         <img src={a} id="img_xetrongbai" />
-
                                     </div>
                                     <div></div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </section>
             </div>

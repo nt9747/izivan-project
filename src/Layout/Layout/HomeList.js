@@ -198,7 +198,6 @@ class HomeList extends React.Component {
                 BIENCONT: this.state.bienCont,
                 BIENMOOC: this.state.bienMooc,
             })
-
             await this.setState({ isActive: null, data: res.data, isLoading: false, page: res.data.currentPage, nextPage: res.data.nextPage, previousPage: res.data.previousPage });
             console.log(this.state.nextPage, "nextPage");
             console.log(this.state.previousPage, "previousPage");
@@ -603,24 +602,24 @@ class HomeList extends React.Component {
                                                             : { background: '', textAlign: 'center' }
                                                     }
                                                         key={i}
-                                                        onClick={() => this.toggleActive(i)}>
-                                                        <td onClick={() => this.Select(item.EventID)}> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.SoThuTuTrongNgay}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienCont || item.BienContVao}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.BienMooc || item.BienMoocVao}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.MaSoTrenThe || "Chưa có"} </td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {countMoney(item.TongTienThu) || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.NhanVienDongYRa || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongVaoName}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.CongRaName || "Chưa có"}</td>
-                                                        <td onClick={() => this.Select(item.EventID)}> {item.PhieuHaiQuan}</td>
+                                                        onClick={() => this.toggleActive(i) || this.Select(item.EventID)}>
+                                                        <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                        <td> {item.SoThuTuTrongNgay}</td>
+                                                        <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                        <td> {item.BienCont || item.BienContVao}</td>
+                                                        <td> {item.BienMooc || item.BienMoocVao}</td>
+                                                        <td> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                        <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                        <td> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                        <td> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                        <td> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                        <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td> {item.CongVaoName}</td>
+                                                        <td> {item.CongRaName || "Chưa có"}</td>
+                                                        <td> {item.PhieuHaiQuan}</td>
                                                     </tr>
                                                 </tbody>
                                             ))}

@@ -341,29 +341,7 @@ class Content extends React.Component {
     }
 
     async Select(row) {
-        // try {
-        //     const res = await requestGetListCar({
-        //         FROMDATE: this.state.fromDate,
-        //         TODATE: this.state.toDate,
-        //         PLATENUMBER: this.state.plateNumber,
-        //         PORTIN: this.state.portIn,
-        //         PORTOUT: this.state.PortOut,
-        //         NUMBERCAR: this.state.numberCar,
-        //         LOAIHANG: this.state.loaiHang,
-        //         PAGE: 1,
-        //         CONG: this.state.SelectCong,
-        //         LOAIXE: this.state.loaiXe,
-        //         ORDERNUMBER: row,
 
-        //     })
-        //     await this.setState({ dataPicture: res.data, pictureDauXeVao: res.data.data[0].LinkAnhDauXe, pictureDauXeRa: res.data.data[0].LinkAnhDauXeRa, pictureBienSo: res.data.data[0].LinkAnhBienSo, pictureVaoFull: res.data.data[0].LinkAnhFull, pictureRaFull: res.data.data[0].LinkAnhRaFull });
-        //     console.log(this.state.pictureDauXeVao, "check DATA PICTURE")
-        // } catch (err) {
-        //     await this.setState({
-        //         isLoading: true
-        //     }, () => console.log(err))
-        // }
-        // console.log(this.state.data, "Check data!");
     }
 
     handleTextChange(field, event) {
@@ -654,20 +632,20 @@ class Content extends React.Component {
                                                         <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
                                                         <td> {item.SoThuTuTrongNgay}</td>
                                                         <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                        <td > {item.BienCont || item.BienContVao}</td>
-                                                        <td > {item.BienMooc || item.BienMoocVao}</td>
-                                                        <td > {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                        <td > {item.MaSoTrenThe || "Chưa có"} </td>
-                                                        <td > {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                        <td > {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
-                                                        <td > {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                        <td > {countMoney(item.TongTienThu) || "Chưa có"}</td>
-                                                        <td > {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
-                                                        <td > {item.NhanVienDongYRa || "Chưa có"}</td>
-                                                        <td > {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                        <td > {item.CongVaoName}</td>
-                                                        <td > {item.CongRaName || "Chưa có"}</td>
-                                                        <td > {item.PhieuHaiQuan}</td>
+                                                        <td> {item.BienCont || item.BienContVao}</td>
+                                                        <td> {item.BienMooc || item.BienMoocVao}</td>
+                                                        <td> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                        <td> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                        <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                        <td> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                        <td> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                        <td> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                        <td> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                        <td> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                        <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                        <td> {item.CongVaoName}</td>
+                                                        <td> {item.CongRaName || "Chưa có"}</td>
+                                                        <td> {item.PhieuHaiQuan}</td>
                                                     </tr>
                                                 </tbody>
                                             ))}
@@ -680,7 +658,6 @@ class Content extends React.Component {
                             {this.state.showLoaiXe && <div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
                                     <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
-
                                         <thead>
                                             <tr>
                                                 <th>Ngày</th>
@@ -695,7 +672,7 @@ class Content extends React.Component {
                                         <>
                                             {this.state.dataThongKeXe && this.state.dataThongKeXe.result.map((item, i) => (
                                                 <tbody >
-                                                    {/* <tr onClick={() => this.Edit()} > */}
+                                                    {}
                                                     <tr >
                                                         <td key={i}> {item[0].ngayGioVao}</td>
                                                         <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
@@ -716,7 +693,6 @@ class Content extends React.Component {
                             {this.state.showLoaiHang && <div>
                                 <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
                                     <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
-
                                         <thead>
                                             <tr>
                                                 <th>Ngày</th>
