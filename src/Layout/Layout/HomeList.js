@@ -16,6 +16,7 @@ var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getD
 
 function GetFormatDatePicker(a) {
     const b = new Date(a);
+    b.setMinutes(b.getMinutes() - b.getTimezoneOffset());
     var hours = b.getUTCHours();
     var minutes = b.getUTCMinutes();
     var seconds = b.getUTCSeconds();
@@ -93,8 +94,8 @@ class HomeList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            fromDate: '2020-10-01',
-            toDate: '2022-10-01',
+            fromDate: '2017-05-24T10:30',
+            toDate: '2022-05-24T10:30',
             plateNumber: '',
             portIn: '',
             numberCar: "",
@@ -421,18 +422,6 @@ class HomeList extends React.Component {
     render() {
         const { data, dataThongKeXe, isLoading } = this.state;
         const token = Cookie.get("SESSION_ID");
-        if (isLoading) {
-            return (
-                <div style={{ textAlign: 'center', marginTop: '100px' }}>
-                    <div style={{ width: '50px', height: '50px' }} className="spinner-border text-primary" role="status">
-                        <span className="sr-only">a</span>
-                    </div>
-                    <div>
-                        <p style={{ fontSize: '20px' }}>Loading...</p>
-                    </div>
-                </div>
-            )
-        }
         return (
             <div className="content-wrapper" id="root">
                 <section className="content">
@@ -444,10 +433,10 @@ class HomeList extends React.Component {
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-3" style={{ marginRight: '40px' }}>
-                                        <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="date" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
+                                        <b hidden={this.state.SelectCong == "/listCar/listCarParking?"}>Từ</b><input hidden={this.state.SelectCong == "/listCar/listCarParking?"} type="datetime-local" className="form-control" placeholder="" value={this.state.fromDate} onChange={(e) => this.handleTextChange('fromDate', e)} />
                                     </div>
                                     <div className="col-3" style={{ marginRight: '40px' }}>
-                                        <b>Đến</b><input type="date" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
+                                        <b>Đến</b><input type="datetime-local" className="form-control" placeholder="" value={this.state.toDate} onChange={(e) => this.handleTextChange('toDate', e)} />
                                     </div>
                                     <div className="col-2" style={{ marginRight: '70px' }}>
                                         <b>Loại Hàng</b><br />
@@ -531,292 +520,305 @@ class HomeList extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '80%', height: '700px' }}>
-                            <div className="card-header" >
-                                <h3 className="card-title" >
-                                    <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleBienXe}>Biển Số</button>
-                                    <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiXe}>Loại Xe</button>
-                                    <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiHang}>Loại Hàng</button>
-                                </h3>
-                            </div>
-                            {this.state.showBienXe && <div>
-                                <div style={{ float: "right", width: "150px" }}>
-                                    <b>Số trang </b>
-                                    <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({ page: 1 }) || this.list()}>
-                                        <option selected disabled hidden>Chọn</option>
-                                        <option value='10'>10</option>
-                                        <option value='20'>20</option>
-                                        <option value='35'>35</option>
-                                        <option value='50'>50</option>
-                                    </select>
-                                </div>
-                                <div style={{ float: "right", width: "310px", border: "none" }}>
-                                    <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
-                                        <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
-                                    </svg>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
-                                    </svg>
-                                    <b>{this.state.page}/{this.state.totalPage}</b>
-                                    <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-                                    </svg>
-                                    <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
-                                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
-                                    </svg>
-                                </div>
+                        {(isLoading) &&
 
-                                <div style={{ overflow: 'auto', width: '100%', height: '1000px' }}>
-                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
-
-                                        <thead>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <th></th>
-                                                <th>STT vào bãi</th>
-                                                <th>Biển số xe vào/ra</th>
-                                                <th>Biển Cont</th>
-                                                <th>Biển Mooc</th>
-                                                <th>Loại xe</th>
-                                                <th>Mã số thẻ</th>
-                                                <th>Thời gian vào bãi</th>
-                                                <th>Thời gia ra bãi</th>
-                                                <th>Thời gian lưu bãi</th>
-                                                <th>Số tiền</th>
-                                                <th>Nhân viên vào/ra</th>
-                                                <th>Nhân cho phép ra</th>
-                                                <th>Loại hàng</th>
-                                                <th>Cổng vào</th>
-                                                <th>Cổng ra</th>
-                                                <th>Phiếu hải quan</th>
-                                            </tr>
-                                        </thead>
-                                        <>
-                                            {this.state.data && data.data.map((item, i) => (
-                                                <tbody>
-                                                    {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr style={
-                                                        this.state.isActive === i
-                                                            ? { background: '#BEC6C1', textAlign: 'center' }
-                                                            : { background: '', textAlign: 'center' }
-                                                    }
-                                                        key={i}
-                                                        onClick={() => this.toggleActive(i) || this.Select(item.EventID)}>
-                                                        <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
-                                                        <td> {item.SoThuTuTrongNgay}</td>
-                                                        <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
-                                                        <td> {item.BienCont || item.BienContVao}</td>
-                                                        <td> {item.BienMooc || item.BienMoocVao}</td>
-                                                        <td> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
-                                                        <td> {item.MaSoTrenThe || "Chưa có"} </td>
-                                                        <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
-                                                        <td> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
-                                                        <td> {item.ThoiGianTrongBai || "Chưa có"}</td>
-                                                        <td> {countMoney(item.TongTienThu) || "Chưa có"}</td>
-                                                        <td> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
-                                                        <td> {item.NhanVienDongYRa || "Chưa có"}</td>
-                                                        <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
-                                                        <td> {item.CongVaoName}</td>
-                                                        <td> {item.CongRaName || "Chưa có"}</td>
-                                                        <td> {item.PhieuHaiQuan}</td>
-                                                    </tr>
-                                                </tbody>
-                                            ))}
-
-                                        </>
-                                    </table>
-                                    {this.state.total == 0 && <img src={empty} style={{ width: '1300px', height: '800px' }} />}
-                                </div>
-                            </div>}
-                            {this.state.showLoaiXe && <div>
-                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
-
-                                        <thead>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <th>Ngày</th>
-                                                <th>Xe có trọng tải dưới 4 tấn</th>
-                                                <th>Xe có trọng tải 4 đến 10 tấn</th>
-                                                <th>Xe có trọng tải 10 đến 18 tấn</th>
-                                                <th>Xe có trọng tải trên 18 tấn</th>
-                                                <th>Container 20"</th>
-                                                <th>Container 40"</th>
-                                            </tr>
-                                        </thead>
-                                        <>
-                                            {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
-                                                <tbody>
-                                                    <tr style={{ textAlign: 'center' }} >
-                                                        <td key={i}> {item[0].ngayGioVao}</td>
-                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
-                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("4 đến 10 tấn")])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("10 đến 18 tấn")])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Trên 18 tấn")])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 20\"")])} </td>
-                                                        <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 40\"")])} </td>
-                                                    </tr>
-                                                </tbody>
-                                            ))}
-                                        </>
-                                    </table>
-                                </div>
-                            </div>}
-                            {this.state.showLoaiHang && <div>
-                                <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
-                                    <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
-
-                                        <thead>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <th>Ngày</th>
-                                                <th>Cau khô</th>
-                                                <th>Thanh long</th>
-                                                <th>Bột sắn</th>
-                                                <th>Mít lạnh</th>
-                                                <th>Hạt sen</th>
-                                                <th>Lá tre</th>
-                                                <th>Mít nóng</th>
-                                                <th>ST</th>
-                                                <th>Xoài nóng</th>
-                                                <th>Hành tây</th>
-                                                <th>Khoai tây</th>
-                                                <th>Nấm</th>
-                                                <th>Hàng hộp</th>
-                                                <th>Sắn</th>
-                                                <th>Chuối nóng</th>
-                                                <th>Nội thất</th>
-                                                <th>Hạt dưa</th>
-                                                <th>Cà rốt</th>
-                                                <th>Lạc</th>
-                                                <th>Tỏi</th>
-                                                <th>Tạp hóa</th>
-                                                <th>Rau</th>
-                                                <th>Chôm chôm</th>
-                                                <th>Nón</th>
-                                                <th>Nhãn lạnh</th>
-                                                <th>Hạt trẩu</th>
-                                                <th>Cói</th>
-                                                <th>Cau</th>
-                                                <th>Bánh pía</th>
-                                                <th>Xoài lạnh</th>
-                                                <th>Dưa vàng</th>
-                                                <th>Củ cải</th>
-                                                <th>Linh kiện ĐT</th>
-                                                <th>Chậu cây cảnh</th>
-                                                <th>Dưa hấu</th>
-                                                <th>Cây cảnh</th>
-                                                <th>OT</th>
-                                                <th>Giấy</th>
-                                                <th>Xốp</th>
-                                                <th>Cau tươi</th>
-                                                <th>Đỗ</th>
-                                                <th>Hoa hồi</th>
-                                                <th>Hành tỏi</th>
-                                                <th>Hồng</th>
-                                                <th>Khoai sọ</th>
-                                                <th>Máy móc</th>
-                                                <th>Mít lạnh</th>
-                                                <th>Long nhãn</th>
-                                                <th>Đỗ xanh</th>
-                                                <th>loaiHang</th>
-                                            </tr>
-                                        </thead>
-                                        <>
-                                            {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
-                                                <tbody>
-                                                    {/* <tr onClick={() => this.Edit()} > */}
-                                                    <tr style={{ textAlign: 'center' }}>
-                                                        <td key={i}> {item[0].ngayGioVao}</td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU KHÔ")])}</td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("THANH LONG")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BỘT SẮN")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT SEN")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LÁ TRE")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT NÓNG")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("ST")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI NÓNG")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TÂY")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI TÂY")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NẤM")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNG HỘP")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("SẮN")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHUỐI NÓNG")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NỘI THẤT")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT DƯA")]) || (Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HAT DUA")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÀ RỐT")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LAC")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TỎI")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TẠP HÓA")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("RAU")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHÔM CHÔM")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NÓN")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NHÃN LẠNH")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT TRẨU")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÓI")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BÁNH PÍA")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI LẠNH")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA VÀNG")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CỦ CẢI")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LINH KIEN")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHẬU CÂY")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA HẤU")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÂY CẢNH")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("OT")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("GIẤY")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XỐP")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HOA HỒI")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TỎI")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HỒNG")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI SỌ")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÁY MÓC")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
-                                                        <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("loaiHang")])} </td>
-                                                    </tr>
-                                                </tbody>
-                                            ))}
-                                        </>
-                                    </table>
-                                    {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
-                                </div>
-                            </div>}
-
+                          (  < div style={{ textAlign: 'center', marginTop: '250px' }}>
+                    <div style={{ width: '50px', height: '50px' }} className="spinner-border text-primary" role="status">
+                            <span className="sr-only">a</span>
+                        </div>
+                        <div>
+                            <p style={{ fontSize: '20px' }}>Loading...</p>
                         </div>
                     </div>
-                    <div style={{ float: 'right', width: '20%' }}>
-                        <div className="card card-warning" >
-                            <div className="card-header">
-                                <h3 className="card-title">Ảnh vào</h3>
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="">
-                                        <img src={c} id="imglayout" />
-                                        <img src={a} id="imglayout" />
-                                    </div>
-                                </div>
-                            </div>
+                          )
+             }
 
-                            <div className="card-header">
-                                <h3 className="card-title">Ảnh ra</h3>
-                            </div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="">
-                                        <img src={d} id="imglayout" /><img src={b} id="imglayout" />
-                                    </div>
-                                </div>
-                            </div>
-
+          <div hidden = {isLoading == true} className="ui grid middle aligned" id="admin1" style={{ float: 'left', width: '80%', height: '700px' }}>
+                        <div className="card-header" >
+                            <h3 className="card-title" >
+                                <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleBienXe}>Biển Số</button>
+                                <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiXe}>Loại Xe</button>
+                                <button className="btn btn-secondary" style={{ marginRight: '3px' }} onClick={this.toggleLoaiHang}>Loại Hàng</button>
+                            </h3>
                         </div>
+                        {this.state.showBienXe && <div>
+                            <div style={{ float: "right", width: "150px" }}>
+                                <b>Số trang </b>
+                                <select value={this.state.limitPage} onChange={(e) => this.handleTextChange('limitPage', e) || this.setState({ page: 1 }) || this.list()}>
+                                    <option selected disabled hidden>Chọn</option>
+                                    <option value='10'>10</option>
+                                    <option value='20'>20</option>
+                                    <option value='35'>35</option>
+                                    <option value='50'>50</option>
+                                </select>
+                            </div>
+                            <div style={{ float: "right", width: "310px", border: "none" }}>
+                                <svg onClick={() => this.setState({ page: 1 }) || this.list()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-start-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M4.5 3.5A.5.5 0 0 0 4 4v8a.5.5 0 0 0 1 0V4a.5.5 0 0 0-.5-.5z" />
+                                    <path d="M4.903 8.697l6.364 3.692c.54.313 1.232-.066 1.232-.697V4.308c0-.63-.692-1.01-1.232-.696L4.903 7.304a.802.802 0 0 0 0 1.393z" />
+                                </svg>
+                                <svg width="1.7em" height="1.7em" onClick={() => this.listInPrevious()} viewBox="0 0 16 16" className="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                                </svg>
+                                <b>{this.state.page}/{this.state.totalPage}</b>
+                                <svg width="1.7em" height="1.7em" onClick={() => this.listInNext()} viewBox="0 0 16 16" className="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                                </svg>
+                                <svg onClick={() => this.listTo()} width="1.7em" height="1.7em" viewBox="0 0 16 16" className="bi bi-skip-end-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M12 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                                    <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                                </svg>
+                            </div>
+
+                            <div style={{ overflow: 'auto', width: '100%', height: '1000px' }}>
+                                <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
+
+                                    <thead>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <th></th>
+                                            <th>STT vào bãi</th>
+                                            <th>Biển số xe vào/ra</th>
+                                            <th>Biển Cont</th>
+                                            <th>Biển Mooc</th>
+                                            <th>Loại xe</th>
+                                            <th>Mã số thẻ</th>
+                                            <th>Thời gian vào bãi</th>
+                                            <th>Thời gia ra bãi</th>
+                                            <th>Thời gian lưu bãi</th>
+                                            <th>Số tiền</th>
+                                            <th>Nhân viên vào/ra</th>
+                                            <th>Nhân cho phép ra</th>
+                                            <th>Loại hàng</th>
+                                            <th>Cổng vào</th>
+                                            <th>Cổng ra</th>
+                                            <th>Phiếu hải quan</th>
+                                        </tr>
+                                    </thead>
+                                    <>
+                                        {this.state.data && data.data.map((item, i) => (
+                                            <tbody>
+                                                {/* <tr onClick={() => this.Edit()} > */}
+                                                <tr style={
+                                                    this.state.isActive === i
+                                                        ? { background: '#BEC6C1', textAlign: 'center' }
+                                                        : { background: '', textAlign: 'center' }
+                                                }
+                                                    key={i}
+                                                    onClick={() => this.toggleActive(i) || this.Select(item.EventID)}>
+                                                    <td> {(this.state.page - 1) * this.state.limitPage + i + 1}</td>
+                                                    <td> {item.SoThuTuTrongNgay}</td>
+                                                    <td> {item.BienXe || item.BienXeVao + " / " + (item.BienXeRa || "")}</td>
+                                                    <td> {item.BienCont || item.BienContVao}</td>
+                                                    <td> {item.BienMooc || item.BienMoocVao}</td>
+                                                    <td> {(item.LoaiXeChiTiet || "Chưa có") || item.Name} </td>
+                                                    <td> {item.MaSoTrenThe || "Chưa có"} </td>
+                                                    <td> {GetFormatDate(item.NgayGioVao) || "Chưa có"}</td>
+                                                    <td> {GetFormatDate(item.NgayGioRa) || "Chưa có"}</td>
+                                                    <td> {item.ThoiGianTrongBai || "Chưa có"}</td>
+                                                    <td> {countMoney(item.TongTienThu) || "Chưa có"}</td>
+                                                    <td> {(item.NhanVienVao || "") + " / " + (item.NhanVienRa || "")}</td>
+                                                    <td> {item.NhanVienDongYRa || "Chưa có"}</td>
+                                                    <td> {item.LoaiHangChiTiet || item.LoaihangChiTiet}</td>
+                                                    <td> {item.CongVaoName}</td>
+                                                    <td> {item.CongRaName || "Chưa có"}</td>
+                                                    <td> {item.PhieuHaiQuan}</td>
+                                                </tr>
+                                            </tbody>
+                                        ))}
+
+                                    </>
+                                </table>
+                                {this.state.total == 0 && <img src={empty} style={{ width: '1300px', height: '800px' }} />}
+                            </div>
+                        </div>}
+                        {this.state.showLoaiXe && <div>
+                            <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
+                                <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }}>
+
+                                    <thead>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <th>Ngày</th>
+                                            <th>Xe có trọng tải dưới 4 tấn</th>
+                                            <th>Xe có trọng tải 4 đến 10 tấn</th>
+                                            <th>Xe có trọng tải 10 đến 18 tấn</th>
+                                            <th>Xe có trọng tải trên 18 tấn</th>
+                                            <th>Container 20"</th>
+                                            <th>Container 40"</th>
+                                        </tr>
+                                    </thead>
+                                    <>
+                                        {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
+                                            <tbody>
+                                                <tr style={{ textAlign: 'center' }} >
+                                                    <td key={i}> {item[0].ngayGioVao}</td>
+                                                    <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Dưới 4 tấn")])}</td>
+                                                    <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("4 đến 10 tấn")])} </td>
+                                                    <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("10 đến 18 tấn")])} </td>
+                                                    <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Trên 18 tấn")])} </td>
+                                                    <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 20\"")])} </td>
+                                                    <td> {(Object.values(item[0].nameCount)[Object.keys(item[0].nameCount).indexOf("Container 40\"")])} </td>
+                                                </tr>
+                                            </tbody>
+                                        ))}
+                                    </>
+                                </table>
+                            </div>
+                        </div>}
+                        {this.state.showLoaiHang && <div>
+                            <div style={{ overflow: 'auto', width: '100%', height: '700px' }}>
+                                <table id="example2" className="table table-bordered table-hover" style={{ fontSize: '12.5px' }} >
+
+                                    <thead>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <th>Ngày</th>
+                                            <th>Cau khô</th>
+                                            <th>Thanh long</th>
+                                            <th>Bột sắn</th>
+                                            <th>Mít lạnh</th>
+                                            <th>Hạt sen</th>
+                                            <th>Lá tre</th>
+                                            <th>Mít nóng</th>
+                                            <th>ST</th>
+                                            <th>Xoài nóng</th>
+                                            <th>Hành tây</th>
+                                            <th>Khoai tây</th>
+                                            <th>Nấm</th>
+                                            <th>Hàng hộp</th>
+                                            <th>Sắn</th>
+                                            <th>Chuối nóng</th>
+                                            <th>Nội thất</th>
+                                            <th>Hạt dưa</th>
+                                            <th>Cà rốt</th>
+                                            <th>Lạc</th>
+                                            <th>Tỏi</th>
+                                            <th>Tạp hóa</th>
+                                            <th>Rau</th>
+                                            <th>Chôm chôm</th>
+                                            <th>Nón</th>
+                                            <th>Nhãn lạnh</th>
+                                            <th>Hạt trẩu</th>
+                                            <th>Cói</th>
+                                            <th>Cau</th>
+                                            <th>Bánh pía</th>
+                                            <th>Xoài lạnh</th>
+                                            <th>Dưa vàng</th>
+                                            <th>Củ cải</th>
+                                            <th>Linh kiện ĐT</th>
+                                            <th>Chậu cây cảnh</th>
+                                            <th>Dưa hấu</th>
+                                            <th>Cây cảnh</th>
+                                            <th>OT</th>
+                                            <th>Giấy</th>
+                                            <th>Xốp</th>
+                                            <th>Cau tươi</th>
+                                            <th>Đỗ</th>
+                                            <th>Hoa hồi</th>
+                                            <th>Hành tỏi</th>
+                                            <th>Hồng</th>
+                                            <th>Khoai sọ</th>
+                                            <th>Máy móc</th>
+                                            <th>Mít lạnh</th>
+                                            <th>Long nhãn</th>
+                                            <th>Đỗ xanh</th>
+                                            <th>loaiHang</th>
+                                        </tr>
+                                    </thead>
+                                    <>
+                                        {this.state.dataThongKeXe && dataThongKeXe.result.map((item, i) => (
+                                            <tbody>
+                                                {/* <tr onClick={() => this.Edit()} > */}
+                                                <tr style={{ textAlign: 'center' }}>
+                                                    <td key={i}> {item[0].ngayGioVao}</td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU KHÔ")])}</td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("THANH LONG")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BỘT SẮN")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT SEN")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LÁ TRE")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT NÓNG")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("ST")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI NÓNG")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TÂY")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI TÂY")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NẤM")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNG HỘP")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("SẮN")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHUỐI NÓNG")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NỘI THẤT")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT DƯA")]) || (Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HAT DUA")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÀ RỐT")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LAC")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TỎI")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("TẠP HÓA")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("RAU")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHÔM CHÔM")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NÓN")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("NHÃN LẠNH")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HẠT TRẨU")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÓI")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("BÁNH PÍA")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XOÀI LẠNH")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA VÀNG")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CỦ CẢI")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LINH KIEN")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CHẬU CÂY")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DƯA HẤU")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CÂY CẢNH")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("OT")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("GIẤY")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("XỐP")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("CAU")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HOA HỒI")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HÀNH TỎI")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("HỒNG")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("KHOAI SỌ")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÁY MÓC")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("MÍT LẠNH")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("LONG NHÃN")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("DO XANH")])} </td>
+                                                    <td> {(Object.values(item[0].goodCount)[Object.keys(item[0].goodCount).indexOf("loaiHang")])} </td>
+                                                </tr>
+                                            </tbody>
+                                        ))}
+                                    </>
+                                </table>
+                                {this.state.total == 0 && <img src={empty} style={{ width: '1200px', height: '800px' }} />}
+                            </div>
+                        </div>}
+
                     </div>
+                    </div>
+                <div hidden = {isLoading == true} style={{ float: 'right', width: '20%' }}>
+                    <div className="card card-warning" >
+                        <div className="card-header">
+                            <h3 className="card-title">Ảnh vào</h3>
+                        </div>
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="">
+                                    <img src={c} id="imglayout" />
+                                    <img src={a} id="imglayout" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="card-header">
+                            <h3 className="card-title">Ảnh ra</h3>
+                        </div>
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="">
+                                    <img src={d} id="imglayout" /><img src={b} id="imglayout" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
                 </section>
-            </div>
+            </div >
         )
     }
 }
